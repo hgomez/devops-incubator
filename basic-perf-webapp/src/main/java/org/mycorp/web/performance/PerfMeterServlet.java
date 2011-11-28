@@ -24,9 +24,9 @@ import javax.servlet.http.HttpServletResponse;
  * mvn tomcat:run
  * mvn jetty:run
  *
- * * http://localhost:8080/qa-perf/PerfMeter?waittime=100&responsesize=100000
- * * http://localhost:8080/qa-perf/PerfMeter?waittime=100&responsesize=-1
- * * http://localhost:8080/qa-perf/PerfMeter?waittime=100&responsesize=8000&response=exo-platform-rocks
+ * * http://localhost:8080/basic-perf/PerfMeter?waittime=100&responsesize=100000
+ * * http://localhost:8080/basic-perf/PerfMeter?waittime=100&responsesize=-1
+ * * http://localhost:8080/basic-perf/PerfMeter?waittime=100&responsesize=8000&response=ShowMustGoOn
  *
  *
  * @author hgomez
