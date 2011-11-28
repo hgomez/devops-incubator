@@ -19,7 +19,7 @@ public class DumpServlet extends HttpServlet {
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
-        out.println("<html><body><head><title>DumpServlet</title></head>");
+        out.println("<html><body><head><title>Dump</title></head>");
 
         out.println("getAuthType=" + request.getAuthType() + "</br>");
         out.println("getCharacterEncoding=" + request.getCharacterEncoding() + "</br>");
