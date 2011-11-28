@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    version="2.5">
+
+    <display-name>Basic Performance Webapp</display-name>
+    <description>A basic webapp to do test Container performances.</description>
+
+    <servlet>
+        <servlet-name>Dump</servlet-name>
+        <servlet-class>org.mycorp.web.performance.DumpServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>PerfMeter</servlet-name>
+        <servlet-class>org.mycorp.web.performance.PerfMeterServlet</servlet-class>
+        <init-param>
+            <param-name>waittime</param-name> 	<!-- Default WaitTime is 1ms -->
+            <param-value>1000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>responsesize</param-name> <!-- Default ResponseSize is 2 ('OK') -->
+            <param-value>2</param-value>
+        </init-param>
+        <init-param>
+            <param-name>response</param-name> 	<!-- Default Response is 'OK' -->
+            <param-value>OK</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Dump</servlet-name>
+        <url-pattern>/Dump</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>PerfMeter</servlet-name>
+        <url-pattern>/PerfMeter</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+      <error-code>404</error-code>
+      <location>/404.html</location>
+    </error-page>
+
+</web-app>
