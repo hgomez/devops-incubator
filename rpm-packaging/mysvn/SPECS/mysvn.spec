@@ -2,7 +2,7 @@ Name: mysvn
 Version: 1.0.0
 Release: 1
 Summary: Subversion setup
-Group: Applications/Communications
+Group: Company/Development
 URL: http://www.mycorp.org/
 Vendor: MyCorp
 Packager: MyCorp
@@ -11,12 +11,14 @@ BuildArch:  noarch
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
-Requires:           apache2
-Requires:           subversion-server
+# we want apache2 in worker mode (subversion Requires apache2 only)
+Requires: apache2-worker
+Requires: subversion-server
+Requires: viewvc
 
 Source0: httpd-svn.conf
-Source1: access_rules_myrepo
-Source2: access_passwords_myrepo
+Source1: private_access_rules
+Source2: private_access_passwords
 
 %description
 Subversion setup for MyCorp
@@ -38,18 +40,25 @@ cp %{SOURCE2}  $RPM_BUILD_ROOT%{_var}/lib/mysvn/repos
 %post
 if [ "$1" == "1" ]; then
   pushd %{_var}/lib/mysvn/repos >>/dev/null
-  svnadmin create myrepo
-  chown -R wwwrun:www %{_var}/lib/mysvn/repos/myrepo
+  echo "creating public repo"
+  svnadmin create public
+  chown -R wwwrun:www %{_var}/lib/mysvn/repos/public
+  echo "creating private repo"
+  svnadmin create private
+  chown -R wwwrun:www %{_var}/lib/mysvn/repos/private
   popd >>/dev/null
 
   # Enable Apache modules for SVN
-  a2enmod dav 
-  a2enmod dav_fs 
-  a2enmod dav_svn 
-  a2enmod authnz_ldap 
-  a2enmod authz_svn 
+  a2enmod dav
+  a2enmod dav_fs
+  a2enmod dav_svn
+  a2enmod authnz_ldap
+  a2enmod authz_svn
   a2enmod ldap
-  
+
+  # Enable ViewVC
+  a2enflag SVN_VIEWCVS
+
   service apache2 restart
 fi
 
@@ -58,8 +67,8 @@ fi
 %defattr(-,root,root)
 %config(noreplace) %{_sysconfdir}/apache2/vhosts.d/svn.mycorp.org.conf
 %{_var}/lib/mysvn/repos
-%{_var}/lib/mysvn/repos/access_rules_myrepo
-%{_var}/lib/mysvn/repos/access_passwords_myrepo
+%{_var}/lib/mysvn/repos/private_access_rules
+%{_var}/lib/mysvn/repos/private_access_passwords
 
 
 %changelog
