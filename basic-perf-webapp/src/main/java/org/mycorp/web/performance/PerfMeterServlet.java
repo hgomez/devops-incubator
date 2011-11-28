@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
  * * http://localhost:8080/basic-perf/PerfMeter?waittime=100&responsesize=8000&response=ShowMustGoOn
  *
  *
- * @author hgomez
+ * @author henri.gomez@gmail.com
  *
  */
 public class PerfMeterServlet extends HttpServlet {

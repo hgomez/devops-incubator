@@ -9,6 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/***
+ * A Basic Dump Servlet
+ *
+ * examples :
+ *
+ * mvn clean package
+ *
+ * mvn tomcat:run
+ * mvn jetty:run
+ *
+ * * http://localhost:8080/basic-perf/Dump
+ *
+ *
+ * @author henri.gomez@gmail.com
+ *
+ */
+
 public class DumpServlet extends HttpServlet {
 
     @Override
