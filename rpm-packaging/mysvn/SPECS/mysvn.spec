@@ -19,6 +19,7 @@ Requires: viewvc
 Source0: httpd-svn.conf
 Source1: private_access_rules
 Source2: private_access_passwords
+Source3: viewvc.conf
 
 %description
 Subversion setup for MyCorp
@@ -32,10 +33,12 @@ Subversion setup for MyCorp
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mysvn/repos
+mkdir -p $RPM_BUILD_ROOT/srv/viewvc
 
 cp %{SOURCE0}  $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d/svn.mycorp.org.conf
 cp %{SOURCE1}  $RPM_BUILD_ROOT%{_var}/lib/mysvn/repos
 cp %{SOURCE2}  $RPM_BUILD_ROOT%{_var}/lib/mysvn/repos
+cp %{SOURCE3}  $RPM_BUILD_ROOT/srv/viewvc
 
 %post
 if [ "$1" == "1" ]; then
@@ -69,7 +72,7 @@ fi
 %{_var}/lib/mysvn/repos
 %{_var}/lib/mysvn/repos/private_access_rules
 %{_var}/lib/mysvn/repos/private_access_passwords
-
+%config(noreplace) /srv/viewvc/viewvc.conf
 
 %changelog
 * Wed Mar 23 2009 henri.gomez@gmail.com 1.0.0-1
