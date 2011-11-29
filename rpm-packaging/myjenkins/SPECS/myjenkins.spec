@@ -9,16 +9,16 @@ Packager: MyCorp
 License: AGPLv1
 BuildArch:  noarch
 
-%ifdef %{TOMCAT_REL}
-%define tomcat_rel        %{TOMCAT_REL}
-%else
+%if %{?TOMCAT_REL}0
 %define tomcat_rel        7.0.22
+%else
+%define tomcat_rel        %{TOMCAT_REL}
 %endif
 
-%ifdef %{JENKINS_REL}
-%define jenkins_rel    %{JENKINS_REL}
-%else
+%if %{?JENKINS_REL}0
 %define jenkins_rel    1.441
+%else
+%define jenkins_rel    %{JENKINS_REL}
 %endif
 
 %define myapp             myjenkins
