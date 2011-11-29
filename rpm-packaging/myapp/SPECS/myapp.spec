@@ -1,3 +1,9 @@
+%if %{?TOMCAT_REL:1}
+%define tomcat_rel        %{TOMCAT_REL}
+%else
+%define tomcat_rel        7.0.23
+%endif
+
 Name: myapp
 Version: 1.0.0
 Release: 1
@@ -9,7 +15,6 @@ Packager: MyCorp
 License: AGPLv1
 BuildArch:  noarch
 
-%define tomcat_rel        7.0.22
 %define myapp             myapp
 %define myappusername     myapp
 %define myappuserid       1234
