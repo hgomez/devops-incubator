@@ -36,7 +36,10 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/repos
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/repos/public
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/repos/private
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/cache/cgit/public
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/cache/cgit/private
 
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/www/images
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
@@ -67,9 +70,11 @@ fi
 %attr(0755, root, root)  %{_bindir}/markdownize_cgit.py
 %{_var}/lib/mygit/conf/credentials
 %{_var}/lib/mygit/conf/public.conf
-%{_var}/lib/mygit/repos
 %{_var}/lib/mygit/www/images
-%{_var}/lib/mygit/cache/cgit/public
+%dir %{_var}/lib/mygit/repos/public
+%dir %{_var}/lib/mygit/repos/private
+%dir %{_var}/lib/mygit/cache/cgit/public
+%dir %{_var}/lib/mygit/cache/cgit/private
 
 
 
