@@ -9,7 +9,7 @@ Packager: MyCorp
 License: AGPLv1
 BuildArch:  noarch
 
-%define tomcat_rel        7.0.22    
+%define tomcat_rel        7.0.22
 %define myapp             myapp
 %define myappusername     myapp
 %define myappuserid       1234
@@ -79,7 +79,7 @@ mkdir -p $RPM_BUILD_ROOT%{myapptempdir}
 mkdir -p $RPM_BUILD_ROOT%{myappworkdir}
 mkdir -p $RPM_BUILD_ROOT%{myappwebappdir}
 
-# Copy tomcat 
+# Copy tomcat
 mv apache-tomcat-%{tomcat_rel}/* $RPM_BUILD_ROOT%{myappdir}
 
 # remove default webapps
@@ -161,7 +161,7 @@ rm -rf $RPM_BUILD_ROOT
 if [ "$1" == "1" ]; then
   # register app as service
   insserv %{myapp}
-  
+
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g"`
   sed -i "s|@@SKEL_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
@@ -214,7 +214,7 @@ fi
 #    #package upgrade, not uninstall
 #fi
 
-# Specific actions in relations with others packages 
+# Specific actions in relations with others packages
 %triggerin -- otherapp
 # Do something if otherapp is installed
 
@@ -236,6 +236,7 @@ fi
 %{myappdir}/lib/*.jar
 %{myappdir}/webapps/*.war
 %attr(0755,%{myappusername}, %{myappusername}) %dir %{myappdir}/webapps
+%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myapptempdir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappworkdir}
 %doc %{myappdir}/NOTICE
