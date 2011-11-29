@@ -15,10 +15,16 @@ fi
 
 JENKINS_URL=http://mirrors.jenkins-ci.org/war/${JENKINS_VERSION}/jenkins.war
 TOMCAT_URL=http://apache.cict.fr/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+CATALINA_JMX_REMOTE_URL=http://apache.cict.fr/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
 if [ ! -f SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz ]; then
   echo "downloading apache-tomcat-${TOMCAT_VERSION}.tar.gz from $TOMCAT_URL"
   curl -s -L $TOMCAT_URL -o SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+fi
+
+if [ ! -f SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar ]; then
+  echo "downloading catalina-jmx-remote-${TOMCAT_VERSION}.jar from $TOMCAT_URL"
+  curl -s -L $CATALINA_JMX_REMOTE_URL -o SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar
 fi
 
 if [ ! -f SOURCES/jenkins-${JENKINS_VERSION}.war ]; then
