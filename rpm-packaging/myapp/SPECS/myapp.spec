@@ -7,7 +7,7 @@
 Name: myapp
 Version: 1.0.0
 Release: 1
-Summary: MyApp powered by Apache Tomcat
+Summary: MyApp powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
 Vendor: MyCorp

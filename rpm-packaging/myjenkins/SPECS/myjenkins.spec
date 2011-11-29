@@ -13,7 +13,7 @@
 Name: myjenkins
 Version: 1.0.0
 Release: 1
-Summary: Jenkins %{jenkins_rel} powered by Apache Tomcat
+Summary: Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
 Vendor: MyCorp
