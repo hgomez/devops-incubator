@@ -72,9 +72,9 @@ fi
 %files
 %defattr(-,root,root)
 %config(noreplace) %{_sysconfdir}/apache2/vhosts.d/svn.mycorp.org.conf
+%{_var}/lib/mysvn/conf/credentials
 %{_var}/lib/mysvn/conf/private_access_rules
 %{_var}/lib/mysvn/conf/public_access_rules
-%{_var}/lib/mysvn/conf/credentials
 %{_var}/lib/mysvn/repos
 %config(noreplace) /srv/viewvc/viewvc.conf
 
