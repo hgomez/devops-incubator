@@ -1,3 +1,15 @@
+%if %{?TOMCAT_REL:1}
+%define tomcat_rel        %{TOMCAT_REL}
+%else
+%define tomcat_rel        7.0.23
+%endif
+
+%if %{?JENKINS_REL:1}
+%define jenkins_rel    %{JENKINS_REL}
+%else
+%define jenkins_rel    1.441
+%endif
+
 Name: myjenkins
 Version: 1.0.0
 Release: 1
@@ -8,18 +20,6 @@ Vendor: MyCorp
 Packager: MyCorp
 License: AGPLv1
 BuildArch:  noarch
-
-%if %{?TOMCAT_REL:1}
-%define tomcat_rel        %{TOMCAT_REL}
-%else
-%define tomcat_rel        7.0.22
-%endif
-
-%if %{?JENKINS_REL:1}
-%define jenkins_rel    %{JENKINS_REL}
-%else
-%define jenkins_rel    1.441
-%endif
 
 %define myapp             myjenkins
 %define myappusername     myjenkins
