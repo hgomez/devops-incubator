@@ -247,6 +247,7 @@ fi
 %{myappdir}/lib/*.jar
 %{myappdir}/webapps/*.war
 %attr(0755,%{myappusername}, %{myappusername}) %dir %{myappdir}/webapps
+%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myapptempdir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappworkdir}
 %doc %{myappdir}/NOTICE
