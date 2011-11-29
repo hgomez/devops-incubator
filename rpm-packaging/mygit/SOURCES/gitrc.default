@@ -1,0 +1,88 @@
+# REPOSITORY SETTINGS
+# -------------------
+# Original doc : http://hjemli.net/git/cgit/tree/cgitrc.5.txt
+# -------------------
+# about-filter::
+# 	Override the default about-filter. Default value: none. See also: "FILTER API".
+#
+# clone-url::
+# 	A list of space-separated urls which can be used to clone this
+# 	Default value: none. See also: "MACRO EXPANSION".
+#
+# commit-filter::
+# 	Override the default commit-filter. Default value: none. See also: "FILTER API".
+#
+# defbranch::
+# 	The name of the default branch for this repository. If no such branch
+# 	exists in the repository, the first branch name (when sorted) is used
+# 	as default instead. Default value: "master".
+#
+# desc::
+# 	The value to show as repository description. Default value: none.
+#
+# enable-commit-graph::
+# 	A flag which can be used to disable the global setting
+# 	`enable-commit-graph'. Default value: none.
+#
+# enable-log-filecount::
+# 	A flag which can be used to disable the global setting
+# 	`enable-log-filecount'. Default value: none.
+#
+# enable-log-linecount::
+# 	A flag which can be used to disable the global setting
+# 	`enable-log-linecount'. Default value: none.
+#
+# enable-remote-branches::
+# 	Flag which, when set to "1", will make cgit display remote branches
+# 	in the summary and refs views. Default value: <enable-remote-branches>.
+#
+# enable-subject-links::
+# 	A flag which can be used to override the global setting
+# 	`enable-subject-links'. Default value: none.
+#
+# logo::
+# 	Url which specifies the source of an image which will be used as a logo
+# 	on this repo's pages. Default value: global logo.
+#
+# logo-link::
+# 	Url loaded when clicking on the cgit logo image. If unspecified the
+# 	calculated url of the repository index page will be used. Default
+# 	value: global logo-link.
+#
+# module-link::
+# 	Text which will be used as the formatstring for a hyperlink when a
+# 	submodule is printed in a directory listing. The arguments for the
+# 	formatstring are the path and SHA1 of the submodule commit. Default
+# 	value: <module-link>
+#
+# max-stats::
+# 	Override the default maximum statistics period. Valid values are equal
+# 	to the values specified for the global "max-stats" setting. Default
+# 	value: none.
+#
+# name::
+# 	The value to show as repository name. Default value: <url>.
+#
+# owner::
+# 	A value used to identify the owner of the repository. Default value:
+# 	none.
+#
+# readme::
+# 	A path (relative to <path>) which specifies a file to include
+# 	verbatim as the "About" page for this  You may also specify a
+# 	git refspec by head or by hash by prepending the refspec followed by
+# 	a colon. For example, "master:docs/readme.mkd" Default value: <readme>.
+#
+# snapshots::
+# 	A mask of allowed snapshot-formats for this repo, restricted by the
+# 	"snapshots" global setting. Default value: <snapshots>.
+#
+# section::
+# 	Override the current section name for this repository. Default value:
+# 	none.
+#
+# source-filter::
+# 	Override the default source-filter. See also: "FILTER API".
+#
+
+
