@@ -36,6 +36,8 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/repos
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/cache/cgit/public
+
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/www/images
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 
@@ -67,6 +69,9 @@ fi
 %{_var}/lib/mygit/repos/conf/credentials
 %{_var}/lib/mygit/repos/conf/public.conf
 %{_var}/lib/mygit/www/images
+%{_var}/lib/mygit/cache/cgit/public
+
+
 
 %changelog
 * Wed Mar 23 2009 henri.gomez@gmail.com 1.0.0-1
