@@ -15,13 +15,17 @@ Requires:           apache2
 Requires:           subversion
 Requires:			git-svn
 Requires:			cgit
+Requires:           python
 
 Source0: apache2-git.conf
 Source1: credentials
 Source2: public.conf
-Source3: markdownize_cgit.py
-Source4: mycorp.png
-Source5: mycorp.ico
+Source3: private.conf
+Source4: public-readme.html
+Source5: private-readme.html
+Source6: mycorp.png
+Source7: mycorp.ico
+Source8: markdownize_cgit.py
 
 %description
 GIT setup for MyCorp
@@ -47,9 +51,12 @@ mkdir -p $RPM_BUILD_ROOT%{_bindir}
 cp %{SOURCE0}  $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d/git.mycorp.org.conf
 cp %{SOURCE1}  $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
 cp %{SOURCE2}  $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
-cp %{SOURCE3}  $RPM_BUILD_ROOT%{_bindir}
-cp %{SOURCE4}  $RPM_BUILD_ROOT%{_var}/lib/mygit/www/images
-cp %{SOURCE5}  $RPM_BUILD_ROOT%{_var}/lib/mygit/www/images
+cp %{SOURCE3}  $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
+cp %{SOURCE4}  $RPM_BUILD_ROOT%{_var}/lib/mygit/www/
+cp %{SOURCE5}  $RPM_BUILD_ROOT%{_var}/lib/mygit/www/
+cp %{SOURCE6}  $RPM_BUILD_ROOT%{_var}/lib/mygit/www/images
+cp %{SOURCE7}  $RPM_BUILD_ROOT%{_var}/lib/mygit/www/images
+cp %{SOURCE8}  $RPM_BUILD_ROOT%{_bindir}
 
 %post
 if [ "$1" == "1" ]; then
