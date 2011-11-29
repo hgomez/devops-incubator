@@ -43,7 +43,7 @@ mkdir -p $RPM_BUILD_ROOT%{_bindir}
 
 cp %{SOURCE0}  $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d/git.mycorp.org.conf
 cp %{SOURCE1}  $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
-cp %{SOURCE2}  $RPM_BUILD_ROOT%{_var}/lib/mygit/conf/public.conf
+cp %{SOURCE2}  $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
 cp %{SOURCE3}  $RPM_BUILD_ROOT%{_bindir}
 cp %{SOURCE4}  $RPM_BUILD_ROOT%{_var}/lib/mygit/www/images
 cp %{SOURCE5}  $RPM_BUILD_ROOT%{_var}/lib/mygit/www/images
