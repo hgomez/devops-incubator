@@ -32,12 +32,13 @@ GIT setup for MyCorp
 # Prep the install location.
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mygit/repos
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 
 cp %{SOURCE0}  $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d/git.mycorp.org.conf
-cp %{SOURCE1}  $RPM_BUILD_ROOT%{_var}/lib/mygit/repos
-cp %{SOURCE2}  $RPM_BUILD_ROOT%{_var}/lib/mygit/public.conf
+cp %{SOURCE1}  $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
+cp %{SOURCE2}  $RPM_BUILD_ROOT%{_var}/lib/mygit/conf/public.conf
 cp %{SOURCE3}  $RPM_BUILD_ROOT%{_bindir}
 
 %post
@@ -58,7 +59,8 @@ fi
 %config(noreplace) %{_sysconfdir}/apache2/vhosts.d/git.mycorp.org.conf
 %attr(0755, root, root)  %{_bindir}/markdownize_cgit.py
 %{_var}/lib/mygit/repos
-%{_var}/lib/mygit/repos/credentials
+%{_var}/lib/mygit/repos/conf/credentials
+%{_var}/lib/mygit/repos/conf/public.conf
 
 
 %changelog
