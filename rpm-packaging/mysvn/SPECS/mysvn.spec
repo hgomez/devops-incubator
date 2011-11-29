@@ -16,7 +16,7 @@ Requires: apache2-worker
 Requires: subversion-server
 Requires: viewvc
 
-Source0: httpd-svn.conf
+Source0: apache2-svn.conf
 Source1: private_access_rules
 Source2: public_access_rules
 Source3: credentials
