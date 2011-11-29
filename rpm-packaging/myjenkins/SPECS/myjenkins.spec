@@ -9,7 +9,7 @@ Packager: MyCorp
 License: AGPLv1
 BuildArch:  noarch
 
-%if %{?TOMCAT_REL}0
+%if %{?TOMCAT_REL:1}
 %define tomcat_rel        7.0.22
 %else
 %define tomcat_rel        %{TOMCAT_REL}
