@@ -77,7 +77,8 @@ fi
 %attr(0755, root, root)  %{_bindir}/markdownize_cgit.py
 %{_var}/lib/mygit/conf/credentials
 %{_var}/lib/mygit/conf/public.conf
-%{_var}/lib/mygit/www/images
+%{_var}/lib/mygit/www/*
+%{_var}/lib/mygit/www/images/*
 %dir %{_var}/lib/mygit/repos/public
 %dir %{_var}/lib/mygit/repos/private
 %dir %{_var}/lib/mygit/cache/cgit/public
