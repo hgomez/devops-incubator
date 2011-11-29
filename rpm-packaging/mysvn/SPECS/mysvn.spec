@@ -33,13 +33,14 @@ Subversion setup for MyCorp
 # Prep the install location.
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mysvn/conf
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/mysvn/repos
 mkdir -p $RPM_BUILD_ROOT/srv/viewvc
 
 cp %{SOURCE0}  $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d/svn.mycorp.org.conf
-cp %{SOURCE1}  $RPM_BUILD_ROOT%{_var}/lib/mysvn/repos
-cp %{SOURCE2}  $RPM_BUILD_ROOT%{_var}/lib/mysvn/repos
-cp %{SOURCE3}  $RPM_BUILD_ROOT%{_var}/lib/mysvn/repos
+cp %{SOURCE1}  $RPM_BUILD_ROOT%{_var}/lib/mysvn/conf
+cp %{SOURCE2}  $RPM_BUILD_ROOT%{_var}/lib/mysvn/conf
+cp %{SOURCE3}  $RPM_BUILD_ROOT%{_var}/lib/mysvn/conf
 cp %{SOURCE4}  $RPM_BUILD_ROOT/srv/viewvc
 
 %post
@@ -71,10 +72,10 @@ fi
 %files
 %defattr(-,root,root)
 %config(noreplace) %{_sysconfdir}/apache2/vhosts.d/svn.mycorp.org.conf
+%{_var}/lib/mysvn/conf/private_access_rules
+%{_var}/lib/mysvn/conf/public_access_rules
+%{_var}/lib/mysvn/conf/credentials
 %{_var}/lib/mysvn/repos
-%{_var}/lib/mysvn/repos/private_access_rules
-%{_var}/lib/mysvn/repos/public_access_rules
-%{_var}/lib/mysvn/repos/credentials
 %config(noreplace) /srv/viewvc/viewvc.conf
 
 %changelog
