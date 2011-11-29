@@ -1,7 +1,7 @@
 Name: myjenkins
 Version: 1.0.0
 Release: 1
-Summary: Jenkins %{jenkinsrel_rel} powered by Apache Tomcat
+Summary: Jenkins %{jenkins_rel} powered by Apache Tomcat
 Group: Applications/Communications
 URL: http://www.mycorp.org/
 Vendor: MyCorp
@@ -9,8 +9,17 @@ Packager: MyCorp
 License: AGPLv1
 BuildArch:  noarch
 
+%if %{TOMCAT_REL}
+%define tomcat_rel        %{TOMCAT_REL}
+%else
 %define tomcat_rel        7.0.22
-%define jenkinsrel_rel    1.441
+%endif
+
+%if %{JENKINS_REL}
+%define jenkins_rel    %{JENKINS_REL}
+%else
+%define jenkins_rel    1.441
+%endif
 
 %define myapp             myjenkins
 %define myappusername     myjenkins
@@ -44,7 +53,7 @@ Requires(preun):    %{_sbindir}/groupdel
 Requires(preun):    %{_sbindir}/userdel
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: jenkins-%{jenkinsrel_rel}.war
+Source1: jenkins-%{jenkins_rel}.war
 Source2: myapp-initd
 Source3: myapp-sysconfig
 Source4: myapp-jmxremote.access.skel
@@ -57,7 +66,7 @@ Source10: myapp-systemd
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 
 %description
-Jenkins %{jenkinsrel_rel} powered by Apache Tomcat
+Jenkins %{jenkins_rel} powered by Apache Tomcat
 
 %prep
 %setup -q -c
