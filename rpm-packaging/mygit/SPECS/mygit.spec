@@ -56,7 +56,7 @@ fi
 %files
 %defattr(-,root,root)
 %config(noreplace) %{_sysconfdir}/apache2/vhosts.d/git.mycorp.org.conf
-%{_bindir}/markdownize_cgit.py
+%attr(0755, root, root)  %{_bindir}/markdownize_cgit.py
 %{_var}/lib/mygit/repos
 %{_var}/lib/mygit/repos/credentials
 
