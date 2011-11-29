@@ -1,0 +1,13 @@
+[groups]
+svn-admins = henri, max, benjamin, thibault
+myproj3-commiters   = nicolas
+myproj4-commiters   = nicolas, helena
+[/]
+*= r
+@svn-admins = rw
+
+[/myproj3]
+@myproj3-commiters = rw
+
+[/myproj4]
+@myproj4-commiters = rw
