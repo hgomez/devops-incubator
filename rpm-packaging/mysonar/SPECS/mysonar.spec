@@ -10,7 +10,7 @@
 %define sonar_rel    2.12
 %endif
 
-Name: mynexus
+Name: mysonar
 Version: 1.0.0
 Release: 1
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
@@ -53,7 +53,7 @@ Requires(preun):    %{_sbindir}/groupdel
 Requires(preun):    %{_sbindir}/userdel
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: sonar-%{jenkins_rel}.zip
+Source1: sonar-%{sonar_rel}.zip
 Source2: myapp-initd
 Source3: myapp-sysconfig
 Source4: myapp-jmxremote.access.skel
