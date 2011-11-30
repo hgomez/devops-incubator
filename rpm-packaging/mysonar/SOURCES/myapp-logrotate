@@ -1,0 +1,14 @@
+@@SKEL_LOGDIR@@/catalina.out {
+ copytruncate
+ daily
+ rotate 7
+ compress
+ missingok
+}
+
+@@SKEL_LOGDIR@@/*.*.log {
+ daily
+ rotate 7
+ compress
+ missingok
+}
