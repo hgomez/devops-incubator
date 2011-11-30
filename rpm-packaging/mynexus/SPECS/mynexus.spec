@@ -66,7 +66,7 @@ Source10: myapp-systemd
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 
 %description
-Jenkins %{jenkins_rel} powered by Apache Tomcat
+Jenkins %{nexus_rel} powered by Apache Tomcat
 
 %prep
 %setup -q -c
