@@ -73,7 +73,7 @@ Jenkins %{jenkins_rel} powered by Apache Tomcat
 %setup -q -c
 
 %build
-pwd
+ls -lsag
 
 %install
 # Prep the install location.
