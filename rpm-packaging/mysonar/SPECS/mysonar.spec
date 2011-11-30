@@ -93,6 +93,7 @@ mkdir -p $RPM_BUILD_ROOT%{_systemdir}
 
 mkdir -p $RPM_BUILD_ROOT%{myappdir}
 mkdir -p $RPM_BUILD_ROOT%{myappdatadir}
+mkdir -p $RPM_BUILD_ROOT%{myappdatadir}/conf
 mkdir -p $RPM_BUILD_ROOT%{myapplogdir}
 mkdir -p $RPM_BUILD_ROOT%{myapptempdir}
 mkdir -p $RPM_BUILD_ROOT%{myappworkdir}
@@ -109,6 +110,11 @@ sed -i 's|\${catalina.base}/logs|%{myapplogdir}|g' $RPM_BUILD_ROOT%{myappdir}/co
 
 # copy Sonar generated webapp as ROOT.war (will respond to /)
 cp sonar-%{sonar_rel}/war/sonar.war  $RPM_BUILD_ROOT%{myappwebappdir}/ROOT.war
+
+# copy logback.xml in SONAR_HOME/conf
+cp sonar-%{sonar_rel}/conf/logback.xml $RPM_BUILD_ROOT%{myappdatadir}/conf
+# copy sonar.properties also in SONAR_HOME/conf
+cp %{SOURCE12} $RPM_BUILD_ROOT%{myappdatadir}/conf
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
@@ -258,6 +264,8 @@ fi
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myapptempdir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappworkdir}
+%config(noreplace) %{myappdatadir}/conf/*
+
 %doc %{myappdir}/NOTICE
 %doc %{myappdir}/RUNNING.txt
 %doc %{myappdir}/LICENSE
