@@ -99,7 +99,7 @@ rm -rf $RPM_BUILD_ROOT%{myappdir}/webapps/*
 # patches to have logs under /var/log/myapp
 sed -i 's|\${catalina.base}/logs|%{myapplogdir}|g' $RPM_BUILD_ROOT%{myappdir}/conf/logging.properties
 
-# myapp webapp is ROOT.war (will respond to /)
+# jenkins webapp is ROOT.war (will respond to /)
 cp %{SOURCE1}  $RPM_BUILD_ROOT%{myappwebappdir}/ROOT.war
 
 # init.d
