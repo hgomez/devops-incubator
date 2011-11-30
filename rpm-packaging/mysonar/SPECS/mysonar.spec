@@ -53,7 +53,7 @@ Requires(preun):    %{_sbindir}/groupdel
 Requires(preun):    %{_sbindir}/userdel
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: nexus-webapp-%{nexus_rel}.war
+Source1: sonar-%{jenkins_rel}.zip
 Source2: myapp-initd
 Source3: myapp-sysconfig
 Source4: myapp-jmxremote.access.skel
