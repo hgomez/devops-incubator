@@ -45,6 +45,8 @@ BuildRequires: systemd
 %{?systemd_requires}
 %endif
 
+BuildRequires:      unzip
+
 Requires:           java = 1.6.0
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
@@ -73,7 +75,11 @@ Jenkins %{jenkins_rel} powered by Apache Tomcat
 %setup -q -c
 
 %build
-ls -lsag
+unzip %{SOURCE1}
+cp -f %{SOURCE12} sonar-%{sonar_rel}/conf
+pushd sonar-%{sonar_rel}/war >>/dev/null
+./build-war.sh
+popd >>/dev/null
 
 %install
 # Prep the install location.
@@ -101,8 +107,8 @@ rm -rf $RPM_BUILD_ROOT%{myappdir}/webapps/*
 # patches to have logs under /var/log/myapp
 sed -i 's|\${catalina.base}/logs|%{myapplogdir}|g' $RPM_BUILD_ROOT%{myappdir}/conf/logging.properties
 
-# myapp webapp is ROOT.war (will respond to /)
-cp %{SOURCE1}  $RPM_BUILD_ROOT%{myappwebappdir}/ROOT.war
+# copy Sonar generated webapp as ROOT.war (will respond to /)
+cp sonar-%{sonar_rel}/war/sonar.war  $RPM_BUILD_ROOT%{myappwebappdir}/ROOT.war
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
