@@ -201,9 +201,13 @@ if [ "$1" == "1" ]; then
   sed -i "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
 
   pushd %{myappdir} >/dev/null
-    ln -s %{myapplogdir}  logs
-    ln -s %{myapptempdir} temp
-    ln -s %{myappworkdir} work
+  ln -s %{myapplogdir}  logs
+  ln -s %{myapptempdir} temp
+  ln -s %{myappworkdir} work
+  popd >/dev/null
+
+  pushd %{myappdatadir} >/dev/null
+  ln -s %{myapplogdir} logs
   popd >/dev/null
 
 fi
