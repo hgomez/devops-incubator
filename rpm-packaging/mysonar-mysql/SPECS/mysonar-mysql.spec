@@ -11,13 +11,13 @@ BuildArch:  noarch
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
-%description
-MySQL configuration for Sonar
-
 Requires:           mysql-community-server
 Requires:           mysql-community-server-client
 
 Source1: sonar-setup-mysql.sh
+
+%description
+MySQL configuration for Sonar
 
 %prep
 
