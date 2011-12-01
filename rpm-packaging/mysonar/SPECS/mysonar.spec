@@ -73,7 +73,7 @@ Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: sonar.properties
 
 %description
-Jenkins %{jenkins_rel} powered by Apache Tomcat
+Sonar %{sonar_rel} powered by Apache Tomcat
 
 %prep
 %setup -q -c
