@@ -261,17 +261,17 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{myapp}
 %config %{_sysconfdir}/logrotate.d/%{myapp}
 %config %{_sysconfdir}/security/limits.d/%{myapp}
-%{myappdir}/bin/*
-%attr(0755,%{myappusername},%{myappusername}) %{myappdir}/conf
-%{myappdir}/lib/*.jar
-%{myappdir}/webapps/*.war
+%{myappdir}/bin
+%{myappdir}/conf
+%{myappdir}/lib
+%{myappdir}/webapps
 %attr(0755,%{myappusername}, %{myappusername}) %dir %{myappdir}/webapps
-%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myapptempdir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappworkdir}
 %config(noreplace) %{myappdatadir}/conf
+%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}/data
-%attr(0755,%{myappusername},%{myappusername}) %{myappdatadir}/extensions
+%attr(-,%{myappusername},%{myappusername}) %{myappdatadir}/extensions
 %{myappdatadir}/extras
 %{myappdatadir}/lib
 
