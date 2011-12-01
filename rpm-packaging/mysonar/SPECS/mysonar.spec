@@ -115,6 +115,10 @@ cp sonar-%{sonar_rel}/war/sonar.war  $RPM_BUILD_ROOT%{myappwebappdir}/ROOT.war
 cp sonar-%{sonar_rel}/conf/logback.xml $RPM_BUILD_ROOT%{myappdatadir}/conf
 # copy sonar.properties also in SONAR_HOME/conf
 cp %{SOURCE12} $RPM_BUILD_ROOT%{myappdatadir}/conf
+# copy required stuff in SONAR_HOME
+cp -r sonar-%{sonar_rel}/extras $RPM_BUILD_ROOT%{myappdatadir}
+cp -r sonar-%{sonar_rel}/extensions $RPM_BUILD_ROOT%{myappdatadir}
+cp -r sonar-%{sonar_rel}/lib $RPM_BUILD_ROOT%{myappdatadir}
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
@@ -265,6 +269,10 @@ fi
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myapptempdir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappworkdir}
 %config(noreplace) %{myappdatadir}/conf/*
+%attr(0755,%{myappusername},%{myappusername}) %{myappdatadir}/data/*
+%attr(0755,%{myappusername},%{myappusername}) %{myappdatadir}/extensions/*
+%attr(0755,%{myappusername},%{myappusername}) %{myappdatadir}/extras/*
+%{myappdatadir}/lib/*
 
 %doc %{myappdir}/NOTICE
 %doc %{myappdir}/RUNNING.txt
