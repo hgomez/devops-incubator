@@ -17,7 +17,7 @@ MySQL configuration for Sonar
 Requires:           mysql-community-server
 Requires:           mysql-community-server-client
 
-Source0: sonar-setup-mysql.sh
+Source1: sonar-setup-mysql.sh
 
 %prep
 
@@ -27,7 +27,7 @@ Source0: sonar-setup-mysql.sh
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 # install mysql setup for sonar
-cp %{SOURCE} $RPM_BUILD_ROOT%{_bindir}
+cp %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
