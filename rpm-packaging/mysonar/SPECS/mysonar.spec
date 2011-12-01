@@ -120,7 +120,7 @@ cp -r sonar-%{sonar_rel}/extras $RPM_BUILD_ROOT%{myappdatadir}
 cp -r sonar-%{sonar_rel}/extensions $RPM_BUILD_ROOT%{myappdatadir}
 cp -r sonar-%{sonar_rel}/lib $RPM_BUILD_ROOT%{myappdatadir}
 # data dir (if derby usage)
-mkdir -p $RPM_BUILD_ROOT%{myappdatadir}/conf
+mkdir -p $RPM_BUILD_ROOT%{myappdatadir}/data
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
