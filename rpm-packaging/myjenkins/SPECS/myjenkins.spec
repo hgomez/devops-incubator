@@ -246,7 +246,7 @@ fi
 %config %{_sysconfdir}/logrotate.d/%{myapp}
 %config %{_sysconfdir}/security/limits.d/%{myapp}
 %{myappdir}/bin
-%{myappdir}/conf
+%attr(-,%{myappusername}, %{myappusername}) %{myappdir}/conf
 %{myappdir}/lib
 %attr(-,%{myappusername}, %{myappusername}) %{myappdir}/webapps
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}
