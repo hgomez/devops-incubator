@@ -31,13 +31,14 @@ APP_JMX_ADMIN_PASSWORD=@@SKEL_RW_PWD@@
 #
 # Linux Service variables
 #
+CATALINA_HOME="@@SKEL_APPDIR@@"
 CATALINA_OUT="@@SKEL_LOGDIR@@/catalina.out"
 CATALINA_PID="/var/run/@@SKEL_APP@@.pid"
 SHUTDOWN_WAIT=10
 
 #
 # JVM Settings
-# 
+#
 APP_JAVA_HOME=
 APP_JAVA_OPTS="-Xms32m -Xmx64m -XX:MaxPermSize=32m -Xss256k -XX:+UseCompressedOops"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
