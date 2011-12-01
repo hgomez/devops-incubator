@@ -1,5 +1,6 @@
 #!/bin/sh
 
+MYAPP_VERSION=1.0.0
 TOMCAT_VERSION=7.0.23
 
 if [ $# -gt 1 ]; then
@@ -27,5 +28,5 @@ rm -rf BUILD RPMS SRPMS TEMP
 mkdir -p BUILD RPMS SRPMS TEMP
 
 # Build using rpmbuild (use double-quote for define to have shell resolv vars !)
-rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="tomcat_rel $TOMCAT_VERSION" --define="jenkinsrel_rel $JENKINS_VERSION"  SPECS/myapp.spec
+rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="TOMCAT_REL $TOMCAT_VERSION" --define="MYAPP_REL $MYAPP_VERSION"  SPECS/myapp.spec
 

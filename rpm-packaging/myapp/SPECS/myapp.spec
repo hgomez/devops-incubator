@@ -4,6 +4,12 @@
 %define tomcat_rel        7.0.23
 %endif
 
+%if %{?MYAPP_REL:1}
+%define myapp_rel    %{MYAPP_REL}
+%else
+%define myapp_rel    1.0
+%endif
+
 Name: myapp
 Version: 1.0.0
 Release: 1
