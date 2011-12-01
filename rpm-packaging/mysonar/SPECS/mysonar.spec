@@ -240,6 +240,8 @@ if [ "$1" == "0" ]; then
   rm -rf %{myapptempdir}
   rm -rf %{myappworkdir}
 
+  rm -f %{myappdatadir}/logs
+
 fi
 
 %postun
