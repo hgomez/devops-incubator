@@ -71,6 +71,7 @@ Source9: myapp-limits.conf
 Source10: myapp-systemd
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: sonar.properties
+Source13: sonar-setup-mysql.sh
 
 %description
 Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
@@ -89,6 +90,8 @@ popd >>/dev/null
 # Prep the install location.
 rm -rf $RPM_BUILD_ROOT
 
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
+mkdir -p $RPM_BUILD_ROOT%{_initrddir}
 mkdir -p $RPM_BUILD_ROOT%{_initrddir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
@@ -178,6 +181,9 @@ rm -rf $RPM_BUILD_ROOT%{myappdir}/work
 
 # ensure shell scripts are executable
 chmod 755 $RPM_BUILD_ROOT%{myappdir}/bin/*.sh
+
+# install mysql setup for sonar
+cp %{SOURCE13} $RPM_BUILD_ROOT%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -284,6 +290,7 @@ fi
 %attr(-,%{myappusername},%{myappusername}) %{myappdatadir}/extensions
 %{myappdatadir}/extras
 %{myappdatadir}/lib
+%{_bindir}
 %doc %{myappdir}/NOTICE
 %doc %{myappdir}/RUNNING.txt
 %doc %{myappdir}/LICENSE
