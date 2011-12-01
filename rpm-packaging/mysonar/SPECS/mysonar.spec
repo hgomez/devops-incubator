@@ -273,7 +273,8 @@ fi
 %config(noreplace) %{myappdatadir}/conf/*
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}/data
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}/extensions
-%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}/extras
+%attr(0644,%{myappusername},%{myappusername}) %{myappdatadir}/extensions/*
+%{myappdatadir}/extras/*
 %{myappdatadir}/lib/*
 
 %doc %{myappdir}/NOTICE
