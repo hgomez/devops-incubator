@@ -192,7 +192,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 if [ "$1" == "1" ]; then
   # register app as service
-  insserv -f %{myapp}
+  systemctl enable %{myapp}.service
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g"`
@@ -232,7 +232,7 @@ if [ "$1" == "0" ]; then
   rm -rf %{myappworkdir}/* %{myapptempdir}/*
 
   # unregister app from services
-  insserv %{myapp} -r
+  systemctl disable %{myapp}.service
 
   # finalize housekeeping
   rm -rf %{myappdir}
@@ -253,10 +253,10 @@ fi
 #fi
 
 # Specific actions in relations with others packages
-%triggerin -- otherapp
+#%triggerin -- otherapp
 # Do something if otherapp is installed
 
-%triggerun -- otherapp
+#%triggerun -- otherapp
 # Do something if otherapp is uninstalled
 
 
