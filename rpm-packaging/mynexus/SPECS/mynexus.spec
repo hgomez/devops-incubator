@@ -45,6 +45,10 @@ BuildRequires: systemd
 %{?systemd_requires}
 %endif
 
+%if 0%{suse_version} <= 1140
+%define systemd_requires %{nil}
+%endif
+
 Requires:           java = 1.6.0
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
@@ -244,7 +248,7 @@ fi
 %{myappdir}/bin
 %{myappdir}/conf
 %{myappdir}/lib
-%attr(-,%{myappusername}, %{myappusername})  %{myappdir}/webapps
+%attr(-,%{myappusername}, %{myappusername}) %{myappdir}/webapps
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myapptempdir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappworkdir}
