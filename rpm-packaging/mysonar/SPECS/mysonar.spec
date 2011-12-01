@@ -45,6 +45,10 @@ BuildRequires: systemd
 %{?systemd_requires}
 %endif
 
+%if 0%{suse_version} <= 1140
+%define systemd_requires %{nil}
+%endif
+
 BuildRequires:      unzip
 
 Requires:           java = 1.6.0
