@@ -271,9 +271,9 @@ fi
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myapptempdir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappworkdir}
 %config(noreplace) %{myappdatadir}/conf/*
-%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}/data/
-%attr(0755,%{myappusername},%{myappusername}) %{myappdatadir}/extensions/*
-%attr(0755,%{myappusername},%{myappusername}) %{myappdatadir}/extras/*
+%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}/data
+%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}/extensions
+%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}/extras
 %{myappdatadir}/lib/*
 
 %doc %{myappdir}/NOTICE
