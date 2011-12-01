@@ -118,6 +118,7 @@ cp %{SOURCE12} $RPM_BUILD_ROOT%{myappdatadir}/conf
 # copy required stuff in SONAR_HOME
 cp -r sonar-%{sonar_rel}/extras $RPM_BUILD_ROOT%{myappdatadir}
 cp -r sonar-%{sonar_rel}/extensions $RPM_BUILD_ROOT%{myappdatadir}
+find $RPM_BUILD_ROOT%{myappdatadir}/extensions -type f -name "*.jar" -exec chmod 644 \{\} \;
 cp -r sonar-%{sonar_rel}/lib $RPM_BUILD_ROOT%{myappdatadir}
 # data dir (if derby usage)
 mkdir -p $RPM_BUILD_ROOT%{myappdatadir}/data
