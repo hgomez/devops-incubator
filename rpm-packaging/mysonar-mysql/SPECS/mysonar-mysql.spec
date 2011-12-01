@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%{_bindir}/sonar-setup-mysql.sh
+%{_bindir}
 
 %changelog
 * Wed Mar 23 2009 henri.gomez@gmail.com 1.0.0-1
