@@ -31,6 +31,7 @@ APP_JMX_ADMIN_PASSWORD=@@SKEL_RW_PWD@@
 #
 # Linux Service variables
 #
+CATALINA_HOME="@@SKEL_APPDIR@@"
 CATALINA_OUT="@@SKEL_LOGDIR@@/catalina.out"
 CATALINA_PID="/var/run/@@SKEL_APP@@.pid"
 SHUTDOWN_WAIT=10
