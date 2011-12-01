@@ -13,21 +13,6 @@ fi
 CATALINA_OPTS=$APP_JAVA_OPTS
 
 #
-# Variable resolution
-#
-ALL_VARS=$(compgen -A variable | grep APP_)
-
-for RES_KEY in $ALL_VARS; do
- eval RES_VAL=\$${RES_KEY}
- XREPLACE="$XREPLACE | sed 's|@${RES_KEY}@|$RES_VAL|g'"
-done
-
-for XFILE in $CATALINA_HOME/conf/server.xml.skel $CATALINA_HOME/conf/jmxremote.access.skel $CATALINA_HOME/conf/jmxremote.password.skel; do
-    DXFILE=${XFILE%.skel}
-    eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
-done
-
-#
 # CATALINA tuning
 #
 

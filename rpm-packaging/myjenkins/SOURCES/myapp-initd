@@ -34,6 +34,19 @@ start() {
     echo -n $"Starting $prog: "
     touch $CATALINA_PID
     chown $user:$user $CATALINA_PID
+
+    ALL_VARS=$(compgen -A variable | grep APP_)
+
+    for RES_KEY in $ALL_VARS; do
+      eval RES_VAL=\$${RES_KEY}
+      XREPLACE="$XREPLACE | sed 's|@${RES_KEY}@|$RES_VAL|g'"
+    done
+
+    for XFILE in $CATALINA_HOME/conf/server.xml.skel $CATALINA_HOME/conf/jmxremote.access.skel $CATALINA_HOME/conf/jmxremote.password.skel; do
+      DXFILE=${XFILE%.skel}
+      eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
+    done
+
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/start_daemon ]; then
       start_daemon -u $user $exec start
