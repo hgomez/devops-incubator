@@ -84,8 +84,12 @@ GRANT ALL ON $SONAR_USER.* TO '$SONAR_DATABASE'@'localhost' IDENTIFIED BY '$SONA
 FLUSH PRIVILEGES;
 EOF1
 
+if [ ! -f /etc/sysconfig/mysonar.orig ]; then
+  mv /etc/sysconfig/mysonar /etc/sysconfig/mysonar.orig
+fi
+
 cat /etc/sysconfig/mysonar | sed "s|SONAR_JDBC_USERNAME=.*|SONAR_JDBC_USERNAME=$SONAR_USER|" | \
 sed "s|SONAR_JDBC_USERNAME=.*|SONAR_JDBC_USERNAME=$SONAR_USER|" | \
 sed "s|SONAR_JDBC_PASSWORD=.*|SONAR_JDBC_PASSWORD=$SONAR_PASSWORD|" | \
 sed "s|SONAR_JDBC_URL=.*|SONAR_JDBC_URL=jdbc:mysql://$SONAR_HOST:$SONAR_PORT/$SONAR_DATABASE?useUnicode=true&characterEncoding=utf8|" | \
-sed "s|SONAR_JDBC_DRIVERCLASSNAME=.*|SONAR_JDBC_DRIVERCLASSNAME=com.mysql.jdbc.Driver|" > /etc/sysconfig/mysonar.new
+sed "s|SONAR_JDBC_DRIVERCLASSNAME=.*|SONAR_JDBC_DRIVERCLASSNAME=com.mysql.jdbc.Driver|" > /etc/sysconfig/mysonar
