@@ -265,17 +265,15 @@ fi
 %{myappdir}/bin
 %{myappdir}/conf
 %{myappdir}/lib
-%{myappdir}/webapps
-%attr(0755,%{myappusername}, %{myappusername}) %dir %{myappdir}/webapps
+%attr(-,%{myappusername}, %{myappusername}) %{myappdir}/webapps
+%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myapptempdir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappworkdir}
 %config(noreplace) %{myappdatadir}/conf
-%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}/data
 %attr(-,%{myappusername},%{myappusername}) %{myappdatadir}/extensions
 %{myappdatadir}/extras
 %{myappdatadir}/lib
-
 %doc %{myappdir}/NOTICE
 %doc %{myappdir}/RUNNING.txt
 %doc %{myappdir}/LICENSE
