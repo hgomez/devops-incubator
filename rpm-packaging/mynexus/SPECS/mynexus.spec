@@ -171,7 +171,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 if [ "$1" == "1" ]; then
   # register app as service
-  insserv %{myapp}
+  insserv -f %{myapp}
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g"`
