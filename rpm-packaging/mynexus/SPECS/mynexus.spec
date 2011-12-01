@@ -175,7 +175,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 if [ "$1" == "1" ]; then
   # register app as service
-  systemctl enable %{myapp}.service >/dev/null
+  systemctl enable %{myapp}.service >/dev/null 2>&1
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g"`
@@ -211,7 +211,7 @@ if [ "$1" == "0" ]; then
   rm -rf %{myappworkdir}/* %{myapptempdir}/*
 
   # unregister app from services
-  systemctl disable %{myapp}.service >/dev/null
+  systemctl disable %{myapp}.service >/dev/null 2>&1
 
   # finalize housekeeping
   rm -rf %{myappdir}
