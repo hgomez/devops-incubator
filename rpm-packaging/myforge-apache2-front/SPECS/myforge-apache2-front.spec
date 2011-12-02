@@ -1,4 +1,4 @@
-Name: mysonar-apache2-front
+Name: myforge-apache2-front
 Version: 1.0.0
 Release: 1
 Summary: Apache2 Front configuration for Sonar
