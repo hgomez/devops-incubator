@@ -13,7 +13,9 @@ BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
 Requires: apache2-mod_jk
 
-Provides: mysonar-http-front
+Provides: ci-http-front
+Provides: repository-http-front
+Provides: sonar-http-front
 
 Source0: workers.properties
 Source1: jk.conf
