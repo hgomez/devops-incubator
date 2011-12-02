@@ -50,9 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %post
 if [ "$1" == "1" ]; then
 
-  # Enable Apache module
-  a2enmod deflate
-  a2enmod jk
+  # Enable Apache module (silently avoid duplicates)
+  a2enmod deflate >>/dev/null
+  a2enmod jk >>/dev/null
   service apache2 restart
 
 fi
