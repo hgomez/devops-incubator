@@ -17,6 +17,11 @@ NEXUS_URL=http://nexus.sonatype.org/downloads/nexus-webapp-${NEXUS_VERSION}.war
 TOMCAT_URL=http://apache.cict.fr/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://apache.cict.fr/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
+if [ ! -f SOURCES/nexus-webapp-${NEXUS_VERSION}.war ]; then
+  echo "downloading nexus-webapp-${NEXUS_VERSION}.war from $NEXUS_URL"
+  curl -s -L $NEXUS_URL -o SOURCES/nexus-webapp-${NEXUS_VERSION}.war
+fi
+
 if [ ! -f SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz ]; then
   echo "downloading apache-tomcat-${TOMCAT_VERSION}.tar.gz from $TOMCAT_URL"
   curl -s -L $TOMCAT_URL -o SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz
@@ -25,11 +30,6 @@ fi
 if [ ! -f SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar ]; then
   echo "downloading catalina-jmx-remote-${TOMCAT_VERSION}.jar from $CATALINA_JMX_REMOTE_URL"
   curl -s -L $CATALINA_JMX_REMOTE_URL -o SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar
-fi
-
-if [ ! -f SOURCES/nexus-webapp-${NEXUS_VERSION}.war ]; then
-  echo "downloading nexus-webapp-${NEXUS_VERSION}.war from $NEXUS_URL"
-  curl -s -L $NEXUS_URL -o SOURCES/nexus-webapp-${NEXUS_VERSION}.war
 fi
 
 echo "Version to package is $NEXUS_VERSION, powered by Apache Tomcat $TOMCAT_VERSION"
