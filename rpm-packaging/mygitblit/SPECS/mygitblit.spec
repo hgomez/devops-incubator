@@ -194,6 +194,9 @@ if [ "$1" == "1" ]; then
   sed -i "s|@@SKEL_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g"`
   sed -i "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
+  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g"`
+  sed -i "s|@@ADMIN_PASSWORD@@|$RANDOMVAL|g" %{myappdatadir}/conf/users.properties
+
 
   pushd %{myappdir} >/dev/null
     ln -s %{myapplogdir}  logs
