@@ -10,7 +10,7 @@
 %define gitblit_rel    0.7.0
 %endif
 
-Name: gitblit
+Name: mygitblit
 Version: 1.0.0
 Release: 1
 Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
@@ -21,8 +21,8 @@ Packager: MyCorp
 License: AGPLv1
 BuildArch:  noarch
 
-%define myapp             gitblit
-%define myappusername     gitblit
+%define myapp             mygitblit
+%define myappusername     mygitblit
 %define myappuserid       1238
 %define myappgroupid      1238
 
