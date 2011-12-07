@@ -57,7 +57,7 @@ Requires(preun):    %{_sbindir}/groupdel
 Requires(preun):    %{_sbindir}/userdel
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: mygitblit-%{gitblit_rel}.war
+Source1: gitblit-%{gitblit_rel}.war
 Source2: myapp-initd
 Source3: myapp-sysconfig
 Source4: myapp-jmxremote.access.skel
