@@ -14,7 +14,7 @@ if [ $# -gt 1 ]; then
 fi
 
 SONAR_URL=http://dist.sonar.codehaus.org/sonar-${SONAR_VERSION}.zip
-TOMCAT_URL=http://apache.cict.fr/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://apache.cict.fr/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
 if [ ! -f SOURCES/sonar-${SONAR_VERSION}.zip ]; then
