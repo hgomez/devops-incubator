@@ -157,7 +157,7 @@ cp %{SOURCE12} $RPM_BUILD_ROOT%{myappconfdir}/context.xml
 sed -i 's|@@SKEL_DATADIR@@|%{myappdatadir}|g' $RPM_BUILD_ROOT%{myappconfdir}/context.xml
 
 # Install users.properties
-cp %{SOURCE13} $RPM_BUILD_ROOT%{myappdatadir}/conf
+cp %{SOURCE13} $RPM_BUILD_ROOT%{myappdatadir}/conf/users.properties
 
 # remove uneeded file in RPM
 rm -f $RPM_BUILD_ROOT%{myappdir}/*.sh
