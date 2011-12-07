@@ -23,8 +23,8 @@ BuildArch:  noarch
 
 %define myapp             gitblit
 %define myappusername     gitblit
-%define myappuserid       1237
-%define myappgroupid      1237
+%define myappuserid       1238
+%define myappgroupid      1238
 
 %define myappdir          /opt/%{myapp}
 %define myappdatadir      %{_var}/lib/%{myapp}
