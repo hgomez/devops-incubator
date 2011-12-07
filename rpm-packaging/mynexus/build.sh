@@ -15,7 +15,7 @@ fi
 
 NEXUS_URL=http://nexus.sonatype.org/downloads/nexus-webapp-${NEXUS_VERSION}.war
 TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-CATALINA_JMX_REMOTE_URL=http://apache.cict.fr/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
+CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
 if [ ! -f SOURCES/nexus-webapp-${NEXUS_VERSION}.war ]; then
   echo "downloading nexus-webapp-${NEXUS_VERSION}.war from $NEXUS_URL"
