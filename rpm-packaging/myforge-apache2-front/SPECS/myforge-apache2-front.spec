@@ -1,5 +1,5 @@
 Name: myforge-apache2-front
-Version: 1.0.0
+Version: 1.0.1
 Release: 1
 Summary: Apache2 Front configuration for Sonar
 Group: Applications/Communications
@@ -22,9 +22,10 @@ Source1: jk.conf
 Source2: ci.mycorp.org.conf
 Source3: repository.mycorp.org.conf
 Source4: sonar.mycorp.org.conf
+Source5: git.mycorp.org.conf
 
 %description
-Apache2 Front configuration for Sonar
+Apache2 Front configuration for MyForge (Subversion, Nexus, Jenkins, Sonar and GitLibt)
 
 %prep
 
@@ -41,6 +42,7 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache2/conf.d
 cp %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d
 cp %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d
 cp %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d
+cp %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -68,5 +70,7 @@ fi
 %config(noreplace) %{_sysconfdir}/apache2/conf.d/
 
 %changelog
+* Wed Mar 23 2009 henri.gomez@gmail.com 1.0.1-1
+- Added support for gitblit
 * Wed Mar 23 2009 henri.gomez@gmail.com 1.0.0-1
 - Initial RPM
