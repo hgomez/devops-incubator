@@ -17,9 +17,9 @@ GITBLIT_URL=http://gitblit.googlecode.com/files/gitblit-${GITBLIT_VERSION}.war
 TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat//tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
-if [ ! -f SOURCES/glitblit-${GITBLIT_VERSION}.war ]; then
-  echo "downloading glitblit-${GITBLIT_VERSION}.war from $GITBLIT_URL"
-  curl -s -L $GITBLIT_URL -o SOURCES/glitblit-${GITBLIT_VERSION}.war
+if [ ! -f SOURCES/gitblit-${GITBLIT_VERSION}.war ]; then
+  echo "downloading gitblit-${GITBLIT_VERSION}.war from $GITBLIT_URL"
+  curl -s -L $GITBLIT_URL -o SOURCES/gitblit-${GITBLIT_VERSION}.war
 fi
 
 if [ ! -f SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz ]; then
