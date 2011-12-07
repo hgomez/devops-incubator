@@ -190,11 +190,11 @@ if [ "$1" == "1" ]; then
   systemctl enable %{myapp}.service >/dev/null 2>&1
 
   # Generated random password for RO and RW accounts
-  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g"`
+  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
   sed -i "s|@@SKEL_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
-  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g"`
+  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
   sed -i "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
-  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g"`
+  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
   sed -i "s|@@ADMIN_PASSWORD@@|$RANDOMVAL|g" %{myappdatadir}/conf/users.properties
 
   pushd %{myappdir} >/dev/null
