@@ -197,7 +197,6 @@ if [ "$1" == "1" ]; then
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g"`
   sed -i "s|@@ADMIN_PASSWORD@@|$RANDOMVAL|g" %{myappdatadir}/conf/users.properties
 
-
   pushd %{myappdir} >/dev/null
     ln -s %{myapplogdir}  logs
     ln -s %{myapptempdir} temp
