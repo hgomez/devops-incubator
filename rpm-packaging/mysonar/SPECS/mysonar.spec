@@ -192,9 +192,19 @@ rm -rf $RPM_BUILD_ROOT
 %if 0%{?suse_version} > 1140
 %service_add_pre %{myapp}.service
 %endif
-# add user and group
-%{_sbindir}/groupadd -r -g %{myappgroupid} %{myappusername} 2>/dev/null || :
-%{_sbindir}/useradd -s /sbin/nologin -c "%{myapp} user" -g %{myappusername} -r -d %{myappdir} -u %{myappuserid} %{myappusername} 2>/dev/null || :
+# First install time, add user and group
+if [ "$1" == "1" ]; then
+  %{_sbindir}/groupadd -r -g %{myappgroupid} %{myappusername} 2>/dev/null || :
+  %{_sbindir}/useradd -s /sbin/nologin -c "%{myapp} user" -g %{myappusername} -r -d %{myappdir} -u %{myappuserid} %{myappusername} 2>/dev/null || :
+else
+# Update time, stop service if running
+  if [ "$1" == "1" ]; then
+    if [ -f %{_var}/run/%{myapp}.pid ]; then
+      %{_initrddir}/%{myapp} stop
+      touch %{myappdir}/logs/rpm-update-stop
+    fi
+  fi
+fi
 
 %post
 %if 0%{?suse_version} > 1140
@@ -221,20 +231,16 @@ if [ "$1" == "1" ]; then
   popd >/dev/null
 
 fi
-# Trigger a restart.
-#[ -x "/etc/init.d/%{name}" ] && /etc/init.d/%{name} start
-# Happy exit even if star script didn't exit cleanly.
-#exit 0
 
 %preun
 %if 0%{?suse_version} > 1140
 %service_del_preun %{myapp}.service
 %endif
 if [ "$1" == "0" ]; then
-  # Uninstall time, stop App and cleanup
+  # Uninstall time, stop service and cleanup
 
-  # stop Application
-  [ -x "/etc/init.d/%{myapp}" ] && /etc/init.d/%{myapp} stop
+  # stop service
+  %{_initrddir}/%{myapp} stop
 
   %{_sbindir}/userdel  %{myappusername}
   %{_sbindir}/groupdel %{myappusername}
@@ -250,25 +256,12 @@ if [ "$1" == "0" ]; then
   rm -rf %{myapptempdir}
   rm -rf %{myappworkdir}
 
-  rm -f %{myappdatadir}/logs
-
 fi
 
 %postun
 %if 0%{?suse_version} > 1140
 %service_del_postun %{myapp}.service
 %endif
-#if [ $1 -ge 1 ]; then
-#    #package upgrade, not uninstall
-#fi
-
-# Specific actions in relations with others packages
-#%triggerin -- otherapp
-# Do something if otherapp is installed
-
-#%triggerun -- otherapp
-# Do something if otherapp is uninstalled
-
 
 %files
 %defattr(-,root,root)

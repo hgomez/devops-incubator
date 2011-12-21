@@ -173,7 +173,7 @@ else
 # Update time, stop service if running
   if [ "$1" == "1" ]; then
     if [ -f %{_var}/run/%{myapp}.pid ]; then
-      /etc/init.d/%{myapp} stop
+      %{_initrddir}/%{myapp} stop
       touch %{myappdir}/logs/rpm-update-stop
     fi
   fi
@@ -201,13 +201,13 @@ if [ "$1" == "1" ]; then
   popd >/dev/null
 
   # start application at first install (comment if this behaviour not expected)
-  /etc/init.d/%{name} start
+  %{_initrddir}/%{name} start
 else
   # Update time, restart application if it was running
   if [ "$1" == "2" ]; then
     if [ -f %{myappdir}/logs/rpm-update-stop ]; then
       # restart application after update (comment if this behaviour not expected)
-      /etc/init.d/%{name} start
+      %{_initrddir}/%{name} start
       rm -f %{myappdir}/logs/rpm-update-stop
     fi
   fi
@@ -218,10 +218,10 @@ fi
 %service_del_preun %{myapp}.service
 %endif
 if [ "$1" == "0" ]; then
-  # Uninstall time, stop App and cleanup
+  # Uninstall time, stop service and cleanup
 
-  # stop Application
-  [ -x "/etc/init.d/%{myapp}" ] && /etc/init.d/%{myapp} stop
+  # stop service
+  %{_initrddir}/%{myapp} stop
 
   %{_sbindir}/userdel  %{myappusername}
   %{_sbindir}/groupdel %{myappusername}
@@ -243,15 +243,12 @@ fi
 %if 0%{?suse_version} > 1140
 %service_del_postun %{myapp}.service
 %endif
-#if [ $1 -ge 1 ]; then
-#    #package upgrade, not uninstall
-#fi
 
 # Specific actions in relations with others packages
-%triggerin -- otherapp
+#%triggerin -- otherapp
 # Do something if otherapp is installed
 
-%triggerun -- otherapp
+#%triggerun -- otherapp
 # Do something if otherapp is uninstalled
 
 
