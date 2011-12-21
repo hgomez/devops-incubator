@@ -165,14 +165,25 @@ rm -rf $RPM_BUILD_ROOT
 %if 0%{?suse_version} > 1140
 %service_add_pre %{myapp}.service
 %endif
-# add user and group
-%{_sbindir}/groupadd -r -g %{myappgroupid} %{myappusername} 2>/dev/null || :
-%{_sbindir}/useradd -s /sbin/nologin -c "%{myapp} user" -g %{myappusername} -r -d %{myappdir} -u %{myappuserid} %{myappusername} 2>/dev/null || :
+# First install time, add user and group
+if [ "$1" == "1" ]; then
+  %{_sbindir}/groupadd -r -g %{myappgroupid} %{myappusername} 2>/dev/null || :
+  %{_sbindir}/useradd -s /sbin/nologin -c "%{myapp} user" -g %{myappusername} -r -d %{myappdir} -u %{myappuserid} %{myappusername} 2>/dev/null || :
+else
+# Update time, stop service if running
+  if [ "$1" == "1" ]; then
+    if [ -f %{_var}/run/%{myapp}.pid ]; then
+      /etc/init.d/%{myapp} stop
+      touch %{myappdir}/logs/rpm-update-stop
+    fi
+  fi
+fi
 
 %post
 %if 0%{?suse_version} > 1140
 %service_add_post %{myapp}.service
 %endif
+# First install time, register service, generate random passwords and start application
 if [ "$1" == "1" ]; then
   # register app as service
   systemctl enable %{myapp}.service >/dev/null 2>&1
@@ -189,11 +200,18 @@ if [ "$1" == "1" ]; then
     ln -s %{myappworkdir} work
   popd >/dev/null
 
+  # start application at first install (comment if this behaviour not expected)
+  /etc/init.d/%{name} start
+else
+  # Update time, restart application if it was running
+  if [ "$1" == "2" ]; then
+    if [ -f %{myappdir}/logs/rpm-update-stop ]; then
+      # restart application after update (comment if this behaviour not expected)
+      /etc/init.d/%{name} start
+      rm -f %{myappdir}/logs/rpm-update-stop
+    fi
+  fi
 fi
-# Trigger a restart.
-#[ -x "/etc/init.d/%{name}" ] && /etc/init.d/%{name} start
-# Happy exit even if star script didn't exit cleanly.
-#exit 0
 
 %preun
 %if 0%{?suse_version} > 1140
