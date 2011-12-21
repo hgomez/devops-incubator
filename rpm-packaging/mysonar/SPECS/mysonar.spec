@@ -250,9 +250,6 @@ if [ "$1" == "0" ]; then
   # stop service
   %{_initrddir}/%{myapp} stop
 
-  %{_sbindir}/userdel  %{myappusername}
-  %{_sbindir}/groupdel %{myappusername}
-
   # unregister app from services
   systemctl disable %{myapp}.service >/dev/null 2>&1
 
@@ -262,6 +259,8 @@ if [ "$1" == "0" ]; then
   rm -rf %{myapptempdir}
   rm -rf %{myappworkdir}
 
+  %{_sbindir}/userdel  %{myappusername}
+  %{_sbindir}/groupdel %{myappusername}
 fi
 
 %postun
