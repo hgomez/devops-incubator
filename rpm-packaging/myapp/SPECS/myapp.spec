@@ -195,18 +195,18 @@ if [ "$1" == "1" ]; then
   sed -i "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
 
   pushd %{myappdir} >/dev/null
-    ln -s %{myapplogdir}  logs
-    ln -s %{myapptempdir} temp
-    ln -s %{myappworkdir} work
+  ln -s %{myapplogdir}  logs
+  ln -s %{myapptempdir} temp
+  ln -s %{myappworkdir} work
   popd >/dev/null
 
-  # start application at first install (comment if this behaviour not expected)
-  %{_initrddir}/%{name} start
+  # start application at first install (uncomment next line this behaviour not expected)
+  # %{_initrddir}/%{name} start
 else
   # Update time, restart application if it was running
   if [ "$1" == "2" ]; then
     if [ -f %{myappdir}/logs/rpm-update-stop ]; then
-      # restart application after update (comment if this behaviour not expected)
+      # restart application after update (comment next line this behaviour not expected)
       %{_initrddir}/%{name} start
       rm -f %{myappdir}/logs/rpm-update-stop
     fi
@@ -225,8 +225,6 @@ if [ "$1" == "0" ]; then
 
   %{_sbindir}/userdel  %{myappusername}
   %{_sbindir}/groupdel %{myappusername}
-
-  rm -rf %{myappworkdir}/* %{myapptempdir}/*
 
   # unregister app from services
   systemctl disable %{myapp}.service >/dev/null 2>&1
