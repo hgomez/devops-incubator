@@ -198,7 +198,7 @@ if [ "$1" == "1" ]; then
   %{_sbindir}/useradd -s /sbin/nologin -c "%{myapp} user" -g %{myappusername} -r -d %{myappdir} -u %{myappuserid} %{myappusername} 2>/dev/null || :
 else
 # Update time, stop service if running
-  if [ "$1" == "1" ]; then
+  if [ "$1" == "2" ]; then
     if [ -f %{_var}/run/%{myapp}.pid ]; then
       %{_initrddir}/%{myapp} stop
       touch %{myappdir}/logs/rpm-update-stop
