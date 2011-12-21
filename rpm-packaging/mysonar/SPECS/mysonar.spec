@@ -134,7 +134,7 @@ mkdir -p $RPM_BUILD_ROOT%{myappdatadir}/data
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
 sed -i 's|@@SKEL_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
 sed -i 's|@@SKEL_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@SKEL_VERSION@@|version %{VERSION} release %{RELEASE}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+sed -i 's|@@SKEL_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
 sed -i 's|@@SKEL_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
 
 # sysconfig
