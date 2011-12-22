@@ -60,8 +60,13 @@ start() {
 
 stop() {
     echo -n $"Stopping $prog: "
-    $exec stop $SHUTDOWN_WAIT -force
-    RETVAL=$?
+
+    RETVAL=0
+    if [ -s $CATALINA_PID ]; then
+      $exec stop $SHUTDOWN_WAIT -force
+      RETVAL=$?
+    fi
+
     echo
     [ $RETVAL -eq 0 ] && rm -f $lockfile
 }
