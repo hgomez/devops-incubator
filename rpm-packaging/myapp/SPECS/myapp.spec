@@ -13,7 +13,7 @@
 Name: myapp
 Version: 1.0.0
 Release: 1
-Summary: MyApp powered by Apache Tomcat %{tomcat_rel}
+Summary: MyApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
 Vendor: MyCorp
@@ -53,9 +53,6 @@ Requires:           java = 1.6.0
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
-Requires(preun):    %{_sbindir}/groupdel
-Requires(preun):    %{_sbindir}/userdel
-
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
 Source1: myapp.war
 Source2: myapp-initd
@@ -70,7 +67,7 @@ Source10: myapp-systemd
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 
 %description
-MyApp powered by Apache Tomcat
+MyApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %prep
 %setup -q -c
@@ -168,7 +165,7 @@ rm -rf $RPM_BUILD_ROOT
 # First install time, add user and group
 if [ "$1" == "1" ]; then
   %{_sbindir}/groupadd -r -g %{myappgroupid} %{myappusername} 2>/dev/null || :
-  %{_sbindir}/useradd -s /sbin/nologin -c "%{myapp} user" -g %{myappusername} -r -d %{myappdir} -u %{myappuserid} %{myappusername} 2>/dev/null || :
+  %{_sbindir}/useradd -s /sbin/nologin -c "%{myapp} user" -g %{myappusername} -r -d %{myappdatadir} -u %{myappuserid} %{myappusername} 2>/dev/null || :
 else
 # Update time, stop service if running
   if [ "$1" == "2" ]; then
@@ -232,8 +229,6 @@ if [ "$1" == "0" ]; then
   rm -rf %{myapptempdir}
   rm -rf %{myappworkdir}
 
-  %{_sbindir}/userdel  %{myappusername}
-  %{_sbindir}/groupdel %{myappusername}
 fi
 
 %postun
