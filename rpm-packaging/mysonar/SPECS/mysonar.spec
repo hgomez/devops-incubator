@@ -160,8 +160,8 @@ sed -i 's|@@SKEL_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 cp %{SOURCE8} $RPM_BUILD_ROOT%{myappconfdir}/server.xml.skel
 
 # Setup user limits
-cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}
-sed -i 's|@@SKEL_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}
+cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}.conf
+sed -i 's|@@SKEL_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}.conf
 
 # Setup Systemd
 cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
@@ -269,7 +269,7 @@ fi
 %attr(0644,root,root) %{_systemdir}/%{myapp}.service
 %config(noreplace) %{_sysconfdir}/sysconfig/%{myapp}
 %config %{_sysconfdir}/logrotate.d/%{myapp}
-%config %{_sysconfdir}/security/limits.d/%{myapp}
+%config %{_sysconfdir}/security/limits.d/%{myapp}.conf
 %{myappdir}/bin
 %{myappdir}/conf
 %{myappdir}/lib
