@@ -12,7 +12,8 @@
 
 Name: mygitblit
 Version: 1.0.0
-Release: 1
+#Version: %{gitblit_rel}
+Release: 2
 Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -31,6 +32,7 @@ BuildArch:  noarch
 %define myapplogdir       %{_var}/log/%{myapp}
 %define myappexec         %{myappdir}/bin/catalina.sh
 %define myappconfdir      %{myappdir}/conf
+%define myappconflocaldir %{myappdir}/conf/Catalina/localhost
 %define myappwebappdir    %{myappdir}/webapps
 %define myapptempdir      /tmp/%{myapp}
 %define myappworkdir      %{_var}/%{myapp}
@@ -98,6 +100,9 @@ mkdir -p $RPM_BUILD_ROOT%{myappwebappdir}
 
 # Copy tomcat
 mv apache-tomcat-%{tomcat_rel}/* $RPM_BUILD_ROOT%{myappdir}
+
+# Create conf/Catalina/localhost
+mkdir -p $RPM_BUILD_ROOT%{myappconflocaldir}
 
 # remove default webapps
 rm -rf $RPM_BUILD_ROOT%{myappdir}/webapps/*
@@ -259,6 +264,7 @@ fi
 %{myappdir}/conf
 %{myappdir}/lib
 %attr(-,%{myappusername}, %{myappusername}) %{myappdir}/webapps
+%attr(0755,%{myappusername},%{myappusername}) %dir %{myappconflocaldir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}
 %attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}/repos
 %attr(0644,%{myappusername},%{myappusername}) %config(noreplace) %{myappdatadir}/conf/users.properties
@@ -270,5 +276,8 @@ fi
 %doc %{myappdir}/RELEASE-NOTES
 
 %changelog
-* Wed Mar 23 2009 henri.gomez@gmail.com 1.0.0-1
+* Fri Jan 6 2011 henri.gomez@gmail.com 1.0.0-2
+- Create conf/Catalina/localhost with user rights
+
+* Sat Dec 3 2011 henri.gomez@gmail.com 1.0.0-1
 - Initial RPM
