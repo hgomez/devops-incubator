@@ -276,7 +276,7 @@ fi
 %doc %{myappdir}/RELEASE-NOTES
 
 %changelog
-* Fri Jan 6 2011 henri.gomez@gmail.com 1.0.0-2
+* Fri Jan 6 2012 henri.gomez@gmail.com 1.0.0-2
 - Create conf/Catalina/localhost with user rights
 
 * Sat Dec 3 2011 henri.gomez@gmail.com 1.0.0-1
