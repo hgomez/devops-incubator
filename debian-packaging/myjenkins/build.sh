@@ -71,6 +71,8 @@ mv TMP/apache-tomcat-${TOMCAT_VERSION}/* BUILD/$APP_DIR
 cp SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar BUILD/$APP_DIR/lib
 
 
+
+
 # Prepare init.d script
 cp  SOURCES/myjenkins.initd BUILD/debian/$APP_NAME.init
 sed -i "s|@@SKEL_APP@@|$APP_NAME|g" BUILD/debian/$APP_NAME.init
@@ -91,22 +93,29 @@ sed -i "s|@@SKEL_LOGDIR@@|$APP_LOGDIR|g" BUILD/etc/opt/myjenkins
 sed -i "s|@@SKEL_USER@@|$APP_USER|g" BUILD/etc/opt/myjenkins
 sed -i "s|@@SKEL_CONFDIR@@|$APP_CONFDIR|g" BUILD/etc/opt/myjenkins
 
-# remove uneeded file in RPM
-rm -f BUILD/$APPS_DIR/$APP_NAME/*.sh
-rm -f BUILD/$APPS_DIR/$APP_NAME/*.bat
-rm -f BUILD/$APPS_DIR/$APP_NAME/*.bat
-rm -rf BUILD/$APPS_DIR/$APP_NAME/logs
-rm -rf BUILD/$APPS_DIR/$APP_NAME/temp
-rm -rf BUILD/$APPS_DIR/$APP_NAME/work
+# remove unneeded file in Debian
+rm -f BUILD/$APP_DIR/*.sh
+rm -f BUILD/$APP_DIR/*.bat
+rm -f BUILD/$APP_DIR/bin/*.bat
+rm -rf BUILD/$APP_DIR/logs
+rm -rf BUILD/$APP_DIR/temp
+rm -rf BUILD/$APP_DIR/work
 
-chmod 755 BUILD/$APPS_DIR/$APP_NAME/bin/*.sh
+# Copy setenv.sh
+cp  SOURCES/setenv.sh BUILD/$APP_DIR/bin/
+sed -i 's|@@SKEL_APP@@|$APP_NAME|g' BUILD/$APP_DIR/bin/
+
+chmod 755 BUILD/$APP_DIR/bin/*.sh
 
 # Copy .skel
 cp  SOURCES/*.skel BUILD/$APP_DIR/conf/
 
 
-cp  SOURCES/setenv.sh BUILD/$APP_DIR/bin/
-sed -i 's|@@SKEL_APP@@|$APP_NAME|g' BUILD/$APP_DIR/bin/
+#Install Jenkins.war
+
+# remove default webapps
+rm -rf BUILD/$APP_DIR/webapps/*
+#cp  SOURCES/jenkins-${JENKINS_VERSION}.war BUILD/$APP_DIR/webapps/ROOT.war
 
 
 
