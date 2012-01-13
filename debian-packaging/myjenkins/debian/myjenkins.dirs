@@ -1,0 +1,5 @@
+/var/lib/myjenkins
+
+/var/run/myjenkins
+
+/var/log/myjenkins

@@ -1,0 +1,12 @@
+Source: myjenkins
+Section: devel
+Priority: optional
+Maintainer: Gildas Cuisinier
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.7.2
+Version: 1.0.0
+
+Package: myjenkins
+Architecture: all
+Depends: adduser, java6-sdk
+Description: Jenkins  powered by Apache Tomcat 
