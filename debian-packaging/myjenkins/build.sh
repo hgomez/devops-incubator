@@ -103,7 +103,7 @@ rm -rf BUILD/$APP_DIR/work
 
 # Copy setenv.sh
 cp  SOURCES/setenv.sh BUILD/$APP_DIR/bin/
-sed -i 's|@@SKEL_APP@@|$APP_NAME|g' BUILD/$APP_DIR/bin/
+sed -i "s|@@SKEL_APP@@|$APP_NAME|g" BUILD/$APP_DIR/bin/setenv.sh
 
 chmod 755 BUILD/$APP_DIR/bin/*.sh
 
@@ -115,7 +115,7 @@ cp  SOURCES/*.skel BUILD/$APP_DIR/conf/
 
 # remove default webapps
 rm -rf BUILD/$APP_DIR/webapps/*
-#cp  SOURCES/jenkins-${JENKINS_VERSION}.war BUILD/$APP_DIR/webapps/ROOT.war
+cp  SOURCES/jenkins-${JENKINS_VERSION}.war BUILD/$APP_DIR/webapps/ROOT.war
 
 
 

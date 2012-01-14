@@ -8,5 +8,5 @@ Version: 1.0.0
 
 Package: myjenkins
 Architecture: all
-Depends: adduser, java6-sdk
+Depends: daemon, adduser, java6-sdk
 Description: Jenkins  powered by Apache Tomcat 

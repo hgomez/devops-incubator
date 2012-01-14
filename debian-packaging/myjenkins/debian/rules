@@ -64,6 +64,7 @@ binary-arch: build install
 #	dh_python
 	dh_installinit
 	dh_installdirs
+	dh_link
 #	dh_installcron
 #	dh_installinfo
 	dh_installman

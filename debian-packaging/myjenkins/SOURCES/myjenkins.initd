@@ -33,7 +33,7 @@ config=/etc/opt/@@SKEL_APP@@
 start() {
     echo -n $"Starting $prog: "
     touch $CATALINA_PID
-    chown $user:$user $CATALINA_PID
+    chown $user:adm $CATALINA_PID
 
     ALL_VARS=$(compgen -A variable | grep APP_)
 
