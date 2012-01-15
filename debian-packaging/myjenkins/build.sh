@@ -123,7 +123,7 @@ rm -f $BUILD_DIR/$APP_DIR/*.sh
 rm -f $BUILD_DIR/$APP_DIR/*.bat
 rm -f $BUILD_DIR/$APP_DIR/bin/*.bat
 rm -rf $BUILD_DIR/$APP_DIR/logs
-rm -rf $BUILD_DIR/$APP_DIR/temp
+#rm -rf $BUILD_DIR/$APP_DIR/temp
 rm -rf $BUILD_DIR/$APP_DIR/work
 
 # Copy setenv.sh

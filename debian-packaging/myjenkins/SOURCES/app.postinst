@@ -29,14 +29,20 @@ case "$1" in
                 myjenkins
         fi
       
-        chown @@SKEL_USER@@:adm /var/lib/myjenkins /var/log/@@SKEL_APP@@
-        chmod 750           /var/lib/myjenkins /var/log/@@SKEL_APP@@
+        chown @@SKEL_USER@@:adm /var/lib/@@SKEL_APP@@ /var/log/@@SKEL_APP@@
+        chmod 750           /var/lib/@@SKEL_APP@@ /var/log/@@SKEL_APP@@
 
 		chown -R @@SKEL_USER@@:adm /opt/@@SKEL_APP@@
 
         chown -R @@SKEL_USER@@:adm /var/run/@@SKEL_APP@@
         chmod -R 750           /var/run/@@SKEL_APP@@
 
+		chown -R @@SKEL_USER@@:adm /var/@@SKEL_APP@@
+	    chmod -R 750           /var/@@SKEL_APP@@
+
+		ln -s /opt/@@SKEL_APP@@/logs /var/log/@@SKEL_APP@@ 
+		ln -s /opt/@@SKEL_APP@@/work /var/@@SKEL_APP@@ 
+		
        
     ;;
 
