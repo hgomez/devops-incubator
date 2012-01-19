@@ -40,8 +40,23 @@ case "$1" in
 		chown -R @@SKEL_USER@@:adm /var/@@SKEL_APP@@
 	    chmod -R 750           /var/@@SKEL_APP@@
 
-		ln -s /opt/@@SKEL_APP@@/logs /var/log/@@SKEL_APP@@ 
-		ln -s /opt/@@SKEL_APP@@/work /var/@@SKEL_APP@@ 
+		if [ ! -e /opt/@@SKEL_APP@@/logs ]; then
+			ln -s /var/log/@@SKEL_APP@@ /opt/@@SKEL_APP@@/logs
+			chown @@SKEL_USER@@:adm /opt/@@SKEL_APP@@/logs
+		fi
+		
+		if [ ! -e /opt/@@SKEL_APP@@/work ]; then
+			ln -s /var/@@SKEL_APP@@ /opt/@@SKEL_APP@@/work
+			chown @@SKEL_USER@@:adm /opt/@@SKEL_APP@@/temp
+				
+		fi
+		
+		if [ ! -e /opt/@@SKEL_APP@@/temp ]; then
+			ln -s @@APP_TMPDIR@@ /opt/@@SKEL_APP@@/temp
+			chown @@SKEL_USER@@:adm /opt/@@SKEL_APP@@/temp
+		fi
+		
+	
 		
        
     ;;

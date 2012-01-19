@@ -6,6 +6,10 @@ if [ -r "/etc/opt/@@SKEL_APP@@" ]; then
     . /etc/opt/@@SKEL_APP@@
 fi
 
+if [ -d "@@APP_TMPDIR@@" ]; then
+    mkdir @@APP_TMPDIR@@
+fi
+
 if [ ! -z "$APP_JAVA_HOME" ]; then
   JAVA_HOME=$APP_JAVA_HOME
 fi

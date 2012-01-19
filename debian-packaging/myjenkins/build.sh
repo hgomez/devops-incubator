@@ -8,6 +8,8 @@ TOMCAT_VERSION=7.0.23
 # Build variables
 BUILD_DIR=/tmp/BUILD
 
+APTDEP_DIR=/vagrant/aptdepo
+
 
 # Application variables
 
@@ -86,6 +88,8 @@ for DEBIANFILE in `ls SOURCES/app.*`; do
   sed -i "s|@@SKEL_VERSION@@|version $APP_VERSION release $APP_RELEASE|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@SKEL_EXEC@@|$APP_EXEC|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@SKEL_LOGDIR@@|$APP_LOGDIR|g" $BUILD_DIR/debian/$debiandestfile
+  sed -i "s|@@APP_TMPDIR@@|$APP_TMPDIR|g" $BUILD_DIR/debian/$debiandestfile
+
 
 done
 
@@ -123,12 +127,14 @@ rm -f $BUILD_DIR/$APP_DIR/*.sh
 rm -f $BUILD_DIR/$APP_DIR/*.bat
 rm -f $BUILD_DIR/$APP_DIR/bin/*.bat
 rm -rf $BUILD_DIR/$APP_DIR/logs
-#rm -rf $BUILD_DIR/$APP_DIR/temp
+rm -rf $BUILD_DIR/$APP_DIR/temp
 rm -rf $BUILD_DIR/$APP_DIR/work
 
 # Copy setenv.sh
 cp  SOURCES/setenv.sh $BUILD_DIR/$APP_DIR/bin/
 sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/$APP_DIR/bin/setenv.sh
+sed -i "s|@@APP_TMPDIR@@|$APP_TMPDIR|g" $BUILD_DIR/$APP_DIR/bin/setenv.sh
+
 
 chmod 755 $BUILD_DIR/$APP_DIR/bin/*.sh
 
@@ -151,4 +157,8 @@ popd
 
 cp $BUILD_DIR/../$APP_NAME*.deb .
 
+# Copy the .deb into the APT local depot if exist
+if [ -n "$APTDEP_DIR" ]; then
+cp $BUILD_DIR/../$APP_NAME*.deb $APTDEP_DIR/binary
+fi
 
