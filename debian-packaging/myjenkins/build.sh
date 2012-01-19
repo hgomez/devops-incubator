@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-JENKINS_VERSION=1.447
+APP_VERSION=1.447
 TOMCAT_VERSION=7.0.23
 
 
@@ -26,11 +26,11 @@ APP_CONFLOCALDIR=$APP_DIR/conf/Catalina/localhost
 APP_WEBAPPDIR=$APP_DIR/webapps
 APP_TMPDIR=/tmp/$APP_NAME
 APP_WORKDIR=/var/$APP_NAME
-APP_VERSION=1.0.0
+#APP_VERSION=1.0.0
 APP_RELEASE=1
 
 if [ $# -gt 1 ]; then
-  JENKINS_VERSION=$1
+  APP_VERSION=$1
   shift
 fi
 
@@ -39,7 +39,7 @@ if [ $# -gt 1 ]; then
   shift
 fi
 
-JENKINS_URL=http://mirrors.jenkins-ci.org/war/${JENKINS_VERSION}/jenkins.war
+JENKINS_URL=http://mirrors.jenkins-ci.org/war/${APP_VERSION}/jenkins.war
 TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
@@ -49,9 +49,9 @@ if [ ! -d SOURCES ]; then
 fi
 
 
-if [ ! -f SOURCES/downloaded/jenkins-${JENKINS_VERSION}.war ]; then
-  echo "downloading jenkins-${JENKINS_VERSION}.war from $JENKINS_URL"
-  curl -s -L $JENKINS_URL -o SOURCES/downloaded/jenkins-${JENKINS_VERSION}.war
+if [ ! -f SOURCES/downloaded/jenkins-${APP_VERSION}.war ]; then
+  echo "downloading jenkins-${APP_VERSION}.war from $JENKINS_URL"
+  curl -s -L $JENKINS_URL -o SOURCES/downloaded/jenkins-${APP_VERSION}.war
 fi
 
 if [ ! -f SOURCES/downloaded/apache-tomcat-${TOMCAT_VERSION}.tar.gz ]; then
@@ -65,7 +65,7 @@ if [ ! -f SOURCES/downloaded/catalina-jmx-remote-${TOMCAT_VERSION}.jar ]; then
 
 fi
 
-echo "Version to package is $JENKINS_VERSION, powered by Apache Tomcat $TOMCAT_VERSION"
+echo "Version to package is $APP_VERSION, powered by Apache Tomcat $TOMCAT_VERSION"
 
 set -x
 
@@ -85,13 +85,23 @@ for DEBIANFILE in `ls SOURCES/app.*`; do
   cp $DEBIANFILE $BUILD_DIR/debian/$debiandestfile;
   sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@SKEL_USER@@|$APP_USER|g" $BUILD_DIR/debian/$debiandestfile
-  sed -i "s|@@SKEL_VERSION@@|version $APP_VERSION release $APP_RELEASE|g" $BUILD_DIR/debian/$debiandestfile
+  sed -i "s|@@SKEL_VERSION@@|version $APP_VERSION release $APP_RELEASE powered by Apache Tomcat $TOMCAT_VERSION|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@SKEL_EXEC@@|$APP_EXEC|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@SKEL_LOGDIR@@|$APP_LOGDIR|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@APP_TMPDIR@@|$APP_TMPDIR|g" $BUILD_DIR/debian/$debiandestfile
 
 
 done
+
+
+cp SOURCES/control $BUILD_DIR/debian
+
+sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/debian/control
+sed -i "s|@@SKEL_APPVERSION@@|$APP_VERSION|g" $BUILD_DIR/debian/control
+sed -i "s|@@SKEL_TOMCATVERSION@@|$TOMCAT_VERSION|g" $BUILD_DIR/debian/control
+
+
+set
 
 
 
@@ -152,7 +162,7 @@ cp  SOURCES/*.skel $BUILD_DIR/$APP_DIR/conf/
 
 #Install Jenkins.war
 rm -rf $BUILD_DIR/$APP_DIR/webapps/*
-cp  SOURCES/downloaded/jenkins-${JENKINS_VERSION}.war $BUILD_DIR/$APP_DIR/webapps/ROOT.war
+cp  SOURCES/downloaded/jenkins-${APP_VERSION}.war $BUILD_DIR/$APP_DIR/webapps/ROOT.war
 
 
 
