@@ -108,9 +108,6 @@ cp SOURCES/downloaded/catalina-jmx-remote-${TOMCAT_VERSION}.jar $BUILD_DIR/$APP_
 mkdir -p $BUILD_DIR/etc/opt/
 
 cp SOURCES/myapp.config $BUILD_DIR/etc/opt/$APP_NAME
-
-
-
 sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/etc/opt/$APP_NAME
 sed -i "s|@@SKEL_APPDIR@@|$APP_DIR|g" $BUILD_DIR/etc/opt/$APP_NAME
 sed -i "s|@@SKEL_DATADIR@@|$APP_DATADIR|g" $BUILD_DIR/etc/opt/$APP_NAME
@@ -121,6 +118,17 @@ RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
 sed -i "s|@@SKEL_RO_PWD@@|$RANDOMVAL|g" $BUILD_DIR/etc/opt/$APP_NAME
 RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
 sed -i "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" $BUILD_DIR/etc/opt/$APP_NAME
+
+
+# Prepare limits.d
+mkdir -p $BUILD_DIR/etc/security/limits.d/
+cp SOURCES/myapp.limits.conf $BUILD_DIR/etc/security/limits.d/$APP_NAME.conf
+
+sed -i "s|@@APP_USER@@|$APP_USER|g" $BUILD_DIR/etc/security/limits.d/$APP_NAME.conf
+
+
+
+
 
 # remove unneeded file in Debian
 rm -f $BUILD_DIR/$APP_DIR/*.sh
