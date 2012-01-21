@@ -1,5 +1,6 @@
 #!/bin/bash
 
+pushd `dirname $0`
 
 APP_VERSION=1.0.0
 TOMCAT_VERSION=7.0.23
@@ -62,7 +63,6 @@ fi
 
 echo "Version to package is $APP_VERSION, powered by Apache Tomcat $TOMCAT_VERSION"
 
-set -x
 
 # prepare fresh directories
 rm -rf $BUILD_DIR TMP
@@ -76,7 +76,6 @@ cp -R debian $BUILD_DIR/
 
 for DEBIANFILE in `ls SOURCES/app.*`; do
   debiandestfile=$APP_NAME${DEBIANFILE#SOURCES/app} 
-  echo $debiandestfile
   cp $DEBIANFILE $BUILD_DIR/debian/$debiandestfile;
   sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@SKEL_USER@@|$APP_USER|g" $BUILD_DIR/debian/$debiandestfile
@@ -100,7 +99,7 @@ cp SOURCES/changelog $BUILD_DIR/debian
 sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/debian/changelog
 sed -i "s|@@SKEL_APPVERSION@@|$APP_VERSION|g" $BUILD_DIR/debian/changelog
 
-set
+
 
 
 
@@ -178,4 +177,6 @@ cp $BUILD_DIR/../$APP_NAME*.deb .
 if [ -n "$APTDEP_DIR" ]; then
 cp $BUILD_DIR/../$APP_NAME*.deb $APTDEP_DIR/binary
 fi
+
+popd
 

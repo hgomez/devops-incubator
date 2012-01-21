@@ -42,8 +42,9 @@ case "$1" in
 	
 		if [ ! -d @@APP_TMPDIR@@ ]; then
 			mkdir @@APP_TMPDIR@@
+			chown -R @@SKEL_USER@@:adm @@APP_TMPDIR@@
 			chmod -R 750            @@APP_TMPDIR@@
-    	fi
+	    fi
 		
 
 		if [ ! -e /opt/@@SKEL_APP@@/logs ]; then
