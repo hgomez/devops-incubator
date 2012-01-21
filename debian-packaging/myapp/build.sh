@@ -2,8 +2,7 @@
 
 pushd `dirname $0`
 
-
-APP_VERSION=1.447
+APP_VERSION=1.0.0
 TOMCAT_VERSION=7.0.23
 
 
@@ -15,7 +14,7 @@ APTDEP_DIR=/vagrant/aptdepo
 
 # Application variables
 
-APP_NAME=myjenkins
+APP_NAME=myapp
 APP_DIR=/opt/$APP_NAME
 APP_EXEC=$APP_DIR/bin/catalina.sh
 APP_USER=$APP_NAME
@@ -41,7 +40,6 @@ if [ $# -gt 1 ]; then
   shift
 fi
 
-JENKINS_URL=http://mirrors.jenkins-ci.org/war/${APP_VERSION}/jenkins.war
 TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
@@ -51,10 +49,6 @@ if [ ! -d SOURCES ]; then
 fi
 
 
-if [ ! -f SOURCES/downloaded/$APP_NAME-${APP_VERSION}.war ]; then
-  echo "downloading jenkins-${APP_VERSION}.war from $JENKINS_URL"
-  curl -s -L $JENKINS_URL -o SOURCES/downloaded/$APP_NAME-${APP_VERSION}.war
-fi
 
 if [ ! -f SOURCES/downloaded/apache-tomcat-${TOMCAT_VERSION}.tar.gz ]; then
   echo "downloading apache-tomcat-${TOMCAT_VERSION}.tar.gz from $TOMCAT_URL"
@@ -104,8 +98,6 @@ cp SOURCES/changelog $BUILD_DIR/debian
 
 sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/debian/changelog
 sed -i "s|@@SKEL_APPVERSION@@|$APP_VERSION|g" $BUILD_DIR/debian/changelog
-
-
 
 
 
@@ -168,7 +160,7 @@ cp  SOURCES/*.skel $BUILD_DIR/$APP_DIR/conf/
 
 #Install Jenkins.war
 rm -rf $BUILD_DIR/$APP_DIR/webapps/*
-cp  SOURCES/downloaded/$APP_NAME-${APP_VERSION}.war $BUILD_DIR/$APP_DIR/webapps/ROOT.war
+cp  SOURCES/myapp.war $BUILD_DIR/$APP_DIR/webapps/ROOT.war
 
 
 
@@ -187,3 +179,4 @@ cp $BUILD_DIR/../$APP_NAME*.deb $APTDEP_DIR/binary
 fi
 
 popd
+

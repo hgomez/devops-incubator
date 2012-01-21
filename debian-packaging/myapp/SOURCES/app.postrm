@@ -22,9 +22,10 @@ set -e
 
 case "$1" in
     purge)
-	userdel myjenkins || true
-	groupdel myjenkins || true
-    #rm -rf /var/log/my
+	userdel @@SKEL_USER@@ || true
+	
+
+	
     ;;
     
     remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)

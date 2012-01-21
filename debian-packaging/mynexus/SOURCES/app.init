@@ -1,0 +1,109 @@
+#!/bin/bash
+#
+#
+### BEGIN INIT INFO
+# Provides:          @@SKEL_APP@@
+# Required-Start:    $local_fs $remote_fs $network $time $named
+# Required-Stop:     $local_fs $remote_fs $network $time $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: eXo Platform
+# Description:       Start eXo Platform
+### END INIT INFO
+
+# Source function library.
+if [ -r /etc/init.d/functions ]; then
+    . /etc/init.d/functions
+fi
+
+# Read config file
+if [ -r "/etc/opt/@@SKEL_APP@@" ]; then
+    . /etc/opt/@@SKEL_APP@@
+fi
+
+export CATALINA_OPTS CATALINA_OUT CATALINA_PID
+
+RETVAL=0
+prog="@@SKEL_APP@@"
+user="@@SKEL_USER@@"
+exec="@@SKEL_EXEC@@"
+lockfile=/var/lock/@@SKEL_APP@@
+config=/etc/opt/@@SKEL_APP@@
+
+start() {
+    echo -n $"Starting $prog: "
+    touch $CATALINA_PID
+    chown $user:adm $CATALINA_PID
+
+    ALL_VARS=$(compgen -A variable | grep APP_)
+
+    for RES_KEY in $ALL_VARS; do
+      eval RES_VAL=\$${RES_KEY}
+      XREPLACE="$XREPLACE | sed 's|@${RES_KEY}@|$RES_VAL|g'"
+    done
+
+    for XFILE in $CATALINA_HOME/conf/server.xml.skel $CATALINA_HOME/conf/jmxremote.access.skel $CATALINA_HOME/conf/jmxremote.password.skel; do
+      DXFILE=${XFILE%.skel}
+      eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
+    done
+
+    # start_daemon on Suse, daemon on RH
+    if [ -x /sbin/start_daemon ]; then
+      start_daemon -u $user $exec start
+    else
+      daemon --user=$user $exec start
+    fi
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    RETVAL=0
+    if [ -s $CATALINA_PID ]; then
+      $exec stop $SHUTDOWN_WAIT -force
+      RETVAL=$?
+    fi
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+}
+
+status() {
+    $exec status
+}
+
+restart() {
+    # start_daemon on Suse, daemon on RH
+    if [ -x /sbin/start_daemon ]; then
+      start_daemon -u $user $exec restart
+    else
+      daemon --user=$user $exec restart
+    fi
+}
+
+# See how we were called.
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+        status
+        RETVAL=$?
+        ;;
+  restart|force-reload|reload)
+        stop
+        start
+        ;;
+    version)
+        echo "${prog} @@SKEL_VERSION@@"
+        ;;
+  *)
+        echo $"Usage: $prog {start|stop|restart|force-reload|reload|status|version}"
+        RETVAL=2
+esac
+
+exit $RETVAL
