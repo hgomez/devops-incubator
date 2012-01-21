@@ -1,7 +1,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.23
+%define tomcat_rel        7.0.25
 %endif
 
 %if %{?MYAPP_REL:1}
@@ -11,9 +11,8 @@
 %endif
 
 Name: myapp
-#Version: 1.0.0
 Version: %{myapp_rel}
-Release: 2
+Release: 3
 Summary: MyApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/

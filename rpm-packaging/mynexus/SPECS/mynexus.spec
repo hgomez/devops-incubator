@@ -1,7 +1,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.23
+%define tomcat_rel        7.0.25
 %endif
 
 %if %{?NEXUS_REL:1}
@@ -11,9 +11,8 @@
 %endif
 
 Name: mynexus
-Version: 1.0.0
-#Version: %{nexus_rel}
-Release: 2
+Version: %{nexus_rel}
+Release: 3
 Summary: Nexus %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/

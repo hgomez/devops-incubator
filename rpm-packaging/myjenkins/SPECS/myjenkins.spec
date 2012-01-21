@@ -1,19 +1,19 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.23
+%define tomcat_rel        7.0.25
 %endif
 
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.447
+%define jenkins_rel    1.448
 %endif
 
 Name: myjenkins
-Version: 1.0.0
+Version: %{jenkins_rel}
 #Version: %{jenkins_rel}
-Release: 2
+Release: 3
 Summary: Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/

@@ -3,8 +3,8 @@
 pushd `dirname $0`
 
 
-APP_VERSION=1.447
-TOMCAT_VERSION=7.0.23
+APP_VERSION=1.448
+TOMCAT_VERSION=7.0.25
 
 
 # Build variables
@@ -77,11 +77,11 @@ mkdir -p $BUILD_DIR TMP
 #prepare directory
 mkdir -p $BUILD_DIR/$APP_DIR
 
-# copy debian files to build 
+# copy debian files to build
 cp -R debian $BUILD_DIR/
 
 for DEBIANFILE in `ls SOURCES/app.*`; do
-  debiandestfile=$APP_NAME${DEBIANFILE#SOURCES/app} 
+  debiandestfile=$APP_NAME${DEBIANFILE#SOURCES/app}
   cp $DEBIANFILE $BUILD_DIR/debian/$debiandestfile;
   sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@SKEL_USER@@|$APP_USER|g" $BUILD_DIR/debian/$debiandestfile
