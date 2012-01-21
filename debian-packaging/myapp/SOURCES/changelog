@@ -1,4 +1,4 @@
-myjenkins (1.0.0) UNRELEASED; urgency=low
+@@SKEL_APP@@ (1.0.0) UNRELEASED; urgency=low
 
   * Initial release. (Closes: #XXXXXX)
 
