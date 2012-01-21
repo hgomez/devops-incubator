@@ -21,3 +21,4 @@ RPM packages release number are revision, used when something is updated in RPM 
 ##DEB packages
 
 * myjenkins - Jenkins-CI powered by Apache Tomcat 7.x
+* mynexus - Nexus OSS powered by Apache Tomcat 7.x
