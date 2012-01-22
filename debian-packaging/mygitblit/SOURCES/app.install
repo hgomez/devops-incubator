@@ -1,0 +1,4 @@
+/opt/* /opt/
+/etc/opt/@@SKEL_APP@@ /etc/opt
+/etc/security/limits.d/* /etc/security/limits.d/
+/var/lib/@@SKEL_APP@@/conf/* /var/lib/@@SKEL_APP@@/conf/
