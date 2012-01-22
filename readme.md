@@ -15,6 +15,10 @@ Native Packaging sample for DevOps easy operations
 
 Note these RPM packages are OpenSuse/SLES 11.4-12.1 ready.
 
+RPM packages version number follow application version number.
+RPM packages release number are revision, used when something is updated in RPM like Apache Tomcat or in packaging.
+
 ##DEB packages
 
 * myjenkins - Jenkins-CI powered by Apache Tomcat 7.x
+* mynexus - Nexus OSS powered by Apache Tomcat 7.x
