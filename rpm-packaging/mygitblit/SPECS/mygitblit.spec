@@ -7,7 +7,7 @@
 %if %{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
-%define gitblit_rel    0.7.0
+%define gitblit_rel    0.8.2
 %endif
 
 Name: mygitblit
@@ -67,7 +67,9 @@ Source9: myapp-limits.conf
 Source10: myapp-systemd
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: myapp-context.xml
-Source13: myapp-users.properties
+#Source13: myapp-users.properties
+Source13: myapp-users.conf
+
 
 %description
 GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
@@ -158,7 +160,7 @@ cp %{SOURCE12} $RPM_BUILD_ROOT%{myappconfdir}/context.xml
 sed -i 's|@@SKEL_DATADIR@@|%{myappdatadir}|g' $RPM_BUILD_ROOT%{myappconfdir}/context.xml
 
 # Install users.properties
-cp %{SOURCE13} $RPM_BUILD_ROOT%{myappdatadir}/conf/users.properties
+cp %{SOURCE13} $RPM_BUILD_ROOT%{myappdatadir}/conf/users.conf
 
 # remove uneeded file in RPM
 rm -f $RPM_BUILD_ROOT%{myappdir}/*.sh
