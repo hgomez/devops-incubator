@@ -35,7 +35,7 @@
 	<Parameter name="git.repositoriesFolder" value="@@SKEL_DATADIR@@/repos"
 	         override="false"/>
 
-	<Parameter name="realm.userService" value="@@SKEL_DATADIR@@/conf/users.properties"
+	<Parameter name="realm.userService" value="@@SKEL_DATADIR@@/conf/users.conf"
 	         override="false"/>
 
 </Context>
