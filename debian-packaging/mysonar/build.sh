@@ -119,17 +119,34 @@ cp SOURCES/downloaded/catalina-jmx-remote-${TOMCAT_VERSION}.jar $BUILD_DIR/$APP_
 
 #prepare sonar
 
+unzip -q SOURCES/downloaded/$APP_NAME-${APP_VERSION} -d TMP
+
+
 
 if [ ! -f SOURCES/downloaded/$APP_NAME-${APP_VERSION}.war ]; then
-	unzip SOURCES/downloaded/$APP_NAME-${APP_VERSION} -d TMP
 	pushd TMP/sonar-$APP_VERSION/war
 	./build-war.sh
 
 	cp sonar.war ../../../SOURCES/downloaded/$APP_NAME-${APP_VERSION}.war
-
+	
 	popd 
   
 fi
+
+# data dir (if derby usage)
+mkdir -p $BUILD_DIR/$APP_DATADIR/data
+mkdir -p $BUILD_DIR/$APP_DATADIR/conf
+
+
+# copy logback.xml in SONAR_HOME/conf
+cp TMP/sonar-$APP_VERSION/conf/logback.xml $BUILD_DIR/$APP_DATADIR/conf
+# copy sonar.properties also in SONAR_HOME/conf
+cp SOURCES/sonar.properties $BUILD_DIR/$APP_DATADIR/conf
+# copy required stuff in SONAR_HOME
+cp -r TMP/sonar-$APP_VERSION/extras $BUILD_DIR/$APP_DATADIR/conf
+cp -r TMP/sonar-$APP_VERSION/extensions $BUILD_DIR/$APP_DATADIR/conf
+find $BUILD_DIR/$APP_DATADIR/conf/extensions -type f -name "*.jar" -exec chmod 644 \{\} \;
+cp -r TMP/sonar-$APP_VERSION/lib $BUILD_DIR/$APP_DATADIR/conf
 
 
 

@@ -7,8 +7,8 @@
 # Required-Stop:     $local_fs $remote_fs $network $time $named
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: eXo Platform
-# Description:       Start eXo Platform
+# Short-Description: Sonar powered by Apache Tomcat
+# Description:       SONAR is an open source quality management platform, dedicated to continuously analyze and measure source code quality, from the portfolio to the method.
 ### END INIT INFO
 
 # Source function library.
