@@ -7,8 +7,8 @@
 # Required-Stop:     $local_fs $remote_fs $network $time $named
 # Default-Start:     3 5
 # Default-Stop:      0 1 2 6
-# Short-Description: eXo Platform
-# Description:       Start eXo Platform
+# Short-Description: GitBlit powered by Apache Tomcat
+# Description:       Gitblit is an open-source, pure Java stack for managing, viewing, and serving Git repositories. It's designed primarily as a tool for small workgroups who want to host centralized repositories
 ### END INIT INFO
 
 # Source function library.
