@@ -116,19 +116,19 @@ cp %{SOURCE1}  $RPM_BUILD_ROOT%{gitblitwebappdir}/ROOT.war
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{gitblit}
-sed -i 's|@@SKEL_APP@@|%{gitblit}|g' $RPM_BUILD_ROOT%{_initrddir}/%{gitblit}
-sed -i 's|@@SKEL_USER@@|%{gitblitusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{gitblit}
-sed -i 's|@@SKEL_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{gitblit}
-sed -i 's|@@SKEL_EXEC@@|%{gitblitexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{gitblit}
+sed -i 's|@@GITBLIT_APP@@|%{gitblit}|g' $RPM_BUILD_ROOT%{_initrddir}/%{gitblit}
+sed -i 's|@@GITBLIT_USER@@|%{gitblitusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{gitblit}
+sed -i 's|@@GITBLIT_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{gitblit}
+sed -i 's|@@GITBLIT_EXEC@@|%{gitblitexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{gitblit}
 
 # sysconfig
 cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
-sed -i 's|@@SKEL_APP@@|%{gitblit}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
-sed -i 's|@@SKEL_APPDIR@@|%{gitblitdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
-sed -i 's|@@SKEL_DATADIR@@|%{gitblitdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
-sed -i 's|@@SKEL_LOGDIR@@|%{gitblitlogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
-sed -i 's|@@SKEL_USER@@|%{gitblitusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
-sed -i 's|@@SKEL_CONFDIR@@|%{gitblitconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
+sed -i 's|@@GITBLIT_APP@@|%{gitblit}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
+sed -i 's|@@GITBLIT_APPDIR@@|%{gitblitdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
+sed -i 's|@@GITBLIT_DATADIR@@|%{gitblitdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
+sed -i 's|@@GITBLIT_LOGDIR@@|%{gitblitlogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
+sed -i 's|@@GITBLIT_USER@@|%{gitblitusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
+sed -i 's|@@GITBLIT_CONFDIR@@|%{gitblitconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{gitblit}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} $RPM_BUILD_ROOT%{gitblitdir}/lib
@@ -137,27 +137,27 @@ cp %{SOURCE5}  $RPM_BUILD_ROOT%{gitblitconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} $RPM_BUILD_ROOT%{gitblitdir}/bin/setenv.sh
-sed -i 's|@@SKEL_APP@@|%{gitblit}|g' $RPM_BUILD_ROOT%{gitblitdir}/bin/setenv.sh
+sed -i 's|@@GITBLIT_APP@@|%{gitblit}|g' $RPM_BUILD_ROOT%{gitblitdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{gitblit}
-sed -i 's|@@SKEL_LOGDIR@@|%{gitblitlogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{gitblit}
+sed -i 's|@@GITBLIT_LOGDIR@@|%{gitblitlogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{gitblit}
 
 # Install server.xml.skel
 cp %{SOURCE8} $RPM_BUILD_ROOT%{gitblitconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{gitblit}.conf
-sed -i 's|@@SKEL_USER@@|%{gitblitusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{gitblit}.conf
+sed -i 's|@@GITBLIT_USER@@|%{gitblitusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{gitblit}.conf
 
 # Setup Systemd
 cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{gitblit}.service
-sed -i 's|@@SKEL_APP@@|%{gitblit}|g' $RPM_BUILD_ROOT%{_systemdir}/%{gitblit}.service
-sed -i 's|@@SKEL_EXEC@@|%{gitblitexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{gitblit}.service
+sed -i 's|@@GITBLIT_APP@@|%{gitblit}|g' $RPM_BUILD_ROOT%{_systemdir}/%{gitblit}.service
+sed -i 's|@@GITBLIT_EXEC@@|%{gitblitexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{gitblit}.service
 
 # Install context.xml (override previous one)
 cp %{SOURCE12} $RPM_BUILD_ROOT%{gitblitconfdir}/context.xml
-sed -i 's|@@SKEL_DATADIR@@|%{gitblitdatadir}|g' $RPM_BUILD_ROOT%{gitblitconfdir}/context.xml
+sed -i 's|@@GITBLIT_DATADIR@@|%{gitblitdatadir}|g' $RPM_BUILD_ROOT%{gitblitconfdir}/context.xml
 
 # Install users.properties
 cp %{SOURCE13} $RPM_BUILD_ROOT%{gitblitdatadir}/conf/users.conf
@@ -205,9 +205,9 @@ if [ "$1" == "1" ]; then
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@SKEL_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{gitblit}
+  sed -i "s|@@GITBLIT_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{gitblit}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{gitblit}
+  sed -i "s|@@GITBLIT_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{gitblit}
 
   pushd %{gitblitdir} >/dev/null
   ln -s %{gitblitlogdir}  logs

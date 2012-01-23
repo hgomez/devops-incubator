@@ -1,15 +1,15 @@
-# Systemd unit file for @@SKEL_APP@@
-# 
+# Systemd unit file for @@GITBLIT_APP@@
+#
 [Unit]
-Description=@@SKEL_APP@@ powered by Apache Tomcat
+Description=@@GITBLIT_APP@@ powered by Apache Tomcat
 After=syslog.target network.target
 
 [Service]
 Type=forking
-PIDFile=/var/run/@@SKEL_APP@@.pid
-EnvironmentFile=/etc/sysconfig/@@SKEL_APP@@
-ExecStart=/etc/init.d/@@SKEL_APP@@ start
-ExecStop=/etc/init.d/@@SKEL_APP@@ stop
+PIDFile=/var/run/@@GITBLIT_APP@@.pid
+EnvironmentFile=/etc/sysconfig/@@GITBLIT_APP@@
+ExecStart=/etc/init.d/@@GITBLIT_APP@@ start
+ExecStop=/etc/init.d/@@GITBLIT_APP@@ stop
 
 [Install]
 WantedBy=multi-user.target
