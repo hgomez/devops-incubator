@@ -1,0 +1,15 @@
+# Systemd unit file for @@JENKINS_APP@@
+# 
+[Unit]
+Description=@@JENKINS_APP@@ powered by Apache Tomcat
+After=syslog.target network.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/@@JENKINS_APP@@.pid
+EnvironmentFile=/etc/sysconfig/@@JENKINS_APP@@
+ExecStart=/etc/init.d/@@JENKINS_APP@@ start
+ExecStop=/etc/init.d/@@JENKINS_APP@@ stop
+
+[Install]
+WantedBy=multi-user.target
