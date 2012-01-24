@@ -1,6 +1,6 @@
-/var/lib/@@SKEL_APP@@
-/var/run/@@SKEL_APP@@
-/var/log/@@SKEL_APP@@
-/var/@@SKEL_APP@@
-/var/lib/@@SKEL_APP@@/conf
+/var/lib/@@GITBLIT_APP@@
+/var/run/@@GITBLIT_APP@@
+/var/log/@@GITBLIT_APP@@
+/var/@@GITBLIT_APP@@
+/var/lib/@@GITBLIT_APP@@/conf
 

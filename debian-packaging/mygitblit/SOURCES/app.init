@@ -2,7 +2,7 @@
 #
 #
 ### BEGIN INIT INFO
-# Provides:          @@SKEL_APP@@
+# Provides:          @@GITBLIT_APP@@
 # Required-Start:    $local_fs $remote_fs $network $time $named
 # Required-Stop:     $local_fs $remote_fs $network $time $named
 # Default-Start:     2 3 4 5
@@ -17,18 +17,18 @@ if [ -r /etc/init.d/functions ]; then
 fi
 
 # Read config file
-if [ -r "/etc/opt/@@SKEL_APP@@" ]; then
-    . /etc/opt/@@SKEL_APP@@
+if [ -r "/etc/opt/@@GITBLIT_APP@@" ]; then
+    . /etc/opt/@@GITBLIT_APP@@
 fi
 
 export CATALINA_OPTS CATALINA_OUT CATALINA_PID
 
 RETVAL=0
-prog="@@SKEL_APP@@"
-user="@@SKEL_USER@@"
-exec="@@SKEL_EXEC@@"
-lockfile=/var/lock/@@SKEL_APP@@
-config=/etc/opt/@@SKEL_APP@@
+prog="@@GITBLIT_APP@@"
+user="@@GITBLIT_USER@@"
+exec="@@GITBLIT_EXEC@@"
+lockfile=/var/lock/@@GITBLIT_APP@@
+config=/etc/opt/@@GITBLIT_APP@@
 
 start() {
     echo -n $"Starting $prog: "
@@ -99,7 +99,7 @@ case "$1" in
         start
         ;;
     version)
-        echo "${prog} @@SKEL_VERSION@@"
+        echo "${prog} @@GITBLIT_VERSION@@"
         ;;
   *)
         echo $"Usage: $prog {start|stop|restart|force-reload|reload|status|version}"
