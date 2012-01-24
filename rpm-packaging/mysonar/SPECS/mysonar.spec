@@ -133,19 +133,19 @@ mkdir -p $RPM_BUILD_ROOT%{appdatadir}/data
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@SKEL_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@SKEL_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@SKEL_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@SKEL_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+sed -i 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+sed -i 's|@@SONAR_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+sed -i 's|@@SONAR_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+sed -i 's|@@SONAR_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
 
 # sysconfig
 cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SKEL_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SKEL_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SKEL_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SKEL_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SKEL_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SKEL_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@SONAR_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@SONAR_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@SONAR_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@SONAR_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@SONAR_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} $RPM_BUILD_ROOT%{appdir}/lib
@@ -154,23 +154,23 @@ cp %{SOURCE5}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
-sed -i 's|@@SKEL_APP@@|%{app}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
+sed -i 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
-sed -i 's|@@SKEL_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
+sed -i 's|@@SONAR_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
 
 # Install server.xml.skel
 cp %{SOURCE8} $RPM_BUILD_ROOT%{appconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
-sed -i 's|@@SKEL_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
+sed -i 's|@@SONAR_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
 
 # Setup Systemd
 cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-sed -i 's|@@SKEL_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-sed -i 's|@@SKEL_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
+sed -i 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
+sed -i 's|@@SONAR_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
 
 # remove uneeded file in RPM
 rm -f $RPM_BUILD_ROOT%{appdir}/*.sh
@@ -218,9 +218,9 @@ if [ "$1" == "1" ]; then
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@SKEL_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
+  sed -i "s|@@SONAR_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
+  sed -i "s|@@SONAR_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
