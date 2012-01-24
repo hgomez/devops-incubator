@@ -109,19 +109,19 @@ cp %{SOURCE1}  $RPM_BUILD_ROOT%{appwebappdir}/ROOT.war
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@SKEL_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@SKEL_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@SKEL_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@SKEL_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+sed -i 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+sed -i 's|@@NEXUS_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+sed -i 's|@@NEXUS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
 
 # sysconfig
 cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SKEL_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SKEL_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SKEL_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SKEL_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SKEL_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SKEL_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@NEXUS_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@NEXUS_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@NEXUS_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} $RPM_BUILD_ROOT%{appdir}/lib
@@ -130,23 +130,23 @@ cp %{SOURCE5}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
-sed -i 's|@@SKEL_APP@@|%{app}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
+sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
-sed -i 's|@@SKEL_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
+sed -i 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
 
 # Install server.xml.skel
 cp %{SOURCE8} $RPM_BUILD_ROOT%{appconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
-sed -i 's|@@SKEL_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
+sed -i 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
 
 # Setup Systemd
 cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-sed -i 's|@@SKEL_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-sed -i 's|@@SKEL_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
+sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
+sed -i 's|@@NEXUS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
 
 # remove uneeded file in RPM
 rm -f $RPM_BUILD_ROOT%{appdir}/*.sh
@@ -191,9 +191,9 @@ if [ "$1" == "1" ]; then
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@SKEL_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
+  sed -i "s|@@NEXUS_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
+  sed -i "s|@@NEXUS_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs

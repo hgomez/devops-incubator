@@ -1,4 +1,4 @@
-@@SKEL_LOGDIR@@/catalina.out {
+@@NEXUS_LOGDIR@@/catalina.out {
  copytruncate
  daily
  rotate 7
@@ -6,7 +6,7 @@
  missingok
 }
 
-@@SKEL_LOGDIR@@/*.*.log {
+@@NEXUS_LOGDIR@@/*.*.log {
  daily
  rotate 7
  compress
