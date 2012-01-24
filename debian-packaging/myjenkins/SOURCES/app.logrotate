@@ -1,4 +1,4 @@
-@@SKEL_LOGDIR@@/catalina.out {
+@@JENKINS_LOGDIR@@/catalina.out {
  copytruncate
  daily
  rotate 7
@@ -6,7 +6,7 @@
  missingok
 }
 
-@@SKEL_LOGDIR@@/*.*.log {
+@@JENKINS_LOGDIR@@/*.*.log {
  daily
  rotate 7
  compress

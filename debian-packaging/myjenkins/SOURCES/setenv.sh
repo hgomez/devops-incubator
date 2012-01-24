@@ -2,8 +2,8 @@
 # Read config file
 #
 
-if [ -r "/etc/opt/@@SKEL_APP@@" ]; then
-    . /etc/opt/@@SKEL_APP@@
+if [ -r "/etc/opt/@@JENKINS_APP@@" ]; then
+    . /etc/opt/@@JENKINS_APP@@
 fi
 
 if [ ! -d "@@APP_TMPDIR@@" ]; then

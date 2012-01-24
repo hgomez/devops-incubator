@@ -83,11 +83,11 @@ cp -R debian $BUILD_DIR/
 for DEBIANFILE in `ls SOURCES/app.*`; do
   debiandestfile=$APP_NAME${DEBIANFILE#SOURCES/app}
   cp $DEBIANFILE $BUILD_DIR/debian/$debiandestfile;
-  sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/debian/$debiandestfile
-  sed -i "s|@@SKEL_USER@@|$APP_USER|g" $BUILD_DIR/debian/$debiandestfile
-  sed -i "s|@@SKEL_VERSION@@|version $APP_VERSION release $APP_RELEASE powered by Apache Tomcat $TOMCAT_VERSION|g" $BUILD_DIR/debian/$debiandestfile
-  sed -i "s|@@SKEL_EXEC@@|$APP_EXEC|g" $BUILD_DIR/debian/$debiandestfile
-  sed -i "s|@@SKEL_LOGDIR@@|$APP_LOGDIR|g" $BUILD_DIR/debian/$debiandestfile
+  sed -i "s|@@JENKINS_APP@@|$APP_NAME|g" $BUILD_DIR/debian/$debiandestfile
+  sed -i "s|@@JENKINS_USER@@|$APP_USER|g" $BUILD_DIR/debian/$debiandestfile
+  sed -i "s|@@JENKINS_VERSION@@|version $APP_VERSION release $APP_RELEASE powered by Apache Tomcat $TOMCAT_VERSION|g" $BUILD_DIR/debian/$debiandestfile
+  sed -i "s|@@JENKINS_EXEC@@|$APP_EXEC|g" $BUILD_DIR/debian/$debiandestfile
+  sed -i "s|@@JENKINS_LOGDIR@@|$APP_LOGDIR|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@APP_TMPDIR@@|$APP_TMPDIR|g" $BUILD_DIR/debian/$debiandestfile
 
 
@@ -96,14 +96,14 @@ done
 
 cp SOURCES/control $BUILD_DIR/debian
 
-sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/debian/control
-sed -i "s|@@SKEL_APPVERSION@@|$APP_VERSION|g" $BUILD_DIR/debian/control
-sed -i "s|@@SKEL_TOMCATVERSION@@|$TOMCAT_VERSION|g" $BUILD_DIR/debian/control
+sed -i "s|@@JENKINS_APP@@|$APP_NAME|g" $BUILD_DIR/debian/control
+sed -i "s|@@JENKINS_APPVERSION@@|$APP_VERSION|g" $BUILD_DIR/debian/control
+sed -i "s|@@JENKINS_TOMCATVERSION@@|$TOMCAT_VERSION|g" $BUILD_DIR/debian/control
 
 cp SOURCES/changelog $BUILD_DIR/debian
 
-sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/debian/changelog
-sed -i "s|@@SKEL_APPVERSION@@|$APP_VERSION|g" $BUILD_DIR/debian/changelog
+sed -i "s|@@JENKINS_APP@@|$APP_NAME|g" $BUILD_DIR/debian/changelog
+sed -i "s|@@JENKINS_APPVERSION@@|$APP_VERSION|g" $BUILD_DIR/debian/changelog
 
 
 
@@ -123,22 +123,22 @@ cp SOURCES/downloaded/catalina-jmx-remote-${TOMCAT_VERSION}.jar $BUILD_DIR/$APP_
 
 mkdir -p $BUILD_DIR/etc/opt/
 
-cp SOURCES/myapp.config $BUILD_DIR/etc/opt/$APP_NAME
-sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/etc/opt/$APP_NAME
-sed -i "s|@@SKEL_APPDIR@@|$APP_DIR|g" $BUILD_DIR/etc/opt/$APP_NAME
-sed -i "s|@@SKEL_DATADIR@@|$APP_DATADIR|g" $BUILD_DIR/etc/opt/$APP_NAME
-sed -i "s|@@SKEL_LOGDIR@@|$APP_LOGDIR|g" $BUILD_DIR/etc/opt/$APP_NAME
-sed -i "s|@@SKEL_USER@@|$APP_USER|g" $BUILD_DIR/etc/opt/$APP_NAME
-sed -i "s|@@SKEL_CONFDIR@@|$APP_CONFDIR|g" $BUILD_DIR/etc/opt/$APP_NAME
+cp SOURCES/jenkins.config $BUILD_DIR/etc/opt/$APP_NAME
+sed -i "s|@@JENKINS_APP@@|$APP_NAME|g" $BUILD_DIR/etc/opt/$APP_NAME
+sed -i "s|@@JENKINS_APPDIR@@|$APP_DIR|g" $BUILD_DIR/etc/opt/$APP_NAME
+sed -i "s|@@JENKINS_DATADIR@@|$APP_DATADIR|g" $BUILD_DIR/etc/opt/$APP_NAME
+sed -i "s|@@JENKINS_LOGDIR@@|$APP_LOGDIR|g" $BUILD_DIR/etc/opt/$APP_NAME
+sed -i "s|@@JENKINS_USER@@|$APP_USER|g" $BUILD_DIR/etc/opt/$APP_NAME
+sed -i "s|@@JENKINS_CONFDIR@@|$APP_CONFDIR|g" $BUILD_DIR/etc/opt/$APP_NAME
 RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-sed -i "s|@@SKEL_RO_PWD@@|$RANDOMVAL|g" $BUILD_DIR/etc/opt/$APP_NAME
+sed -i "s|@@JENKINS_RO_PWD@@|$RANDOMVAL|g" $BUILD_DIR/etc/opt/$APP_NAME
 RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-sed -i "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" $BUILD_DIR/etc/opt/$APP_NAME
+sed -i "s|@@JENKINS_RW_PWD@@|$RANDOMVAL|g" $BUILD_DIR/etc/opt/$APP_NAME
 
 
 # Prepare limits.d
 mkdir -p $BUILD_DIR/etc/security/limits.d/
-cp SOURCES/myapp.limits.conf $BUILD_DIR/etc/security/limits.d/$APP_NAME.conf
+cp SOURCES/jenkins.myapp.limits.conf $BUILD_DIR/etc/security/limits.d/$APP_NAME.conf
 
 sed -i "s|@@APP_USER@@|$APP_USER|g" $BUILD_DIR/etc/security/limits.d/$APP_NAME.conf
 
@@ -156,7 +156,7 @@ rm -rf $BUILD_DIR/$APP_DIR/work
 
 # Copy setenv.sh
 cp  SOURCES/setenv.sh $BUILD_DIR/$APP_DIR/bin/
-sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/$APP_DIR/bin/setenv.sh
+sed -i "s|@@JENKINS_APP@@|$APP_NAME|g" $BUILD_DIR/$APP_DIR/bin/setenv.sh
 sed -i "s|@@APP_TMPDIR@@|$APP_TMPDIR|g" $BUILD_DIR/$APP_DIR/bin/setenv.sh
 
 
