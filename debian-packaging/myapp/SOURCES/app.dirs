@@ -1,5 +1,5 @@
-/var/lib/@@SKEL_APP@@
-/var/run/@@SKEL_APP@@
-/var/log/@@SKEL_APP@@
-/var/@@SKEL_APP@@
+/var/lib/@@MYAPP_APP@@
+/var/run/@@MYAPP_APP@@
+/var/log/@@MYAPP_APP@@
+/var/@@MYAPP_APP@@
 
