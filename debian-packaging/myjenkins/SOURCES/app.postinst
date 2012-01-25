@@ -20,52 +20,52 @@ set -e
 
 case "$1" in
     configure)
-    
-	    
-        # Create @@SKEL_USER@@ user if it doesn't exist.
-        if ! id @@SKEL_USER@@ > /dev/null 2>&1 ; then
-            adduser --system --home /opt/@@SKEL_APP@@ --no-create-home \
+
+
+        # Create @@JENKINS_USER@@ user if it doesn't exist.
+        if ! id @@JENKINS_USER@@ > /dev/null 2>&1 ; then
+            adduser --system --home /opt/@@JENKINS_APP@@ --no-create-home \
                 --ingroup nogroup --disabled-password --shell /bin/bash \
-                @@SKEL_USER@@
+                @@JENKINS_USER@@
         fi
-      
-        chown @@SKEL_USER@@:adm /var/lib/@@SKEL_APP@@ /var/log/@@SKEL_APP@@
-        chmod 750           /var/lib/@@SKEL_APP@@ /var/log/@@SKEL_APP@@
 
-		chown -R @@SKEL_USER@@:adm /opt/@@SKEL_APP@@
+        chown @@JENKINS_USER@@:adm /var/lib/@@JENKINS_APP@@ /var/log/@@JENKINS_APP@@
+        chmod 750           /var/lib/@@JENKINS_APP@@ /var/log/@@JENKINS_APP@@
 
-        chown -R @@SKEL_USER@@:adm /var/run/@@SKEL_APP@@
-        chmod -R 750           /var/run/@@SKEL_APP@@
+		chown -R @@JENKINS_USER@@:adm /opt/@@JENKINS_APP@@
 
-		chown -R @@SKEL_USER@@:adm /var/@@SKEL_APP@@
-	    chmod -R 750           /var/@@SKEL_APP@@
-	
+        chown -R @@JENKINS_USER@@:adm /var/run/@@JENKINS_APP@@
+        chmod -R 750           /var/run/@@JENKINS_APP@@
+
+		chown -R @@JENKINS_USER@@:adm /var/@@JENKINS_APP@@
+	    chmod -R 750           /var/@@JENKINS_APP@@
+
 		if [ ! -d @@APP_TMPDIR@@ ]; then
 			mkdir @@APP_TMPDIR@@
-			chown -R @@SKEL_USER@@:adm @@APP_TMPDIR@@
+			chown -R @@JENKINS_USER@@:adm @@APP_TMPDIR@@
 			chmod -R 750            @@APP_TMPDIR@@
 	    fi
-		
 
-		if [ ! -e /opt/@@SKEL_APP@@/logs ]; then
-			ln -s /var/log/@@SKEL_APP@@ /opt/@@SKEL_APP@@/logs
-			#chown @@SKEL_USER@@:adm /opt/@@SKEL_APP@@/logs
+
+		if [ ! -e /opt/@@JENKINS_APP@@/logs ]; then
+			ln -s /var/log/@@JENKINS_APP@@ /opt/@@JENKINS_APP@@/logs
+			#chown @@JENKINS_USER@@:adm /opt/@@JENKINS_APP@@/logs
 		fi
-		
-		if [ ! -e /opt/@@SKEL_APP@@/work ]; then
-			ln -s /var/@@SKEL_APP@@ /opt/@@SKEL_APP@@/work
-			#chown @@SKEL_USER@@:adm /opt/@@SKEL_APP@@/temp
-				
+
+		if [ ! -e /opt/@@JENKINS_APP@@/work ]; then
+			ln -s /var/@@JENKINS_APP@@ /opt/@@JENKINS_APP@@/work
+			#chown @@JENKINS_USER@@:adm /opt/@@JENKINS_APP@@/temp
+
 		fi
-		
-		if [ ! -e /opt/@@SKEL_APP@@/temp ]; then
-			ln -s @@APP_TMPDIR@@ /opt/@@SKEL_APP@@/temp
-			#chown @@SKEL_USER@@:adm /opt/@@SKEL_APP@@/temp
+
+		if [ ! -e /opt/@@JENKINS_APP@@/temp ]; then
+			ln -s @@APP_TMPDIR@@ /opt/@@JENKINS_APP@@/temp
+			#chown @@JENKINS_USER@@:adm /opt/@@JENKINS_APP@@/temp
 		fi
-		
-	
-		
-       
+
+
+
+
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

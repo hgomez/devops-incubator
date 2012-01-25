@@ -2,8 +2,8 @@
 # Read config file
 #
 
-if [ -r "/etc/sysconfig/@@SKEL_APP@@" ]; then
-    . /etc/sysconfig/@@SKEL_APP@@
+if [ -r "/etc/sysconfig/@@NEXUS_APP@@" ]; then
+    . /etc/sysconfig/@@NEXUS_APP@@
 fi
 
 if [ ! -z "$APP_JAVA_HOME" ]; then

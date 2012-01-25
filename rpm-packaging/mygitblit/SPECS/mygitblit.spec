@@ -13,7 +13,7 @@
 Name: mygitblit
 Version: %{gitblit_rel}
 Release: 3
-Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
+Summary: appname %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
 Vendor: MyCorp
@@ -21,23 +21,23 @@ Packager: MyCorp
 License: AGPLv1
 BuildArch:  noarch
 
-%define myapp             mygitblit
-%define myappusername     mygitblit
-%define myappuserid       1238
-%define myappgroupid      1238
+%define appname         mygitblit
+%define appusername     mygitblit
+%define appuserid       1238
+%define appgroupid      1238
 
-%define myappdir          /opt/%{myapp}
-%define myappdatadir      %{_var}/lib/%{myapp}
-%define myapplogdir       %{_var}/log/%{myapp}
-%define myappexec         %{myappdir}/bin/catalina.sh
-%define myappconfdir      %{myappdir}/conf
-%define myappconflocaldir %{myappdir}/conf/Catalina/localhost
-%define myappwebappdir    %{myappdir}/webapps
-%define myapptempdir      /tmp/%{myapp}
-%define myappworkdir      %{_var}/%{myapp}
+%define appdir          /opt/%{appname}
+%define appdatadir      %{_var}/lib/%{appname}
+%define applogdir       %{_var}/log/%{appname}
+%define appexec         %{appdir}/bin/catalina.sh
+%define appconfdir      %{appdir}/conf
+%define appconflocaldir %{appdir}/conf/Catalina/localhost
+%define appwebappdir    %{appdir}/webapps
+%define apptempdir      /tmp/%{appname}
+%define appworkdir      %{_var}/%{appname}
 
-%define _systemdir        /lib/systemd/system
-%define _initrddir        %{_sysconfdir}/init.d
+%define _systemdir      /lib/systemd/system
+%define _initrddir      %{_sysconfdir}/init.d
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -55,24 +55,24 @@ Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: gitblit-%{gitblit_rel}.war
-Source2: myapp-initd
-Source3: myapp-sysconfig
-Source4: myapp-jmxremote.access.skel
-Source5: myapp-jmxremote.password.skel
-Source6: myapp-setenv.sh
-Source7: myapp-logrotate
-Source8: myapp-server.xml.skel
-Source9: myapp-limits.conf
-Source10: myapp-systemd
+Source1: appname-%{gitblit_rel}.war
+Source2: initd
+Source3: sysconfig
+Source4: jmxremote.access.skel
+Source5: jmxremote.password.skel
+Source6: setenv.sh
+Source7: logrotate
+Source8: server.xml.skel
+Source9: limits.conf
+Source10: systemd
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
-Source12: myapp-context.xml
-#Source13: myapp-users.properties
-Source13: myapp-users.conf
+Source12: context.xml
+#Source13: users.properties
+Source13: users.conf
 
 
 %description
-GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
+appname %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %prep
 %setup -q -c
@@ -89,130 +89,130 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d
 mkdir -p $RPM_BUILD_ROOT%{_systemdir}
 
-mkdir -p $RPM_BUILD_ROOT%{myappdir}
-mkdir -p $RPM_BUILD_ROOT%{myappdatadir}
-mkdir -p $RPM_BUILD_ROOT%{myappdatadir}/conf
-mkdir -p $RPM_BUILD_ROOT%{myappdatadir}/repos
+mkdir -p $RPM_BUILD_ROOT%{appdir}
+mkdir -p $RPM_BUILD_ROOT%{appdatadir}
+mkdir -p $RPM_BUILD_ROOT%{appdatadir}/conf
+mkdir -p $RPM_BUILD_ROOT%{appdatadir}/repos
 
-mkdir -p $RPM_BUILD_ROOT%{myapplogdir}
-mkdir -p $RPM_BUILD_ROOT%{myapptempdir}
-mkdir -p $RPM_BUILD_ROOT%{myappworkdir}
-mkdir -p $RPM_BUILD_ROOT%{myappwebappdir}
+mkdir -p $RPM_BUILD_ROOT%{applogdir}
+mkdir -p $RPM_BUILD_ROOT%{apptempdir}
+mkdir -p $RPM_BUILD_ROOT%{appworkdir}
+mkdir -p $RPM_BUILD_ROOT%{appwebappdir}
 
 # Copy tomcat
-mv apache-tomcat-%{tomcat_rel}/* $RPM_BUILD_ROOT%{myappdir}
+mv apache-tomcat-%{tomcat_rel}/* $RPM_BUILD_ROOT%{appdir}
 
 # Create conf/Catalina/localhost
-mkdir -p $RPM_BUILD_ROOT%{myappconflocaldir}
+mkdir -p $RPM_BUILD_ROOT%{appconflocaldir}
 
 # remove default webapps
-rm -rf $RPM_BUILD_ROOT%{myappdir}/webapps/*
+rm -rf $RPM_BUILD_ROOT%{appdir}/webapps/*
 
-# patches to have logs under /var/log/myapp
-sed -i 's|\${catalina.base}/logs|%{myapplogdir}|g' $RPM_BUILD_ROOT%{myappdir}/conf/logging.properties
+# patches to have logs under /var/log/appname
+sed -i 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
 
-# myapp webapp is ROOT.war (will respond to /)
-cp %{SOURCE1}  $RPM_BUILD_ROOT%{myappwebappdir}/ROOT.war
+# appname webapp is ROOT.war (will respond to /)
+cp %{SOURCE1}  $RPM_BUILD_ROOT%{appwebappdir}/ROOT.war
 
 # init.d
-cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@SKEL_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@SKEL_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@SKEL_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@SKEL_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{appname}
+sed -i 's|@@GITBLIT_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
+sed -i 's|@@GITBLIT_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
+sed -i 's|@@GITBLIT_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
+sed -i 's|@@GITBLIT_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
 
 # sysconfig
-cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@SKEL_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@SKEL_APPDIR@@|%{myappdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@SKEL_DATADIR@@|%{myappdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@SKEL_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@SKEL_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@SKEL_CONFDIR@@|%{myappconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+sed -i 's|@@GITBLIT_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+sed -i 's|@@GITBLIT_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+sed -i 's|@@GITBLIT_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+sed -i 's|@@GITBLIT_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+sed -i 's|@@GITBLIT_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+sed -i 's|@@GITBLIT_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
 
 # JMX (including JMX Remote)
-cp %{SOURCE11} $RPM_BUILD_ROOT%{myappdir}/lib
-cp %{SOURCE4}  $RPM_BUILD_ROOT%{myappconfdir}/jmxremote.access.skel
-cp %{SOURCE5}  $RPM_BUILD_ROOT%{myappconfdir}/jmxremote.password.skel
+cp %{SOURCE11} $RPM_BUILD_ROOT%{appdir}/lib
+cp %{SOURCE4}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.access.skel
+cp %{SOURCE5}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
-cp  %{SOURCE6} $RPM_BUILD_ROOT%{myappdir}/bin/setenv.sh
-sed -i 's|@@SKEL_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{myappdir}/bin/setenv.sh
+cp  %{SOURCE6} $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
+sed -i 's|@@GITBLIT_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
 
 # Install logrotate
-cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{myapp}
-sed -i 's|@@SKEL_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{myapp}
+cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{appname}
+sed -i 's|@@GITBLIT_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{appname}
 
 # Install server.xml.skel
-cp %{SOURCE8} $RPM_BUILD_ROOT%{myappconfdir}/server.xml.skel
+cp %{SOURCE8} $RPM_BUILD_ROOT%{appconfdir}/server.xml.skel
 
 # Setup user limits
-cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}.conf
-sed -i 's|@@SKEL_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}.conf
+cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{appname}.conf
+sed -i 's|@@GITBLIT_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{appname}.conf
 
 # Setup Systemd
-cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
-sed -i 's|@@SKEL_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
-sed -i 's|@@SKEL_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
+cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
+sed -i 's|@@GITBLIT_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
+sed -i 's|@@GITBLIT_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
 
 # Install context.xml (override previous one)
-cp %{SOURCE12} $RPM_BUILD_ROOT%{myappconfdir}/context.xml
-sed -i 's|@@SKEL_DATADIR@@|%{myappdatadir}|g' $RPM_BUILD_ROOT%{myappconfdir}/context.xml
+cp %{SOURCE12} $RPM_BUILD_ROOT%{appconfdir}/context.xml
+sed -i 's|@@GITBLIT_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{appconfdir}/context.xml
 
 # Install users.properties
-cp %{SOURCE13} $RPM_BUILD_ROOT%{myappdatadir}/conf/users.conf
+cp %{SOURCE13} $RPM_BUILD_ROOT%{appdatadir}/conf/users.conf
 
 # remove uneeded file in RPM
-rm -f $RPM_BUILD_ROOT%{myappdir}/*.sh
-rm -f $RPM_BUILD_ROOT%{myappdir}/*.bat
-rm -f $RPM_BUILD_ROOT%{myappdir}/bin/*.bat
-rm -rf $RPM_BUILD_ROOT%{myappdir}/logs
-rm -rf $RPM_BUILD_ROOT%{myappdir}/temp
-rm -rf $RPM_BUILD_ROOT%{myappdir}/work
+rm -f $RPM_BUILD_ROOT%{appdir}/*.sh
+rm -f $RPM_BUILD_ROOT%{appdir}/*.bat
+rm -f $RPM_BUILD_ROOT%{appdir}/bin/*.bat
+rm -rf $RPM_BUILD_ROOT%{appdir}/logs
+rm -rf $RPM_BUILD_ROOT%{appdir}/temp
+rm -rf $RPM_BUILD_ROOT%{appdir}/work
 
 # ensure shell scripts are executable
-chmod 755 $RPM_BUILD_ROOT%{myappdir}/bin/*.sh
+chmod 755 $RPM_BUILD_ROOT%{appdir}/bin/*.sh
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %pre
 %if 0%{?suse_version} > 1140
-%service_add_pre %{myapp}.service
+%service_add_pre %{appname}.service
 %endif
 # First install time, add user and group
 if [ "$1" == "1" ]; then
-  %{_sbindir}/groupadd -r -g %{myappgroupid} %{myappusername} 2>/dev/null || :
-  %{_sbindir}/useradd -s /sbin/nologin -c "%{myapp} user" -g %{myappusername} -r -d %{myappdatadir} -u %{myappuserid} %{myappusername} 2>/dev/null || :
+  %{_sbindir}/groupadd -r -g %{appgroupid} %{appusername} 2>/dev/null || :
+  %{_sbindir}/useradd -s /sbin/nologin -c "%{appname} user" -g %{appusername} -r -d %{appdatadir} -u %{appuserid} %{appusername} 2>/dev/null || :
 else
 # Update time, stop service if running
   if [ "$1" == "2" ]; then
-    if [ -f %{_var}/run/%{myapp}.pid ]; then
-      %{_initrddir}/%{myapp} stop
-      touch %{myappdir}/logs/rpm-update-stop
+    if [ -f %{_var}/run/%{appname}.pid ]; then
+      %{_initrddir}/%{appname} stop
+      touch %{appdir}/logs/rpm-update-stop
     fi
   fi
 fi
 
 %post
 %if 0%{?suse_version} > 1140
-%service_add_post %{myapp}.service
+%service_add_post %{appname}.service
 %endif
 # First install time, register service, generate random passwords and start application
 if [ "$1" == "1" ]; then
   # register app as service
-  systemctl enable %{myapp}.service >/dev/null 2>&1
+  systemctl enable %{appname}.service >/dev/null 2>&1
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@SKEL_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
+  sed -i "s|@@GITBLIT_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
+  sed -i "s|@@GITBLIT_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
 
-  pushd %{myappdir} >/dev/null
-  ln -s %{myapplogdir}  logs
-  ln -s %{myapptempdir} temp
-  ln -s %{myappworkdir} work
+  pushd %{appdir} >/dev/null
+  ln -s %{applogdir}  logs
+  ln -s %{apptempdir} temp
+  ln -s %{appworkdir} work
   popd >/dev/null
 
   # start application at first install (uncomment next line this behaviour not expected)
@@ -220,61 +220,61 @@ if [ "$1" == "1" ]; then
 else
   # Update time, restart application if it was running
   if [ "$1" == "2" ]; then
-    if [ -f %{myappdir}/logs/rpm-update-stop ]; then
+    if [ -f %{appdir}/logs/rpm-update-stop ]; then
       # restart application after update (comment next line this behaviour not expected)
       %{_initrddir}/%{name} start
-      rm -f %{myappdir}/logs/rpm-update-stop
+      rm -f %{appdir}/logs/rpm-update-stop
     fi
   fi
 fi
 
 %preun
 %if 0%{?suse_version} > 1140
-%service_del_preun %{myapp}.service
+%service_del_preun %{appname}.service
 %endif
 if [ "$1" == "0" ]; then
   # Uninstall time, stop service and cleanup
 
   # stop service
-  %{_initrddir}/%{myapp} stop
+  %{_initrddir}/%{appname} stop
 
   # unregister app from services
-  systemctl disable %{myapp}.service >/dev/null 2>&1
+  systemctl disable %{appname}.service >/dev/null 2>&1
 
   # finalize housekeeping
-  rm -rf %{myappdir}
-  rm -rf %{myapplogdir}
-  rm -rf %{myapptempdir}
-  rm -rf %{myappworkdir}
+  rm -rf %{appdir}
+  rm -rf %{applogdir}
+  rm -rf %{apptempdir}
+  rm -rf %{appworkdir}
 fi
 
 %postun
 %if 0%{?suse_version} > 1140
-%service_del_postun %{myapp}.service
+%service_del_postun %{appname}.service
 %endif
 
 %files
 %defattr(-,root,root)
-%attr(0755,%{myappusername},%{myappusername}) %dir %{myapplogdir}
-%attr(0755, root,root) %{_initrddir}/%{myapp}
-%attr(0644,root,root) %{_systemdir}/%{myapp}.service
-%config(noreplace) %{_sysconfdir}/sysconfig/%{myapp}
-%config %{_sysconfdir}/logrotate.d/%{myapp}
-%config %{_sysconfdir}/security/limits.d/%{myapp}.conf
-%{myappdir}/bin
-%{myappdir}/conf
-%{myappdir}/lib
-%attr(-,%{myappusername}, %{myappusername}) %{myappdir}/webapps
-%attr(0755,%{myappusername},%{myappusername}) %dir %{myappconflocaldir}
-%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}
-%attr(0755,%{myappusername},%{myappusername}) %dir %{myappdatadir}/repos
-%attr(0644,%{myappusername},%{myappusername}) %config(noreplace) %{myappdatadir}/conf/users.properties
-%attr(0755,%{myappusername},%{myappusername}) %dir %{myapptempdir}
-%attr(0755,%{myappusername},%{myappusername}) %dir %{myappworkdir}
-%doc %{myappdir}/NOTICE
-%doc %{myappdir}/RUNNING.txt
-%doc %{myappdir}/LICENSE
-%doc %{myappdir}/RELEASE-NOTES
+%attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
+%attr(0755, root,root) %{_initrddir}/%{appname}
+%attr(0644,root,root) %{_systemdir}/%{appname}.service
+%config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
+%config %{_sysconfdir}/logrotate.d/%{appname}
+%config %{_sysconfdir}/security/limits.d/%{appname}.conf
+%{appdir}/bin
+%{appdir}/conf
+%{appdir}/lib
+%attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
+%attr(0755,%{appusername},%{appusername}) %dir %{appconflocaldir}
+%attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
+%attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/repos
+%attr(0644,%{appusername},%{appusername}) %config(noreplace) %{appdatadir}/conf/users.properties
+%attr(0755,%{appusername},%{appusername}) %dir %{apptempdir}
+%attr(0755,%{appusername},%{appusername}) %dir %{appworkdir}
+%doc %{appdir}/NOTICE
+%doc %{appdir}/RUNNING.txt
+%doc %{appdir}/LICENSE
+%doc %{appdir}/RELEASE-NOTES
 
 %changelog
 * Fri Jan 6 2012 henri.gomez@gmail.com 1.0.0-2

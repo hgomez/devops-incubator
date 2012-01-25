@@ -1,4 +1,4 @@
-@@SKEL_APP@@ (1.0.0) UNRELEASED; urgency=low
+@@GITBLIT_APP@@ (1.0.0) UNRELEASED; urgency=low
 
   * Initial release. (Closes: #XXXXXX)
 

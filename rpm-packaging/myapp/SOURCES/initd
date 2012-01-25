@@ -2,13 +2,13 @@
 #
 #
 ### BEGIN INIT INFO
-# Provides:          @@SKEL_APP@@
+# Provides:          @@MYAPP_APP@@
 # Required-Start:    $local_fs $remote_fs $network $time $named
 # Required-Stop:     $local_fs $remote_fs $network $time $named
 # Default-Start:     3 5
 # Default-Stop:      0 1 2 6
-# Short-Description: GitBlit powered by Apache Tomcat
-# Description:       Gitblit is an open-source, pure Java stack for managing, viewing, and serving Git repositories. It's designed primarily as a tool for small workgroups who want to host centralized repositories
+# Short-Description: Performance Web Application
+# Description:       Performance Web Application powered by Tomcat
 ### END INIT INFO
 
 # Source function library.
@@ -17,18 +17,18 @@ if [ -r /etc/init.d/functions ]; then
 fi
 
 # Read config file
-if [ -r "/etc/sysconfig/@@SKEL_APP@@" ]; then
-    . /etc/sysconfig/@@SKEL_APP@@
+if [ -r "/etc/sysconfig/@@MYAPP_APP@@" ]; then
+    . /etc/sysconfig/@@MYAPP_APP@@
 fi
 
 export CATALINA_OPTS CATALINA_OUT CATALINA_PID
 
 RETVAL=0
-prog="@@SKEL_APP@@"
-user="@@SKEL_USER@@"
-exec="@@SKEL_EXEC@@"
-lockfile=/var/lock/subsys/@@SKEL_APP@@
-config=/etc/sysconfig/@@SKEL_APP@@
+prog="@@MYAPP_APP@@"
+user="@@MYAPP_USER@@"
+exec="@@MYAPP_EXEC@@"
+lockfile=/var/lock/subsys/@@MYAPP_APP@@
+config=/etc/sysconfig/@@MYAPP_APP@@
 
 start() {
     echo -n $"Starting $prog: "
@@ -60,11 +60,13 @@ start() {
 
 stop() {
     echo -n $"Stopping $prog: "
+
     RETVAL=0
     if [ -s $CATALINA_PID ]; then
       $exec stop $SHUTDOWN_WAIT -force
       RETVAL=$?
     fi
+
     echo
     [ $RETVAL -eq 0 ] && rm -f $lockfile
 }
@@ -99,7 +101,7 @@ case "$1" in
         start
         ;;
     version)
-        echo "${prog} @@SKEL_VERSION@@"
+        echo "${prog} @@MYAPP_VERSION@@"
         ;;
   *)
         echo $"Usage: $prog {start|stop|restart|force-reload|reload|status|version}"

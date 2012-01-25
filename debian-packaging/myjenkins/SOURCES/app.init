@@ -2,7 +2,7 @@
 #
 #
 ### BEGIN INIT INFO
-# Provides:          @@SKEL_APP@@
+# Provides:          @@JENKINS_APP@@
 # Required-Start:    $local_fs $remote_fs $network $time $named
 # Required-Stop:     $local_fs $remote_fs $network $time $named
 # Default-Start:     2 3 4 5
@@ -17,18 +17,18 @@ if [ -r /etc/init.d/functions ]; then
 fi
 
 # Read config file
-if [ -r "/etc/opt/@@SKEL_APP@@" ]; then
-    . /etc/opt/@@SKEL_APP@@
+if [ -r "/etc/opt/@@JENKINS_APP@@" ]; then
+    . /etc/opt/@@JENKINS_APP@@
 fi
 
 export CATALINA_OPTS CATALINA_OUT CATALINA_PID
 
 RETVAL=0
-prog="@@SKEL_APP@@"
-user="@@SKEL_USER@@"
-exec="@@SKEL_EXEC@@"
-lockfile=/var/lock/@@SKEL_APP@@
-config=/etc/opt/@@SKEL_APP@@
+prog="@@JENKINS_APP@@"
+user="@@JENKINS_USER@@"
+exec="@@JENKINS_EXEC@@"
+lockfile=/var/lock/@@JENKINS_APP@@
+config=/etc/opt/@@JENKINS_APP@@
 
 start() {
     echo -n $"Starting $prog: "
@@ -99,7 +99,7 @@ case "$1" in
         start
         ;;
     version)
-        echo "${prog} @@SKEL_VERSION@@"
+        echo "${prog} @@JENKINS_VERSION@@"
         ;;
   *)
         echo $"Usage: $prog {start|stop|restart|force-reload|reload|status|version}"

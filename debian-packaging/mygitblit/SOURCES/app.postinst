@@ -20,52 +20,52 @@ set -e
 
 case "$1" in
     configure)
-    
-	    
-        # Create @@SKEL_USER@@ user if it doesn't exist.
-        if ! id @@SKEL_USER@@ > /dev/null 2>&1 ; then
-            adduser --system --home /opt/@@SKEL_APP@@ --no-create-home \
+
+
+        # Create @@GITBLIT_USER@@ user if it doesn't exist.
+        if ! id @@GITBLIT_USER@@ > /dev/null 2>&1 ; then
+            adduser --system --home /opt/@@GITBLIT_APP@@ --no-create-home \
                 --ingroup nogroup --disabled-password --shell /bin/bash \
-                @@SKEL_USER@@
+                @@GITBLIT_USER@@
         fi
-      
-        chown -R @@SKEL_USER@@:adm /var/lib/@@SKEL_APP@@ /var/log/@@SKEL_APP@@
-        chmod -R 750           /var/lib/@@SKEL_APP@@ /var/log/@@SKEL_APP@@
 
-		chown -R @@SKEL_USER@@:adm /opt/@@SKEL_APP@@
+        chown -R @@GITBLIT_USER@@:adm /var/lib/@@GITBLIT_APP@@ /var/log/@@GITBLIT_APP@@
+        chmod -R 750           /var/lib/@@GITBLIT_APP@@ /var/log/@@GITBLIT_APP@@
 
-        chown -R @@SKEL_USER@@:adm /var/run/@@SKEL_APP@@
-        chmod -R 750           /var/run/@@SKEL_APP@@
+		chown -R @@GITBLIT_USER@@:adm /opt/@@GITBLIT_APP@@
 
-		chown -R @@SKEL_USER@@:adm /var/@@SKEL_APP@@
-	    chmod -R 750           /var/@@SKEL_APP@@
-	
+        chown -R @@GITBLIT_USER@@:adm /var/run/@@GITBLIT_APP@@
+        chmod -R 750           /var/run/@@GITBLIT_APP@@
+
+		chown -R @@GITBLIT_USER@@:adm /var/@@GITBLIT_APP@@
+	    chmod -R 750           /var/@@GITBLIT_APP@@
+
 		if [ ! -d @@APP_TMPDIR@@ ]; then
 			mkdir @@APP_TMPDIR@@
-			chown -R @@SKEL_USER@@:adm @@APP_TMPDIR@@
+			chown -R @@GITBLIT_USER@@:adm @@APP_TMPDIR@@
 			chmod -R 750            @@APP_TMPDIR@@
     	fi
-		
 
-		if [ ! -e /opt/@@SKEL_APP@@/logs ]; then
-			ln -s /var/log/@@SKEL_APP@@ /opt/@@SKEL_APP@@/logs
-			#chown @@SKEL_USER@@:adm /opt/@@SKEL_APP@@/logs
+
+		if [ ! -e /opt/@@GITBLIT_APP@@/logs ]; then
+			ln -s /var/log/@@GITBLIT_APP@@ /opt/@@GITBLIT_APP@@/logs
+			#chown @@GITBLIT_USER@@:adm /opt/@@GITBLIT_APP@@/logs
 		fi
-		
-		if [ ! -e /opt/@@SKEL_APP@@/work ]; then
-			ln -s /var/@@SKEL_APP@@ /opt/@@SKEL_APP@@/work
-			#chown @@SKEL_USER@@:adm /opt/@@SKEL_APP@@/temp
-				
+
+		if [ ! -e /opt/@@GITBLIT_APP@@/work ]; then
+			ln -s /var/@@GITBLIT_APP@@ /opt/@@GITBLIT_APP@@/work
+			#chown @@GITBLIT_USER@@:adm /opt/@@GITBLIT_APP@@/temp
+
 		fi
-		
-		if [ ! -e /opt/@@SKEL_APP@@/temp ]; then
-			ln -s @@APP_TMPDIR@@ /opt/@@SKEL_APP@@/temp
-			#chown @@SKEL_USER@@:adm /opt/@@SKEL_APP@@/temp
+
+		if [ ! -e /opt/@@GITBLIT_APP@@/temp ]; then
+			ln -s @@APP_TMPDIR@@ /opt/@@GITBLIT_APP@@/temp
+			#chown @@GITBLIT_USER@@:adm /opt/@@GITBLIT_APP@@/temp
 		fi
-		
-	
-		
-       
+
+
+
+
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

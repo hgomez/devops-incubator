@@ -1,3 +1,3 @@
 /opt/* /opt/
-/etc/opt/@@SKEL_APP@@ /etc/opt
+/etc/opt/@@MYAPP_APP@@ /etc/opt
 /etc/security/limits.d/* /etc/security/limits.d/

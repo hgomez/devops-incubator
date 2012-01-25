@@ -56,15 +56,15 @@ Requires(pre):      %{_sbindir}/useradd
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
 Source1: myapp.war
-Source2: myapp-initd
-Source3: myapp-sysconfig
-Source4: myapp-jmxremote.access.skel
-Source5: myapp-jmxremote.password.skel
-Source6: myapp-setenv.sh
-Source7: myapp-logrotate
-Source8: myapp-server.xml.skel
-Source9: myapp-limits.conf
-Source10: myapp-systemd
+Source2: initd
+Source3: sysconfig
+Source4: jmxremote.access.skel
+Source5: jmxremote.password.skel
+Source6: setenv.sh
+Source7: logrotate
+Source8: server.xml.skel
+Source9: limits.conf
+Source10: systemd
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 
 %description
@@ -109,19 +109,19 @@ cp %{SOURCE1}  $RPM_BUILD_ROOT%{myappwebappdir}/ROOT.war
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@SKEL_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@SKEL_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@SKEL_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@SKEL_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+sed -i 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+sed -i 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+sed -i 's|@@MYAPP_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+sed -i 's|@@MYAPP_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
 
 # sysconfig
 cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@SKEL_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@SKEL_APPDIR@@|%{myappdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@SKEL_DATADIR@@|%{myappdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@SKEL_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@SKEL_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@SKEL_CONFDIR@@|%{myappconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+sed -i 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+sed -i 's|@@MYAPP_APPDIR@@|%{myappdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+sed -i 's|@@MYAPP_DATADIR@@|%{myappdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+sed -i 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+sed -i 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+sed -i 's|@@MYAPP_CONFDIR@@|%{myappconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} $RPM_BUILD_ROOT%{myappdir}/lib
@@ -130,23 +130,23 @@ cp %{SOURCE5}  $RPM_BUILD_ROOT%{myappconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} $RPM_BUILD_ROOT%{myappdir}/bin/setenv.sh
-sed -i 's|@@SKEL_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{myappdir}/bin/setenv.sh
+sed -i 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{myappdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{myapp}
-sed -i 's|@@SKEL_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{myapp}
+sed -i 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{myapp}
 
 # Install server.xml.skel
 cp %{SOURCE8} $RPM_BUILD_ROOT%{myappconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}.conf
-sed -i 's|@@SKEL_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}.conf
+sed -i 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}.conf
 
 # Setup Systemd
 cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
-sed -i 's|@@SKEL_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
-sed -i 's|@@SKEL_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
+sed -i 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
+sed -i 's|@@MYAPP_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
 
 # remove uneeded file in RPM
 rm -f $RPM_BUILD_ROOT%{myappdir}/*.sh
@@ -191,9 +191,9 @@ if [ "$1" == "1" ]; then
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@SKEL_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
+  sed -i "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
+  sed -i "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{myapp}
 
   pushd %{myappdir} >/dev/null
   ln -s %{myapplogdir}  logs

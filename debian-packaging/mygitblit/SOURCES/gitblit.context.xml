@@ -32,10 +32,10 @@
     <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
     -->
 
-	<Parameter name="git.repositoriesFolder" value="@@SKEL_DATADIR@@/repos"
+	<Parameter name="git.repositoriesFolder" value="@@GITBLIT_DATADIR@@/repos"
 	         override="false"/>
 
-	<Parameter name="realm.userService" value="@@SKEL_DATADIR@@/conf/users.conf"
+	<Parameter name="realm.userService" value="@@GITBLIT_DATADIR@@/conf/users.conf"
 	         override="false"/>
 
 </Context>

@@ -1,4 +1,4 @@
-Source: @@SKEL_APP@@
+Source: @@JENKINS_APP@@
 Section: devel
 Priority: optional
 Maintainer: Gildas Cuisinier
@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 5)
 Standards-Version: 3.7.2
 Version: 1.0.0
 
-Package: @@SKEL_APP@@
+Package: @@JENKINS_APP@@
 Architecture: all
 Depends: daemon, adduser, java6-sdk
-Description: @@SKEL_APP@@ @@SKEL_APPVERSION@@  powered by Apache Tomcat @@SKEL_TOMCATVERSION@@
+Description: @@JENKINS_APP@@ @@JENKINS_APPVERSION@@  powered by Apache Tomcat @@JENKINS_TOMCATVERSION@@
