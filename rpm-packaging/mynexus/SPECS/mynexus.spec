@@ -56,15 +56,15 @@ Requires(pre):      %{_sbindir}/useradd
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
 Source1: nexus-webapp-%{nexus_rel}.war
-Source2: initd
-Source3: sysconfig
+Source2: initd.skel
+Source3: sysconfig.skel
 Source4: jmxremote.access.skel
 Source5: jmxremote.password.skel
-Source6: setenv.sh
-Source7: logrotate
+Source6: setenv.sh.skel
+Source7: logrotate.skel
 Source8: server.xml.skel
-Source9: limits.conf
-Source10: app-systemd
+Source9: limits.conf.skel
+Source10: app-systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 
 %description
