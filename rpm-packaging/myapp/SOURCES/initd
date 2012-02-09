@@ -27,7 +27,8 @@ RETVAL=0
 prog="@@MYAPP_APP@@"
 user="@@MYAPP_USER@@"
 exec="@@MYAPP_EXEC@@"
-lockfile=/var/lock/subsys/@@MYAPP_APP@@
+lockdir=/var/lock/subsys
+lockfile=$lockdir/@@MYAPP_APP@@
 config=/etc/sysconfig/@@MYAPP_APP@@
 
 start() {
@@ -55,7 +56,7 @@ start() {
     fi
     RETVAL=$?
     echo
-    [ $RETVAL -eq 0 ] && touch $lockfile
+    [ $RETVAL -eq 0 ] && [ -d $lockdir ] && touch $lockfile
 }
 
 stop() {
@@ -68,7 +69,7 @@ stop() {
     fi
 
     echo
-    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    [ $RETVAL -eq 0 ] && [ -d $lockdir ] && rm -f $lockfile
 }
 
 status() {

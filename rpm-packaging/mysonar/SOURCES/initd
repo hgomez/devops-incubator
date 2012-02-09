@@ -27,7 +27,8 @@ RETVAL=0
 prog="@@SONAR_APP@@"
 user="@@SONAR_USER@@"
 exec="@@SONAR_EXEC@@"
-lockfile=/var/lock/subsys/@@SONAR_APP@@
+lockdir=/var/lock/subsys
+lockfile=$lockdir/@@SONAR_APP@@
 config=/etc/sysconfig/@@SONAR_APP@@
 
 start() {
@@ -55,7 +56,7 @@ start() {
     fi
     RETVAL=$?
     echo
-    [ $RETVAL -eq 0 ] && touch $lockfile
+    [ $RETVAL -eq 0 ] && [ -d $lockdir ] && touch $lockfile
 }
 
 stop() {
@@ -66,7 +67,7 @@ stop() {
       RETVAL=$?
     fi
     echo
-    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    [ $RETVAL -eq 0 ] && [ -d $lockdir ] && rm -f $lockfile
 }
 
 status() {
