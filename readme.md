@@ -20,5 +20,6 @@ RPM packages release number are revision, used when something is updated in RPM 
 
 ##DEB packages
 
+* mygitblit - GitBlig (Git Repositories manager) powered by Apache Tomcat 7.x
 * myjenkins - Jenkins-CI powered by Apache Tomcat 7.x
 * mynexus - Nexus OSS powered by Apache Tomcat 7.x
