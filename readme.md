@@ -5,11 +5,12 @@ Native Packaging sample for DevOps easy operations
 ##RPM packages
 
 * myapp - simple web application powered by Apache Tomcat 7.x
+* myartifactory - JFrog Archifactory powered by Apache Tomcat 7.x
 * myforge-apache2-front - Apache HTTPd front-ends for Forge service via Named VHosts
 * mygit - Git repositories hosted by Apache HTTPd and cgit
 * mygitblit - GitBlig (Git Repositories manager) powered by Apache Tomcat 7.x
 * myjenkins - Jenkins-CI powered by Apache Tomcat 7.x
-* mynexus - Nexus OSS powered by Apache Tomcat 7.x
+* mynexus - Sonatype Nexus OSS powered by Apache Tomcat 7.x
 * mysonar - Sonar powered by Apache Tomcat 7.x
 * mysvn - Suversion hosted by Apache HTTPd
 
