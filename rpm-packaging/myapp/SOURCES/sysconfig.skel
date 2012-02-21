@@ -1,6 +1,15 @@
 #
 # MyApp Configuration
 #
+
+# If JAVA_HOME not set, get one from ci profile
+if [ -z "$JAVA_HOME" ]; then
+  if [ -f /etc/profile.d/ci.sh ]; then
+  	source /etc/profile.d/ci.sh
+  fi
+fi
+
+#
 # Vars starting with APP_ are used to replace contents in skeletons files
 #
 
@@ -43,6 +52,3 @@ APP_JAVA_HOME=
 APP_JAVA_OPTS="-Xms32m -Xmx64m -XX:MaxPermSize=32m -Xss256k -XX:+UseCompressedOops"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@MYAPP_LOGDIR@@"
-
-
-
