@@ -1,6 +1,6 @@
 #devops-incubator - Native Packaging
 
-Native Packaging sample for DevOps easy operations
+Native Packaging sample for DevOps easy operations.
 These package will bring you a ready to use Software Factory.
 
 ##RPM packages
