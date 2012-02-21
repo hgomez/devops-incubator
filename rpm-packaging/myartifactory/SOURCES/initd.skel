@@ -2,13 +2,13 @@
 #
 #
 ### BEGIN INIT INFO
-# Provides:          @@NEXUS_APP@@
+# Provides:          @@SKEL_APP@@
 # Required-Start:    $local_fs $remote_fs $network $time $named
 # Required-Stop:     $local_fs $remote_fs $network $time $named
 # Default-Start:     3 5
 # Default-Stop:      0 1 2 6
-# Short-Description: Sonatype Nexus OSS powered by Apache Tomcat
-# Description:       Nexus manages software artifacts required for development, deployment, and provisioning
+# Short-Description: JFrog Artifactory powered by Apache Tomcat
+# Description:       Artifactory manages software artifacts required for development, deployment, and provisioning
 ### END INIT INFO
 
 # Source function library.
@@ -17,19 +17,19 @@ if [ -r /etc/init.d/functions ]; then
 fi
 
 # Read config file
-if [ -r "/etc/sysconfig/@@NEXUS_APP@@" ]; then
-    . /etc/sysconfig/@@NEXUS_APP@@
+if [ -r "/etc/sysconfig/@@SKEL_APP@@" ]; then
+    . /etc/sysconfig/@@SKEL_APP@@
 fi
 
 export CATALINA_OPTS CATALINA_OUT CATALINA_PID
 
 RETVAL=0
-prog="@@NEXUS_APP@@"
-user="@@NEXUS_USER@@"
-exec="@@NEXUS_EXEC@@"
+prog="@@SKEL_APP@@"
+user="@@SKEL_USER@@"
+exec="@@SKEL_EXEC@@"
 lockdir=/var/lock/subsys
-lockfile=$lockdir/@@NEXUS_APP@@
-config=/etc/sysconfig/@@NEXUS_APP@@
+lockfile=$lockdir/@@SKEL_APP@@
+config=/etc/sysconfig/@@SKEL_APP@@
 
 start() {
     echo -n $"Starting $prog: "
@@ -100,7 +100,7 @@ case "$1" in
         start
         ;;
     version)
-        echo "${prog} @@NEXUS_VERSION@@"
+        echo "${prog} @@SKEL_VERSION@@"
         ;;
   *)
         echo $"Usage: $prog {start|stop|restart|force-reload|reload|status|version}"

@@ -1,19 +1,19 @@
-%if %{?TOMCAT_REL:1}
+%if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
 %define tomcat_rel        7.0.25
 %endif
 
-%if %{?NEXUS_REL:1}
-%define nexus_rel    %{NEXUS_REL}
+%if 0%{?ARTIFACTORY_REL:1}
+%define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define nexus_rel    2.0
+%define artifactory_rel    2.5.1
 %endif
 
-Name: mynexus
-Version: %{nexus_rel}
-Release: 3
-Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
+Name: myartifactory
+Version: %{artifactory_rel}
+Release: 0
+Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
 Vendor: MyCorp
@@ -21,10 +21,10 @@ Packager: MyCorp
 License: AGPLv1
 BuildArch:  noarch
 
-%define app             mynexus
-%define appusername     mynexus
-%define appuserid       1236
-%define appgroupid      1236
+%define app             myartifactory
+%define appusername     myarti
+%define appuserid       1239
+%define appgroupid      1239
 
 %define appdir          /opt/%{app}
 %define appdatadir      %{_var}/lib/%{app}
@@ -36,8 +36,8 @@ BuildArch:  noarch
 %define apptempdir      /tmp/%{app}
 %define appworkdir      %{_var}/%{app}
 
-%define _systemdir      /lib/systemd/system
-%define _initrddir      %{_sysconfdir}/init.d
+%define _systemdir        /lib/systemd/system
+%define _initrddir        %{_sysconfdir}/init.d
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -50,12 +50,13 @@ BuildRequires: systemd
 %define systemd_requires %{nil}
 %endif
 
-Requires:           java = 1.6.0
+Requires:           java = 1:1.6.0
+
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: nexus-webapp-%{nexus_rel}.war
+Source1: artifactory-%{artifactory_rel}.zip
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
@@ -64,11 +65,11 @@ Source6: setenv.sh.skel
 Source7: logrotate.skel
 Source8: server.xml.skel
 Source9: limits.conf.skel
-Source10: app-systemd.skel
+Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 
 %description
-Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
+JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %prep
 %setup -q -c
@@ -104,24 +105,32 @@ rm -rf $RPM_BUILD_ROOT%{appdir}/webapps/*
 # patches to have logs under /var/log/app
 sed -i 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
 
-# nexus webapp is ROOT.war (will respond to /)
-cp %{SOURCE1}  $RPM_BUILD_ROOT%{appwebappdir}/ROOT.war
+# artifactory webapp is ROOT.war (will respond to /), get it from zip file
+unzip %{SOURCE1}
+mv artifactory-%{artifactory_rel}/webapps/artifactory.war $RPM_BUILD_ROOT%{appwebappdir}/ROOT.war
+# artifactory config dir/subdirs
+mv artifactory-%{artifactory_rel}/etc $RPM_BUILD_ROOT%{appdatadir}
+# cleanup
+rm -rf artifactory-%{artifactory_rel}
+
+# setup derby-storage
+sed -i 's|#artifactory.jcr.configDir=null|artifactory.jcr.configDir=repo/filesystem-derby|g' $RPM_BUILD_ROOT%{appdatadir}/etc/artifactory.system.properties
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@NEXUS_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@NEXUS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+sed -i 's|@@SKEL_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+sed -i 's|@@SKEL_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+sed -i 's|@@SKEL_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+sed -i 's|@@SKEL_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
 
 # sysconfig
 cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@SKEL_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@SKEL_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@SKEL_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@SKEL_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@SKEL_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+sed -i 's|@@SKEL_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} $RPM_BUILD_ROOT%{appdir}/lib
@@ -130,23 +139,23 @@ cp %{SOURCE5}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
-sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
+sed -i 's|@@SKEL_APP@@|%{app}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
-sed -i 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
+sed -i 's|@@SKEL_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
 
 # Install server.xml.skel
 cp %{SOURCE8} $RPM_BUILD_ROOT%{appconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
-sed -i 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
+sed -i 's|@@SKEL_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
 
 # Setup Systemd
 cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-sed -i 's|@@NEXUS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
+sed -i 's|@@SKEL_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
+sed -i 's|@@SKEL_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
 
 # remove uneeded file in RPM
 rm -f $RPM_BUILD_ROOT%{appdir}/*.sh
@@ -191,9 +200,9 @@ if [ "$1" == "1" ]; then
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@NEXUS_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
+  sed -i "s|@@SKEL_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@NEXUS_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
+  sed -i "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
@@ -250,11 +259,14 @@ fi
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
+
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
 %attr(0755,%{appusername},%{appusername}) %dir %{appconflocaldir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
 %attr(0755,%{appusername},%{appusername}) %dir %{apptempdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appworkdir}
+# etc should be owned by app
+%attr(-,%{appusername}, %{appusername})  %{appdatadir}/etc
 %doc %{appdir}/NOTICE
 %doc %{appdir}/RUNNING.txt
 %doc %{appdir}/LICENSE
