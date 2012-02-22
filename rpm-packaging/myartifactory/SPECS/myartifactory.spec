@@ -1,7 +1,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.25
+%define tomcat_rel        7.0.26
 %endif
 
 %if 0%{?ARTIFACTORY_REL:1}
