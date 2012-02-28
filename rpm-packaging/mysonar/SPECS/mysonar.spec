@@ -7,7 +7,7 @@
 %if %{?SONAR_REL:1}
 %define sonar_rel    %{SONAR_REL}
 %else
-%define sonar_rel    2.13
+%define sonar_rel    2.13.1
 %endif
 
 Name: mysonar
