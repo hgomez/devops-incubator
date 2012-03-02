@@ -177,6 +177,8 @@ else
       %{_initrddir}/%{myapp} stop
       touch %{myappdir}/logs/rpm-update-stop
     fi
+    # clean up deployed webapp
+    rm -rf %{myappwebappdir}/ROOT
   fi
 fi
 
