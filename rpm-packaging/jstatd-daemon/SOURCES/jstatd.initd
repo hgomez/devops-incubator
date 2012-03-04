@@ -21,22 +21,23 @@ DAEMON=jstatd
 EXEC=/usr/java/default/bin/$DAEMON
 ARGS="-J-Djava.security.policy=/etc/$DAEMON/all.policy"
 [ -f /etc/sysconfig/$DAEMON ] && . /etc/sysconfig/$DAEMON
+lockdir=/var/lock/subsys
 
 start() {
 	echo -n "Starting $DAEMON: "
         daemon "$EXEC $ARGS &"
         RETVAL=$?
         echo
-        [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$DAEMON
+        [ $RETVAL -eq 0 ] && [ -d $lockdir ] && touch $lockdir/$DAEMON
         return $RETVAL
-}	
+}
 
 stop() {
 	echo -n "Shutting down $DAEMON: "
         killproc jstatd
         RETVAL=$?
         echo
-        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/$DAEMON
+        [ $RETVAL -eq 0 ] && [ -d $lockdir ] && rm -f $lockdir/$DAEMON
         return $RETVAL
 }
 

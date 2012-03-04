@@ -1,8 +1,22 @@
 # Configuration file for jstatd daemon.
 # See /etc/init.d/jstatd
 
+#
+# If a common myforge profile is available use it to initialize envs, like JAVA_HOME and PATHs
+#
+
+if [ -f /etc/profile.d/myforge.sh ]; then
+	source /etc/profile.d/myforge.sh
+fi
+
 # Jstatd executable.
-EXEC=/usr/java/default/bin/jstatd
+
+if [ ! -z "$JAVA_HOMEÓ ]; then
+  EXEC=$JAVA_HOME/bin/jstatd
+else
+  EXEC=/usr/java/default/bin/jstatd
+fi
+
 
 # Jstatd arguments.
 #  * To bind to a specific hostname, add: -J-Djava.rmi.server.hostname=<HOSTNAME>
