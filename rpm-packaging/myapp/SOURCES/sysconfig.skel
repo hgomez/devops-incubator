@@ -2,11 +2,12 @@
 # MyApp Configuration
 #
 
-# If JAVA_HOME not set, get one from ci profile
-if [ -z "$JAVA_HOME" ]; then
-  if [ -f /etc/profile.d/ci.sh ]; then
-  	source /etc/profile.d/ci.sh
-  fi
+#
+# If a common myforge profile is available use it to initialize envs, like JAVA_HOME and PATHs
+#
+
+if [ -f /etc/profile.d/myforge.sh ]; then
+	source /etc/profile.d/myforge.sh
 fi
 
 #
