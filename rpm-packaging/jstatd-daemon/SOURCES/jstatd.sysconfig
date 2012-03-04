@@ -1,0 +1,11 @@
+# Configuration file for jstatd daemon.
+# See /etc/init.d/jstatd
+
+# Jstatd executable.
+EXEC=/usr/java/default/bin/jstatd
+
+# Jstatd arguments.
+#  * To bind to a specific hostname, add: -J-Djava.rmi.server.hostname=<HOSTNAME>
+#  * To bind to a specific port, add: -p<PORT>
+ARGS="-J-Djava.security.policy=/etc/jstatd/all.policy"
+

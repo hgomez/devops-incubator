@@ -1,0 +1,66 @@
+#!/bin/bash
+#
+#	/etc/rc.d/init.d/jstatd
+#
+#	A configurable rc.d daemon for jstatd.
+#
+### BEGIN INIT INFO
+# Provides:          jstatd
+# Required-Start:    $local_fs $remote_fs $network $time $named
+# Required-Stop:     $local_fs $remote_fs $network $time $named
+# Default-Start:     3 5
+# Default-Stop:      0 1 2 6
+# Short-Description: Java jstat daemon
+# Description:       Provides a interface to allow remote monitoring tools to attach to JVMs running on the local host.
+### END INIT INFO
+
+# Source function library.
+. /etc/init.d/functions
+
+DAEMON=jstatd
+EXEC=/usr/java/default/bin/$DAEMON
+ARGS="-J-Djava.security.policy=/etc/$DAEMON/all.policy"
+[ -f /etc/sysconfig/$DAEMON ] && . /etc/sysconfig/$DAEMON
+
+start() {
+	echo -n "Starting $DAEMON: "
+        daemon "$EXEC $ARGS &"
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$DAEMON
+        return $RETVAL
+}	
+
+stop() {
+	echo -n "Shutting down $DAEMON: "
+        killproc jstatd
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/$DAEMON
+        return $RETVAL
+}
+
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    status)
+	status $DAEMON
+        ;;
+    restart|reload)
+    	stop
+	start
+	;;
+    condrestart)
+	[ -f /var/lock/subsys/$DAEMON ] && restart || :
+	;;
+    *)
+	echo "Usage: <$DAEMON> {start|stop|status|reload|restart"
+	exit 1
+	;;
+esac
+exit $?
+
