@@ -7,7 +7,7 @@
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.0
+%define nexus_rel    2.0.1
 %endif
 
 Name: mynexus
