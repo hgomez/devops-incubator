@@ -14,31 +14,37 @@
 # Description:       Provides a interface to allow remote monitoring tools to attach to JVMs running on the local host.
 ### END INIT INFO
 
-# Source function library.
-. /etc/init.d/functions
-
-DAEMON=jstatd
-EXEC=/usr/java/default/bin/$DAEMON
-ARGS="-J-Djava.security.policy=/etc/$DAEMON/all.policy"
-[ -f /etc/sysconfig/$DAEMON ] && . /etc/sysconfig/$DAEMON
+prog=jstatd
 lockdir=/var/lock/subsys
 
+# Source function library (Centos/RHEL way)
+if [ -r /etc/init.d/functions ]; then
+    . /etc/init.d/functions
+fi
+
+[ -f /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
+
 start() {
-	echo -n "Starting $DAEMON: "
-        daemon "$EXEC $ARGS &"
-        RETVAL=$?
-        echo
-        [ $RETVAL -eq 0 ] && [ -d $lockdir ] && touch $lockdir/$DAEMON
-        return $RETVAL
+	echo -n "Starting $prog: "
+    # start_daemon on Suse, daemon on RH
+    if [ -x /sbin/start_daemon ]; then
+      start_daemon $EXEC $ARGS &
+    else
+      daemon "$EXEC $ARGS &"
+    fi
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && [ -d $lockdir ] && touch $lockdir/$prog
+    return $RETVAL
 }
 
 stop() {
-	echo -n "Shutting down $DAEMON: "
-        killproc jstatd
-        RETVAL=$?
-        echo
-        [ $RETVAL -eq 0 ] && [ -d $lockdir ] && rm -f $lockdir/$DAEMON
-        return $RETVAL
+	echo -n "Shutting down $prog: "
+    killproc jstatd
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && [ -d $lockdir ] && rm -f $lockdir/$prog
+    return $RETVAL
 }
 
 case "$1" in
@@ -49,17 +55,17 @@ case "$1" in
 	stop
 	;;
     status)
-	status $DAEMON
-        ;;
+	status $prog
+    ;;
     restart|reload)
-    	stop
+    stop
 	start
 	;;
     condrestart)
-	[ -f /var/lock/subsys/$DAEMON ] && restart || :
+	[ -d $lockdir ] && [ -f /var/lock/subsys/$prog ] && restart || :
 	;;
     *)
-	echo "Usage: <$DAEMON> {start|stop|status|reload|restart"
+	echo "Usage: $prog {start|stop|status|reload|restart"
 	exit 1
 	;;
 esac
