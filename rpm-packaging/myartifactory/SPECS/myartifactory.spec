@@ -50,7 +50,7 @@ BuildRequires: systemd
 %define systemd_requires %{nil}
 %endif
 
-Requires:           java = 1:1.6.0
+Requires:           java = 1.6.0
 
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
