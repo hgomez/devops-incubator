@@ -21,5 +21,5 @@ fi
 # Jstatd arguments.
 #  * To bind to a specific hostname, add: -J-Djava.rmi.server.hostname=<HOSTNAME>
 #  * To bind to a specific port, add: -p<PORT>
-ARGS="-J-Djava.security.policy=/etc/jstatd/all.policy"
+ARGS="-J-Djava.security.policy=/etc/@@SKEL_APP@@/all.policy"
 
