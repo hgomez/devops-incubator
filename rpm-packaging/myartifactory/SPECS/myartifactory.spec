@@ -12,7 +12,7 @@
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 0
+Release: 3
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -50,7 +50,13 @@ BuildRequires: systemd
 %define systemd_requires %{nil}
 %endif
 
+%if 0%{?suse_version}
 Requires:           java = 1.6.0
+%endif
+
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
+Requires:           java = 1:1.6.0
+%endif
 
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
@@ -277,6 +283,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Mar 7 2012 henri.gomez@gmail.com 1.0.0-3
+- Distribution dependant Requires for Java
+
 * Fri Jan 6 2012 henri.gomez@gmail.com 1.0.0-2
 - Create conf/Catalina/localhost with user rights
 

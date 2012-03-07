@@ -1,6 +1,6 @@
 Name: jstatd-daemon
 Version: %{VERSION}
-Release: 2
+Release: 3
 Summary: A configurable rc.d daemon for jstatd.
 Group: Development/Tools
 URL: http://docs.oracle.com/javase/6/docs/technotes/tools/share/jstatd.html
@@ -12,8 +12,13 @@ BuildArch:  noarch
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
-#Requires: jdk
+%if 0%{?suse_version}
 Requires:           java = 1.6.0
+%endif
+
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
+Requires:           java = 1:1.6.0
+%endif
 
 Source0: initd.skel
 Source1: sysconfig.skel
@@ -86,7 +91,10 @@ fi
 %attr(0644,root,root) %{_sysconfdir}/%{service_name}/all.policy
 
 %changelog
-* Thue Mar 6 2012 henri.gomez@gmail.com 1.0.0-2
+* Wed Mar 7 2012 henri.gomez@gmail.com 1.0.0-3
+- Distribution dependant Requires for Java
+
+* Tue Mar 6 2012 henri.gomez@gmail.com 1.0.0-2
 - Rework for Suse/OpenSuse compatiblity
 
 * Sun Mar 4 2012 julien.nicoulaud@gmail.com 1.0.0-1
