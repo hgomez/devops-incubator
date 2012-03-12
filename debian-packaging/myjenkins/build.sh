@@ -3,7 +3,7 @@
 pushd `dirname $0`
 
 
-APP_VERSION=1.451
+APP_VERSION=1.455
 TOMCAT_VERSION=7.0.26
 
 
