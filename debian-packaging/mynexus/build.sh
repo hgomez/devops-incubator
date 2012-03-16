@@ -2,7 +2,7 @@
 
 pushd `dirname $0`
 
-APP_VERSION=2.0.1
+APP_VERSION=2.0.2
 TOMCAT_VERSION=7.0.26
 
 
@@ -40,7 +40,7 @@ if [ $# -gt 1 ]; then
   shift
 fi
 
-NEXUS_URL=http://nexus.sonatype.org/downloads/nexus-webapp-${APP_VERSION}.war
+NEXUS_URL=http://www.sonatype.org/downloads/nexus-${NEXUS_VERSION}.war
 TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
@@ -64,7 +64,7 @@ fi
 
 
 if [ ! -f SOURCES/downloaded/$APP_NAME-${APP_VERSION}.war ]; then
-  echo "downloading nexus-webapp-${APP_VERSION}.war from $NEXUS_URL"
+  echo "downloading nexus-${APP_VERSION}.war from $NEXUS_URL"
   curl  -s -L $NEXUS_URL -o SOURCES/downloaded/$APP_NAME-${APP_VERSION}.war
 fi
 
