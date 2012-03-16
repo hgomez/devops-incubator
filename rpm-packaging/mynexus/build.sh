@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NEXUS_VERSION=2.0.1
+NEXUS_VERSION=2.0.2
 TOMCAT_VERSION=7.0.26
 
 if [ $# -gt 1 ]; then
@@ -13,13 +13,13 @@ if [ $# -gt 1 ]; then
   shift
 fi
 
-NEXUS_URL=http://nexus.sonatype.org/downloads/nexus-webapp-${NEXUS_VERSION}.war
+NEXUS_URL=http://www.sonatype.org/downloads/nexus-${NEXUS_VERSION}.war
 TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
-if [ ! -f SOURCES/nexus-webapp-${NEXUS_VERSION}.war ]; then
-  echo "downloading nexus-webapp-${NEXUS_VERSION}.war from $NEXUS_URL"
-  curl -s -L $NEXUS_URL -o SOURCES/nexus-webapp-${NEXUS_VERSION}.war
+if [ ! -f SOURCES/nexus-${NEXUS_VERSION}.war ]; then
+  echo "downloading nexus-${NEXUS_VERSION}.war from $NEXUS_URL"
+  curl -s -L $NEXUS_URL -o SOURCES/nexus-${NEXUS_VERSION}.war
 fi
 
 if [ ! -f SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz ]; then

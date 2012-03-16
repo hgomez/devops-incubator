@@ -7,7 +7,7 @@
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.0.1
+%define nexus_rel    2.0.2
 %endif
 
 Name: mynexus
@@ -62,7 +62,7 @@ Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: nexus-webapp-%{nexus_rel}.war
+Source1: nexus-%{nexus_rel}.war
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
