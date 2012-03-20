@@ -44,9 +44,7 @@ BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 %if 0%{?suse_version} > 1140
 BuildRequires: systemd
 %{?systemd_requires}
-%endif
-
-%if 0%{suse_version} <= 1140
+%else
 %define systemd_requires %{nil}
 %endif
 
