@@ -12,7 +12,7 @@
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 4
+Release: 0
 Summary: appname %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -284,11 +284,11 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Wed Mar 7 2012 henri.gomez@gmail.com 1.0.0-4
+* Wed Mar 7 2012 henri.gomez@gmail.com 0.8.2-0
 - Distribution dependant Requires for Java
 
-* Fri Jan 6 2012 henri.gomez@gmail.com 1.0.0-2
+* Fri Jan 6 2012 henri.gomez@gmail.com 0.8.1-1
 - Create conf/Catalina/localhost with user rights
 
-* Sat Dec 3 2011 henri.gomez@gmail.com 1.0.0-1
+* Sat Dec 3 2011 henri.gomez@gmail.com 0.8.1-0
 - Initial RPM
