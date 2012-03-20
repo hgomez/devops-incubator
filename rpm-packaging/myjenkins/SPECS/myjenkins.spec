@@ -12,7 +12,7 @@
 
 Name: myjenkins
 Version: %{jenkins_rel}
-Release: 4
+Release: 0
 Summary: Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -268,11 +268,11 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Wed Mar 7 2012 henri.gomez@gmail.com 1.0.0-4
+* Wed Mar 7 2012 henri.gomez@gmail.com 1.455-0
 - Distribution dependant Requires for Java
 
-* Fri Jan 6 2012 henri.gomez@gmail.com 1.0.0-2
+* Fri Jan 6 2012 henri.gomez@gmail.com 1.454-0
 - Create conf/Catalina/localhost with user rights
 
-* Sat Dec 3 2011 henri.gomez@gmail.com 1.0.0-1
+* Sat Dec 3 2011 henri.gomez@gmail.com 1.453-0
 - Initial RPM
