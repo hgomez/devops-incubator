@@ -7,12 +7,12 @@
 %if %{?SONAR_REL:1}
 %define sonar_rel    %{SONAR_REL}
 %else
-%define sonar_rel    2.13.1
+%define sonar_rel    2.14
 %endif
 
 Name: mysonar
 Version: %{sonar_rel}
-Release: 4
+Release: 0
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -44,9 +44,7 @@ BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 %if 0%{?suse_version} > 1140
 BuildRequires: systemd
 %{?systemd_requires}
-%endif
-
-%if 0%{suse_version} <= 1140
+%else
 %define systemd_requires %{nil}
 %endif
 
@@ -303,11 +301,15 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Wed Mar 7 2012 henri.gomez@gmail.com 1.0.0-4
+* Tue Mar 20 2012 henri.gomez@gmail.com 2.14-0
+- Sonar 2.14 released
+- Fix RPM for CentOS
+
+* Wed Mar 7 2012 henri.gomez@gmail.com 2.13.1-2
 - Distribution dependant Requires for Java
 
-* Fri Jan 6 2012 henri.gomez@gmail.com 1.0.0-2
+* Fri Jan 6 2012 henri.gomez@gmail.com 2.12-1
 - Create conf/Catalina/localhost with user rights
 
-* Sat Dec 3 2011 henri.gomez@gmail.com 1.0.0-1
+* Sat Dec 3 2011 henri.gomez@gmail.com 2.12-0
 - Initial RPM
