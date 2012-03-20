@@ -12,7 +12,7 @@
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 3
+Release: 1
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -281,11 +281,11 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Wed Mar 7 2012 henri.gomez@gmail.com 1.0.0-3
+* Wed Mar 7 2012 henri.gomez@gmail.com 2.5.1-1
 - Distribution dependant Requires for Java
 
-* Fri Jan 6 2012 henri.gomez@gmail.com 1.0.0-2
+* Fri Jan 6 2012 henri.gomez@gmail.com 2.5.1-0
 - Create conf/Catalina/localhost with user rights
 
-* Sat Dec 3 2011 henri.gomez@gmail.com 1.0.0-1
+* Sat Dec 3 2011 henri.gomez@gmail.com 2.5.0-0
 - Initial RPM
