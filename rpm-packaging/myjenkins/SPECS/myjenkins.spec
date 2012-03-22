@@ -7,7 +7,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.455
+%define jenkins_rel    1.456
 %endif
 
 Name: myjenkins

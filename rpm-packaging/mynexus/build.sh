@@ -17,20 +17,52 @@ NEXUS_URL=http://www.sonatype.org/downloads/nexus-${NEXUS_VERSION}.war
 TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
-if [ ! -f SOURCES/nexus-${NEXUS_VERSION}.war ]; then
-  echo "downloading nexus-${NEXUS_VERSION}.war from $NEXUS_URL"
-  curl -s -L $NEXUS_URL -o SOURCES/nexus-${NEXUS_VERSION}.war
-fi
+fetch_remote_file()
+{
+	URL=$1
+	DEST=$2
 
-if [ ! -f SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz ]; then
-  echo "downloading apache-tomcat-${TOMCAT_VERSION}.tar.gz from $TOMCAT_URL"
-  curl -s -L $TOMCAT_URL -o SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-fi
+	if [ ! -f $2 ]; then
 
-if [ ! -f SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar ]; then
-  echo "downloading catalina-jmx-remote-${TOMCAT_VERSION}.jar from $CATALINA_JMX_REMOTE_URL"
-  curl -s -L $CATALINA_JMX_REMOTE_URL -o SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar
-fi
+		DROP_DIR=~/DROP_DIR
+		mkdir -p $DROP_DIR
+		DD_FILE=$DROP_DIR\`basename $2`
+
+		if [ -f $DD_FILE ]; then
+			cp $DD_FILE $2
+		else
+			echo "downloading from $1 to $2..."
+			curl -L $1 -o $DD_FILE
+
+			case $1 in
+				*.tar.gz)
+		        	tar tzf $DD_FILE >>/dev/null 2>&1
+		        	;;
+		    	*.zip)
+		        	unzip -t $DD_FILE >>/dev/null 2>&1
+		        	;;
+		    	*.jar)
+		        	unzip -t $DD_FILE >>/dev/null 2>&1
+		        	;;
+		    	*.war)
+		        	unzip -t $DD_FILE >>/dev/null 2>&1
+		        	;;
+			esac
+
+			if [ $? != 0 ]; then
+				rm -f $DD_FILE
+				echo "invalid content `basename $2` downloaded from $1, discarding content and aborting build."
+				exit -1
+			else
+				cp $DD_FILE $2
+			fi
+
+	fi
+}
+
+fetch_remote_file $NEXUS_URL SOURCES/nexus-${NEXUS_VERSION}.war
+fetch_remote_file $TOMCAT_URL SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+fetch_remote_file $CATALINA_JMX_REMOTE_URL SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar
 
 echo "Version to package is $NEXUS_VERSION, powered by Apache Tomcat $TOMCAT_VERSION"
 
