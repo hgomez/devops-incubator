@@ -1,3 +1,9 @@
+%ifos darwin
+%define __portsed sed -i "" -e
+%else
+%define __portsed sed -i
+%endif
+
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
@@ -7,7 +13,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.456
+%define jenkins_rel    1.457
 %endif
 
 Name: myjenkins
@@ -107,26 +113,26 @@ mkdir -p $RPM_BUILD_ROOT%{appconflocaldir}
 rm -rf $RPM_BUILD_ROOT%{appdir}/webapps/*
 
 # patches to have logs under /var/log/appname
-sed -i 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
+%{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
 
 # jenkins webapp is ROOT.war (will respond to /)
 cp %{SOURCE1}  $RPM_BUILD_ROOT%{appwebappdir}/ROOT.war
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-sed -i 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-sed -i 's|@@JENKINS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-sed -i 's|@@JENKINS_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-sed -i 's|@@JENKINS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-sed -i 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-sed -i 's|@@JENKINS_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-sed -i 's|@@JENKINS_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-sed -i 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-sed -i 's|@@JENKINS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-sed -i 's|@@JENKINS_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} $RPM_BUILD_ROOT%{appdir}/lib
@@ -135,23 +141,23 @@ cp %{SOURCE5}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
-sed -i 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{appname}
-sed -i 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{appname}
+%{__portsed} 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{appname}
 
 # Install server.xml.skel
 cp %{SOURCE8} $RPM_BUILD_ROOT%{appconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{appname}.conf
-sed -i 's|@@JENKINS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{appname}.conf
+%{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{appname}.conf
 
 # Setup Systemd
 cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
-sed -i 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
-sed -i 's|@@JENKINS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@JENKINS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
 
 # remove uneeded file in RPM
 rm -f $RPM_BUILD_ROOT%{appdir}/*.sh

@@ -1,3 +1,9 @@
+%ifos darwin
+%define __portsed sed -i "" -e
+%else
+%define __portsed sed -i
+%endif
+
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
@@ -119,7 +125,7 @@ mkdir -p $RPM_BUILD_ROOT%{appconflocaldir}
 rm -rf $RPM_BUILD_ROOT%{appdir}/webapps/*
 
 # patches to have logs under /var/log/app
-sed -i 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
+%{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
 
 # copy Sonar generated webapp as ROOT.war (will respond to /)
 cp sonar-%{sonar_rel}/war/sonar.war  $RPM_BUILD_ROOT%{appwebappdir}/ROOT.war
@@ -138,19 +144,19 @@ mkdir -p $RPM_BUILD_ROOT%{appdatadir}/data
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@SONAR_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@SONAR_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@SONAR_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+%{__portsed} 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+%{__portsed} 's|@@SONAR_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+%{__portsed} 's|@@SONAR_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+%{__portsed} 's|@@SONAR_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
 
 # sysconfig
 cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SONAR_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SONAR_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SONAR_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SONAR_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@SONAR_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@SONAR_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@SONAR_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@SONAR_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@SONAR_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@SONAR_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} $RPM_BUILD_ROOT%{appdir}/lib
@@ -159,23 +165,23 @@ cp %{SOURCE5}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
-sed -i 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
-sed -i 's|@@SONAR_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
+%{__portsed} 's|@@SONAR_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
 
 # Install server.xml.skel
 cp %{SOURCE8} $RPM_BUILD_ROOT%{appconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
-sed -i 's|@@SONAR_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
+%{__portsed} 's|@@SONAR_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
 
 # Setup Systemd
 cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-sed -i 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-sed -i 's|@@SONAR_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
+%{__portsed} 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
+%{__portsed} 's|@@SONAR_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
 
 # remove uneeded file in RPM
 rm -f $RPM_BUILD_ROOT%{appdir}/*.sh

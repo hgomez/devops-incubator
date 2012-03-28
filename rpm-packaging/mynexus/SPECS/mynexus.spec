@@ -1,3 +1,9 @@
+%ifos darwin
+%define __portsed sed -i "" -e
+%else
+%define __portsed sed -i
+%endif
+
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
@@ -107,26 +113,26 @@ mkdir -p $RPM_BUILD_ROOT%{appconflocaldir}
 rm -rf $RPM_BUILD_ROOT%{appdir}/webapps/*
 
 # patches to have logs under /var/log/app
-sed -i 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
+%{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
 
 # nexus webapp is ROOT.war (will respond to /)
 cp %{SOURCE1}  $RPM_BUILD_ROOT%{appwebappdir}/ROOT.war
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@NEXUS_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@NEXUS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
 
 # sysconfig
 cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@NEXUS_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@NEXUS_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@NEXUS_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} $RPM_BUILD_ROOT%{appdir}/lib
@@ -135,23 +141,23 @@ cp %{SOURCE5}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
-sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
-sed -i 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
+%{__portsed} 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
 
 # Install server.xml.skel
 cp %{SOURCE8} $RPM_BUILD_ROOT%{appconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
-sed -i 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
+%{__portsed} 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
 
 # Setup Systemd
 cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-sed -i 's|@@NEXUS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
+%{__portsed} 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
+%{__portsed} 's|@@NEXUS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
 
 # remove uneeded file in RPM
 rm -f $RPM_BUILD_ROOT%{appdir}/*.sh
