@@ -196,7 +196,7 @@ else
   if [ "$1" == "2" ]; then
     if [ -f %{_var}/run/%{app}.pid ]; then
       %{_initrddir}/%{app} stop
-      touch %{appdir}/logs/rpm-update-stop
+      touch %{applogdir}rpm-update-stop
     fi
     # clean up deployed webapp
     rm -rf %{appwebappdir}/ROOT
@@ -229,10 +229,10 @@ if [ "$1" == "1" ]; then
 else
   # Update time, restart application if it was running
   if [ "$1" == "2" ]; then
-    if [ -f %{appdir}/logs/rpm-update-stop ]; then
+    if [ -f %{applogdir}/rpm-update-stop ]; then
       # restart application after update (comment next line this behaviour not expected)
       %{_initrddir}/%{name} start
-      rm -f %{appdir}/logs/rpm-update-stop
+      rm -f %{applogdir}/rpm-update-stop
     fi
   fi
 fi
