@@ -21,20 +21,21 @@ fetch_remote_file()
 {
 	URL=$1
 	DEST=$2
+	BDEST=`basename $DEST`
 
-	if [ ! -f $2 ]; then
+	if [ ! -f $DEST ]; then
 
 		DROP_DIR=~/DROP_DIR
 		mkdir -p $DROP_DIR
-		DD_FILE=$DROP_DIR\`basename $2`
+		DD_FILE=$DROP_DIR/$BDEST
 
 		if [ -f $DD_FILE ]; then
-			cp $DD_FILE $2
+			cp $DD_FILE $DEST
 		else
-			echo "downloading from $1 to $2..."
-			curl -L $1 -o $DD_FILE
+			echo "downloading from $URL to $DEST..."
+			curl -L $URL -o $DD_FILE
 
-			case $1 in
+			case $DD_FILE in
 				*.tar.gz)
 		        	tar tzf $DD_FILE >>/dev/null 2>&1
 		        	;;
@@ -51,11 +52,12 @@ fetch_remote_file()
 
 			if [ $? != 0 ]; then
 				rm -f $DD_FILE
-				echo "invalid content `basename $2` downloaded from $1, discarding content and aborting build."
+				echo "invalid content $BDEST downloaded from $URL, discarding content and aborting build."
 				exit -1
 			else
-				cp $DD_FILE $2
+				cp $DD_FILE $DEST
 			fi
+		fi
 
 	fi
 }
