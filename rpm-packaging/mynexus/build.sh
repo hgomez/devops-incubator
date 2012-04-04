@@ -76,5 +76,5 @@ rm -rf BUILD RPMS SRPMS TEMP
 mkdir -p BUILD RPMS SRPMS TEMP
 
 # Build using rpmbuild (use double-quote for define to have shell resolv vars !)
-rpmbuild -ba --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="TOMCAT_REL $TOMCAT_VERSION" --define="NEXUS_REL $NEXUS_VERSION"  SPECS/mynexus.spec
+rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="TOMCAT_REL $TOMCAT_VERSION" --define="NEXUS_REL $NEXUS_VERSION"  SPECS/mynexus.spec
 
