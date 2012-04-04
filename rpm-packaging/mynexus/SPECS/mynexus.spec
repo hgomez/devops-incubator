@@ -75,7 +75,7 @@ Source6: setenv.sh.skel
 Source7: logrotate.skel
 Source8: server.xml.skel
 Source9: limits.conf.skel
-Source10: app-systemd.skel
+Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 
 %description
