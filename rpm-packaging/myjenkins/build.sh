@@ -19,6 +19,9 @@ if [ $# -gt 1 ]; then
   shift
 fi
 
+JENKINS_URL=http://mirrors.jenkins-ci.org/war/${JENKINS_VERSION}/jenkins.war
+JENKINS_LTS_URL=http://mirrors.jenkins-ci.org/war-stable/${JENKINS_LTS_VERSION}/jenkins.war
+
 if $USE_LTS; then
  JENKINS_URL=$JENKINS_LTS_URL
  JENKINS_VERSION=$JENKINS_LTS_VERSION
@@ -31,12 +34,13 @@ fetch_remote_file()
 {
 	URL=$1
 	DEST=$2
+	BDEST=`basename $DEST`
 
 	if [ ! -f $DEST ]; then
 
 		DROP_DIR=~/DROP_DIR
 		mkdir -p $DROP_DIR
-		DD_FILE=$DROP_DIR\`basename $DEST`
+		DD_FILE=$DROP_DIR\$BDEST
 
 		if [ -f $DD_FILE ]; then
 			cp $DD_FILE $DEST
@@ -61,7 +65,7 @@ fetch_remote_file()
 
 			if [ $? != 0 ]; then
 				rm -f $DD_FILE
-				echo "invalid content `basename $DEST` downloaded from $URL, discarding content and aborting build."
+				echo "invalid content $BDEST downloaded from $URL, discarding content and aborting build."
 				exit -1
 			else
 				cp $DD_FILE $DEST
