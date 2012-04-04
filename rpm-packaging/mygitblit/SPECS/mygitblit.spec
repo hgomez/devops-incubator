@@ -281,7 +281,7 @@ fi
 %attr(0755,%{appusername},%{appusername}) %dir %{appconflocaldir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/repos
-%attr(0644,%{appusername},%{appusername}) %config(noreplace) %{appdatadir}/conf/users.properties
+%attr(0644,%{appusername},%{appusername}) %config(noreplace) %{appdatadir}/conf/users.conf
 %attr(0755,%{appusername},%{appusername}) %dir %{apptempdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appworkdir}
 %doc %{appdir}/NOTICE
