@@ -41,7 +41,7 @@ fetch_remote_file()
 
 		DROP_DIR=~/DROP_DIR
 		mkdir -p $DROP_DIR
-		DD_FILE=$DROP_DIR\$BDEST
+		DD_FILE=$DROP_DIR/$BDEST
 
 		if [ -f $DD_FILE ]; then
 			cp $DD_FILE $DEST
