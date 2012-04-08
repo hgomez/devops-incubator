@@ -28,7 +28,7 @@ fetch_remote_file()
 
 	if [ ! -f $DEST ]; then
 
-		DROP_DIR=~/DROP_DIR
+		DROP_DIR=$WORKSPACE/DROP_DIR
 		mkdir -p $DROP_DIR
 		DD_FILE=$DROP_DIR/$BDEST
 
