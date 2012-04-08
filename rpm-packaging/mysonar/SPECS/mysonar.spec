@@ -7,7 +7,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.26
+%define tomcat_rel        7.0.27
 %endif
 
 %if %{?SONAR_REL:1}

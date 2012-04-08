@@ -7,13 +7,13 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.26
+%define tomcat_rel        7.0.27
 %endif
 
 %if %{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
-%define gitblit_rel    0.8.2
+%define gitblit_rel    0.9.2
 %endif
 
 Name: mygitblit

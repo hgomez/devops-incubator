@@ -7,13 +7,13 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.26
+%define tomcat_rel        7.0.27
 %endif
 
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.0.2
+%define nexus_rel    2.0.3
 %endif
 
 Name: mynexus

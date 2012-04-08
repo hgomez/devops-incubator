@@ -7,13 +7,13 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.26
+%define tomcat_rel        7.0.27
 %endif
 
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.457
+%define jenkins_rel    1.458
 %endif
 
 Name: myjenkins
