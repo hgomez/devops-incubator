@@ -61,7 +61,6 @@ export ARTIFACTORY_HOME=@@SKEL_DATADIR@@
 #
 APP_JAVA_HOME=
 APP_JAVA_OPTS="server -Xms1g -Xmx1g -Xss256k -XX:PermSize=128m -XX:MaxPermSize=128m -XX:SurvivorRatio=8 -XX:NewSize=512m -XX:MaxNewSize=512m -XX:+UseParallelGC -XX:-UseConcMarkSweepGC"
-APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+UseCompressedOops"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@SKEL_LOGDIR@@"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dartifactory.home=$ARTIFACTORY_HOME"
