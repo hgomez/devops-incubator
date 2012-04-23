@@ -13,12 +13,12 @@
 %if %{?SONAR_REL:1}
 %define sonar_rel    %{SONAR_REL}
 %else
-%define sonar_rel    2.14
+%define sonar_rel    3.0
 %endif
 
 Name: mysonar
 Version: %{sonar_rel}
-Release: 0
+Release: 1
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -307,6 +307,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Apr 23 2012 henri.gomez@gmail.com 3.0-1
+- Sonar 3.0 released
+
 * Tue Mar 20 2012 henri.gomez@gmail.com 2.14-0
 - Sonar 2.14 released
 - Fix RPM for CentOS
