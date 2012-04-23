@@ -4,7 +4,7 @@ VERSION=1.0.0
 
 # prepare fresh directories
 rm -rf BUILD RPMS SRPMS TEMP
-mkdir -p BUILD RPMS SRPMS TEMP
+mkdir -p BUILD RPMS SRPMS SOURCES TEMP
 
 CRASH_URL=http://crsh.googlecode.com/files/crsh-${VERSION}.tar.gz
 
