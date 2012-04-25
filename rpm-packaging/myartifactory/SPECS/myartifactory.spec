@@ -13,7 +13,7 @@
 %if 0%{?ARTIFACTORY_REL:1}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    2.5.1
+%define artifactory_rel    2.5.2
 %endif
 
 Name: myartifactory
@@ -287,6 +287,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Apr 25 2012 henri.gomez@gmail.com 2.5.2-1
+- Artifactory 2.5.2 released, new RPM
+
 * Wed Mar 7 2012 henri.gomez@gmail.com 2.5.1-1
 - Distribution dependant Requires for Java
 
