@@ -13,12 +13,12 @@
 %if %{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
-%define gitblit_rel    0.9.2
+%define gitblit_rel    0.9.3
 %endif
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 0
+Release: 1
 Summary: appname %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -290,6 +290,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Apr 25 2012 henri.gomez@gmail.com 0.9.3-1
+- GitBlit 0.9.3 released, RPM upgraded
+
 * Wed Mar 7 2012 henri.gomez@gmail.com 0.8.2-0
 - Distribution dependant Requires for Java
 
