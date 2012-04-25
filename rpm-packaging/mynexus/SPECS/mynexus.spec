@@ -18,7 +18,7 @@
 
 Name: mynexus
 Version: %{nexus_rel}
-Release: 0
+Release: 1
 Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -274,6 +274,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Apr 25 2012 henri.gomez@gmail.com 2.0.3-1
+- Set default release to 1 instead of 0
+
 * Wed Mar 7 2012 henri.gomez@gmail.com 2.0.2-0
 - Distribution dependant Requires for Java
 - Nexus 2.0.2 released
