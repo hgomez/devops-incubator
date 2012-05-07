@@ -13,7 +13,7 @@
 %if 0%{?ARTIFACTORY_REL:1}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    2.5.2
+%define artifactory_rel    2.6.0
 %endif
 
 Name: myartifactory
@@ -287,6 +287,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sun May 6 2012 henri.gomez@gmail.com 2.6.0-1
+- Artifactory 2.6.0 released, new RPM
+
 * Wed Apr 25 2012 henri.gomez@gmail.com 2.5.2-1
 - Artifactory 2.5.2 released, new RPM
 
