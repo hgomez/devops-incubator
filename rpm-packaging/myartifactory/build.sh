@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ARTIFACTORY_VERSION=2.6.0
+ARTIFACTORY_VERSION=2.6.1
 TOMCAT_VERSION=7.0.27
 
 if [ $# -ge 1 ]; then

@@ -13,7 +13,7 @@
 %if %{?SONAR_REL:1}
 %define sonar_rel    %{SONAR_REL}
 %else
-%define sonar_rel    3.0
+%define sonar_rel    3.0.1
 %endif
 
 Name: mysonar
@@ -307,8 +307,11 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed May 16 2012 henri.gomez@gmail.com 3.0.1-1
+- Sonar 3.0.1 released, new RPM
+
 * Mon Apr 23 2012 henri.gomez@gmail.com 3.0-1
-- Sonar 3.0 released
+- Sonar 3.0 released, new RPM
 
 * Tue Mar 20 2012 henri.gomez@gmail.com 2.14-0
 - Sonar 2.14 released
