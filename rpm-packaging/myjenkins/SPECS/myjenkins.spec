@@ -13,7 +13,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.464
+%define jenkins_rel    1.465
 %endif
 
 Name: myjenkins
@@ -274,6 +274,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu May 24 2012 henri.gomez@gmail.com 1.465-1
+- Jenkins 1.465 release, RPM upgraded
+
 * Wed May 16 2012 henri.gomez@gmail.com 1.464-1
 - Jenkins 1.464 release, RPM upgraded
 
