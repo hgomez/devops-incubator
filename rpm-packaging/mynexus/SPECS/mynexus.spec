@@ -13,7 +13,7 @@
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.0.3
+%define nexus_rel    2.0.4
 %endif
 
 Name: mynexus
@@ -274,6 +274,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu May 24 2012 henri.gomez@gmail.com 2.0.4-1
+- Nexus 2.0.4 released, RPM updated
+
 * Wed Apr 25 2012 henri.gomez@gmail.com 2.0.3-1
 - Set default release to 1 instead of 0
 
