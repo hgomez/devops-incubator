@@ -7,18 +7,18 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.27
+%define tomcat_rel        7.0.28
 %endif
 
 %if 0%{?ARTIFACTORY_REL:1}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    2.6.2
+%define artifactory_rel    2.6.1
 %endif
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 1
+Release: 2
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -287,14 +287,17 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Jun 20 2012 henri.gomez@gmail.com 2.6.1-2
+- Tomcat 7.0.28 released
+
 * Wed May 16 2012 henri.gomez@gmail.com 2.6.1-1
-- Artifactory 2.6.1 released, new RPM
+- Artifactory 2.6.1 released
 
 * Sun May 6 2012 henri.gomez@gmail.com 2.6.0-1
-- Artifactory 2.6.0 released, new RPM
+- Artifactory 2.6.0 released
 
 * Wed Apr 25 2012 henri.gomez@gmail.com 2.5.2-1
-- Artifactory 2.5.2 released, new RPM
+- Artifactory 2.5.2 released
 
 * Wed Mar 7 2012 henri.gomez@gmail.com 2.5.1-1
 - Distribution dependant Requires for Java

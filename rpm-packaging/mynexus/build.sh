@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NEXUS_VERSION=2.0.5
-TOMCAT_VERSION=7.0.27
+TOMCAT_VERSION=7.0.28
 
 if [ $# -gt 1 ]; then
   NEXUS_VERSION=$1

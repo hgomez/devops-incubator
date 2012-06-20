@@ -7,13 +7,13 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.27
+%define tomcat_rel        7.0.28
 %endif
 
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.465
+%define jenkins_rel    1.471
 %endif
 
 Name: myjenkins
@@ -274,14 +274,18 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Jun 20 2012 henri.gomez@gmail.com 1.471-1
+- Jenkins 1.471 released
+- Tomcat 7.0.28 released
+
 * Thu May 24 2012 henri.gomez@gmail.com 1.465-1
-- Jenkins 1.465 release, RPM upgraded
+- Jenkins 1.465 released
 
 * Wed May 16 2012 henri.gomez@gmail.com 1.464-1
-- Jenkins 1.464 release, RPM upgraded
+- Jenkins 1.464 released
 
 * Wed Apr 25 2012 henri.gomez@gmail.com 1.461-1
-- Jenkins 1.461 release, RPM upgraded
+- Jenkins 1.461 released
 
 * Wed Mar 7 2012 henri.gomez@gmail.com 1.455-0
 - Distribution dependant Requires for Java
