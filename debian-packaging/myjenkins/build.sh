@@ -3,8 +3,8 @@
 pushd `dirname $0`
 
 
-APP_VERSION=1.465
-TOMCAT_VERSION=7.0.27
+APP_VERSION=1.474
+TOMCAT_VERSION=7.0.29
 
 
 # Build variables
