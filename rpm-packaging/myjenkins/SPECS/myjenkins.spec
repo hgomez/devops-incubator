@@ -7,13 +7,13 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.28
+%define tomcat_rel        7.0.29
 %endif
 
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.471
+%define jenkins_rel    1.474
 %endif
 
 Name: myjenkins
@@ -274,6 +274,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Jul 11 2012 henri.gomez@gmail.com 1.474-1
+- Jenkins 1.474 released
+- Tomcat 7.0.29 released
+
 * Wed Jun 20 2012 henri.gomez@gmail.com 1.471-1
 - Jenkins 1.471 released
 - Tomcat 7.0.28 released

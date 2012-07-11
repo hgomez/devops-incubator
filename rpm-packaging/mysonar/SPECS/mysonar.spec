@@ -7,18 +7,18 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.28
+%define tomcat_rel        7.0.29
 %endif
 
 %if %{?SONAR_REL:1}
 %define sonar_rel    %{SONAR_REL}
 %else
-%define sonar_rel    3.1
+%define sonar_rel    3.1.1
 %endif
 
 Name: mysonar
 Version: %{sonar_rel}
-Release: 2
+Release: 1
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -307,6 +307,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Jul 11 2012 henri.gomez@gmail.com 3.1.1-1
+- Sonar 3.1.1 released
+- Tomcat 7.0.29 released
+
 * Wed Jun 20 2012 henri.gomez@gmail.com 3.1-2
 - Tomcat 7.0.28 released
 

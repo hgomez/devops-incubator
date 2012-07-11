@@ -7,7 +7,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.28
+%define tomcat_rel        7.0.29
 %endif
 
 %if %{?GITBLIT_REL:1}
@@ -18,7 +18,7 @@
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 2
+Release: 3
 Summary: appname %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -290,6 +290,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Jul 11 2012 henri.gomez@gmail.com 0.9.3-3
+- Tomcat 7.0.29 released
+
 * Wed Jun 20 2012 henri.gomez@gmail.com 0.9.3-2
 - Tomcat 7.0.28 released
 

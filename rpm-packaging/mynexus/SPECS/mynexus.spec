@@ -7,18 +7,18 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.28
+%define tomcat_rel        7.0.29
 %endif
 
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.0.5
+%define nexus_rel    2.0.6
 %endif
 
 Name: mynexus
 Version: %{nexus_rel}
-Release: 2
+Release: 1
 Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -274,6 +274,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Jul 11 2012 henri.gomez@gmail.com 2.0.6-1
+- Nexus 2.0.6 released
+- Tomcat 7.0.29 released
+
 * Wed Jun 20 2012 henri.gomez@gmail.com 2.0.5-2
 - Tomcat 7.0.28 released
 
