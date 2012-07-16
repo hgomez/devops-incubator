@@ -1,6 +1,6 @@
 #!/bin/sh
 
-GITBLIT_VERSION=0.9.3
+GITBLIT_VERSION=1.0.0
 TOMCAT_VERSION=7.0.29
 
 if [ $# -gt 1 ]; then

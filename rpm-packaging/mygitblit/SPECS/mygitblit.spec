@@ -13,12 +13,12 @@
 %if %{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
-%define gitblit_rel    0.9.3
+%define gitblit_rel    1.0.0
 %endif
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 3
+Release: 1
 Summary: appname %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -290,6 +290,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Jul 16 2012 henri.gomez@gmail.com 1.0.0-1
+- GitBlit 1.0.0 released
+
 * Wed Jul 11 2012 henri.gomez@gmail.com 0.9.3-3
 - Tomcat 7.0.29 released
 
