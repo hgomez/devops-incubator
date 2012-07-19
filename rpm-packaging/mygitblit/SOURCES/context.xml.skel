@@ -53,7 +53,7 @@
 	<Parameter name="git.packedGitOpenFiles" value="@APP_GIT_PACKED_GIT_OPEN_FILES@"
 	         override="false"/>
 	         
-	<Parameter name="realm.userService" value="@APP_REAL_USER_SERVICE@"
+	<Parameter name="realm.userService" value="@APP_REALM_USER_SERVICE@"
 	         override="false"/>
 
 </Context>
