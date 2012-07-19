@@ -32,10 +32,28 @@
     <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
     -->
 
-	<Parameter name="git.repositoriesFolder" value="@@GITBLIT_DATADIR@@/repos"
+	<Parameter name="git.repositoriesFolder" value="@APP_GIT_REPOSITORIES_FOLDER@"
 	         override="false"/>
 
-	<Parameter name="realm.userService" value="@@GITBLIT_DATADIR@@/conf/users.conf"
+	<Parameter name="groovy.scriptsFolder" value="@APP_GROOVY_SCRIPT_FOLDER@"
+	         override="false"/>
+
+	<Parameter name="groovy.grapeFolder" value="@APP_GROOVY_GRAPE_FOLDER@"
+	         override="false"/>
+
+	<Parameter name="git.packedGitLimit" value="@APP_GIT_PACKED_GIT_LIMIT@"
+	         override="false"/>
+
+	<Parameter name="git.streamFileThreshold" value="@APP_GIT_STREAM_FILE_THRESHOLD@"
+	         override="false"/>
+	         
+	<Parameter name="git.deltaBaseCacheLimit" value="@APP_GIT_DELTABASE_CACHE_LIMIT@"
+	         override="false"/>
+	         
+	<Parameter name="git.packedGitOpenFiles" value="@APP_GIT_PACKED_GIT_OPEN_FILES@"
+	         override="false"/>
+	         
+	<Parameter name="realm.userService" value="@APP_REAL_USER_SERVICE@"
 	         override="false"/>
 
 </Context>

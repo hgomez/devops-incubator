@@ -43,7 +43,7 @@ start() {
       XREPLACE="$XREPLACE | sed 's|@${RES_KEY}@|$RES_VAL|g'"
     done
 
-    for XFILE in $CATALINA_HOME/conf/server.xml.skel $CATALINA_HOME/conf/jmxremote.access.skel $CATALINA_HOME/conf/jmxremote.password.skel; do
+    for XFILE in $CATALINA_HOME/conf/server.xml.skel $CATALINA_HOME/conf/jmxremote.access.skel $CATALINA_HOME/conf/jmxremote.password.skel $CATALINA_HOME/conf/context.xml.skel; do
       DXFILE=${XFILE%.skel}
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
     done

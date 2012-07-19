@@ -18,7 +18,7 @@
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 1
+Release: 2
 Summary: appname %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -104,6 +104,8 @@ mkdir -p $RPM_BUILD_ROOT%{appdir}
 mkdir -p $RPM_BUILD_ROOT%{appdatadir}
 mkdir -p $RPM_BUILD_ROOT%{appdatadir}/conf
 mkdir -p $RPM_BUILD_ROOT%{appdatadir}/repos
+mkdir -p $RPM_BUILD_ROOT%{appdatadir}/scripts
+mkdir -p $RPM_BUILD_ROOT%{appdatadir}/grape
 
 mkdir -p $RPM_BUILD_ROOT%{applogdir}
 mkdir -p $RPM_BUILD_ROOT%{apptempdir}
@@ -167,8 +169,8 @@ cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@GITBLIT_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
 
 # Install context.xml (override previous one)
-cp %{SOURCE12} $RPM_BUILD_ROOT%{appconfdir}/context.xml
-%{__portsed} 's|@@GITBLIT_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{appconfdir}/context.xml
+cp %{SOURCE12} $RPM_BUILD_ROOT%{appconfdir}/context.xml.skel
+%{__portsed} 's|@@GITBLIT_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{appconfdir}/context.xml.skel
 
 # Install users.properties
 cp %{SOURCE13} $RPM_BUILD_ROOT%{appdatadir}/conf/users.conf
@@ -280,7 +282,10 @@ fi
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
 %attr(0755,%{appusername},%{appusername}) %dir %{appconflocaldir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
+%attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/conf
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/repos
+%attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/scripts
+%attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/grape
 %attr(0644,%{appusername},%{appusername}) %config(noreplace) %{appdatadir}/conf/users.conf
 %attr(0755,%{appusername},%{appusername}) %dir %{apptempdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appworkdir}
@@ -290,6 +295,11 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Jul 19 2012 henri.gomez@gmail.com 1.0.0-2
+- Rework WEB-INF properties injection in init.d using context.xml.skel
+- Add missing subdir scripts and grape
+- Update ownership of conf directory
+
 * Mon Jul 16 2012 henri.gomez@gmail.com 1.0.0-1
 - GitBlit 1.0.0 released
 
