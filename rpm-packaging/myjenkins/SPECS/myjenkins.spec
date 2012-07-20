@@ -18,7 +18,7 @@
 
 Name: myjenkins
 Version: %{jenkins_rel}
-Release: 0
+Release: 1
 Summary: Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
