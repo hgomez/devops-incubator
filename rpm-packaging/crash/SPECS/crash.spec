@@ -4,8 +4,11 @@
 %define __portsed sed -i
 %endif
 
+# Adjust RPM version (- is not allowed, lowercase strings)
+%define rpm_version %(version_rel=`echo %{VERSION} | sed "s/-/./g" | tr "[:upper:]" "[:lower:]"`; echo "$version_rel")
+
 Name: crash
-Version: %{VERSION}
+Version: %{rpm_version}
 Release: 1
 Summary: A shell to extend the Java Platform
 Group: Development/Tools
@@ -61,6 +64,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{crashdir}/lgpl-2.1.txt
 
 %changelog
-* Mon Apr 23 2012 henri.gomez@gmail.com 1.0.0-1
+* Fri Jul 20 2012 henri.gomez@gmail.com 1.1.0.rc1-1
 - Initial RPM
 
+* Mon Apr 23 2012 henri.gomez@gmail.com 1.0.0-1
+- Initial RPM
