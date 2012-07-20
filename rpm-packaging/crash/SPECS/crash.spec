@@ -29,7 +29,7 @@ Requires:           java = 1.6.0
 Requires:           java = 1:1.6.0
 %endif
 
-Source0: crsh-%{version}.tar.gz
+Source0: crsh-%{VERSION}.tar.gz
 
 %description
 A shell to extend the Java Platform - Open source and open minded
