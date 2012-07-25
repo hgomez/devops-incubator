@@ -1,3 +1,12 @@
+# Avoid unnecessary debug-information (native code)
+%define		debug_package %{nil}
+
+# Avoid jar repack (brp-java-repack-jars)
+#%define __jar_repack 0
+
+# Avoid CentOS 5/6 extras processes on contents (especially brp-java-repack-jars)
+%define __os_install_post %{nil}
+
 %ifos darwin
 %define __portsed sed -i "" -e
 %else
@@ -13,7 +22,7 @@
 %if 0%{?ARTIFACTORY_REL:1}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    2.6.1
+%define artifactory_rel    2.6.2
 %endif
 
 Name: myartifactory
@@ -287,6 +296,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed May 25 2012 henri.gomez@gmail.com 2.6.2-1
+- Artifactory 2.6.2 released
+
 * Wed Jul 11 2012 henri.gomez@gmail.com 2.6.1-3
 - Tomcat 7.0.29 released
 

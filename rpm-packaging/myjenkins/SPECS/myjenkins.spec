@@ -1,3 +1,12 @@
+# Avoid unnecessary debug-information (native code)
+%define		debug_package %{nil}
+
+# Avoid jar repack (brp-java-repack-jars)
+#%define __jar_repack 0
+
+# Avoid CentOS 5/6 extras processes on contents (especially brp-java-repack-jars)
+%define __os_install_post %{nil}
+
 %ifos darwin
 %define __portsed sed -i "" -e
 %else
@@ -13,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.474
+%define jenkins_rel    1.475
 %endif
 
 Name: myjenkins
