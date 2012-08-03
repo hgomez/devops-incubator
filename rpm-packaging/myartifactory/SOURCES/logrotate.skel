@@ -1,4 +1,4 @@
-@@SKEL_LOGDIR@@/catalina.out {
+@@ARTIFACTORY_LOGDIR@@/catalina.out {
  copytruncate
  daily
  rotate 7
@@ -6,14 +6,14 @@
  missingok
 }
 
-@@SKEL_LOGDIR@@/*.*.log {
+@@ARTIFACTORY_LOGDIR@@/*.*.log {
  daily
  rotate 7
  compress
  missingok
 }
 
-@@SKEL_LOGDIR@@/localhost_access_log.*.txt {
+@@ARTIFACTORY_LOGDIR@@/localhost_access_log.*.txt {
  daily
  rotate 7
  compress

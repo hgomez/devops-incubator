@@ -69,10 +69,9 @@ export SONAR_HOME=@@SONAR_DATADIR@@
 #
 # JVM Settings
 #
-APP_JAVA_HOME=
 APP_JAVA_OPTS="-Xms128m -Xmx256m -XX:MaxPermSize=128m -Xss512k"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@SONAR_LOGDIR@@"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=true"
-APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=$APP_HOME/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=$APP_HOME/conf/jmxremote.access"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=@@SONAR_APPDIR@@/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=@@SONAR_APPDIR@@/conf/jmxremote.access"

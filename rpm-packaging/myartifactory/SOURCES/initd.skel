@@ -2,7 +2,7 @@
 #
 #
 ### BEGIN INIT INFO
-# Provides:          @@SKEL_APP@@
+# Provides:          @@ARTIFACTORY_APP@@
 # Required-Start:    $local_fs $remote_fs $network $time $named
 # Required-Stop:     $local_fs $remote_fs $network $time $named
 # Default-Start:     3 5
@@ -17,19 +17,19 @@ if [ -r /etc/init.d/functions ]; then
 fi
 
 # Read config file
-if [ -r "/etc/sysconfig/@@SKEL_APP@@" ]; then
-    . /etc/sysconfig/@@SKEL_APP@@
+if [ -r "/etc/sysconfig/@@ARTIFACTORY_APP@@" ]; then
+    . /etc/sysconfig/@@ARTIFACTORY_APP@@
 fi
 
 export CATALINA_OPTS CATALINA_OUT CATALINA_PID
 
 RETVAL=0
-prog="@@SKEL_APP@@"
-user="@@SKEL_USER@@"
-exec="@@SKEL_EXEC@@"
+prog="@@ARTIFACTORY_APP@@"
+user="@@ARTIFACTORY_USER@@"
+exec="@@ARTIFACTORY_EXEC@@"
 lockdir=/var/lock/subsys
-lockfile=$lockdir/@@SKEL_APP@@
-config=/etc/sysconfig/@@SKEL_APP@@
+lockfile=$lockdir/@@ARTIFACTORY_APP@@
+config=/etc/sysconfig/@@ARTIFACTORY_APP@@
 
 start() {
     echo -n $"Starting $prog: "
@@ -100,7 +100,7 @@ case "$1" in
         start
         ;;
     version)
-        echo "${prog} @@SKEL_VERSION@@"
+        echo "${prog} @@ARTIFACTORY_VERSION@@"
         ;;
   *)
         echo $"Usage: $prog {start|stop|restart|force-reload|reload|status|version}"
