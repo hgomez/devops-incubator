@@ -60,6 +60,10 @@ APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@JENKINS_LOGDIR@@"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dhudson.model.Hudson.logStartupPerformance=true"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -DJENKINS_HOME=$JENKINS_HOME"
+
+#
+# JMX Settings
+#
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=true"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=@@JENKINS_APPDIR@@/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=@@JENKINS_APPDIR@@/conf/jmxremote.access"

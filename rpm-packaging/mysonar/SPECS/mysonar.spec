@@ -22,7 +22,7 @@
 %if %{?SONAR_REL:1}
 %define sonar_rel    %{SONAR_REL}
 %else
-%define sonar_rel    3.1.1
+%define sonar_rel    3.2
 %endif
 
 Name: mysonar
@@ -316,6 +316,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Aug 20 2012 henri.gomez@gmail.com 3.2-1
+- Sonar 3.2 released
+- Remove duplicate JMX settings definition
+
 * Wed Jul 11 2012 henri.gomez@gmail.com 3.1.1-1
 - Sonar 3.1.1 released
 - Tomcat 7.0.29 released

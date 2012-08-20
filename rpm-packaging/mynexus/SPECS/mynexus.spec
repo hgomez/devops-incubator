@@ -22,7 +22,7 @@
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.0.6
+%define nexus_rel    2.1.1
 %endif
 
 Name: mynexus
@@ -283,6 +283,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Aug 20 2012 henri.gomez@gmail.com 2.1.1-1
+- Nexus 2.1.1 released
+- Remove duplicate JMX settings definition
+
 * Wed Jul 11 2012 henri.gomez@gmail.com 2.0.6-1
 - Nexus 2.0.6 released
 - Tomcat 7.0.29 released

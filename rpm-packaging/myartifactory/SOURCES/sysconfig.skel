@@ -63,7 +63,10 @@ APP_JAVA_OPTS="server -Xms1g -Xmx1g -Xss256k -XX:PermSize=128m -XX:MaxPermSize=1
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@ARTIFACTORY_LOGDIR@@"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dartifactory.home=$ARTIFACTORY_HOME"
+
+#
+# JMX Settings
+#
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=true"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=@@ARTIFACTORY_APPDIR@@/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=@@ARTIFACTORY_APPDIR@@/conf/jmxremote.access"
-

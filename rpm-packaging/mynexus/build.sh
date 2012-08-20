@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NEXUS_VERSION=2.0.6
+NEXUS_VERSION=2.1.1
 TOMCAT_VERSION=7.0.29
 
 if [ $# -gt 1 ]; then

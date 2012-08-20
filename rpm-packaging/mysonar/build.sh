@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SONAR_VERSION=3.1.1
+SONAR_VERSION=3.2
 TOMCAT_VERSION=7.0.29
 
 if [ $# -gt 1 ]; then

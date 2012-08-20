@@ -22,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.475
+%define jenkins_rel    1.477
 %endif
 
 Name: myjenkins
@@ -283,6 +283,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Aug 20 2012 henri.gomez@gmail.com 1.477-1
+- Jenkins 1.477 released
+- Remove duplicate JMX settings definition
+
 * Wed Jul 11 2012 henri.gomez@gmail.com 1.474-1
 - Jenkins 1.474 released
 - Tomcat 7.0.29 released

@@ -18,7 +18,7 @@
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 2
+Release: 3
 Summary: appname %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -295,6 +295,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Aug 20 2012 henri.gomez@gmail.com 1.0.0-3
+- Remove duplicate JMX settings definition
+
 * Thu Jul 19 2012 henri.gomez@gmail.com 1.0.0-2
 - Rework WEB-INF properties injection in init.d using context.xml.skel
 - Add missing subdir scripts and grape
