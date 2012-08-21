@@ -22,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.477
+%define jenkins_rel    1.478
 %endif
 
 Name: myjenkins
@@ -283,6 +283,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Aug 21 2012 henri.gomez@gmail.com 1.478-1
+- Jenkins 1.478 released
+
 * Mon Aug 20 2012 henri.gomez@gmail.com 1.477-1
 - Jenkins 1.477 released
 - Remove duplicate JMX settings definition
