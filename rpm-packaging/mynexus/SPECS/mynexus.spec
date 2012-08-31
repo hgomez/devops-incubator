@@ -22,7 +22,7 @@
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.1.1
+%define nexus_rel    2.1.2
 %endif
 
 Name: mynexus
@@ -283,6 +283,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Aug 31 2012 henri.gomez@gmail.com 2.1.2-1
+- Nexus 2.1.2 released
+
 * Mon Aug 20 2012 henri.gomez@gmail.com 2.1.1-1
 - Nexus 2.1.1 released
 - Remove duplicate JMX settings definition
