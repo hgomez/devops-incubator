@@ -22,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.478
+%define jenkins_rel    1.479
 %endif
 
 Name: myjenkins
@@ -283,6 +283,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Aug 31 2012 henri.gomez@gmail.com 1.479-1
+- Jenkins 1.479 released
+
 * Tue Aug 21 2012 henri.gomez@gmail.com 1.478-1
 - Jenkins 1.478 released
 
