@@ -1,7 +1,7 @@
 # Systemd unit file for @@ARCHIVA_APP@@
 # 
 [Unit]
-Description=@@APP@@ powered by Apache Tomcat
+Description=@@ARCHIVA_APP@@ powered by Apache Tomcat
 After=syslog.target network.target
 
 [Service]
