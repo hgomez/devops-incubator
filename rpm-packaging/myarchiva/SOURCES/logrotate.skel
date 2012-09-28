@@ -1,4 +1,4 @@
-@@ARTIFACTORY_LOGDIR@@/catalina.out {
+@@ARCHIVA_LOGDIR@@/catalina.out {
  copytruncate
  daily
  rotate 7
@@ -6,14 +6,14 @@
  missingok
 }
 
-@@ARTIFACTORY_LOGDIR@@/*.*.log {
+@@ARCHIVA_LOGDIR@@/*.*.log {
  daily
  rotate 7
  compress
  missingok
 }
 
-@@ARTIFACTORY_LOGDIR@@/localhost_access_log.*.txt {
+@@ARCHIVA_LOGDIR@@/localhost_access_log.*.txt {
  daily
  rotate 7
  compress

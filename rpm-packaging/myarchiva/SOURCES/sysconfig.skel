@@ -1,15 +1,5 @@
 #
-# @@ARTIFACTORY_APP@@ Configuration
-#
-
-#
-# If a common myforge profile is available use it to initialize envs, like JAVA_HOME and PATHs
-#
-
-if [ -f /etc/profile.d/myforge.sh ]; then
-	source /etc/profile.d/myforge.sh
-fi
-
+# @@APP@@ Configuration
 #
 # Vars starting with APP_ are used to replace contents in skeletons files
 #
@@ -21,10 +11,7 @@ APP_AJP_PORT=12367
 
 APP_RMIREGISTRY_PORT=12368
 APP_RMISERVER_PORT=12369
-APP_JVM_ROUTE=@@ARTIFACTORY_APP@@
-
-APP_EXECUTOR_MAX_THREADS=300
-APP_EXECUTOR_MIN_SPARE_THREADS=20
+APP_JVM_ROUTE=@@SKEL_APP@@
 
 APP_HTTP_MAX_THREADS=150
 APP_HTTP_MIN_SPARE_THREADS=25
@@ -36,37 +23,54 @@ APP_AJP_MAX_THREADS=150
 APP_AJP_MIN_SPARE_THREADS=25
 
 APP_JMX_READER_USER=reader
-APP_JMX_READER_PASSWORD=@@ARTIFACTORY_RO_PWD@@
+APP_JMX_READER_PASSWORD=@@SKEL_RO_PWD@@
 
 APP_JMX_ADMIN_USER=admin
-APP_JMX_ADMIN_PASSWORD=@@ARTIFACTORY_RW_PWD@@
+APP_JMX_ADMIN_PASSWORD=@@SKEL_RW_PWD@@
 
 #
 # Linux Service variables
 #
-CATALINA_HOME="@@ARTIFACTORY_APPDIR@@"
-CATALINA_OUT="@@ARTIFACTORY_LOGDIR@@/catalina.out"
-CATALINA_PID="/var/run/@@ARTIFACTORY_APP@@.pid"
+CATALINA_HOME="@@SKEL_APPDIR@@"
+CATALINA_OUT="@@SKEL_LOGDIR@@/catalina.out"
+CATALINA_PID="/var/run/@@SKEL_APP@@.pid"
 SHUTDOWN_WAIT=10
 
 #
 # Artifactory Data location
 #
-export ARTIFACTORY_HOME=@@ARTIFACTORY_DATADIR@@
+export ARCHIVA_HOME=@@SKEL_DATADIR@@
 
 #
 # JVM Settings
 #
-# http://wiki.jfrog.org/confluence/display/RTF/Requirements
-#
-APP_JAVA_OPTS="server -Xms1g -Xmx1g -Xss256k -XX:PermSize=128m -XX:MaxPermSize=128m -XX:SurvivorRatio=8 -XX:NewSize=512m -XX:MaxNewSize=512m -XX:+UseParallelGC -XX:-UseConcMarkSweepGC"
+APP_JAVA_OPTS="-server -Xss256k -XX:PermSize=128m -XX:MaxPermSize=128m"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Xms256M -Xmx1g -XX:+UseCompressedOops"
+
+APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:SurvivorRatio=8 -XX:+UseParallelGC -XX:-UseConcMarkSweepGC"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
-APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@ARTIFACTORY_LOGDIR@@"
-APP_JAVA_OPTS="$APP_JAVA_OPTS -Dartifactory.home=$ARTIFACTORY_HOME"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@SKEL_LOGDIR@@"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dappserver.base=$ARCHIVA_HOME -Dappserver.home=$ARCHIVA_HOME"
 
 #
 # JMX Settings
 #
-APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false"
-APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=true"
-APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=@@ARTIFACTORY_APPDIR@@/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=@@ARTIFACTORY_APPDIR@@/conf/jmxremote.access"
+JMX_EXT_IP=""
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=true"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=$CATALINA_HOME/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=$CATALINA_HOME/conf/jmxremote.access"
+
+#
+# Make sure to use D2D JAVA_HOME if /etc/profile.d/ci.sh exist
+# In this case remove env vars defined by OS like openSUSE 12.2
+#
+
+if [ -f /etc/profile.d/ci.sh ]; then
+
+  unset JAVA_HOME
+  unset JRE_HOME
+  unset JDK_HOME
+  unset SDK_HOME
+
+  source /etc/profile.d/ci.sh
+fi
+

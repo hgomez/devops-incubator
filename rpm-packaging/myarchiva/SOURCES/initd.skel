@@ -2,13 +2,13 @@
 #
 #
 ### BEGIN INIT INFO
-# Provides:          @@ARTIFACTORY_APP@@
+# Provides:          @@ARCHIVA_APP@@
 # Required-Start:    $local_fs $remote_fs $network $time $named
 # Required-Stop:     $local_fs $remote_fs $network $time $named
 # Default-Start:     3 5
 # Default-Stop:      0 1 2 6
-# Short-Description: JFrog Artifactory powered by Apache Tomcat
-# Description:       Artifactory manages software artifacts required for development, deployment, and provisioning
+# Short-Description: Apache Archiva powered by Apache Tomcat
+# Description:       Archiva manages software artifacts required for development, deployment
 ### END INIT INFO
 
 # Source function library.
@@ -17,19 +17,19 @@ if [ -r /etc/init.d/functions ]; then
 fi
 
 # Read config file
-if [ -r "/etc/sysconfig/@@ARTIFACTORY_APP@@" ]; then
-    . /etc/sysconfig/@@ARTIFACTORY_APP@@
+if [ -r "/etc/sysconfig/@@ARCHIVA_APP@@" ]; then
+    . /etc/sysconfig/@@ARCHIVA_APP@@
 fi
 
 export CATALINA_OPTS CATALINA_OUT CATALINA_PID
 
 RETVAL=0
-prog="@@ARTIFACTORY_APP@@"
-user="@@ARTIFACTORY_USER@@"
-exec="@@ARTIFACTORY_EXEC@@"
+prog="@@ARCHIVA_APP@@"
+user="@@ARCHIVA_USER@@"
+exec="@@ARCHIVA_EXEC@@"
 lockdir=/var/lock/subsys
-lockfile=$lockdir/@@ARTIFACTORY_APP@@
-config=/etc/sysconfig/@@ARTIFACTORY_APP@@
+lockfile=$lockdir/@@ARCHIVA_APP@@
+config=/etc/sysconfig/@@ARCHIVA_APP@@
 
 start() {
     echo -n $"Starting $prog: "
@@ -100,7 +100,7 @@ case "$1" in
         start
         ;;
     version)
-        echo "${prog} @@ARTIFACTORY_VERSION@@"
+        echo "${prog} @@ARCHIVA_VERSION@@"
         ;;
   *)
         echo $"Usage: $prog {start|stop|restart|force-reload|reload|status|version}"
