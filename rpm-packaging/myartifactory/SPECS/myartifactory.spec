@@ -304,7 +304,7 @@ fi
 - Artifactory 2.6.3 released
 - Remove duplicate JMX settings definition
 
-* Wed May 25 2012 henri.gomez@gmail.com 2.6.2-1
+* Wed Jul 25 2012 henri.gomez@gmail.com 2.6.2-1
 - Artifactory 2.6.2 released
 
 * Wed Jul 11 2012 henri.gomez@gmail.com 2.6.1-3
