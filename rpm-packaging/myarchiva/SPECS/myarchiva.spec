@@ -163,23 +163,23 @@ cp %{SOURCE14} %{buildroot}%{applibdir}
 
 # ROOT.xml
 cp %{SOURCE15} %{buildroot}%{appconflocaldir}
-%{__portsed} 's|@@SKEL_DATADIR@@|%{appdatadir}|g' %{buildroot}%{appconflocaldir}/ROOT.xml
+%{__portsed} 's|@@ARCHIVA_DATADIR@@|%{appdatadir}|g' %{buildroot}%{appconflocaldir}/ROOT.xml
 
 # init.d
 cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{app}
-%{__portsed} 's|@@SKEL_APP@@|%{app}|g' %{buildroot}%{_initrddir}/%{app}
-%{__portsed} 's|@@SKEL_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{app}
-%{__portsed} 's|@@SKEL_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{app}
-%{__portsed} 's|@@SKEL_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@ARCHIVA_APP@@|%{app}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@ARCHIVA_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@ARCHIVA_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@ARCHIVA_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{app}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@SKEL_APP@@|%{app}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@SKEL_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@SKEL_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@SKEL_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@SKEL_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@SKEL_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@ARCHIVA_APP@@|%{app}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@ARCHIVA_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@ARCHIVA_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@ARCHIVA_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@ARCHIVA_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@ARCHIVA_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
@@ -188,25 +188,25 @@ cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
-%{__portsed} 's|@@SKEL_APP@@|%{app}|g' %{buildroot}%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@ARCHIVA_APP@@|%{app}|g' %{buildroot}%{appdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{app}
-%{__portsed} 's|@@SKEL_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{app}
+%{__portsed} 's|@@ARCHIVA_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{app}
 
 # Install server.xml.skel
 cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{app}.conf
-%{__portsed} 's|@@SKEL_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{app}.conf
+%{__portsed} 's|@@ARCHIVA_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{app}.conf
 
 # Setup Systemd
 %ifos linux
 mkdir -p %{buildroot}%{_systemdir}
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{app}.service
-%{__portsed} 's|@@SKEL_APP@@|%{app}|g' %{buildroot}%{_systemdir}/%{app}.service
-%{__portsed} 's|@@SKEL_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{app}.service
+%{__portsed} 's|@@ARCHIVA_APP@@|%{app}|g' %{buildroot}%{_systemdir}/%{app}.service
+%{__portsed} 's|@@ARCHIVA_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{app}.service
 %endif
 
 # remove uneeded file in RPM
@@ -258,9 +258,9 @@ if [ "$1" == "1" ]; then
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  %{__portsed} "s|@@SKEL_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
+  %{__portsed} "s|@@ARCHIVA_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  %{__portsed} "s|@@SKEL_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
+  %{__portsed} "s|@@ARCHIVA_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
