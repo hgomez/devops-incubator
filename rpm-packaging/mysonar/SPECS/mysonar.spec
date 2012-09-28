@@ -16,7 +16,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.29
+%define tomcat_rel        7.0.30
 %endif
 
 %if %{?SONAR_REL:1}
@@ -27,7 +27,7 @@
 
 Name: mysonar
 Version: %{sonar_rel}
-Release: 1
+Release: 2
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -316,6 +316,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Sep 28 2012 henri.gomez@gmail.com 3.2-2
+- Use Apache Tomcat 7.0.30
+
 * Mon Aug 20 2012 henri.gomez@gmail.com 3.2-1
 - Sonar 3.2 released
 - Remove duplicate JMX settings definition

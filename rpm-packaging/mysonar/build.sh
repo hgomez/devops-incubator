@@ -1,7 +1,7 @@
 #!/bin/sh
 
 SONAR_VERSION=3.2
-TOMCAT_VERSION=7.0.29
+TOMCAT_VERSION=7.0.30
 
 if [ $# -gt 1 ]; then
   SONAR_VERSION=$1
