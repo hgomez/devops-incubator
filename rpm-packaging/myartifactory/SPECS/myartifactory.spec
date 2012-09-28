@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.29
+%define tomcat_rel        7.0.30
 %endif
 
 %if 0%{?ARTIFACTORY_REL:1}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    2.6.3
+%define artifactory_rel    2.6.4
 %endif
 
 Name: myartifactory
@@ -296,6 +296,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Sep 28 2012 henri.gomez@gmail.com 2.6.4-1
+- Artifactory 2.6.4 released
+- Use Apache Tomcat 7.0.30
+
 * Mon Aug 20 2012 henri.gomez@gmail.com 2.6.3-1
 - Artifactory 2.6.3 released
 - Remove duplicate JMX settings definition
