@@ -7,18 +7,18 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.29
+%define tomcat_rel        7.0.30
 %endif
 
 %if %{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
-%define gitblit_rel    1.0.0
+%define gitblit_rel    1.1.0
 %endif
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 3
+Release: 1
 Summary: appname %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -295,6 +295,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Sep 28 2012 henri.gomez@gmail.com 1.1.0-1
+- Use Apache Tomcat 7.0.30
+- Use GitBlit 1.1.0
+
 * Mon Aug 20 2012 henri.gomez@gmail.com 1.0.0-3
 - Remove duplicate JMX settings definition
 
