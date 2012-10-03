@@ -137,7 +137,7 @@ rm -rf %{buildroot}%{appdir}/webapps/*
 # patches to have logs under /var/log/app
 # patches to have logs under /var/log/app
 # remove manager and host-manager logs (via .skel file)
-cp %{SOURCE16} %{buildroot}%{appdir}/conf/logging.properties
+cp %{SOURCE14} %{buildroot}%{appdir}/conf/logging.properties
 %{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' %{buildroot}%{appdir}/conf/logging.properties
 
 # copy Sonar generated webapp as ROOT.war (will respond to /)
