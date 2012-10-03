@@ -27,7 +27,7 @@
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 1
+Release: 2
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -86,6 +86,7 @@ Source8: server.xml.skel
 Source9: limits.conf.skel
 Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
+Source12: logging.properties.skel
 
 %description
 JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
@@ -124,7 +125,9 @@ mkdir -p $RPM_BUILD_ROOT%{appconflocaldir}
 rm -rf $RPM_BUILD_ROOT%{appdir}/webapps/*
 
 # patches to have logs under /var/log/app
-%{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
+# remove manager and host-manager logs (via .skel file)
+cp %{SOURCE12} %{buildroot}%{appdir}/conf/logging.properties
+%{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' %{buildroot}%{appdir}/conf/logging.properties
 
 # artifactory webapp is ROOT.war (will respond to /), get it from zip file
 unzip %{SOURCE1}
@@ -296,6 +299,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Oct 3 2012 henri.gomez@gmail.com 2.6.4-2
+- Reduce number of log files (manager and host-manager)
+
 * Fri Sep 28 2012 henri.gomez@gmail.com 2.6.4-1
 - Artifactory 2.6.4 released
 - Use Apache Tomcat 7.0.30

@@ -90,6 +90,7 @@ Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: sonar.properties
 Source13: sonar-setup-mysql.sh
+Source14: logging.properties.skel
 
 %description
 Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
@@ -106,108 +107,111 @@ popd >>/dev/null
 
 %install
 # Prep the install location.
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_initrddir}
-mkdir -p $RPM_BUILD_ROOT%{_initrddir}
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d
-mkdir -p $RPM_BUILD_ROOT%{_systemdir}
+mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_initrddir}
+mkdir -p %{buildroot}%{_initrddir}
+mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
+mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
+mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
+mkdir -p %{buildroot}%{_systemdir}
 
-mkdir -p $RPM_BUILD_ROOT%{appdir}
-mkdir -p $RPM_BUILD_ROOT%{appdatadir}
-mkdir -p $RPM_BUILD_ROOT%{appdatadir}/conf
-mkdir -p $RPM_BUILD_ROOT%{applogdir}
-mkdir -p $RPM_BUILD_ROOT%{apptempdir}
-mkdir -p $RPM_BUILD_ROOT%{appworkdir}
-mkdir -p $RPM_BUILD_ROOT%{appwebappdir}
+mkdir -p %{buildroot}%{appdir}
+mkdir -p %{buildroot}%{appdatadir}
+mkdir -p %{buildroot}%{appdatadir}/conf
+mkdir -p %{buildroot}%{applogdir}
+mkdir -p %{buildroot}%{apptempdir}
+mkdir -p %{buildroot}%{appworkdir}
+mkdir -p %{buildroot}%{appwebappdir}
 
 # Copy tomcat
-mv apache-tomcat-%{tomcat_rel}/* $RPM_BUILD_ROOT%{appdir}
+mv apache-tomcat-%{tomcat_rel}/* %{buildroot}%{appdir}
 
 # Create conf/Catalina/localhost
-mkdir -p $RPM_BUILD_ROOT%{appconflocaldir}
+mkdir -p %{buildroot}%{appconflocaldir}
 
 # remove default webapps
-rm -rf $RPM_BUILD_ROOT%{appdir}/webapps/*
+rm -rf %{buildroot}%{appdir}/webapps/*
 
 # patches to have logs under /var/log/app
-%{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
+# patches to have logs under /var/log/app
+# remove manager and host-manager logs (via .skel file)
+cp %{SOURCE16} %{buildroot}%{appdir}/conf/logging.properties
+%{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' %{buildroot}%{appdir}/conf/logging.properties
 
 # copy Sonar generated webapp as ROOT.war (will respond to /)
-cp sonar-%{sonar_rel}/war/sonar.war  $RPM_BUILD_ROOT%{appwebappdir}/ROOT.war
+cp sonar-%{sonar_rel}/war/sonar.war  %{buildroot}%{appwebappdir}/ROOT.war
 
 # copy logback.xml in SONAR_HOME/conf
-cp sonar-%{sonar_rel}/conf/logback.xml $RPM_BUILD_ROOT%{appdatadir}/conf
+cp sonar-%{sonar_rel}/conf/logback.xml %{buildroot}%{appdatadir}/conf
 # copy sonar.properties also in SONAR_HOME/conf
-cp %{SOURCE12} $RPM_BUILD_ROOT%{appdatadir}/conf
+cp %{SOURCE12} %{buildroot}%{appdatadir}/conf
 # copy required stuff in SONAR_HOME
-cp -r sonar-%{sonar_rel}/extras $RPM_BUILD_ROOT%{appdatadir}
-cp -r sonar-%{sonar_rel}/extensions $RPM_BUILD_ROOT%{appdatadir}
-find $RPM_BUILD_ROOT%{appdatadir}/extensions -type f -name "*.jar" -exec chmod 644 \{\} \;
-cp -r sonar-%{sonar_rel}/lib $RPM_BUILD_ROOT%{appdatadir}
+cp -r sonar-%{sonar_rel}/extras %{buildroot}%{appdatadir}
+cp -r sonar-%{sonar_rel}/extensions %{buildroot}%{appdatadir}
+find %{buildroot}%{appdatadir}/extensions -type f -name "*.jar" -exec chmod 644 \{\} \;
+cp -r sonar-%{sonar_rel}/lib %{buildroot}%{appdatadir}
 # data dir (if derby usage)
-mkdir -p $RPM_BUILD_ROOT%{appdatadir}/data
+mkdir -p %{buildroot}%{appdatadir}/data
 
 # init.d
-cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{app}
-%{__portsed} 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-%{__portsed} 's|@@SONAR_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-%{__portsed} 's|@@SONAR_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-%{__portsed} 's|@@SONAR_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@SONAR_APP@@|%{app}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@SONAR_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@SONAR_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@SONAR_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{app}
 
 # sysconfig
-cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@SONAR_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@SONAR_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@SONAR_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@SONAR_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@SONAR_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@SONAR_APP@@|%{app}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@SONAR_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@SONAR_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@SONAR_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@SONAR_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@SONAR_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
 
 # JMX (including JMX Remote)
-cp %{SOURCE11} $RPM_BUILD_ROOT%{appdir}/lib
-cp %{SOURCE4}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.access.skel
-cp %{SOURCE5}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.password.skel
+cp %{SOURCE11} %{buildroot}%{appdir}/lib
+cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
+cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
-cp  %{SOURCE6} $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
-%{__portsed} 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
+cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@SONAR_APP@@|%{app}|g' %{buildroot}%{appdir}/bin/setenv.sh
 
 # Install logrotate
-cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
-%{__portsed} 's|@@SONAR_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
+cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{app}
+%{__portsed} 's|@@SONAR_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{app}
 
 # Install server.xml.skel
-cp %{SOURCE8} $RPM_BUILD_ROOT%{appconfdir}/server.xml.skel
+cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 
 # Setup user limits
-cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
-%{__portsed} 's|@@SONAR_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
+cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{app}.conf
+%{__portsed} 's|@@SONAR_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{app}.conf
 
 # Setup Systemd
-cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-%{__portsed} 's|@@SONAR_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-%{__portsed} 's|@@SONAR_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
+cp %{SOURCE10} %{buildroot}%{_systemdir}/%{app}.service
+%{__portsed} 's|@@SONAR_APP@@|%{app}|g' %{buildroot}%{_systemdir}/%{app}.service
+%{__portsed} 's|@@SONAR_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{app}.service
 
 # remove uneeded file in RPM
-rm -f $RPM_BUILD_ROOT%{appdir}/*.sh
-rm -f $RPM_BUILD_ROOT%{appdir}/*.bat
-rm -f $RPM_BUILD_ROOT%{appdir}/bin/*.bat
-rm -rf $RPM_BUILD_ROOT%{appdir}/logs
-rm -rf $RPM_BUILD_ROOT%{appdir}/temp
-rm -rf $RPM_BUILD_ROOT%{appdir}/work
+rm -f %{buildroot}%{appdir}/*.sh
+rm -f %{buildroot}%{appdir}/*.bat
+rm -f %{buildroot}%{appdir}/bin/*.bat
+rm -rf %{buildroot}%{appdir}/logs
+rm -rf %{buildroot}%{appdir}/temp
+rm -rf %{buildroot}%{appdir}/work
 
 # ensure shell scripts are executable
-chmod 755 $RPM_BUILD_ROOT%{appdir}/bin/*.sh
+chmod 755 %{buildroot}%{appdir}/bin/*.sh
 
 # install mysql setup for sonar
-cp %{SOURCE13} $RPM_BUILD_ROOT%{_bindir}
+cp %{SOURCE13} %{buildroot}%{_bindir}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %pre
 %if 0%{?suse_version} > 1140
@@ -318,6 +322,7 @@ fi
 %changelog
 * Wed Oct 3 2012 henri.gomez@gmail.com 3.2.1-1
 - Sonar 3.2.1 released
+- Reduce number of log files (manager and host-manager)
 
 * Fri Sep 28 2012 henri.gomez@gmail.com 3.2-2
 - Use Apache Tomcat 7.0.30

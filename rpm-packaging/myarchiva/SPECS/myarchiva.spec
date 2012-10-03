@@ -49,7 +49,7 @@
 Name: myarchiva
 
 Version: %{rpm_archiva_rel}
-Release: 1%{?dist}
+Release: 2
 Summary: archiva %{archiva_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -114,6 +114,7 @@ Source12: mail-%{mail_rel}.jar
 Source13: activation-%{activation_rel}.jar
 Source14: derby-%{derby_rel}.jar
 Source15: ROOT.xml
+Source16: logging.properties.skel
 
 %description
 archiva %{archiva_rel} powered by Apache Tomcat
@@ -151,6 +152,8 @@ mkdir -p %{buildroot}%{appconflocaldir}
 rm -rf %{buildroot}%{appdir}/webapps/*
 
 # patches to have logs under /var/log/app
+# remove manager and host-manager logs (via .skel file)
+cp %{SOURCE16} %{buildroot}%{appdir}/conf/logging.properties
 %{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' %{buildroot}%{appdir}/conf/logging.properties
 
 # archiva webapp is ROOT.war (will respond to /), get it from zip file
@@ -337,5 +340,8 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Oct 3 2012 henri.gomez@gmail.com 1.4.m2-2
+- Reduce number of log files (manager and host-manager)
+
 * Mon Sep 28 2012 henri.gomez@gmail.com 1.4.m2-1
 - Initial RPM

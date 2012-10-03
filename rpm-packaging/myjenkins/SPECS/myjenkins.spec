@@ -22,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.483
+%define jenkins_rel    1.484
 %endif
 
 Name: myjenkins
@@ -86,6 +86,7 @@ Source8: server.xml.skel
 Source9: limits.conf.skel
 Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
+Source12: logging.properties.skel
 
 %description
 Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
@@ -97,90 +98,92 @@ Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %install
 # Prep the install location.
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-mkdir -p $RPM_BUILD_ROOT%{_initrddir}
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d
-mkdir -p $RPM_BUILD_ROOT%{_systemdir}
+mkdir -p %{buildroot}%{_initrddir}
+mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
+mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
+mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
+mkdir -p %{buildroot}%{_systemdir}
 
-mkdir -p $RPM_BUILD_ROOT%{appdir}
-mkdir -p $RPM_BUILD_ROOT%{appdatadir}
-mkdir -p $RPM_BUILD_ROOT%{applogdir}
-mkdir -p $RPM_BUILD_ROOT%{apptempdir}
-mkdir -p $RPM_BUILD_ROOT%{appworkdir}
-mkdir -p $RPM_BUILD_ROOT%{appwebappdir}
+mkdir -p %{buildroot}%{appdir}
+mkdir -p %{buildroot}%{appdatadir}
+mkdir -p %{buildroot}%{applogdir}
+mkdir -p %{buildroot}%{apptempdir}
+mkdir -p %{buildroot}%{appworkdir}
+mkdir -p %{buildroot}%{appwebappdir}
 
 # Copy tomcat
-mv apache-tomcat-%{tomcat_rel}/* $RPM_BUILD_ROOT%{appdir}
+mv apache-tomcat-%{tomcat_rel}/* %{buildroot}%{appdir}
 
 # Create conf/Catalina/localhost
-mkdir -p $RPM_BUILD_ROOT%{appconflocaldir}
+mkdir -p %{buildroot}%{appconflocaldir}
 
 # remove default webapps
-rm -rf $RPM_BUILD_ROOT%{appdir}/webapps/*
+rm -rf %{buildroot}%{appdir}/webapps/*
 
-# patches to have logs under /var/log/appname
-%{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
+# patches to have logs under /var/log/app
+# remove manager and host-manager logs (via .skel file)
+cp %{SOURCE12} %{buildroot}%{appdir}/conf/logging.properties
+%{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' %{buildroot}%{appdir}/conf/logging.properties
 
 # jenkins webapp is ROOT.war (will respond to /)
-cp %{SOURCE1}  $RPM_BUILD_ROOT%{appwebappdir}/ROOT.war
+cp %{SOURCE1}  %{buildroot}%{appwebappdir}/ROOT.war
 
 # init.d
-cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-%{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-%{__portsed} 's|@@JENKINS_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-%{__portsed} 's|@@JENKINS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
+cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
-cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@JENKINS_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@JENKINS_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@JENKINS_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
 # JMX (including JMX Remote)
-cp %{SOURCE11} $RPM_BUILD_ROOT%{appdir}/lib
-cp %{SOURCE4}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.access.skel
-cp %{SOURCE5}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.password.skel
+cp %{SOURCE11} %{buildroot}%{appdir}/lib
+cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
+cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
-cp  %{SOURCE6} $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
-%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
+cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' %{buildroot}%{appdir}/bin/setenv.sh
 
 # Install logrotate
-cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{appname}
-%{__portsed} 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{appname}
+cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
+%{__portsed} 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
 
 # Install server.xml.skel
-cp %{SOURCE8} $RPM_BUILD_ROOT%{appconfdir}/server.xml.skel
+cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 
 # Setup user limits
-cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{appname}.conf
-%{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{appname}.conf
+cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
+%{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
 # Setup Systemd
-cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@JENKINS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
+cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@JENKINS_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
 
 # remove uneeded file in RPM
-rm -f $RPM_BUILD_ROOT%{appdir}/*.sh
-rm -f $RPM_BUILD_ROOT%{appdir}/*.bat
-rm -f $RPM_BUILD_ROOT%{appdir}/bin/*.bat
-rm -rf $RPM_BUILD_ROOT%{appdir}/logs
-rm -rf $RPM_BUILD_ROOT%{appdir}/temp
-rm -rf $RPM_BUILD_ROOT%{appdir}/work
+rm -f %{buildroot}%{appdir}/*.sh
+rm -f %{buildroot}%{appdir}/*.bat
+rm -f %{buildroot}%{appdir}/bin/*.bat
+rm -rf %{buildroot}%{appdir}/logs
+rm -rf %{buildroot}%{appdir}/temp
+rm -rf %{buildroot}%{appdir}/work
 
 # ensure shell scripts are executable
-chmod 755 $RPM_BUILD_ROOT%{appdir}/bin/*.sh
+chmod 755 %{buildroot}%{appdir}/bin/*.sh
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %pre
 %if 0%{?suse_version} > 1140
@@ -283,6 +286,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Oct 3 2012 henri.gomez@gmail.com 1.484-1
+- Jenkins 1.484 released
+- Reduce number of log files (manager and host-manager)
+
 * Fri Sep 28 2012 henri.gomez@gmail.com 1.483-1
 - Use Apache Tomcat 7.0.30
 - Jenkins 1.483 released
