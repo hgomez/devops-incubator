@@ -16,7 +16,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.27
+%define tomcat_rel        7.0.32
 %endif
 
 %if %{?MYAPP_REL:1}

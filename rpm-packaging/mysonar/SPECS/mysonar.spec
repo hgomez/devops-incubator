@@ -16,7 +16,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.30
+%define tomcat_rel        7.0.32
 %endif
 
 %if %{?SONAR_REL:1}
@@ -27,7 +27,7 @@
 
 Name: mysonar
 Version: %{sonar_rel}
-Release: 1
+Release: 2
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -320,6 +320,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Oct 12 2012 henri.gomez@gmail.com 3.2.1-2
+- Use Apache Tomcat 7.0.32
+
 * Wed Oct 3 2012 henri.gomez@gmail.com 3.2.1-1
 - Sonar 3.2.1 released
 - Reduce number of log files (manager and host-manager)

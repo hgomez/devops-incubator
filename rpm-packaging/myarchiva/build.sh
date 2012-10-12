@@ -1,11 +1,11 @@
 #!/bin/sh
 
 if [ -z "$ARTIFACTORY_VERSION" ]; then
-  ARCHIVA_VERSION=1.4-M2
+  ARCHIVA_VERSION=1.4-M3
 fi
 
 if [ -z "$TOMCAT_VERSION" ]; then
-  TOMCAT_VERSION=7.0.30
+  TOMCAT_VERSION=7.0.32
 fi
 
 if [ -z "$ACTIVATION_VERSION" ]; then
@@ -20,7 +20,7 @@ if [ -z "$DERBY_VERSION" ]; then
   DERBY_VERSION=10.9.1.0
 fi
 
-ARCHIVA_URL=http://mir2.ovh.net/ftp.apache.org/dist/archiva/${ARCHIVA_VERSION}/war/apache-archiva-${ARCHIVA_VERSION}.war
+ARCHIVA_URL=http://mir2.ovh.net/ftp.apache.org/dist/archiva/${ARCHIVA_VERSION}/binaries/apache-archiva-js-${ARCHIVA_VERSION}.war
 TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 ACTIVATION_URL=http://central.maven.org/maven2/javax/activation/activation/${ACTIVATION_VERSION}/activation-${ACTIVATION_VERSION}.jar

@@ -16,13 +16,13 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.30
+%define tomcat_rel        7.0.32
 %endif
 
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.484
+%define jenkins_rel    1.485
 %endif
 
 Name: myjenkins
@@ -286,6 +286,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Oct 12 2012 henri.gomez@gmail.com 1.485-1
+- Jenkins 1.485 released
+- Use Apache Tomcat 7.0.32
+
 * Wed Oct 3 2012 henri.gomez@gmail.com 1.484-1
 - Jenkins 1.484 released
 - Reduce number of log files (manager and host-manager)

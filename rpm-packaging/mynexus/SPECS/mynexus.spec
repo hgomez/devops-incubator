@@ -16,7 +16,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.30
+%define tomcat_rel        7.0.32
 %endif
 
 %if %{?NEXUS_REL:1}
@@ -27,7 +27,7 @@
 
 Name: mynexus
 Version: %{nexus_rel}
-Release: 3
+Release: 4
 Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -286,6 +286,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Oct 12 2012 henri.gomez@gmail.com 2.1.2-4
+- Use Apache Tomcat 7.0.32
+
 * Wed Oct 3 2012 henri.gomez@gmail.com 2.1.2-3
 - Reduce number of log files (manager and host-manager)
 

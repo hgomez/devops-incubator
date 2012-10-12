@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel		%{TOMCAT_REL}
 %else
-%define tomcat_rel		7.0.30
+%define tomcat_rel		7.0.32
 %endif
 
 %if 0%{?ARCHIVA_REL:1}
 %define archiva_rel		%{ARCHIVA_REL}
 %else
-%define archiva_rel		1.4-M2
+%define archiva_rel		1.4-M3
 %endif
 
 %if 0%{?MAIL_REL:1}
@@ -49,7 +49,7 @@
 Name: myarchiva
 
 Version: %{rpm_archiva_rel}
-Release: 2
+Release: 1
 Summary: archiva %{archiva_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -340,6 +340,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Oct 12 2012 henri.gomez@gmail.com 1.4.m3-1
+- Update Apache Tomcat 7.0.32
+- Update to Archiva 1.4-M3, with new js based ui
+
 * Wed Oct 3 2012 henri.gomez@gmail.com 1.4.m2-2
 - Reduce number of log files (manager and host-manager)
 
