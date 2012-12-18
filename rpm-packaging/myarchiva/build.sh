@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -z "$ARTIFACTORY_VERSION" ]; then
+if [ -z "$ARCHIVA_VERSION" ]; then
   ARCHIVA_VERSION=1.4-M3
 fi
 
