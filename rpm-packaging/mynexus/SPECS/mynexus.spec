@@ -16,13 +16,13 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.32
+%define tomcat_rel        7.0.34
 %endif
 
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.1.2
+%define nexus_rel    2.2
 %endif
 
 Name: mynexus
@@ -286,6 +286,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Dec 19 2012 henri.gomez@gmail.com 2.2-1
+- Use Apache Tomcat 7.0.34
+- Nexus 2.2
+
 * Fri Oct 12 2012 henri.gomez@gmail.com 2.1.2-4
 - Use Apache Tomcat 7.0.32
 
