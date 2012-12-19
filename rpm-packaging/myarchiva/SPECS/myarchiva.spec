@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel		%{TOMCAT_REL}
 %else
-%define tomcat_rel		7.0.32
+%define tomcat_rel		7.0.34
 %endif
 
 %if 0%{?ARCHIVA_REL:1}
@@ -340,6 +340,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Dec 19 2012 henri.gomez@gmail.com 1.4.m3-3
+- Update to Apache Tomcat 7.0.34
+- Apply patch from Brett Potter
+
 * Fri Oct 12 2012 henri.gomez@gmail.com 1.4.m3-1
 - Update Apache Tomcat 7.0.32
 - Update to Archiva 1.4-M3, with new js based ui
