@@ -27,7 +27,7 @@
 
 Name: mynexus
 Version: %{nexus_rel}
-Release: 4
+Release: 1
 Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
