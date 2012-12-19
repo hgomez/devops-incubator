@@ -5,6 +5,7 @@ These packages will bring you a ready to use Software Factory.
 
 ##RPM packages
 
+* myarchiva - Apache Archiva powered by Apache Tomcat 7.x.
 * myapp - simple web application powered by Apache Tomcat 7.x
 * myartifactory - JFrog Artifactory powered by Apache Tomcat 7.x
 * myforge-apache2-front - Apache HTTPd front-ends for Forge service via Named VHosts
