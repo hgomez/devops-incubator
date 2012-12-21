@@ -27,7 +27,7 @@
 
 Name: mysonar
 Version: %{sonar_rel}
-Release: 1
+Release: 2
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -320,6 +320,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+- Fri Dec 21 2012 henri.gomez@gmail.com 3.3.2-2
+- Sonar came with H2 as default SQL engine since 3.2, replace Derby defaults by H2
+
 * Tue Dec 19 2012 henri.gomez@gmail.com 3.3.2-1
 - Sonar 3.3.2 released
 - Use Apache Tomcat 7.0.34
