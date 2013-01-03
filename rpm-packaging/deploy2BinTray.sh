@@ -101,7 +101,7 @@ function deploy_rpm() {
   
   upload_content
   echo "[DEBUG] Publishing ${RPM}..."
-  ${CURL} -X POST ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}/${PCK_VERSION}-${PCK_RELEASE}/publish -d "{ \"discard\": \"true\" }"    
+  ${CURL} -X POST ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}/${PCK_VERSION}-${PCK_RELEASE}/publish -d "{ \"discard\": \"false\" }"    
 }
 
 main "$@"
