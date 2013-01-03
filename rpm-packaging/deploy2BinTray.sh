@@ -55,8 +55,6 @@ function main() {
   else
     deploy_rpm
   fi
-  echo $?  
-
 }
 
 function init_curl() {
