@@ -95,13 +95,13 @@ function create_package() {
 
 function upload_content() {
   echo "[DEBUG] Uploading ${RPM}..."
-  ${CURL} -T ${RPM} -H X-Bintray-Package:${PCK_NAME} -H X-Bintray-Version:${PCK_VERSION}-${PCK_RELEASE} ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}
+  ${CURL} -T ${RPM} -H X-Bintray-Package:${PCK_NAME} -H X-Bintray-Version:${PCK_VERSION}-${PCK_RELEASE} ${API}/content/${SUBJECT}/${REPO}/${RPM}
 }
 function deploy_rpm() {
   
   upload_content
   echo "[DEBUG] Publishing ${RPM}..."
-  ${CURL} -X POST ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}/${PCK_VERSION}-${PCK_RELEASE}/publish -d "{ \"discard\": \"false\" }"    
+  ${CURL} -X POST ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}/${PCK_VERSION}-${PCK_RELEASE}/publish -d "{ \"discard\": \"true\" }"    
 }
 
 main "$@"
