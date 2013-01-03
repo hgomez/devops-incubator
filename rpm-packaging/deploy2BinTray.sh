@@ -45,9 +45,9 @@ function main() {
   REPO=$3
   RPM=$4
   
-  PCK_NAME=$(rpm --qf "%{NAME}" -qp ${RPM})
-  PCK_VERSION=$(rpm --qf "%{VERSION}" -qp ${RPM})
-  PCK_RELEASE=$(rpm --qf "%{RELEASE}" -qp ${RPM})
+  PCK_NAME=$(rpm -qp ${RPM} --qf "%{NAME}")
+  PCK_VERSION=$(rpm -qp ${RPM} --qf "%{VERSION}")
+  PCK_RELEASE=$(rpm -qp ${RPM} --qf "%{RELEASE}")
   
   init_curl
   if [ not $(check_package_exists) ]; then
