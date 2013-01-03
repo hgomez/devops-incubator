@@ -52,6 +52,7 @@ function init_curl() {
 
 function check_package_exists() {
   local package=$1  
+  echo $(curl --write-out %{http_code} --silent --output /dev/null -X GET  ${API}/packages/${SUBJECT}/${REPO}/${package})
   return [ $(curl --write-out %{http_code} --silent --output /dev/null -X GET  ${API}/packages/${SUBJECT}/${REPO}/${package}) -eq ${NOT_FOUND} ] 
 }
 
