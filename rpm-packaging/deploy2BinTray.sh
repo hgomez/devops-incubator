@@ -29,31 +29,72 @@
 #Constants
 API=https://api.bintray.com
 NOT_FOUND=404
+SUCCESS=200
+CREATED=201
+PACKAGE_DESCRIPTOR=package.json
 
 # Arguments
 # $1 SUBJECT aka. your BinTray username
 # $2 API_KEY act as a password for REST authentication
-# $3 REPO the targeted repo 
+# $3 REPO the targeted repo
+# $4 the rpm to deploy on BinTray 
 
 function main() {
   SUBJECT=$1
   API_KEY=$2
   REPO=$3
+  RPM=$4
+  
+  PCK_NAME=$(rpm -qa --qf "%{NAME}\n" ${RPM})
+  PCK_VERSION=$(rpm -qa --qf "%{VERSION}\n" ${RPM})
+  PCK_RELEASE=$(rpm -qa --qf "%{RELEASE}\n" ${RPM})
   
   init_curl
-  check_package_exists "crash"
+  if [ not $(check_package_exists) ]; then
+    create_package
+  else
+    deploy_rpm
+  fi
   echo $?  
 
 }
 
 function init_curl() {
-  CURL="curl -u${SUBJECT}:${API_KEY} -i -H \"Content-Type: application/json\" -H \"Accept: application/json\" "     
+  CURL="curl -u${SUBJECT}:${API_KEY} -H Content-Type:application/json -H Accept:application/json"
 }
 
 function check_package_exists() {
-  local package=$1    
-  return [ $(${CURL} --write-out %{http_code} --silent --output /dev/null -X GET  ${API}/packages/${SUBJECT}/${REPO}/${package}) -eq ${NOT_FOUND} ] 
+  package_exists=`[  $(${CURL} --write-out %{http_code} --silent --output /dev/null -X GET  ${API}/packages/${SUBJECT}/${REPO}/${PCK_NAME})  -eq ${SUCCESS} ]`   
+  return ${package_exists} 
 }
 
+function create_package() {
+  #search for a descriptor in the current folder or generate one on the fly
+  if [ -f "${PACKAGE_DESCRIPTOR}" ]; then
+    data="@${PACKAGE_DESCRIPTOR}"
+  else
+    data="{
+    \"name\": \"${PCK_NAME}\",
+    \"desc\": \"auto\",
+    \"desc_url\": \"auto\",
+    \"labels\": [\"rpm\", \"devops\"]
+    }"
+  fi
+  
+  ${CURL} -X POST  -d  "${data}" ${API}/packages/${SUBJECT}/${REPO}/
+}
+
+function upload_content() {
+  return $(${CURL} --write-out %{http_code} --silent --output /dev/null -T ${RPM} -H X-Bintray-Package:${REPO} -H X-Bintray-Version:${PCK_VERSION}-${PCK_RELEASE} ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME})
+}
+function deploy_rpm() {
+  
+  content_upload=$(upload_content)
+  if [ ${content_upload} -eq ${CREATED} ]; then
+    ${CURL} -X POST ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}/${PCK_VERSION}-${PCK_RELEASE}/publish -d "{ \"discard\": \"false\" }"  
+  else
+    echo "Impossible to upload content - HTTP: ${content_upload}"
+  fi  
+}
 
 main "$@"
