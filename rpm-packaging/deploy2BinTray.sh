@@ -45,7 +45,7 @@ function main() {
   REPO=$3
   RPM=$4
   
-  PCK_NAME=$(rpm -qp ${RPM} --queryformat \"%{NAME}\")
+  PCK_NAME=$(rpm -qp ${RPM} --queryformat "%{NAME}")
   PCK_VERSION=$(rpm -qp ${RPM} --qf "%{VERSION}")
   PCK_RELEASE=$(rpm -qp ${RPM} --qf "%{RELEASE}")
   
