@@ -57,13 +57,12 @@ function main() {
   echo "[DEBUG] PCK_RELEASE: ${PCK_RELEASE}"
   
   init_curl
-  packaged_already_exist=check_package_exists
   if ( check_package_exists ); then
     echo "[DEBUG] The package ${PCK_NAME} does not exit. It will be created"
     create_package        
-  else
-    deploy_rpm
   fi
+  
+  deploy_rpm
 }
 
 function init_curl() {
@@ -100,7 +99,7 @@ function upload_content() {
 }
 function deploy_rpm() {
   
-  content_uploaded=$(upload_content)
+  content_uploaded=upload_content
   echo "Content Uploaded ${content_uploaded}"
   if [ ${content_uploaded} -eq ${CREATED} ]; then
     echo "[DEBUG] Deploying ${RPM}..."
