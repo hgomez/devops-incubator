@@ -57,7 +57,8 @@ function main() {
   echo "[DEBUG] PCK_RELEASE: ${PCK_RELEASE}"
   
   init_curl
-  if [ $(check_package_exists) -eq 0 ]; then
+  packaged_already_exist=check_package_exists
+  if ( check_package_exists ); then
     echo "[DEBUG] The package ${PCK_NAME} does not exit. It will be created"
     create_package        
   else
