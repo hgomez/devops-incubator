@@ -99,9 +99,9 @@ function upload_content() {
 }
 function deploy_rpm() {
   
-  content_upload=$(upload_content)
-  echo ${content_upload}
-  if [ ${content_upload} -eq ${CREATED} ]; then
+  content_uploaded=$(upload_content)
+  echo "Content Uploaded ${content_uploaded}"
+  if [ ${content_uploaded} -eq ${CREATED} ]; then
     echo "[DEBUG] Deploying ${RPM}..."
     ${CURL} -X POST ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}/${PCK_VERSION}-${PCK_RELEASE}/publish -d "{ \"discard\": \"false\" }"  
   else
