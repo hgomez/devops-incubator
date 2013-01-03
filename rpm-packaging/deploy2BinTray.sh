@@ -95,17 +95,13 @@ function create_package() {
 
 function upload_content() {
   echo "[DEBUG] Uploading ${RPM}..."
-  return $(${CURL} --write-out %{http_code} --silent --output /dev/null -T ${RPM} -H X-Bintray-Package:${REPO} -H X-Bintray-Version:${PCK_VERSION}-${PCK_RELEASE} ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME})
+  ${CURL} -T ${RPM} -H X-Bintray-Package:${REPO} -H X-Bintray-Version:${PCK_VERSION}-${PCK_RELEASE} ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME})
 }
 function deploy_rpm() {
   
   upload_content
-  if [ $? -eq ${CREATED} ]; then
-    echo "[DEBUG] Deploying ${RPM}..."
-    ${CURL} -X POST ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}/${PCK_VERSION}-${PCK_RELEASE}/publish -d "{ \"discard\": \"false\" }"  
-  else
-    echo "Impossible to upload content - HTTP: ${content_upload}"
-  fi  
+  echo "[DEBUG] Publishing ${RPM}..."
+  ${CURL} -X POST ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}/${PCK_VERSION}-${PCK_RELEASE}/publish -d "{ \"discard\": \"false\" }"    
 }
 
 main "$@"
