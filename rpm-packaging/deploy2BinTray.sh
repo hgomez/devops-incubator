@@ -57,7 +57,7 @@ function main() {
   echo "[DEBUG] PCK_RELEASE: ${PCK_RELEASE}"
   
   init_curl
-  if [ not $(check_package_exists) ]; then
+  if [ $(check_package_exists) -eq 0 ]; then
     echo "[DEBUG] The package ${PCK_NAME} does not exit. It will be created"
     create_package        
   else
@@ -100,6 +100,7 @@ function upload_content() {
 function deploy_rpm() {
   
   content_upload=$(upload_content)
+  echo ${content_upload}
   if [ ${content_upload} -eq ${CREATED} ]; then
     echo "[DEBUG] Deploying ${RPM}..."
     ${CURL} -X POST ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}/${PCK_VERSION}-${PCK_RELEASE}/publish -d "{ \"discard\": \"false\" }"  
