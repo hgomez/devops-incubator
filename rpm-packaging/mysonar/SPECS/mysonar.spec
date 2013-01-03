@@ -16,13 +16,13 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.32
+%define tomcat_rel        7.0.34
 %endif
 
 %if %{?SONAR_REL:1}
 %define sonar_rel    %{SONAR_REL}
 %else
-%define sonar_rel    3.2.1
+%define sonar_rel    3.3.2
 %endif
 
 Name: mysonar
@@ -320,6 +320,13 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+- Fri Dec 21 2012 henri.gomez@gmail.com 3.3.2-2
+- Sonar came with H2 as default SQL engine since 3.2, replace Derby defaults by H2
+
+* Tue Dec 19 2012 henri.gomez@gmail.com 3.3.2-1
+- Sonar 3.3.2 released
+- Use Apache Tomcat 7.0.34
+
 * Fri Oct 12 2012 henri.gomez@gmail.com 3.2.1-2
 - Use Apache Tomcat 7.0.32
 

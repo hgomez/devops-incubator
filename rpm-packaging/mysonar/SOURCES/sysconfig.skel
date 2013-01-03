@@ -51,8 +51,10 @@ SHUTDOWN_WAIT=10
 #
 export SONAR_JDBC_USERNAME=sonar
 export SONAR_JDBC_PASSWORD=sonar
-export SONAR_JDBC_URL="jdbc:derby://localhost:1527/sonar;create=true"
-export SONAR_JDBC_DRIVERCLASSNAME=org.apache.derby.jdbc.ClientDriver
+#export SONAR_JDBC_URL="jdbc:derby://localhost:1527/sonar;create=true"
+#export SONAR_JDBC_DRIVERCLASSNAME=org.apache.derby.jdbc.ClientDriver
+export SONAR_JDBC_URL="jdbc:h2:tcp://localhost:9092/sonar"
+export SONAR_JDBC_DRIVERCLASSNAME=org.h2.Driver
 export SONAR_JDBC_MAXACTIVE=20
 export SONAR_JDBC_MAXIDLE=5
 export SONAR_JDBC_MINIDLE=2

@@ -1,11 +1,11 @@
 #!/bin/sh
 
-if [ -z "$ARTIFACTORY_VERSION" ]; then
+if [ -z "$ARCHIVA_VERSION" ]; then
   ARCHIVA_VERSION=1.4-M3
 fi
 
 if [ -z "$TOMCAT_VERSION" ]; then
-  TOMCAT_VERSION=7.0.32
+  TOMCAT_VERSION=7.0.34
 fi
 
 if [ -z "$ACTIVATION_VERSION" ]; then
