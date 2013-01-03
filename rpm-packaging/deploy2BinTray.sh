@@ -58,7 +58,8 @@ function main() {
   
   init_curl
   if [ not $(check_package_exists) ]; then
-    create_package
+    echo "[DEBUG] The package ${PCK_NAME} does not exit. It will be created"
+    create_package        
   else
     deploy_rpm
   fi
@@ -69,11 +70,14 @@ function init_curl() {
 }
 
 function check_package_exists() {
-  package_exists=`[  $(${CURL} --write-out %{http_code} --silent --output /dev/null -X GET  ${API}/packages/${SUBJECT}/${REPO}/${PCK_NAME})  -eq ${SUCCESS} ]`   
+  echo "[DEBUG] Checking if package ${PCK_NAME} exists..."
+  package_exists=`[  $(${CURL} --write-out %{http_code} --silent --output /dev/null -X GET  ${API}/packages/${SUBJECT}/${REPO}/${PCK_NAME})  -eq ${SUCCESS} ]`
+  echo "[DEBUG] Package ${PCK_NAME} exists? y:1/N:0 ${package_exists}"   
   return ${package_exists} 
 }
 
 function create_package() {
+  echo "[DEBUG] Creating package ${PCK_NAME}..."
   #search for a descriptor in the current folder or generate one on the fly
   if [ -f "${PACKAGE_DESCRIPTOR}" ]; then
     data="@${PACKAGE_DESCRIPTOR}"
@@ -90,12 +94,14 @@ function create_package() {
 }
 
 function upload_content() {
+  echo "[DEBUG] Uploading ${RPM}..."
   return $(${CURL} --write-out %{http_code} --silent --output /dev/null -T ${RPM} -H X-Bintray-Package:${REPO} -H X-Bintray-Version:${PCK_VERSION}-${PCK_RELEASE} ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME})
 }
 function deploy_rpm() {
   
   content_upload=$(upload_content)
   if [ ${content_upload} -eq ${CREATED} ]; then
+    echo "[DEBUG] Deploying ${RPM}..."
     ${CURL} -X POST ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}/${PCK_VERSION}-${PCK_RELEASE}/publish -d "{ \"discard\": \"false\" }"  
   else
     echo "Impossible to upload content - HTTP: ${content_upload}"
