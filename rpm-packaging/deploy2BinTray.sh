@@ -95,7 +95,7 @@ function create_package() {
 
 function upload_content() {
   echo "[DEBUG] Uploading ${RPM}..."
-  ${CURL} -T ${RPM} -H X-Bintray-Package:${REPO} -H X-Bintray-Version:${PCK_VERSION}-${PCK_RELEASE} ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME})
+  ${CURL} -T ${RPM} -H X-Bintray-Package:${REPO} -H X-Bintray-Version:${PCK_VERSION}-${PCK_RELEASE} ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}
 }
 function deploy_rpm() {
   
