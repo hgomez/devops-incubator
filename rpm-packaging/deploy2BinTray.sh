@@ -58,7 +58,7 @@ function main() {
   
   init_curl
   if ( check_package_exists ); then
-    echo "[DEBUG] The package ${PCK_NAME} does not exit. It will be created"
+    echo "\n[DEBUG] The package ${PCK_NAME} does not exit. It will be created"
     create_package        
   fi
   
@@ -70,14 +70,14 @@ function init_curl() {
 }
 
 function check_package_exists() {
-  echo "[DEBUG] Checking if package ${PCK_NAME} exists..."
+  echo "\n[DEBUG] Checking if package ${PCK_NAME} exists..."
   package_exists=`[  $(${CURL} --write-out %{http_code} --silent --output /dev/null -X GET  ${API}/packages/${SUBJECT}/${REPO}/${PCK_NAME})  -eq ${SUCCESS} ]`
-  echo "[DEBUG] Package ${PCK_NAME} exists? y:1/N:0 ${package_exists}"   
+  echo "\n[DEBUG] Package ${PCK_NAME} exists? y:1/N:0 ${package_exists}"   
   return ${package_exists} 
 }
 
 function create_package() {
-  echo "[DEBUG] Creating package ${PCK_NAME}..."
+  echo "\n[DEBUG] Creating package ${PCK_NAME}..."
   #search for a descriptor in the current folder or generate one on the fly
   if [ -f "${PACKAGE_DESCRIPTOR}" ]; then
     data="@${PACKAGE_DESCRIPTOR}"
@@ -94,18 +94,18 @@ function create_package() {
 }
 
 function upload_content() {
-  echo "[DEBUG] Uploading ${RPM}..."
-  uploaded=` | $(${CURL} --write-out %{http_code} --silent --output /dev/null -T ${RPM} -H X-Bintray-Package:${PCK_NAME} -H X-Bintray-Version:${PCK_VERSION}-${PCK_RELEASE} ${API}/content/${SUBJECT}/${REPO}/${RPM}) -eq ${CREATED} ] `
-  echo "[DEBUG] RPM ${RPM} uploaded? y:1/N:0 ${package_exists}"
+  echo "\n[DEBUG] Uploading ${RPM}..."
+  uploaded=` [ $(${CURL} --write-out %{http_code} --silent --output /dev/null -T ${RPM} -H X-Bintray-Package:${PCK_NAME} -H X-Bintray-Version:${PCK_VERSION}-${PCK_RELEASE} ${API}/content/${SUBJECT}/${REPO}/${RPM}) -eq ${CREATED} ] `
+  echo "\n[DEBUG] RPM ${RPM} uploaded? y:1/N:0 ${package_exists}"
   return ${uploaded}
 }
 function deploy_rpm() {
   
   if ( upload_content); then
-    echo "[DEBUG] Publishing ${RPM}..."
+    echo "\n[DEBUG] Publishing ${RPM}..."
     ${CURL} -X POST ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}/${PCK_VERSION}-${PCK_RELEASE}/publish -d "{ \"discard\": \"false\" }"
   else
-    echo "[SEVERE] First you should upload your rpm ${RPM}"
+    echo "\n[SEVERE] First you should upload your rpm ${RPM}"
   fi    
 }
 
