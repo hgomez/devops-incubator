@@ -32,7 +32,7 @@ They could be installed on CentOS/Fedora/RHEL/Suse/openSUSE.
 
 ##CentOS/Fedora/RHEL
 
-Add Yum repository by editing repo file */etc/yum.repos.d/bintray-hgomez-devops-incubator-rpm.repo*
+Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-hgomez-devops-incubator-rpm.repo**
 
     #bintraybintray-hgomez-devops-incubator-rpm - packages by hgomez from Bintray
     [bintraybintray-hgomez-devops-incubator-rpm]
@@ -48,7 +48,7 @@ Install a package (jenkins for example)
 
 ##Suse/openSUSE
 
-Add Zypper repository by editing repo file */etc/zypp/repos.d/bintray-hgomez-devops-incubator-rpm.repo*
+Add Zypper repository by editing repo file **/etc/zypp/repos.d/bintray-hgomez-devops-incubator-rpm.repo**
 
     #bintraybintray-hgomez-devops-incubator-rpm - packages by hgomez from Bintray
     [bintraybintray-hgomez-devops-incubator-rpm]
