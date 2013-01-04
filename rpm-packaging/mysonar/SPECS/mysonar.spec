@@ -1,5 +1,5 @@
 # Avoid unnecessary debug-information (native code)
-%define		debug_package %{nil}
+%define    debug_package %{nil}
 
 # Avoid jar repack (brp-java-repack-jars)
 #%define __jar_repack 0
@@ -320,7 +320,7 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-- Fri Dec 21 2012 henri.gomez@gmail.com 3.3.2-2
+* Fri Dec 21 2012 henri.gomez@gmail.com 3.3.2-2
 - Sonar came with H2 as default SQL engine since 3.2, replace Derby defaults by H2
 
 * Tue Dec 19 2012 henri.gomez@gmail.com 3.3.2-1
