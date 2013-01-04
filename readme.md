@@ -27,30 +27,32 @@ RPM packages release number are revision, used when something is updated in RPM 
 * myjenkins - Jenkins-CI powered by Apache Tomcat 7.x
 * mynexus - Nexus OSS powered by Apache Tomcat 7.x
 
-##Yum Repository
+#Yum Repository
 
 Thanks to JFrog Bintray and CloudBees BuildHive, RPM packages are now built in continuous and push to a Yum repository.
 They could be installed on CentOS/Fedora/RHEL/Suse/openSUSE.
 
-###CentOS/Fedora/RHEL
+##CentOS/Fedora/RHEL
 
-* Install Yum repo
+###Install Yum repository
 
     wget https://www.bintray.com/repo/rpm/hgomez/devops-incubator-rpm -O bintray-hgomez-devops-incubator-rpm.repo
     sudo mv bintray-hgomez-devops-incubator-rpm.repo /etc/etc/yum.repos.d/
     sudo yum update
 
-* Install a package (jenkins for example)
+###Install a package (jenkins for example)
 
     sudo yum install myjenkins
 
-###Suse/openSUSE
+##Suse/openSUSE
+
+###Install Yum repository
 
     wget https://www.bintray.com/repo/rpm/hgomez/devops-incubator-rpm -O bintray-hgomez-devops-incubator-rpm.repo
     sudo mv bintray-hgomez-devops-incubator-rpm.repo /etc/zypp/repos.d/
     sudo zypper update
 
-* Install a package (jenkins for example)
+### Install a package (jenkins for example)
 
     sudo zypper install myjenkins
 
