@@ -32,25 +32,34 @@ They could be installed on CentOS/Fedora/RHEL/Suse/openSUSE.
 
 ##CentOS/Fedora/RHEL
 
-###Install Yum repository
+Add Yum repository by editing repo file */etc/yum.repos.d/bintray-hgomez-devops-incubator-rpm.repo*
 
-    wget https://www.bintray.com/repo/rpm/hgomez/devops-incubator-rpm -O bintray-hgomez-devops-incubator-rpm.repo
-    sudo mv bintray-hgomez-devops-incubator-rpm.repo /etc/etc/yum.repos.d/
+    #bintraybintray-hgomez-devops-incubator-rpm - packages by hgomez from Bintray
+    [bintraybintray-hgomez-devops-incubator-rpm]
+    name=bintray-hgomez-devops-incubator-rpm
+    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm
+    gpgcheck=0
+    enabled=1
+ 
+Install a package (jenkins for example)
+
     sudo yum update
-
-###Install a package (jenkins for example)
-
     sudo yum install myjenkins
 
 ##Suse/openSUSE
 
-###Install Yum repository
+Add Zypper repository by editing repo file */etc/zypp/repos.d/bintray-hgomez-devops-incubator-rpm.repo*
 
-    wget https://www.bintray.com/repo/rpm/hgomez/devops-incubator-rpm -O bintray-hgomez-devops-incubator-rpm.repo
-    sudo mv bintray-hgomez-devops-incubator-rpm.repo /etc/zypp/repos.d/
+    #bintraybintray-hgomez-devops-incubator-rpm - packages by hgomez from Bintray
+    [bintraybintray-hgomez-devops-incubator-rpm]
+    name=bintray-hgomez-devops-incubator-rpm
+    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm
+    type=rpm-md
+    gpgcheck=0
+
+
+Install a package (jenkins for example)
+
     sudo zypper update
-
-### Install a package (jenkins for example)
-
     sudo zypper install myjenkins
 
