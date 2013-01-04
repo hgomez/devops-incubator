@@ -1,6 +1,0 @@
-{
-  "name": "crash",
-  "desc": "The crash package",
-  "desc_url": "https://github.com/danielpetisme/devops-incubator/tree/master/rpm-packaging/crash/README.md",
-  "labels": ["rpm", "devops"]
-}
