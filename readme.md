@@ -16,8 +16,6 @@ These packages will bring you a ready to use Software Factory.
 * mysonar - Sonar powered by Apache Tomcat 7.x
 * mysvn - Suversion hosted by Apache HTTPd
 
-Note these RPM packages are OpenSuse/SLES 11.4-12.1 ready.
-
 RPM packages version number follow application version number.
 RPM packages release number are revision, used when something is updated in RPM like Apache Tomcat or in packaging.
 
