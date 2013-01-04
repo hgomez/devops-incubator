@@ -36,21 +36,21 @@ They could be installed on CentOS/Fedora/RHEL/Suse/openSUSE.
 
 * Install Yum repo
 
-   wget https://www.bintray.com/repo/rpm/hgomez/devops-incubator-rpm -O bintray-hgomez-devops-incubator-rpm.repo
-   sudo mv bintray-hgomez-devops-incubator-rpm.repo /etc/etc/yum.repos.d/
-   sudo yum update
+    wget https://www.bintray.com/repo/rpm/hgomez/devops-incubator-rpm -O bintray-hgomez-devops-incubator-rpm.repo
+    sudo mv bintray-hgomez-devops-incubator-rpm.repo /etc/etc/yum.repos.d/
+    sudo yum update
 
 * Install a package (jenkins for example)
 
-   sudo yum install myjenkins
+    sudo yum install myjenkins
 
 ###Suse/openSUSE
 
-   wget https://www.bintray.com/repo/rpm/hgomez/devops-incubator-rpm -O bintray-hgomez-devops-incubator-rpm.repo
-   sudo mv bintray-hgomez-devops-incubator-rpm.repo /etc/zypp/repos.d/
-   sudo zypper update
+    wget https://www.bintray.com/repo/rpm/hgomez/devops-incubator-rpm -O bintray-hgomez-devops-incubator-rpm.repo
+    sudo mv bintray-hgomez-devops-incubator-rpm.repo /etc/zypp/repos.d/
+    sudo zypper update
 
 * Install a package (jenkins for example)
 
-   sudo zypper install myjenkins
+    sudo zypper install myjenkins
 
