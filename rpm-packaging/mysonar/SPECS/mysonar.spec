@@ -1,5 +1,5 @@
 # Avoid unnecessary debug-information (native code)
-%define		debug_package %{nil}
+%define    debug_package %{nil}
 
 # Avoid jar repack (brp-java-repack-jars)
 #%define __jar_repack 0
