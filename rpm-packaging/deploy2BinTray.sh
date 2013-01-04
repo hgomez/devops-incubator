@@ -31,7 +31,7 @@ API=https://api.bintray.com
 NOT_FOUND=404
 SUCCESS=200
 CREATED=201
-PACKAGE_DESCRIPTOR=package.json
+PACKAGE_DESCRIPTOR=bintray-package.json
 
 # Arguments
 # $1 SUBJECT aka. your BinTray username
