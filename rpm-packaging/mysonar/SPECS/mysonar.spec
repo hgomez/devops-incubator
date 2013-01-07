@@ -22,12 +22,12 @@
 %if %{?SONAR_REL:1}
 %define sonar_rel    %{SONAR_REL}
 %else
-%define sonar_rel    3.3.2
+%define sonar_rel    3.4
 %endif
 
 Name: mysonar
 Version: %{sonar_rel}
-Release: 2
+Release: 1
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -320,6 +320,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Jan 7 2013 henri.gomez@gmail.com 3.4-1
+- Sonar 3.4 released
+
 * Fri Dec 21 2012 henri.gomez@gmail.com 3.3.2-2
 - Sonar came with H2 as default SQL engine since 3.2, replace Derby defaults by H2
 
