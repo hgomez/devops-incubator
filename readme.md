@@ -61,6 +61,7 @@ Add Zypper repository by editing repo file **/etc/zypp/repos.d/bintray-hgomez-de
 
 Install a package (jenkins for example)
 
+    sudo zypper ref 
     sudo zypper update
     sudo zypper install myjenkins
 
