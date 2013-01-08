@@ -22,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.496
+%define jenkins_rel    1.498
 %endif
 
 Name: myjenkins
@@ -286,6 +286,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Jan 8 2013 henri.gomez@gmail.com 1.498-1
+- Jenkins 1.498 released (security fix)
+
 * Thu Jan 3 2013 henri.gomez@gmail.com 1.496-1
 - Jenkins 1.496 released
 
