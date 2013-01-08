@@ -4,7 +4,7 @@ Native Packaging sample for DevOps easy operations.
 These packages will bring you a ready to use Software Factory.
 
 ##RPM packages
-[![Build Status](https://buildhive.cloudbees.com/job/danielpetisme/job/devops-incubator/badge/icon)](https://buildhive.cloudbees.com/job/danielpetisme/job/devops-incubator/)
+[![Build Status](https://buildhive.cloudbees.com/job/hgomez/job/devops-incubator/badge/icon)](https://buildhive.cloudbees.com/job/hgomez/job/devops-incubator/)
 
 * myarchiva - Apache Archiva powered by Apache Tomcat 7.x.
 * myapp - simple web application powered by Apache Tomcat 7.x
