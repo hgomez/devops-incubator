@@ -29,11 +29,10 @@ Name: myjenkins
 Version: %{jenkins_rel}
 Release: 1
 Summary: Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
-Group: Applications/Communications
-URL: http://www.mycorp.org/
-Vendor: MyCorp
-Packager: MyCorp
-License: AGPLv1
+Group: Development/Tools
+URL: https://github.com/hgomez/devops-incubator
+Vendor: devops-incubator
+License: MIT
 BuildArch:  noarch
 
 %define appname         myjenkins

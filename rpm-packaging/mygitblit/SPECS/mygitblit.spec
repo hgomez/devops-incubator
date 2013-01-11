@@ -19,12 +19,11 @@
 Name: mygitblit
 Version: %{gitblit_rel}
 Release: 1
-Summary: appname %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
-Group: Applications/Communications
-URL: http://www.mycorp.org/
-Vendor: MyCorp
-Packager: MyCorp
-License: Apache Software License 2.0
+Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
+Group: Development/Tools
+URL: https://github.com/hgomez/devops-incubator
+Vendor: devops-incubator
+License: ASL 2.0
 BuildArch:  noarch
 
 %define appname         mygitblit

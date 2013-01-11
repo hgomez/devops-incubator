@@ -29,11 +29,10 @@ Name: mysonar
 Version: %{sonar_rel}
 Release: 1
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
-Group: Applications/Communications
-URL: http://www.mycorp.org/
-Vendor: MyCorp
-Packager: MyCorp
-License: AGPLv1
+Group: Development/Tools
+URL: https://github.com/hgomez/devops-incubator
+Vendor: devops-incubator
+License: LGPL
 BuildArch:  noarch
 
 %define app             mysonar

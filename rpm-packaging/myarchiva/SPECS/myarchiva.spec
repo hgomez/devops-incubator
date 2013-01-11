@@ -50,12 +50,11 @@ Name: myarchiva
 
 Version: %{rpm_archiva_rel}
 Release: 1
-Summary: archiva %{archiva_rel} powered by Apache Tomcat %{tomcat_rel}
-Group: Applications/Communications
-URL: http://www.mycorp.org/
-Vendor: MyCorp
-Packager: MyCorp
-License: AGPLv1
+Summary: Apache Archiva %{archiva_rel} powered by Apache Tomcat %{tomcat_rel}
+Group: Development/Tools
+URL: https://github.com/hgomez/devops-incubator
+Vendor: devops-incubator
+License: ASL 2.0
 BuildArch:  noarch
 
 %define app             myarchiva
