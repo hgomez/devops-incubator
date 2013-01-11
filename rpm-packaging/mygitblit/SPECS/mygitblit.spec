@@ -24,7 +24,7 @@ Group: Applications/Communications
 URL: http://www.mycorp.org/
 Vendor: MyCorp
 Packager: MyCorp
-License: ASLv2
+License: Apache Software License 2.0
 BuildArch:  noarch
 
 %define appname         mygitblit
