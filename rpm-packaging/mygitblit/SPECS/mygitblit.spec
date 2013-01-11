@@ -18,7 +18,7 @@
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 4
+Release: 1
 Summary: appname %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
