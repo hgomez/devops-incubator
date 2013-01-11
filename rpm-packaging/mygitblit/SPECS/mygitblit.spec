@@ -13,7 +13,7 @@
 %if %{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
-%define gitblit_rel    1.1.0
+%define gitblit_rel    1.2.0
 %endif
 
 Name: mygitblit
@@ -296,18 +296,21 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Jan 11 2013 henri.gomez@gmail.com 1.2.0-1
+- Update to GitBlit 1.2.0 
+
 * Tue Dec 19 2012 henri.gomez@gmail.com 1.1.0-4
-- Use Apache Tomcat 7.0.34
+- Update to Apache Tomcat 7.0.34
 
 * Fri Oct 12 2012 henri.gomez@gmail.com 1.1.0-3
-- Use Apache Tomcat 7.0.32
+- Update to Apache Tomcat 7.0.32
 
 * Wed Oct 3 2012 henri.gomez@gmail.com 1.1.0-2
 - Reduce number of log files (manager and host-manager)
 
 * Fri Sep 28 2012 henri.gomez@gmail.com 1.1.0-1
-- Use Apache Tomcat 7.0.30
-- Use GitBlit 1.1.0
+- Update to Apache Tomcat 7.0.30
+- Update to GitBlit 1.1.0
 
 * Mon Aug 20 2012 henri.gomez@gmail.com 1.0.0-3
 - Remove duplicate JMX settings definition
@@ -318,16 +321,16 @@ fi
 - Update ownership of conf directory
 
 * Mon Jul 16 2012 henri.gomez@gmail.com 1.0.0-1
-- GitBlit 1.0.0 released
+- Update to GitBlit 1.0.0
 
 * Wed Jul 11 2012 henri.gomez@gmail.com 0.9.3-3
-- Tomcat 7.0.29 released
+- Update to Tomcat 7.0.29
 
 * Wed Jun 20 2012 henri.gomez@gmail.com 0.9.3-2
-- Tomcat 7.0.28 released
+- Update to Tomcat 7.0.28
 
 * Wed Apr 25 2012 henri.gomez@gmail.com 0.9.3-1
-- GitBlit 0.9.3 released
+- Update to GitBlit 0.9.3 
 
 * Wed Mar 7 2012 henri.gomez@gmail.com 0.8.2-0
 - Distribution dependant Requires for Java
