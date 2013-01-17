@@ -99,10 +99,6 @@ mkdir -p %{buildroot}%{_systemdir}
 
 mkdir -p %{buildroot}%{appdir}
 mkdir -p %{buildroot}%{appdatadir}
-mkdir -p %{buildroot}%{appdatadir}/conf
-mkdir -p %{buildroot}%{appdatadir}/repos
-mkdir -p %{buildroot}%{appdatadir}/scripts
-mkdir -p %{buildroot}%{appdatadir}/grape
 
 mkdir -p %{buildroot}%{applogdir}
 mkdir -p %{buildroot}%{apptempdir}
@@ -278,10 +274,6 @@ fi
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
 %attr(0755,%{appusername},%{appusername}) %dir %{appconflocaldir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
-%attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/conf
-%attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/repos
-%attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/scripts
-%attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/grape
 %attr(0755,%{appusername},%{appusername}) %dir %{apptempdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appworkdir}
 %doc %{appdir}/NOTICE
