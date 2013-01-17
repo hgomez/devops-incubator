@@ -8,9 +8,9 @@ mkdir -p BUILD RPMS SRPMS SOURCES TEMP
 
 CRASH_URL=https://crsh.googlecode.com/files/crash-${VERSION}.tar.gz
 
-if [ ! -f SOURCES/crsh-${VERSION}.tar.gz ]; then
-  echo "downloading crsh-${VERSION}.tar.gz from $CRASH_URL"
-curl -s -L $CRASH_URL -o SOURCES/crash-${VERSION}.tar.gz
+if [ ! -f SOURCES/crash-${VERSION}.tar.gz ]; then
+  echo "downloading crash-${VERSION}.tar.gz from $CRASH_URL"
+  curl -s -L $CRASH_URL -o SOURCES/crash-${VERSION}.tar.gz
 fi
 
 # Build using rpmbuild (use double-quote for define to have shell resolv vars !)
