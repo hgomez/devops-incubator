@@ -6,11 +6,11 @@ VERSION=1.2.0-cr5
 rm -rf BUILD RPMS SRPMS TEMP
 mkdir -p BUILD RPMS SRPMS SOURCES TEMP
 
-CRASH_URL=http://crsh.googlecode.com/files/crsh-${VERSION}.tar.gz
+CRASH_URL=http://crsh.googlecode.com/files/crash-${VERSION}.tar.gz
 
 if [ ! -f SOURCES/crsh-${VERSION}.tar.gz ]; then
   echo "downloading crsh-${VERSION}.tar.gz from $CRASH_URL"
-curl -s -L $CRASH_URL -o SOURCES/crsh-${VERSION}.tar.gz
+curl -s -L $CRASH_URL -o SOURCES/crash-${VERSION}.tar.gz
 fi
 
 # Build using rpmbuild (use double-quote for define to have shell resolv vars !)
