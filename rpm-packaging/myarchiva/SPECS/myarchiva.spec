@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel		%{TOMCAT_REL}
 %else
-%define tomcat_rel		7.0.34
+%define tomcat_rel		7.0.35
 %endif
 
 %if 0%{?ARCHIVA_REL:1}
@@ -49,7 +49,7 @@
 Name: myarchiva
 
 Version: %{rpm_archiva_rel}
-Release: 1
+Release: 4
 Summary: Apache Archiva %{archiva_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -339,6 +339,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Jan 17 2013 henri.gomez@gmail.com 1.4.m3-4
+- Apache Tomcat 7.0.35 released, update package
+
 * Tue Dec 19 2012 henri.gomez@gmail.com 1.4.m3-3
 - Update to Apache Tomcat 7.0.34
 - Apply patch from Brett Potter

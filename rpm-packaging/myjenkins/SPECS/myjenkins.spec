@@ -16,13 +16,13 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.34
+%define tomcat_rel        7.0.35
 %endif
 
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.498
+%define jenkins_rel    1.499
 %endif
 
 Name: myjenkins
@@ -285,6 +285,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Jan 17 2013 henri.gomez@gmail.com 1.499-1
+- Apache Tomcat 7.0.35 released, update package
+- Jenkins 1.499 released
+
 * Tue Jan 8 2013 henri.gomez@gmail.com 1.498-1
 - Jenkins 1.498 released (security fix)
 

@@ -16,7 +16,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.32
+%define tomcat_rel        7.0.35
 %endif
 
 %if %{?MYAPP_REL:1}
@@ -27,7 +27,7 @@
 
 Name: myapp
 Version: %{myapp_rel}
-Release: 4
+Release: 5
 Summary: MyApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -294,6 +294,9 @@ fi
 %doc %{myappdir}/RELEASE-NOTES
 
 %changelog
+* Thu Jan 17 2013 henri.gomez@gmail.com 1.0.0-5
+- Apache Tomcat 7.0.35 released, update package
+
 * Wed Mar 7 2012 henri.gomez@gmail.com 1.0.0-4
 - Distribution dependant Requires for Java
 

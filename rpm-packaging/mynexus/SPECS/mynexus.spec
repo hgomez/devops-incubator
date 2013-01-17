@@ -16,13 +16,13 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.34
+%define tomcat_rel        7.0.35
 %endif
 
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.2
+%define nexus_rel    2.3.0
 %endif
 
 Name: mynexus
@@ -285,6 +285,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Jan 17 2013 henri.gomez@gmail.com 2.3.0-1
+- Apache Tomcat 7.0.35 released, update package
+- Nexus 2.3.0
+
 * Tue Dec 19 2012 henri.gomez@gmail.com 2.2-1
 - Use Apache Tomcat 7.0.34
 - Nexus 2.2
