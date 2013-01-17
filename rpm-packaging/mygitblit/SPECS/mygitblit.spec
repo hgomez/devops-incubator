@@ -223,6 +223,8 @@ if [ "$1" == "1" ]; then
   sed -i "s|@@GITBLIT_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
   sed -i "s|@@GITBLIT_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
+  %{__portsed} "s|@@ADMIN_PASSWORD@@|$RANDOMVAL|g" %{appdatadir}/conf/users.conf
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
