@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{crashdir}/lgpl-2.1.txt
 
 %changelog
+* Thu Jan 17 2013 henri.gomez@gmail.com 1.2.0-cr5-1
+- crsh 1.2.0-cr5 
+
 * Fri Jan 4 2013 henri.gomez@gmail.com 1.2.0-cr3-1
 - crsh 1.2.0-cr3 
 
