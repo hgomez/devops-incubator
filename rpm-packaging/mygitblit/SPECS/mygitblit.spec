@@ -13,12 +13,12 @@
 %if %{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
-%define gitblit_rel    1.2.0
+%define gitblit_rel    1.2.1
 %endif
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 2
+Release: 1
 Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -295,6 +295,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Jan 17 2013 henri.gomez@gmail.com 1.2.1-1
+- Update to GitBlit 1.2.1
+
 * Thu Jan 17 2013 henri.gomez@gmail.com 1.2.0-2
 - Apache Tomcat 7.0.35 released, update package
 
