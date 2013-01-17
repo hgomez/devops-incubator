@@ -77,7 +77,6 @@ Source9: limits.conf.skel
 Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: context.xml.skel
-Source13: users.conf.skel
 Source14: logging.properties.skel
 
 %description
@@ -172,9 +171,6 @@ cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
 cp %{SOURCE12} %{buildroot}%{appconfdir}/context.xml.skel
 %{__portsed} 's|@@GITBLIT_DATADIR@@|%{appdatadir}|g' %{buildroot}%{appconfdir}/context.xml.skel
 
-# Install users.properties
-cp %{SOURCE13} %{buildroot}%{appdatadir}/conf/users.conf
-
 # remove uneeded file in RPM
 rm -f %{buildroot}%{appdir}/*.sh
 rm -f %{buildroot}%{appdir}/*.bat
@@ -223,8 +219,6 @@ if [ "$1" == "1" ]; then
   %{__portsed} "s|@@GITBLIT_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
   %{__portsed} "s|@@GITBLIT_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
-  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  %{__portsed} "s|@@ADMIN_PASSWORD@@|$RANDOMVAL|g" %{appdatadir}/conf/users.conf
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
@@ -288,7 +282,6 @@ fi
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/repos
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/scripts
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/grape
-%attr(0644,%{appusername},%{appusername}) %config(noreplace) %{appdatadir}/conf/users.conf
 %attr(0755,%{appusername},%{appusername}) %dir %{apptempdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appworkdir}
 %doc %{appdir}/NOTICE
@@ -299,6 +292,7 @@ fi
 %changelog
 * Fri Jan 17 2013 henri.gomez@gmail.com 1.2.1-1
 - Update to GitBlit 1.2.1
+- credentials are now under %{appdatadir}/conf/users.conf
 
 * Thu Jan 17 2013 henri.gomez@gmail.com 1.2.0-2
 - Apache Tomcat 7.0.35 released, update package
