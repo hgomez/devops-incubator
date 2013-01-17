@@ -54,8 +54,8 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{crashdir}
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 
-mv crsh-%{VERSION}/crash/* $RPM_BUILD_ROOT%{crashdir}
-mv crsh-%{VERSION}/*.txt $RPM_BUILD_ROOT%{crashdir}
+mv crash-%{VERSION}/crash/* $RPM_BUILD_ROOT%{crashdir}
+mv crash-%{VERSION}/*.txt $RPM_BUILD_ROOT%{crashdir}
 cp $RPM_BUILD_ROOT%{crashdir}/bin/crash.sh $RPM_BUILD_ROOT%{_bindir}
 
 # Set CRASH_HOME
