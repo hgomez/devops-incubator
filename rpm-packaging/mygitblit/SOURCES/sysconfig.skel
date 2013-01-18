@@ -65,6 +65,11 @@ APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true"
 
 #
+# Disable parameterized URLs (required for mod_jk/mod_proxy) : http://gitblit.com/faq.html
+#
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dweb.mountParameters=false"
+ 
+#
 # JMX Settings
 #
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false"
