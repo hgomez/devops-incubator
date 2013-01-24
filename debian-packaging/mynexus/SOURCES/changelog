@@ -1,5 +1,5 @@
-@@SKEL_APP@@ (1.0.0) UNRELEASED; urgency=low
+@@SKEL_APP@@ (2.3.0-04) UNRELEASED; urgency=low
 
   * Initial release. (Closes: #XXXXXX)
 
- -- hikage <hikage@hkDebian.vottem>  Thu, 12 Jan 2012 15:00:34 +0100
+ -- hgomez <henri.gomez@gmail.com>  Thu, 24 Jan 2013 20:30:34 +0100

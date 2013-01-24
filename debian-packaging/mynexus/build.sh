@@ -2,12 +2,11 @@
 
 pushd `dirname $0`
 
-APP_VERSION=2.0.6
-TOMCAT_VERSION=7.0.29
-
+NEXUS_VERSION=2.3.0-04
+TOMCAT_VERSION=7.0.35
 
 # Build variables
-BUILD_DIR=/tmp/BUILD
+BUILD_DIR=BUILD
 
 APTDEP_DIR=/vagrant/aptdepo
 
@@ -27,11 +26,10 @@ APP_CONFLOCALDIR=$APP_DIR/conf/Catalina/localhost
 APP_WEBAPPDIR=$APP_DIR/webapps
 APP_TMPDIR=/tmp/$APP_NAME
 APP_WORKDIR=/var/$APP_NAME
-#APP_VERSION=1.0.0
 APP_RELEASE=1
 
 if [ $# -gt 1 ]; then
-  APP_VERSION=$1
+  NEXUS_VERSION=$1
   shift
 fi
 
@@ -44,13 +42,10 @@ NEXUS_URL=http://www.sonatype.org/downloads/nexus-${NEXUS_VERSION}.war
 TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
-if [ ! -d SOURCES ]; then
+if [ ! -d SOURCES/downloaded ]; then
   echo "Creating sources directory"
-  mkdir SOURCES
+  mkdir SOURCES/downloaded
 fi
-
-
-
 
 if [ ! -f SOURCES/downloaded/apache-tomcat-${TOMCAT_VERSION}.tar.gz ]; then
   echo "downloading apache-tomcat-${TOMCAT_VERSION}.tar.gz from $TOMCAT_URL"
@@ -63,12 +58,12 @@ if [ ! -f SOURCES/downloaded/catalina-jmx-remote-${TOMCAT_VERSION}.jar ]; then
 fi
 
 
-if [ ! -f SOURCES/downloaded/$APP_NAME-${APP_VERSION}.war ]; then
-  echo "downloading nexus-${APP_VERSION}.war from $NEXUS_URL"
-  curl  -s -L $NEXUS_URL -o SOURCES/downloaded/$APP_NAME-${APP_VERSION}.war
+if [ ! -f SOURCES/downloaded/$APP_NAME-${NEXUS_VERSION}.war ]; then
+  echo "downloading nexus-${NEXUS_VERSION}.war from $NEXUS_URL"
+  curl  -s -L $NEXUS_URL -o SOURCES/downloaded/$APP_NAME-${NEXUS_VERSION}.war
 fi
 
-echo "Version to package is $APP_VERSION, powered by Apache Tomcat $TOMCAT_VERSION"
+echo "Version to package is $NEXUS_VERSION, powered by Apache Tomcat $TOMCAT_VERSION"
 
 #set -x
 
@@ -87,7 +82,7 @@ for DEBIANFILE in `ls SOURCES/app.*`; do
   cp $DEBIANFILE $BUILD_DIR/debian/$debiandestfile;
   sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@SKEL_USER@@|$APP_USER|g" $BUILD_DIR/debian/$debiandestfile
-  sed -i "s|@@SKEL_VERSION@@|version $APP_VERSION release $APP_RELEASE powered by Apache Tomcat $TOMCAT_VERSION|g" $BUILD_DIR/debian/$debiandestfile
+  sed -i "s|@@SKEL_VERSION@@|version $NEXUS_VERSION release $APP_RELEASE powered by Apache Tomcat $TOMCAT_VERSION|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@SKEL_EXEC@@|$APP_EXEC|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@SKEL_LOGDIR@@|$APP_LOGDIR|g" $BUILD_DIR/debian/$debiandestfile
   sed -i "s|@@APP_TMPDIR@@|$APP_TMPDIR|g" $BUILD_DIR/debian/$debiandestfile
@@ -99,14 +94,14 @@ done
 cp SOURCES/control $BUILD_DIR/debian
 
 sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/debian/control
-sed -i "s|@@SKEL_APPVERSION@@|$APP_VERSION|g" $BUILD_DIR/debian/control
+sed -i "s|@@SKEL_APPVERSION@@|$NEXUS_VERSION|g" $BUILD_DIR/debian/control
 sed -i "s|@@SKEL_TOMCATVERSION@@|$TOMCAT_VERSION|g" $BUILD_DIR/debian/control
 
 
 cp SOURCES/changelog $BUILD_DIR/debian
 
 sed -i "s|@@SKEL_APP@@|$APP_NAME|g" $BUILD_DIR/debian/changelog
-sed -i "s|@@SKEL_APPVERSION@@|$APP_VERSION|g" $BUILD_DIR/debian/changelog
+sed -i "s|@@SKEL_APPVERSION@@|$NEXUS_VERSION|g" $BUILD_DIR/debian/changelog
 
 
 
@@ -166,13 +161,9 @@ chmod 755 $BUILD_DIR/$APP_DIR/bin/*.sh
 # Copy .skel
 cp  SOURCES/*.skel $BUILD_DIR/$APP_DIR/conf/
 
-
 #Install war
 rm -rf $BUILD_DIR/$APP_DIR/webapps/*
-cp  SOURCES/downloaded/$APP_NAME-${APP_VERSION}.war $BUILD_DIR/$APP_DIR/webapps/ROOT.war
-
-
-
+cp  SOURCES/downloaded/$APP_NAME-${NEXUS_VERSION}.war $BUILD_DIR/$APP_DIR/webapps/ROOT.war
 
 # create debian package
 pushd $BUILD_DIR
@@ -180,11 +171,9 @@ debuild -us -uc -B
 #ls
 popd
 
-cp $BUILD_DIR/../$APP_NAME*.deb .
-
 # Copy the .deb into the APT local depot if exist
-if [ -n "$APTDEP_DIR" ]; then
-cp $BUILD_DIR/../$APP_NAME*.deb $APTDEP_DIR/binary
+if [ -d "$APTDEP_DIR" ]; then
+ cp $BUILD_DIR/../$APP_NAME*.deb $APTDEP_DIR/binary
 fi
 
 popd
