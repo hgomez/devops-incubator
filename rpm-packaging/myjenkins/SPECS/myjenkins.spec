@@ -22,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.499
+%define jenkins_rel    1.500
 %endif
 
 Name: myjenkins
@@ -135,6 +135,8 @@ cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@JENKINS_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@JENKINS_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
@@ -285,6 +287,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Feb 1 2013 henri.gomez@gmail.com 1.500-1
+- Use startproc instead of start_daemon to ensure userid is not overrided 
+- Jenkins 1.500 released
+
 * Thu Jan 17 2013 henri.gomez@gmail.com 1.499-1
 - Apache Tomcat 7.0.35 released, update package
 - Jenkins 1.499 released

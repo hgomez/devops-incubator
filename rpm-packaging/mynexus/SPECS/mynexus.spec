@@ -27,7 +27,7 @@
 
 Name: mynexus
 Version: %{nexus_rel}
-Release: 1
+Release: 2
 Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -135,6 +135,8 @@ cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{app}
 %{__portsed} 's|@@NEXUS_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{app}
 %{__portsed} 's|@@NEXUS_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{app}
 %{__portsed} 's|@@NEXUS_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{app}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{app}
@@ -285,6 +287,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Feb 1 2013 henri.gomez@gmail.com 2.3.0-2
+- Use startproc instead of start_daemon to ensure userid is not overrided 
+
 * Thu Jan 17 2013 henri.gomez@gmail.com 2.3.0-1
 - Apache Tomcat 7.0.35 released, update package
 - Nexus 2.3.0
