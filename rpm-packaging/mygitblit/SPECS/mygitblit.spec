@@ -18,7 +18,7 @@
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 1
+Release: 2
 Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -128,6 +128,8 @@ cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@GITBLIT_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@GITBLIT_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@GITBLIT_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@GITBLIT_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@GITBLIT_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
@@ -282,6 +284,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Feb 1 2013 henri.gomez@gmail.com 1.2.1-2
+- Use startproc instead of start_daemon to ensure userid is not overrided 
+
 * Fri Jan 17 2013 henri.gomez@gmail.com 1.2.1-1
 - Update to GitBlit 1.2.1
 - credentials are now under %{appdatadir}/conf/users.conf
