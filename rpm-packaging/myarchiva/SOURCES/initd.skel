@@ -49,8 +49,8 @@ start() {
     done
 
     # start_daemon on Suse, daemon on RH
-    if [ -x /sbin/start_daemon ]; then
-      start_daemon -u $user $exec start
+    if [ -x /sbin/startproc ]; then
+      HOME=@@ARCHIVA_DATADIR@@ startproc -s -e -l @@ARCHIVA_LOGDIR@@/start.log -u $user $exec start
     else
       daemon --user=$user $exec start
     fi
