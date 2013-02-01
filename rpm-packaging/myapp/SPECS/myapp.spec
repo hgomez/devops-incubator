@@ -27,7 +27,7 @@
 
 Name: myapp
 Version: %{myapp_rel}
-Release: 5
+Release: 6
 Summary: MyApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -135,6 +135,8 @@ cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
 %{__portsed} 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
 %{__portsed} 's|@@MYAPP_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
 %{__portsed} 's|@@MYAPP_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{myappdatadir}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
 
 # sysconfig
 cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
@@ -294,6 +296,9 @@ fi
 %doc %{myappdir}/RELEASE-NOTES
 
 %changelog
+* Fri Feb 1 2013 henri.gomez@gmail.com 1.0.0-6
+- Use startproc instead of start_daemon to ensure userid is not overrided 
+
 * Thu Jan 17 2013 henri.gomez@gmail.com 1.0.0-5
 - Apache Tomcat 7.0.35 released, update package
 
