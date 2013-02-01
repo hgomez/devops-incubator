@@ -27,7 +27,7 @@
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 2
+Release: 3
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -145,6 +145,8 @@ cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{app}
 %{__portsed} 's|@@ARTIFACTORY_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
 %{__portsed} 's|@@ARTIFACTORY_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
 %{__portsed} 's|@@ARTIFACTORY_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+%{__portsed} 's|@@ARTIFACTORY_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+%{__portsed} 's|@@ARTIFACTORY_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
 
 # sysconfig
 cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
@@ -298,6 +300,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Feb 1 2013 henri.gomez@gmail.com 2.6.6-3
+- Use startproc instead of start_daemon to ensure userid is not overrided 
+
 * Thu Jan 17 2013 henri.gomez@gmail.com 2.6.6-2
 - Apache Tomcat 7.0.35 released, update package
 
