@@ -51,10 +51,19 @@ start() {
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
       HOME=@@SONAR_DATADIR@@ startproc -s -e -l @@SONAR_LOGDIR@@/start.log -u $user $exec start
+      if [ -r "$CATALINA_PID" ]; then
+        PID=`cat "$CATALINA_PID"`
+        ps -p $PID >/dev/null 2>&1
+        if [ $? -eq 0 ] ; then
+          RETVAL=0
+        else
+          RETVAL=1
+        fi
+      fi
     else
       daemon --user=$user $exec start
+      RETVAL=$?
     fi
-    RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && [ -d $lockdir ] && touch $lockfile
 }
