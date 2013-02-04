@@ -51,6 +51,7 @@ start() {
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
       HOME=@@ARCHIVA_DATADIR@@ startproc -s -e -l @@ARCHIVA_LOGDIR@@/start.log -u $user $exec start
+      sleep 1
       if [ -r "$CATALINA_PID" ]; then
         PID=`cat "$CATALINA_PID"`
         ps -p $PID >/dev/null 2>&1
