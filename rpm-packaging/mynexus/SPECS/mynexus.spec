@@ -22,12 +22,12 @@
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.3.0
+%define nexus_rel    2.3.1
 %endif
 
 Name: mynexus
 Version: %{nexus_rel}
-Release: 2
+Release: 1
 Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -287,6 +287,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Feb 15 2013 henri.gomez@gmail.com 2.3.1-1
+- Nexus 2.3.1 released 
+
 * Fri Feb 1 2013 henri.gomez@gmail.com 2.3.0-2
 - Use startproc instead of start_daemon to ensure userid is not overrided 
 

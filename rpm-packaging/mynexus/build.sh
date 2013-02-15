@@ -1,7 +1,7 @@
 #!/bin/sh
 
-NEXUS_VERSION=2.3.0
-NEXUS_DOWNLOAD_VERSION=2.3.0-04
+NEXUS_VERSION=2.3.1
+NEXUS_DOWNLOAD_VERSION=2.3.1-01
 TOMCAT_VERSION=7.0.35
 
 if [ $# -gt 1 ]; then
@@ -20,7 +20,7 @@ if [ $# -gt 1 ]; then
   shift
 fi
 
-NEXUS_URL=http://www.sonatype.org/downloads/nexus-${NEXUS_DOWNLOAD_VERSION}.war
+NEXUS_URL=http://download.sonatype.com/nexus/oss/nexus-${NEXUS_DOWNLOAD_VERSION}.war
 TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
