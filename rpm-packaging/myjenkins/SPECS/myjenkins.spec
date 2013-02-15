@@ -22,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.500
+%define jenkins_rel    1.501
 %endif
 
 Name: myjenkins
@@ -287,6 +287,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Feb 15 2013 henri.gomez@gmail.com 1.501-1
+- Jenkins 1.501 released
+
 * Fri Feb 1 2013 henri.gomez@gmail.com 1.500-1
 - Use startproc instead of start_daemon to ensure userid is not overrided 
 - Jenkins 1.500 released
