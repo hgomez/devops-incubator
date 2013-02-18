@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel		%{TOMCAT_REL}
 %else
-%define tomcat_rel		7.0.35
+%define tomcat_rel		7.0.37
 %endif
 
 %if 0%{?ARCHIVA_REL:1}
@@ -49,7 +49,7 @@
 Name: myarchiva
 
 Version: %{rpm_archiva_rel}
-Release: 5
+Release: 6
 Summary: Apache Archiva %{archiva_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -341,6 +341,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Feb 18 2013 henri.gomez@gmail.com 1.4.m3-6
+- Apache Tomcat 7.0.37 released, update package
+
 * Fri Feb 1 2013 henri.gomez@gmail.com 1.4.m3-5
 - Use startproc instead of start_daemon to ensure userid is not overrided 
 

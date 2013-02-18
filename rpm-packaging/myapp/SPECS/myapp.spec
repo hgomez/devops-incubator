@@ -16,7 +16,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.35
+%define tomcat_rel        7.0.37
 %endif
 
 %if %{?MYAPP_REL:1}
@@ -296,6 +296,9 @@ fi
 %doc %{myappdir}/RELEASE-NOTES
 
 %changelog
+* Mon Feb 18 2013 henri.gomez@gmail.com 1.0.0-7
+- Apache Tomcat 7.0.37 released, update package
+
 * Fri Feb 1 2013 henri.gomez@gmail.com 1.0.0-6
 - Use startproc instead of start_daemon to ensure userid is not overrided 
 

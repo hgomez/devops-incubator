@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.35
+%define tomcat_rel        7.0.37
 %endif
 
 %if 0%{?ARTIFACTORY_REL:1}
@@ -27,7 +27,7 @@
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 3
+Release: 4
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -300,6 +300,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Feb 18 2013 henri.gomez@gmail.com 2.6.6-4
+- Apache Tomcat 7.0.37 released, update package
+
 * Fri Feb 1 2013 henri.gomez@gmail.com 2.6.6-3
 - Use startproc instead of start_daemon to ensure userid is not overrided 
 
