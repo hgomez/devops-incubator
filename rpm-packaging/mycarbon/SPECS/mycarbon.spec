@@ -241,5 +241,5 @@ fi
 %endif
 
 %changelog
-* Wed Sep 12 2012 henri.gomez@gmail.com 0.9.10-1
+* Fri Feb 22 2013 henri.gomez@gmail.com 0.9.10-1
 - initial package (v0.9.10)
