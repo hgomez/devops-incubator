@@ -1,0 +1,11 @@
+--- setup.cfg.orig	2012-09-12 17:07:40.000000000 +0200
++++ setup.cfg	2012-09-12 17:07:49.000000000 +0200
+@@ -1,6 +1,6 @@
+ [install]
+-prefix = /opt/graphite
+-install-lib = %(prefix)s/webapp
++#prefix = /opt/graphite
++#install-lib = %(prefix)s/webapp
+ 
+ [bdist_rpm]
+ requires = Django => 1.1.4
