@@ -115,7 +115,7 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %{python_sitelib}/graphite/local_settings.py
-%{_sysconfdir}/apache2/vhosts.d/brs-graphite.conf
+%{_sysconfdir}/apache2/vhosts.d/mygraphite.conf
 %config %{_sysconfdir}/graphite/web/dashboard.conf
 %config %{_sysconfdir}/graphite/web/graphTemplates.conf
 %{graphiteconfdir}/graphite.wsgi
