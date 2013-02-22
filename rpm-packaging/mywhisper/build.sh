@@ -57,13 +57,15 @@ download_file_if_needed()
 	fi
 }
 
+mkdir -p SOURCES
+
 download_file_if_needed $WHISPER_URL SOURCES/whisper-${WHISPER_VERSION}.tar.gz
 
 echo "Version to package is $WHISPER_VERSION"
 
 # prepare fresh directories
 rm -rf BUILD RPMS SRPMS TEMP
-mkdir -p BUILD RPMS SOURCES SRPMS TEMP
+mkdir -p BUILD RPMS SRPMS TEMP
 
 # Build using rpmbuild (use double-quote for define to have shell resolv vars !)
 rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="WHISPER_REL $WHISPER_VERSION"  SPECS/mywhisper.spec
