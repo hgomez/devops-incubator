@@ -19,6 +19,8 @@ if [ $# -gt 1 ]; then
 fi
 
 
+           https://launchpad.net/graphite/0.9/0.9.10/+download/whisper-0.9.10.tar.gz
+
 WHISPER_URL=http://launchpad.net/graphite/$WHISPER_HIGH_VERSION/$WHISPER_VERSION/+download/whisper-$WHISPER_VERSION.tar.gz
 
 download_file_if_needed()
@@ -61,7 +63,7 @@ echo "Version to package is $WHISPER_VERSION"
 
 # prepare fresh directories
 rm -rf BUILD RPMS SRPMS TEMP
-mkdir -p BUILD RPMS SRPMS TEMP
+mkdir -p BUILD RPMS SOURCES SRPMS TEMP
 
 # Build using rpmbuild (use double-quote for define to have shell resolv vars !)
 rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="WHISPER_REL $WHISPER_VERSION"  SPECS/mywhisper.spec
