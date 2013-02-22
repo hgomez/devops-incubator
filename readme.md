@@ -9,13 +9,17 @@ These packages will bring you a ready to use Software Factory.
 * myarchiva - Apache Archiva powered by Apache Tomcat 7.x.
 * myapp - simple web application powered by Apache Tomcat 7.x
 * myartifactory - JFrog Artifactory powered by Apache Tomcat 7.x
+* mycarbon - Graphite suite data collector
 * myforge-apache2-front - Apache HTTPd front-ends for Forge service via Named VHosts
+* mygraphite-web - Graphite suite web adaptor
+* mygraphite-suite - Graphite suite (designed for openSUSE 12.x and SUSE SLES 11+)
 * mygit - Git repositories hosted by Apache HTTPd and cgit
 * mygitblit - GitBlig (Git Repositories manager) powered by Apache Tomcat 7.x
 * myjenkins - Jenkins-CI powered by Apache Tomcat 7.x
 * mynexus - Sonatype Nexus OSS powered by Apache Tomcat 7.x
 * mysonar - Sonar powered by Apache Tomcat 7.x
 * mysvn - Suversion hosted by Apache HTTPd
+* mywhisper - Graphite suite data storage backend
 
 RPM packages version number follow application version number.
 RPM packages release number are revision, used when something is updated in RPM like Apache Tomcat or in packaging.
