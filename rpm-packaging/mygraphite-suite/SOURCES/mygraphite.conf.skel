@@ -1,0 +1,47 @@
+#
+# MyGraphite Suite Virtual Host
+#
+# We retained Apache HTTPd Virtual Named Host mode, so you should replace ServerName and ServerAlias by your own FQN and short server names
+#
+<VirtualHost *:80>
+ ServerName  mygraphite.myforge.org
+ ServerAlias mygraphite
+ ServerAdmin admins@myforge.org
+
+ ErrorDocument 400 default
+ ErrorDocument 401 default
+ ErrorDocument 403 default
+ ErrorDocument 404 default
+ ErrorDocument 405 default
+ ErrorDocument 408 default
+ ErrorDocument 410 default
+ ErrorDocument 411 default
+ ErrorDocument 412 default
+ ErrorDocument 413 default
+ ErrorDocument 414 default
+ ErrorDocument 415 default
+ ErrorDocument 500 default
+ ErrorDocument 501 default
+ ErrorDocument 502 default
+ ErrorDocument 503 default
+
+ SetOutputFilter DEFLATE
+ SetInputFilter DEFLATE
+
+ DeflateFilterNote Input instream
+ DeflateFilterNote Output outstream
+ DeflateFilterNote Ratio ratio
+
+ # Logs
+ ErrorLog /var/log/apache2/mygraphite_error_log
+ CustomLog /var/log/apache2/mygraphite_access_log combined
+
+ DocumentRoot @@SKEL_WEBCONFDIR@@
+ WSGIScriptAlias / @@SKEL_WEBCONFDIR@@/graphite.wsgi
+ 
+ <Directory @@SKEL_WEBCONFDIR@@>
+   Order allow,deny
+   Allow from all
+ </Directory>
+
+</VirtualHost>
