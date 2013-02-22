@@ -1,0 +1,7 @@
+@@SKEL_LOGDIR@@/carbon.log {
+ copytruncate
+ daily
+ rotate 7
+ compress
+ missingok
+}

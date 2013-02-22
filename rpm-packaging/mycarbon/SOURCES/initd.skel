@@ -1,0 +1,87 @@
+#!/bin/sh
+#
+#
+### BEGIN INIT INFO
+# Provides:          @@SKEL_APP@@
+# Required-Start:    $local_fs $remote_fs $network $time $named
+# Required-Stop:     $local_fs $remote_fs $network $time $named
+# Default-Start:     3 5
+# Default-Stop:      0 1 2 6
+# Short-Description: Carbon (Graphite Suite)
+# Description:       Carbon (Graphite Suite)
+### END INIT INFO
+
+#
+# init.d / servicectl compatibility (openSUSE)
+#
+if [ -f /etc/rc.status ]; then
+    . /etc/rc.status
+    rc_reset
+fi
+
+# Source function library.
+if [ -r /etc/init.d/functions ]; then
+    . /etc/init.d/functions
+fi
+
+# Read config file
+if [ -r "/etc/sysconfig/@@SKEL_APP@@" ]; then
+    . /etc/sysconfig/@@SKEL_APP@@
+fi
+
+RETVAL=0
+prog="@@SKEL_APP@@"
+user="@@SKEL_USER@@"
+exec="@@SKEL_EXEC@@"
+lockdir=/var/lock/subsys
+lockfile=$lockdir/@@SKEL_APP@@
+config=/etc/sysconfig/@@SKEL_APP@@
+
+start() {
+    echo -n $"Starting $prog: "
+
+    /usr/bin/carbon-cache.py --config=@@SKEL_CONFDIR@@/carbon.conf start
+    
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && [ -d $lockdir ] && touch $lockfile
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    RETVAL=0
+    /usr/bin/carbon-cache.py --config=@@SKEL_CONFDIR@@/carbon.conf stop
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && [ -d $lockdir ] && rm -f $lockfile
+}
+
+status() {
+    /usr/bin/carbon-cache.py --config=@@SKEL_CONFDIR@@/carbon.conf status
+}
+
+# See how we were called.
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+        status
+        RETVAL=$?
+        ;;
+  restart|force-reload|reload)
+        stop
+        start
+        ;;
+    version)
+        echo "${prog} @@SKEL_VERSION@@"
+        ;;
+  *)
+        echo $"Usage: $prog {start|stop|restart|force-reload|reload|status|version}"
+        RETVAL=2
+esac
+
+exit $RETVAL
