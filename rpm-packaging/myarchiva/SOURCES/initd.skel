@@ -56,6 +56,9 @@ start() {
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
     done
 
+    mkdir -p @@ARCHIVA_TMPDIR@@
+    chown -R @@ARCHIVA_USER@@:@@ARCHIVA_USER@@ @@ARCHIVA_TMPDIR@@
+
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
       HOME=@@ARCHIVA_DATADIR@@ startproc -s -e -l @@ARCHIVA_LOGDIR@@/start.log -u $user $exec start
