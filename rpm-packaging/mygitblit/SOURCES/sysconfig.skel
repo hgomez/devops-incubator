@@ -1,0 +1,80 @@
+#
+# @@SKEL_APP@@ Configuration
+#
+
+#
+# If a common myforge profile is available use it to initialize envs, like JAVA_HOME and PATHs
+#
+
+if [ -f /etc/profile.d/myforge.sh ]; then
+	source /etc/profile.d/myforge.sh
+fi
+
+#
+# Vars starting with APP_ are used to replace contents in skeletons files
+#
+
+APP_SERVER_PORT=12384
+APP_HTTP_PORT=12385
+APP_HTTPS_PORT=12386
+APP_AJP_PORT=12387
+
+APP_RMIREGISTRY_PORT=12388
+APP_RMISERVER_PORT=12389
+APP_JVM_ROUTE=myapp
+
+APP_HTTP_MAX_THREADS=150
+APP_HTTP_MIN_SPARE_THREADS=25
+
+APP_HTTPS_MAX_THREADS=150
+APP_HTTPS_MIN_SPARE_THREADS=25
+
+APP_AJP_MAX_THREADS=150
+APP_AJP_MIN_SPARE_THREADS=25
+
+APP_JMX_READER_USER=reader
+APP_JMX_READER_PASSWORD=@@GITBLIT_RO_PWD@@
+
+APP_JMX_ADMIN_USER=admin
+APP_JMX_ADMIN_PASSWORD=@@GITBLIT_RW_PWD@@
+
+#
+# Linux Service variables
+#
+CATALINA_HOME="@@GITBLIT_APPDIR@@"
+CATALINA_OUT="@@GITBLIT_LOGDIR@@/catalina.out"
+CATALINA_PID="/var/run/@@GITBLIT_APP@@.pid"
+SHUTDOWN_WAIT=10
+
+# 
+# GitBlit Settings (injected in WEB-INF/web.xml from context.xml)
+#
+APP_DATA_FOLDER=@@SKEL_DATADIR@@
+
+#
+# JVM Settings
+#
+APP_JAVA_HOME=
+APP_JAVA_OPTS="-Xms32m -Xmx64m -XX:MaxPermSize=32m -Xss256k"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@GITBLIT_LOGDIR@@"
+
+#
+# Tweak Tomcat configuration for GitBlit : http://gitblit.com/faq.html
+#
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true"
+
+#
+# Disable parameterized URLs (required for mod_jk/mod_proxy) : http://gitblit.com/faq.html
+#
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dweb.mountParameters=false"
+ 
+#
+# JMX Settings
+#
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=true"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=@@GITBLIT_APPDIR@@/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=@@GITBLIT_APPDIR@@/conf/jmxremote.access"
+
+
+

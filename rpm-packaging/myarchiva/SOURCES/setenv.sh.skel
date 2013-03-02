@@ -1,0 +1,13 @@
+#
+# Read config file
+#
+
+if [ -r "/etc/sysconfig/@@ARCHIVA_APP@@" ]; then
+    . /etc/sysconfig/@@ARCHIVA_APP@@
+fi
+
+if [ ! -z "$APP_JAVA_HOME" ]; then
+  JAVA_HOME=$APP_JAVA_HOME
+fi
+
+CATALINA_OPTS=$APP_JAVA_OPTS

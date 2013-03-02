@@ -1,25 +1,38 @@
+# Avoid unnecessary debug-information (native code)
+%define		debug_package %{nil}
+
+# Avoid jar repack (brp-java-repack-jars)
+#%define __jar_repack 0
+
+# Avoid CentOS 5/6 extras processes on contents (especially brp-java-repack-jars)
+%define __os_install_post %{nil}
+
+%ifos darwin
+%define __portsed sed -i "" -e
+%else
+%define __portsed sed -i
+%endif
+
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.25
+%define tomcat_rel        7.0.37
 %endif
 
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.449
+%define jenkins_rel    1.502
 %endif
 
 Name: myjenkins
 Version: %{jenkins_rel}
-#Version: %{jenkins_rel}
-Release: 3
+Release: 2
 Summary: Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
-Group: Applications/Communications
-URL: http://www.mycorp.org/
-Vendor: MyCorp
-Packager: MyCorp
-License: AGPLv1
+Group: Development/Tools
+URL: https://github.com/hgomez/devops-incubator
+Vendor: devops-incubator
+License: MIT
 BuildArch:  noarch
 
 %define appname         myjenkins
@@ -45,28 +58,34 @@ BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 %if 0%{?suse_version} > 1140
 BuildRequires: systemd
 %{?systemd_requires}
-%endif
-
-%if 0%{suse_version} <= 1140
+%else
 %define systemd_requires %{nil}
 %endif
 
+%if 0%{?suse_version}
 Requires:           java = 1.6.0
+%endif
+
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
+Requires:           java = 1:1.6.0
+%endif
+
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
 Source1: jenkins-%{jenkins_rel}.war
-Source2: initd
-Source3: sysconfig
+Source2: initd.skel
+Source3: sysconfig.skel
 Source4: jmxremote.access.skel
 Source5: jmxremote.password.skel
-Source6: setenv.sh
-Source7: logrotate
+Source6: setenv.sh.skel
+Source7: logrotate.skel
 Source8: server.xml.skel
-Source9: limits.conf
-Source10: systemd
+Source9: limits.conf.skel
+Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
+Source12: logging.properties.skel
 
 %description
 Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
@@ -78,90 +97,95 @@ Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %install
 # Prep the install location.
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-mkdir -p $RPM_BUILD_ROOT%{_initrddir}
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d
-mkdir -p $RPM_BUILD_ROOT%{_systemdir}
+mkdir -p %{buildroot}%{_initrddir}
+mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
+mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
+mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
+mkdir -p %{buildroot}%{_systemdir}
 
-mkdir -p $RPM_BUILD_ROOT%{appdir}
-mkdir -p $RPM_BUILD_ROOT%{appdatadir}
-mkdir -p $RPM_BUILD_ROOT%{applogdir}
-mkdir -p $RPM_BUILD_ROOT%{apptempdir}
-mkdir -p $RPM_BUILD_ROOT%{appworkdir}
-mkdir -p $RPM_BUILD_ROOT%{appwebappdir}
+mkdir -p %{buildroot}%{appdir}
+mkdir -p %{buildroot}%{appdatadir}
+mkdir -p %{buildroot}%{applogdir}
+mkdir -p %{buildroot}%{apptempdir}
+mkdir -p %{buildroot}%{appworkdir}
+mkdir -p %{buildroot}%{appwebappdir}
 
 # Copy tomcat
-mv apache-tomcat-%{tomcat_rel}/* $RPM_BUILD_ROOT%{appdir}
+mv apache-tomcat-%{tomcat_rel}/* %{buildroot}%{appdir}
 
 # Create conf/Catalina/localhost
-mkdir -p $RPM_BUILD_ROOT%{appconflocaldir}
+mkdir -p %{buildroot}%{appconflocaldir}
 
 # remove default webapps
-rm -rf $RPM_BUILD_ROOT%{appdir}/webapps/*
+rm -rf %{buildroot}%{appdir}/webapps/*
 
-# patches to have logs under /var/log/appname
-sed -i 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
+# patches to have logs under /var/log/app
+# remove manager and host-manager logs (via .skel file)
+cp %{SOURCE12} %{buildroot}%{appdir}/conf/logging.properties
+%{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' %{buildroot}%{appdir}/conf/logging.properties
 
 # jenkins webapp is ROOT.war (will respond to /)
-cp %{SOURCE1}  $RPM_BUILD_ROOT%{appwebappdir}/ROOT.war
+cp %{SOURCE1}  %{buildroot}%{appwebappdir}/ROOT.war
 
 # init.d
-cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-sed -i 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-sed -i 's|@@JENKINS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-sed -i 's|@@JENKINS_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-sed -i 's|@@JENKINS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
+cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@JENKINS_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{app}
 
 # sysconfig
-cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-sed -i 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-sed -i 's|@@JENKINS_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-sed -i 's|@@JENKINS_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-sed -i 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-sed -i 's|@@JENKINS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-sed -i 's|@@JENKINS_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@JENKINS_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
 # JMX (including JMX Remote)
-cp %{SOURCE11} $RPM_BUILD_ROOT%{appdir}/lib
-cp %{SOURCE4}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.access.skel
-cp %{SOURCE5}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.password.skel
+cp %{SOURCE11} %{buildroot}%{appdir}/lib
+cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
+cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
-cp  %{SOURCE6} $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
-sed -i 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
+cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' %{buildroot}%{appdir}/bin/setenv.sh
 
 # Install logrotate
-cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{appname}
-sed -i 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{appname}
+cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
+%{__portsed} 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
 
 # Install server.xml.skel
-cp %{SOURCE8} $RPM_BUILD_ROOT%{appconfdir}/server.xml.skel
+cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 
 # Setup user limits
-cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{appname}.conf
-sed -i 's|@@JENKINS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{appname}.conf
+cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
+%{__portsed} 's|@@JENKINS_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
 # Setup Systemd
-cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
-sed -i 's|@@JENKINS_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
-sed -i 's|@@JENKINS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
+cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@JENKINS_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@JENKINS_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
 
 # remove uneeded file in RPM
-rm -f $RPM_BUILD_ROOT%{appdir}/*.sh
-rm -f $RPM_BUILD_ROOT%{appdir}/*.bat
-rm -f $RPM_BUILD_ROOT%{appdir}/bin/*.bat
-rm -rf $RPM_BUILD_ROOT%{appdir}/logs
-rm -rf $RPM_BUILD_ROOT%{appdir}/temp
-rm -rf $RPM_BUILD_ROOT%{appdir}/work
+rm -f %{buildroot}%{appdir}/*.sh
+rm -f %{buildroot}%{appdir}/*.bat
+rm -f %{buildroot}%{appdir}/bin/*.bat
+rm -rf %{buildroot}%{appdir}/logs
+rm -rf %{buildroot}%{appdir}/temp
+rm -rf %{buildroot}%{appdir}/work
 
 # ensure shell scripts are executable
-chmod 755 $RPM_BUILD_ROOT%{appdir}/bin/*.sh
+chmod 755 %{buildroot}%{appdir}/bin/*.sh
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %pre
 %if 0%{?suse_version} > 1140
@@ -176,8 +200,10 @@ else
   if [ "$1" == "2" ]; then
     if [ -f %{_var}/run/%{appname}.pid ]; then
       %{_initrddir}/%{appname} stop
-      touch %{appdir}/logs/rpm-update-stop
+      touch %{applogdir}/rpm-update-stop
     fi
+    # clean up deployed webapp
+    rm -rf %{appwebappdir}/ROOT
   fi
 fi
 
@@ -207,10 +233,10 @@ if [ "$1" == "1" ]; then
 else
   # Update time, restart application if it was running
   if [ "$1" == "2" ]; then
-    if [ -f %{appdir}/logs/rpm-update-stop ]; then
+    if [ -f %{applogdir}/rpm-update-stop ]; then
       # restart application after update (comment next line this behaviour not expected)
       %{_initrddir}/%{name} start
-      rm -f %{appdir}/logs/rpm-update-stop
+      rm -f %{applogdir}/rpm-update-stop
     fi
   fi
 fi
@@ -262,8 +288,77 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Fri Jan 6 2012 henri.gomez@gmail.com 1.0.0-2
+* Fri Feb 22 2013 henri.gomez@gmail.com 1.502-1
+- Jenkins 1.502 released
+
+* Mon Feb 18 2013 henri.gomez@gmail.com 1.501-2
+- Apache Tomcat 7.0.37 released, update package
+
+* Fri Feb 15 2013 henri.gomez@gmail.com 1.501-1
+- Jenkins 1.501 released
+
+* Fri Feb 1 2013 henri.gomez@gmail.com 1.500-1
+- Use startproc instead of start_daemon to ensure userid is not overrided 
+- Jenkins 1.500 released
+
+* Thu Jan 17 2013 henri.gomez@gmail.com 1.499-1
+- Apache Tomcat 7.0.35 released, update package
+- Jenkins 1.499 released
+
+* Tue Jan 8 2013 henri.gomez@gmail.com 1.498-1
+- Jenkins 1.498 released (security fix)
+
+* Thu Jan 3 2013 henri.gomez@gmail.com 1.496-1
+- Jenkins 1.496 released
+
+* Tue Dec 19 2012 henri.gomez@gmail.com 1.494-1
+- Jenkins 1.494 released
+- Use Apache Tomcat 7.0.34
+
+* Fri Oct 12 2012 henri.gomez@gmail.com 1.485-1
+- Jenkins 1.485 released
+- Use Apache Tomcat 7.0.32
+
+* Wed Oct 3 2012 henri.gomez@gmail.com 1.484-1
+- Jenkins 1.484 released
+- Reduce number of log files (manager and host-manager)
+
+* Fri Sep 28 2012 henri.gomez@gmail.com 1.483-1
+- Use Apache Tomcat 7.0.30
+- Jenkins 1.483 released
+
+* Fri Aug 31 2012 henri.gomez@gmail.com 1.479-1
+- Jenkins 1.479 released
+
+* Tue Aug 21 2012 henri.gomez@gmail.com 1.478-1
+- Jenkins 1.478 released
+
+* Mon Aug 20 2012 henri.gomez@gmail.com 1.477-1
+- Jenkins 1.477 released
+- Remove duplicate JMX settings definition
+
+* Wed Jul 11 2012 henri.gomez@gmail.com 1.474-1
+- Jenkins 1.474 released
+- Tomcat 7.0.29 released
+
+* Wed Jun 20 2012 henri.gomez@gmail.com 1.471-1
+- Jenkins 1.471 released
+- Tomcat 7.0.28 released
+
+* Thu May 24 2012 henri.gomez@gmail.com 1.465-1
+- Jenkins 1.465 released
+
+* Wed May 16 2012 henri.gomez@gmail.com 1.464-1
+- Jenkins 1.464 released
+
+* Wed Apr 25 2012 henri.gomez@gmail.com 1.461-1
+- Jenkins 1.461 released
+
+* Wed Mar 7 2012 henri.gomez@gmail.com 1.455-0
+- Distribution dependant Requires for Java
+
+* Fri Jan 6 2012 henri.gomez@gmail.com 1.454-0
 - Create conf/Catalina/localhost with user rights
 
-* Sat Dec 3 2011 henri.gomez@gmail.com 1.0.0-1
+* Sat Dec 3 2011 henri.gomez@gmail.com 1.453-0
 - Initial RPM

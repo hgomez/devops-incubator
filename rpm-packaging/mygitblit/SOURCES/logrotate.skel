@@ -1,0 +1,21 @@
+@@GITBLIT_LOGDIR@@/catalina.out {
+ copytruncate
+ daily
+ rotate 7
+ compress
+ missingok
+}
+
+@@GITBLIT_LOGDIR@@/*.*.log {
+ daily
+ rotate 7
+ compress
+ missingok
+}
+
+@@GITBLIT_LOGDIR@@/localhost_access_log.*.txt {
+ daily
+ rotate 7
+ compress
+ missingok
+}

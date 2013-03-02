@@ -1,0 +1,15 @@
+# Systemd unit file for @@ARTIFACTORY_APP@@
+# 
+[Unit]
+Description=@@ARTIFACTORY_APP@@ powered by Apache Tomcat
+After=syslog.target network.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/@@ARTIFACTORY_APP@@.pid
+EnvironmentFile=/etc/sysconfig/@@ARTIFACTORY_APP@@
+ExecStart=/etc/init.d/@@ARTIFACTORY_APP@@ start
+ExecStop=/etc/init.d/@@ARTIFACTORY_APP@@ stop
+
+[Install]
+WantedBy=multi-user.target

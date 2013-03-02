@@ -1,24 +1,38 @@
+# Avoid unnecessary debug-information (native code)
+%define		debug_package %{nil}
+
+# Avoid jar repack (brp-java-repack-jars)
+#%define __jar_repack 0
+
+# Avoid CentOS 5/6 extras processes on contents (especially brp-java-repack-jars)
+%define __os_install_post %{nil}
+
+%ifos darwin
+%define __portsed sed -i "" -e
+%else
+%define __portsed sed -i
+%endif
+
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.25
+%define tomcat_rel        7.0.37
 %endif
 
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    1.9.2.3
+%define nexus_rel    2.3.1
 %endif
 
 Name: mynexus
 Version: %{nexus_rel}
-Release: 3
-Summary: Nexus %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
-Group: Applications/Communications
-URL: http://www.mycorp.org/
-Vendor: MyCorp
-Packager: MyCorp
-License: AGPLv1
+Release: 2
+Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
+Group: Development/Tools
+URL: https://github.com/hgomez/devops-incubator
+Vendor: devops-incubator
+License: EPL
 BuildArch:  noarch
 
 %define app             mynexus
@@ -44,31 +58,37 @@ BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 %if 0%{?suse_version} > 1140
 BuildRequires: systemd
 %{?systemd_requires}
-%endif
-
-%if 0%{suse_version} <= 1140
+%else
 %define systemd_requires %{nil}
 %endif
 
+%if 0%{?suse_version}
 Requires:           java = 1.6.0
+%endif
+
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
+Requires:           java = 1:1.6.0
+%endif
+
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: nexus-webapp-%{nexus_rel}.war
-Source2: initd
-Source3: sysconfig
+Source1: nexus-%{nexus_rel}.war
+Source2: initd.skel
+Source3: sysconfig.skel
 Source4: jmxremote.access.skel
 Source5: jmxremote.password.skel
-Source6: setenv.sh
-Source7: logrotate
+Source6: setenv.sh.skel
+Source7: logrotate.skel
 Source8: server.xml.skel
-Source9: limits.conf
-Source10: app-systemd
+Source9: limits.conf.skel
+Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
+Source12: logging.properties.skel
 
 %description
-Jenkins %{nexus_rel} powered by Apache Tomcat
+Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %prep
 %setup -q -c
@@ -77,90 +97,95 @@ Jenkins %{nexus_rel} powered by Apache Tomcat
 
 %install
 # Prep the install location.
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-mkdir -p $RPM_BUILD_ROOT%{_initrddir}
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d
-mkdir -p $RPM_BUILD_ROOT%{_systemdir}
+mkdir -p %{buildroot}%{_initrddir}
+mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
+mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
+mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
+mkdir -p %{buildroot}%{_systemdir}
 
-mkdir -p $RPM_BUILD_ROOT%{appdir}
-mkdir -p $RPM_BUILD_ROOT%{appdatadir}
-mkdir -p $RPM_BUILD_ROOT%{applogdir}
-mkdir -p $RPM_BUILD_ROOT%{apptempdir}
-mkdir -p $RPM_BUILD_ROOT%{appworkdir}
-mkdir -p $RPM_BUILD_ROOT%{appwebappdir}
+mkdir -p %{buildroot}%{appdir}
+mkdir -p %{buildroot}%{appdatadir}
+mkdir -p %{buildroot}%{applogdir}
+mkdir -p %{buildroot}%{apptempdir}
+mkdir -p %{buildroot}%{appworkdir}
+mkdir -p %{buildroot}%{appwebappdir}
 
 # Copy tomcat
-mv apache-tomcat-%{tomcat_rel}/* $RPM_BUILD_ROOT%{appdir}
+mv apache-tomcat-%{tomcat_rel}/* %{buildroot}%{appdir}
 
 # Create conf/Catalina/localhost
-mkdir -p $RPM_BUILD_ROOT%{appconflocaldir}
+mkdir -p %{buildroot}%{appconflocaldir}
 
 # remove default webapps
-rm -rf $RPM_BUILD_ROOT%{appdir}/webapps/*
+rm -rf %{buildroot}%{appdir}/webapps/*
 
 # patches to have logs under /var/log/app
-sed -i 's|\${catalina.base}/logs|%{applogdir}|g' $RPM_BUILD_ROOT%{appdir}/conf/logging.properties
+# remove manager and host-manager logs (via .skel file)
+cp %{SOURCE12} %{buildroot}%{appdir}/conf/logging.properties
+%{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' %{buildroot}%{appdir}/conf/logging.properties
 
 # nexus webapp is ROOT.war (will respond to /)
-cp %{SOURCE1}  $RPM_BUILD_ROOT%{appwebappdir}/ROOT.war
+cp %{SOURCE1}  %{buildroot}%{appwebappdir}/ROOT.war
 
 # init.d
-cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@NEXUS_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
-sed -i 's|@@NEXUS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_APP@@|%{app}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{app}
 
 # sysconfig
-cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
-sed -i 's|@@NEXUS_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
+cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@NEXUS_APP@@|%{app}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@NEXUS_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@NEXUS_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@NEXUS_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+%{__portsed} 's|@@NEXUS_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
 
 # JMX (including JMX Remote)
-cp %{SOURCE11} $RPM_BUILD_ROOT%{appdir}/lib
-cp %{SOURCE4}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.access.skel
-cp %{SOURCE5}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.password.skel
+cp %{SOURCE11} %{buildroot}%{appdir}/lib
+cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
+cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
-cp  %{SOURCE6} $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
-sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
+cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@NEXUS_APP@@|%{app}|g' %{buildroot}%{appdir}/bin/setenv.sh
 
 # Install logrotate
-cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
-sed -i 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{app}
+cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{app}
+%{__portsed} 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{app}
 
 # Install server.xml.skel
-cp %{SOURCE8} $RPM_BUILD_ROOT%{appconfdir}/server.xml.skel
+cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 
 # Setup user limits
-cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
-sed -i 's|@@NEXUS_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{app}.conf
+cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{app}.conf
+%{__portsed} 's|@@NEXUS_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{app}.conf
 
 # Setup Systemd
-cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-sed -i 's|@@NEXUS_APP@@|%{app}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
-sed -i 's|@@NEXUS_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{app}.service
+cp %{SOURCE10} %{buildroot}%{_systemdir}/%{app}.service
+%{__portsed} 's|@@NEXUS_APP@@|%{app}|g' %{buildroot}%{_systemdir}/%{app}.service
+%{__portsed} 's|@@NEXUS_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{app}.service
 
 # remove uneeded file in RPM
-rm -f $RPM_BUILD_ROOT%{appdir}/*.sh
-rm -f $RPM_BUILD_ROOT%{appdir}/*.bat
-rm -f $RPM_BUILD_ROOT%{appdir}/bin/*.bat
-rm -rf $RPM_BUILD_ROOT%{appdir}/logs
-rm -rf $RPM_BUILD_ROOT%{appdir}/temp
-rm -rf $RPM_BUILD_ROOT%{appdir}/work
+rm -f %{buildroot}%{appdir}/*.sh
+rm -f %{buildroot}%{appdir}/*.bat
+rm -f %{buildroot}%{appdir}/bin/*.bat
+rm -rf %{buildroot}%{appdir}/logs
+rm -rf %{buildroot}%{appdir}/temp
+rm -rf %{buildroot}%{appdir}/work
 
 # ensure shell scripts are executable
-chmod 755 $RPM_BUILD_ROOT%{appdir}/bin/*.sh
+chmod 755 %{buildroot}%{appdir}/bin/*.sh
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %pre
 %if 0%{?suse_version} > 1140
@@ -175,8 +200,10 @@ else
   if [ "$1" == "2" ]; then
     if [ -f %{_var}/run/%{app}.pid ]; then
       %{_initrddir}/%{app} stop
-      touch %{appdir}/logs/rpm-update-stop
+      touch %{applogdir}/rpm-update-stop
     fi
+    # clean up deployed webapp
+    rm -rf %{appwebappdir}/ROOT
   fi
 fi
 
@@ -201,15 +228,20 @@ if [ "$1" == "1" ]; then
   ln -s %{appworkdir} work
   popd >/dev/null
 
+  pushd %{appdatadir} >/dev/null
+  rm -rf logs
+  ln -s %{applogdir} logs
+  popd >/dev/null
+
   # start application at first install (uncomment next line this behaviour not expected)
   # %{_initrddir}/%{name} start
 else
   # Update time, restart application if it was running
   if [ "$1" == "2" ]; then
-    if [ -f %{appdir}/logs/rpm-update-stop ]; then
+    if [ -f %{applogdir}/rpm-update-stop ]; then
       # restart application after update (comment next line this behaviour not expected)
       %{_initrddir}/%{name} start
-      rm -f %{appdir}/logs/rpm-update-stop
+      rm -f %{applogdir}/rpm-update-stop
     fi
   fi
 fi
@@ -261,8 +293,61 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Fri Jan 6 2012 henri.gomez@gmail.com 1.0.0-2
+* Mon Feb 18 2013 henri.gomez@gmail.com 2.3.1-2
+- Apache Tomcat 7.0.37 released, update package
+
+* Fri Feb 15 2013 henri.gomez@gmail.com 2.3.1-1
+- Nexus 2.3.1 released 
+
+* Fri Feb 1 2013 henri.gomez@gmail.com 2.3.0-2
+- Use startproc instead of start_daemon to ensure userid is not overrided 
+
+* Thu Jan 17 2013 henri.gomez@gmail.com 2.3.0-1
+- Apache Tomcat 7.0.35 released, update package
+- Nexus 2.3.0
+
+* Tue Dec 19 2012 henri.gomez@gmail.com 2.2-1
+- Use Apache Tomcat 7.0.34
+- Nexus 2.2
+
+* Fri Oct 12 2012 henri.gomez@gmail.com 2.1.2-4
+- Use Apache Tomcat 7.0.32
+
+* Wed Oct 3 2012 henri.gomez@gmail.com 2.1.2-3
+- Reduce number of log files (manager and host-manager)
+
+* Fri Sep 28 2012 henri.gomez@gmail.com 2.1.2-2
+- Use Apache Tomcat 7.0.30
+
+* Fri Aug 31 2012 henri.gomez@gmail.com 2.1.2-1
+- Nexus 2.1.2 released
+
+* Mon Aug 20 2012 henri.gomez@gmail.com 2.1.1-1
+- Nexus 2.1.1 released
+- Remove duplicate JMX settings definition
+
+* Wed Jul 11 2012 henri.gomez@gmail.com 2.0.6-1
+- Nexus 2.0.6 released
+- Tomcat 7.0.29 released
+
+* Wed Jun 20 2012 henri.gomez@gmail.com 2.0.5-2
+- Tomcat 7.0.28 released
+
+* Thu Jun 14 2012 henri.gomez@gmail.com 2.0.5-1
+- Nexus 2.0.5 released, RPM updated
+
+* Thu May 24 2012 henri.gomez@gmail.com 2.0.4-1
+- Nexus 2.0.4 released, RPM updated
+
+* Wed Apr 25 2012 henri.gomez@gmail.com 2.0.3-1
+- Set default release to 1 instead of 0
+
+* Wed Mar 7 2012 henri.gomez@gmail.com 2.0.2-0
+- Distribution dependant Requires for Java
+- Nexus 2.0.2 released
+
+* Fri Jan 6 2012 henri.gomez@gmail.com 2.0.1-0
 - Create conf/Catalina/localhost with user rights
 
-* Sat Dec 3 2011 henri.gomez@gmail.com 1.0.0-1
+* Sat Dec 3 2011 henri.gomez@gmail.com 1.99-0
 - Initial RPM

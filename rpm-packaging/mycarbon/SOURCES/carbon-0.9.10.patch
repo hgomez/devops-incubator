@@ -1,0 +1,11 @@
+--- setup.cfg.orig	2012-09-12 17:04:31.000000000 +0200
++++ setup.cfg	2012-09-12 17:04:43.000000000 +0200
+@@ -1,6 +1,6 @@
+ [install]
+-prefix = /opt/graphite
+-install-lib = %(prefix)s/lib
++#prefix = /opt/graphite
++#install-lib = %(prefix)s/lib
+ 
+ [bdist_rpm]
+ requires = python-twisted

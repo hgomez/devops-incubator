@@ -1,0 +1,73 @@
+#!/bin/bash
+#
+#	/etc/rc.d/init.d/jstatd
+#
+#	A configurable rc.d daemon for jstatd.
+#
+### BEGIN INIT INFO
+# Provides:          jstatd
+# Required-Start:    $local_fs $remote_fs $network $time $named
+# Required-Stop:     $local_fs $remote_fs $network $time $named
+# Default-Start:     3 5
+# Default-Stop:      0 1 2 6
+# Short-Description: Java jstat daemon
+# Description:       Provides a interface to allow remote monitoring tools to attach to JVMs running on the local host.
+### END INIT INFO
+
+prog=@@SKEL_APP@@
+lockdir=/var/lock/subsys
+
+# Source function library (Centos/RHEL way)
+if [ -r /etc/init.d/functions ]; then
+    . /etc/init.d/functions
+fi
+
+[ -f /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
+
+start() {
+	echo -n "Starting $prog: "
+    # start_daemon on Suse, daemon on RH
+    if [ -x /sbin/start_daemon ]; then
+      start_daemon $EXEC $ARGS &
+    else
+      daemon "$EXEC $ARGS &"
+    fi
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && [ -d $lockdir ] && touch $lockdir/$prog
+    return $RETVAL
+}
+
+stop() {
+	echo -n "Shutting down $prog: "
+    killproc jstatd
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && [ -d $lockdir ] && rm -f $lockdir/$prog
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    status)
+	status $prog
+    ;;
+    restart|reload)
+    stop
+	start
+	;;
+    condrestart)
+	[ -d $lockdir ] && [ -f /var/lock/subsys/$prog ] && restart || :
+	;;
+    *)
+	echo "Usage: $prog {start|stop|status|reload|restart"
+	exit 1
+	;;
+esac
+exit $?
+

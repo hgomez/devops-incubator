@@ -1,0 +1,83 @@
+#
+# @@SKEL_APP@@ Configuration
+#
+
+#
+# If a common myforge profile is available use it to initialize envs, like JAVA_HOME and PATHs
+#
+
+if [ -f /etc/profile.d/myforge.sh ]; then
+	source /etc/profile.d/myforge.sh
+fi
+
+#
+# Vars starting with APP_ are used to replace contents in skeletons files
+#
+
+APP_SERVER_PORT=12374
+APP_HTTP_PORT=12375
+APP_HTTPS_PORT=12376
+APP_AJP_PORT=12377
+
+APP_RMIREGISTRY_PORT=12378
+APP_RMISERVER_PORT=12379
+APP_JVM_ROUTE=@@SONAR_APP@@
+
+APP_HTTP_MAX_THREADS=150
+APP_HTTP_MIN_SPARE_THREADS=25
+
+APP_HTTPS_MAX_THREADS=150
+APP_HTTPS_MIN_SPARE_THREADS=25
+
+APP_AJP_MAX_THREADS=150
+APP_AJP_MIN_SPARE_THREADS=25
+
+APP_JMX_READER_USER=reader
+APP_JMX_READER_PASSWORD=@@SONAR_RO_PWD@@
+
+APP_JMX_ADMIN_USER=admin
+APP_JMX_ADMIN_PASSWORD=@@SONAR_RW_PWD@@
+
+#
+# Linux Service variables
+#
+CATALINA_HOME="@@SONAR_APPDIR@@"
+CATALINA_OUT="@@SONAR_LOGDIR@@/catalina.out"
+CATALINA_PID="/var/run/@@SONAR_APP@@.pid"
+SHUTDOWN_WAIT=10
+
+#
+# Sonar Properties
+#
+export SONAR_JDBC_USERNAME=sonar
+export SONAR_JDBC_PASSWORD=sonar
+#export SONAR_JDBC_URL="jdbc:derby://localhost:1527/sonar;create=true"
+#export SONAR_JDBC_DRIVERCLASSNAME=org.apache.derby.jdbc.ClientDriver
+export SONAR_JDBC_URL="jdbc:h2:tcp://localhost:9092/sonar"
+export SONAR_JDBC_DRIVERCLASSNAME=org.h2.Driver
+export SONAR_JDBC_MAXACTIVE=20
+export SONAR_JDBC_MAXIDLE=5
+export SONAR_JDBC_MINIDLE=2
+export SONAR_JDBC_MAXWAIT=5000
+export SONAR_JDBC_MINEVICTABLEIDLETIMEMILLIS=600000
+export SONAR_JDBC_TIMEBETWEENEVICTIONRUNSMILLIS=30000
+export SONAR_UPDATECENTER_ACTIVATE=true
+export SONAR_NOTIFICATIONS_DELAY=60
+
+# Sonar Home location
+#
+export SONAR_HOME=@@SONAR_DATADIR@@
+
+#
+# JVM Settings
+#
+APP_JAVA_OPTS="-Xms128m -Xmx256m -XX:MaxPermSize=128m -Xss512k"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@SONAR_LOGDIR@@"
+
+#
+# JMX Settings
+#
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=true"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=@@SONAR_APPDIR@@/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=@@SONAR_APPDIR@@/conf/jmxremote.access"

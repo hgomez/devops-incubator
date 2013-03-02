@@ -1,0 +1,15 @@
+# Systemd unit file for @@ARCHIVA_APP@@
+# 
+[Unit]
+Description=@@ARCHIVA_APP@@ powered by Apache Tomcat
+After=syslog.target network.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/@@ARCHIVA_APP@@.pid
+EnvironmentFile=/etc/sysconfig/@@ARCHIVA_APP@@
+ExecStart=/etc/init.d/@@ARCHIVA_APP@@ start
+ExecStop=/etc/init.d/@@ARCHIVA_APP@@ stop
+
+[Install]
+WantedBy=multi-user.target

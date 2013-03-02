@@ -1,7 +1,22 @@
+# Avoid unnecessary debug-information (native code)
+%define		debug_package %{nil}
+
+# Avoid jar repack (brp-java-repack-jars)
+#%define __jar_repack 0
+
+# Avoid CentOS 5/6 extras processes on contents (especially brp-java-repack-jars)
+%define __os_install_post %{nil}
+
+%ifos darwin
+%define __portsed sed -i "" -e
+%else
+%define __portsed sed -i
+%endif
+
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.25
+%define tomcat_rel        7.0.37
 %endif
 
 %if %{?MYAPP_REL:1}
@@ -12,7 +27,7 @@
 
 Name: myapp
 Version: %{myapp_rel}
-Release: 3
+Release: 6
 Summary: MyApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Applications/Communications
 URL: http://www.mycorp.org/
@@ -46,25 +61,32 @@ BuildRequires: systemd
 %{?systemd_requires}
 %endif
 
-%if 0%{suse_version} <= 1140
+%if 0%{?suse_version} <= 1140
 %define systemd_requires %{nil}
 %endif
 
+%if 0%{?suse_version}
 Requires:           java = 1.6.0
+%endif
+
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
+Requires:           java = 1:1.6.0
+%endif
+
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
 Source1: myapp.war
-Source2: initd
-Source3: sysconfig
+Source2: initd.skel
+Source3: sysconfig.skel
 Source4: jmxremote.access.skel
 Source5: jmxremote.password.skel
-Source6: setenv.sh
-Source7: logrotate
+Source6: setenv.sh.skel
+Source7: logrotate.skel
 Source8: server.xml.skel
-Source9: limits.conf
-Source10: systemd
+Source9: limits.conf.skel
+Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 
 %description
@@ -102,26 +124,28 @@ mkdir -p $RPM_BUILD_ROOT%{myappconflocaldir}
 rm -rf $RPM_BUILD_ROOT%{myappdir}/webapps/*
 
 # patches to have logs under /var/log/myapp
-sed -i 's|\${catalina.base}/logs|%{myapplogdir}|g' $RPM_BUILD_ROOT%{myappdir}/conf/logging.properties
+%{__portsed} 's|\${catalina.base}/logs|%{myapplogdir}|g' $RPM_BUILD_ROOT%{myappdir}/conf/logging.properties
 
 # myapp webapp is ROOT.war (will respond to /)
 cp %{SOURCE1}  $RPM_BUILD_ROOT%{myappwebappdir}/ROOT.war
 
 # init.d
 cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@MYAPP_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-sed -i 's|@@MYAPP_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{myappdatadir}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
 
 # sysconfig
 cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@MYAPP_APPDIR@@|%{myappdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@MYAPP_DATADIR@@|%{myappdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-sed -i 's|@@MYAPP_CONFDIR@@|%{myappconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+%{__portsed} 's|@@MYAPP_APPDIR@@|%{myappdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{myappdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+%{__portsed} 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+%{__portsed} 's|@@MYAPP_CONFDIR@@|%{myappconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} $RPM_BUILD_ROOT%{myappdir}/lib
@@ -130,23 +154,23 @@ cp %{SOURCE5}  $RPM_BUILD_ROOT%{myappconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} $RPM_BUILD_ROOT%{myappdir}/bin/setenv.sh
-sed -i 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{myappdir}/bin/setenv.sh
+%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{myappdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{myapp}
-sed -i 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{myapp}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{myapp}
 
 # Install server.xml.skel
 cp %{SOURCE8} $RPM_BUILD_ROOT%{myappconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}.conf
-sed -i 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}.conf
+%{__portsed} 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}.conf
 
 # Setup Systemd
 cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
-sed -i 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
-sed -i 's|@@MYAPP_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
+%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
+%{__portsed} 's|@@MYAPP_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
 
 # remove uneeded file in RPM
 rm -f $RPM_BUILD_ROOT%{myappdir}/*.sh
@@ -175,8 +199,10 @@ else
   if [ "$1" == "2" ]; then
     if [ -f %{_var}/run/%{myapp}.pid ]; then
       %{_initrddir}/%{myapp} stop
-      touch %{myappdir}/logs/rpm-update-stop
+      touch %{myapplogdir}/rpm-update-stop
     fi
+    # clean up deployed webapp
+    rm -rf %{myappwebappdir}/ROOT
   fi
 fi
 
@@ -206,10 +232,10 @@ if [ "$1" == "1" ]; then
 else
   # Update time, restart application if it was running
   if [ "$1" == "2" ]; then
-    if [ -f %{myappdir}/logs/rpm-update-stop ]; then
+    if [ -f %{myapplogdir}/rpm-update-stop ]; then
       # restart application after update (comment next line this behaviour not expected)
       %{_initrddir}/%{name} start
-      rm -f %{myappdir}/logs/rpm-update-stop
+      rm -f %{myapplogdir}/rpm-update-stop
     fi
   fi
 fi
@@ -270,6 +296,18 @@ fi
 %doc %{myappdir}/RELEASE-NOTES
 
 %changelog
+* Mon Feb 18 2013 henri.gomez@gmail.com 1.0.0-7
+- Apache Tomcat 7.0.37 released, update package
+
+* Fri Feb 1 2013 henri.gomez@gmail.com 1.0.0-6
+- Use startproc instead of start_daemon to ensure userid is not overrided 
+
+* Thu Jan 17 2013 henri.gomez@gmail.com 1.0.0-5
+- Apache Tomcat 7.0.35 released, update package
+
+* Wed Mar 7 2012 henri.gomez@gmail.com 1.0.0-4
+- Distribution dependant Requires for Java
+
 * Fri Jan 6 2012 henri.gomez@gmail.com 1.0.0-2
 - Create conf/Catalina/localhost with user rights
 
