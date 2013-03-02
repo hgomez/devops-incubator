@@ -238,6 +238,11 @@ if [ "$1" == "1" ]; then
   ln -s %{appworkdir} work
   popd >/dev/null
 
+  pushd %{appdatadir} >/dev/null
+  rm -rf logs
+  ln -s %{applogdir} logs
+  popd >/dev/null
+
   # start application at first install (uncomment next line this behaviour not expected)
   # %{_initrddir}/%{name} start
 else
