@@ -56,6 +56,9 @@ start() {
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
     done
 
+    mkdir -p @@JENKINS_TMPDIR@@
+    chown -R @@JENKINS_USER@@:@@JENKINS_USER@@ @@JENKINS_TMPDIR@@
+
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
       HOME=@@JENKINS_DATADIR@@ startproc -s -e -l @@JENKINS_LOGDIR@@/start.log -u $user $exec start
