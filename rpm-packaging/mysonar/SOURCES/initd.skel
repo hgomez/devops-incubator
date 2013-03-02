@@ -56,6 +56,9 @@ start() {
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
     done
 
+    mkdir -p @@SONAR_TMPDIR@@
+    chown -R @@SONAR_USER@@:@@SONAR_USER@@ @@SONAR_TMPDIR@@
+
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
       HOME=@@SONAR_DATADIR@@ startproc -s -e -l @@SONAR_LOGDIR@@/start.log -u $user $exec start
