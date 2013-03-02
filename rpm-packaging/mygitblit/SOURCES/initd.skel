@@ -56,6 +56,9 @@ start() {
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
     done
 
+    mkdir -p @@GITBLIT_TMPDIR@@
+    chown -R @@GITBLIT_USER@@:@@GITBLIT_USER@@ @@GITBLIT_TMPDIR@@
+
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
       HOME=@@GITBLIT_DATADIR@@ startproc -s -e -l @@GITBLIT_LOGDIR@@/start.log -u $user $exec start

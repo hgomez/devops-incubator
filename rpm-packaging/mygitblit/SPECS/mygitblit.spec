@@ -130,6 +130,7 @@ cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@GITBLIT_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@GITBLIT_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@GITBLIT_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@GITBLIT_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{app}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
