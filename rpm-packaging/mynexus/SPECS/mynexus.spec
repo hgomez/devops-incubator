@@ -137,6 +137,7 @@ cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{app}
 %{__portsed} 's|@@NEXUS_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{app}
 %{__portsed} 's|@@NEXUS_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{app}
 %{__portsed} 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@NEXUS_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{app}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{app}

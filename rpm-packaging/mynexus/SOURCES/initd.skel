@@ -56,6 +56,9 @@ start() {
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
     done
 
+    mkdir -p @@NEXUS_TMPDIR@@
+    chown -R @@NEXUS_USER@@:@@NEXUS_USER@@ @@NEXUS_TMPDIR@@
+
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
       HOME=@@NEXUS_DATADIR@@ startproc -s -e -l @@NEXUS_LOGDIR@@/start.log -u $user $exec start
