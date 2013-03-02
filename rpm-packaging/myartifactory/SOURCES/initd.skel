@@ -56,6 +56,9 @@ start() {
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
     done
 
+    mkdir -p @@ARTIFACTORY_TMPDIR@@
+    chown -R @@ARTIFACTORY_USER@@:@@ARTIFACTORY_USER@@ @@ARTIFACTORY_TMPDIR@@
+
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
       HOME=@@ARTIFACTORY_DATADIR@@ startproc -s -e -l @@ARTIFACTORY_LOGDIR@@/start.log -u $user $exec start

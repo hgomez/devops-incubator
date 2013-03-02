@@ -147,6 +147,7 @@ cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{app}
 %{__portsed} 's|@@ARTIFACTORY_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
 %{__portsed} 's|@@ARTIFACTORY_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
 %{__portsed} 's|@@ARTIFACTORY_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_initrddir}/%{app}
+%{__portsed} 's|@@ARTIFACTORY_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{app}
 
 # sysconfig
 cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{app}
