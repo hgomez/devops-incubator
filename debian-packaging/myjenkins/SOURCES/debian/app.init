@@ -2,12 +2,12 @@
 #
 #
 ### BEGIN INIT INFO
-# Provides:          @@JENKINS_APP@@
+# Provides:          @@APP_NAME@@
 # Required-Start:    $local_fs $remote_fs $network $time $named
 # Required-Stop:     $local_fs $remote_fs $network $time $named
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Jenkins powered by Apache Tomcat
+# Short-Description: @@APP_NAME@@ powered by Apache Tomcat
 # Description:       Jenkins is an open-source continuous integration server with 300+ plugins to support all kinds of software development.
 ### END INIT INFO
 
@@ -17,18 +17,18 @@ if [ -r /etc/init.d/functions ]; then
 fi
 
 # Read config file
-if [ -r "/etc/opt/@@JENKINS_APP@@" ]; then
-    . /etc/opt/@@JENKINS_APP@@
+if [ -r "/etc/opt/@@APP_NAME@@" ]; then
+    . /etc/opt/@@APP_NAME@@
 fi
 
 export CATALINA_OPTS CATALINA_OUT CATALINA_PID
 
 RETVAL=0
-prog="@@JENKINS_APP@@"
-user="@@JENKINS_USER@@"
-exec="@@JENKINS_EXEC@@"
-lockfile=/var/lock/@@JENKINS_APP@@
-config=/etc/opt/@@JENKINS_APP@@
+prog="@@APP_NAME@@"
+user="@@APP_USER@@"
+exec="@@APP_EXEC@@"
+lockfile=/var/lock/@@APP_NAME@@
+config=/etc/opt/@@APP_NAME@@
 
 start() {
     echo -n $"Starting $prog: "
@@ -99,7 +99,7 @@ case "$1" in
         start
         ;;
     version)
-        echo "${prog} @@JENKINS_VERSION@@"
+        echo "${prog} @@APP_VERSION@@"
         ;;
   *)
         echo $"Usage: $prog {start|stop|restart|force-reload|reload|status|version}"

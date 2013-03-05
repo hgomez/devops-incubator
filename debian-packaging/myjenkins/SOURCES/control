@@ -1,4 +1,4 @@
-Source: @@JENKINS_APP@@
+Source: @@APP_NAME@@
 Section: devel
 Priority: optional
 Maintainer: Gildas Cuisinier
@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 5)
 Standards-Version: 3.7.2
 Version: 1.0.0
 
-Package: @@JENKINS_APP@@
+Package: @@APP_NAME@@
 Architecture: all
 Depends: daemon, adduser, java6-sdk
-Description: @@JENKINS_APP@@ @@JENKINS_APPVERSION@@  powered by Apache Tomcat @@JENKINS_TOMCATVERSION@@
+Description: @@APP_NAME@@ @@APP_APPVERSION@@  powered by Apache Tomcat @@APP_TOMCATVERSION@@
