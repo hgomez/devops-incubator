@@ -2,8 +2,8 @@
 # Read config file
 #
 
-if [ -r "/etc/opt/@@JENKINS_APP@@" ]; then
-    . /etc/opt/@@JENKINS_APP@@
+if [ -r "/etc/opt/@@APP_NAME@@" ]; then
+    . /etc/opt/@@APP_NAME@@
 fi
 
 if [ ! -d "@@APP_TMPDIR@@" ]; then
