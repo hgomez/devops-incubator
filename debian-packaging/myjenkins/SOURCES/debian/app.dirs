@@ -1,0 +1,5 @@
+/var/lib/@@APP_NAME@@
+/var/run/@@APP_NAME@@
+/var/log/@@APP_NAME@@
+/var/@@APP_NAME@@
+

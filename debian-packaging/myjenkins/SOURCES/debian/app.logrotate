@@ -1,4 +1,4 @@
-@@JENKINS_LOGDIR@@/catalina.out {
+@@APP_LOGDIR@@/catalina.out {
  copytruncate
  daily
  rotate 7
@@ -6,14 +6,14 @@
  missingok
 }
 
-@@JENKINS_LOGDIR@@/*.*.log {
+@@APP_LOGDIR@@/*.*.log {
  daily
  rotate 7
  compress
  missingok
 }
 
-@@JENKINS_LOGDIR@@/localhost_access_log.*.txt {
+@@APP_LOGDIR@@/localhost_access_log.*.txt {
  daily
  rotate 7
  compress

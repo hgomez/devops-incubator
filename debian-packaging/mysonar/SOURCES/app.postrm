@@ -22,12 +22,12 @@ set -e
 
 case "$1" in
     purge)
-	userdel @@JENKINS_USER@@ || true
+	userdel @@SKEL_USER@@ || true
+	
 
-
-
+	
     ;;
-
+    
     remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
     ;;
 
