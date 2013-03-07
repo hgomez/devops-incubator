@@ -18,7 +18,7 @@ Requires:			cgit
 Requires:           python
 
 Source0: apache2-git.conf
-Source1: credentials
+Source1: public-credentials
 Source2: public.conf
 Source3: private.conf
 Source4: public-readme.html
@@ -26,6 +26,7 @@ Source5: private-readme.html
 Source6: mycorp.png
 Source7: mycorp.ico
 Source8: markdownize_cgit.py
+Source9: private-credentials
 
 %description
 GIT setup for MyCorp
@@ -52,6 +53,7 @@ cp %{SOURCE0}  $RPM_BUILD_ROOT%{_sysconfdir}/apache2/vhosts.d/git.mycorp.org.con
 cp %{SOURCE1}  $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
 cp %{SOURCE2}  $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
 cp %{SOURCE3}  $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
+cp %{SOURCE9}  $RPM_BUILD_ROOT%{_var}/lib/mygit/conf
 cp %{SOURCE4}  $RPM_BUILD_ROOT%{_var}/lib/mygit/www/
 cp %{SOURCE5}  $RPM_BUILD_ROOT%{_var}/lib/mygit/www/
 cp %{SOURCE6}  $RPM_BUILD_ROOT%{_var}/lib/mygit/www/images
