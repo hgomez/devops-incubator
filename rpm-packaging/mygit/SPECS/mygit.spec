@@ -11,11 +11,12 @@ BuildArch:  noarch
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
-Requires:           apache2
+Requires:           apache2-worker
 Requires:           subversion
-Requires:			git-svn
+Requires:			git-core
 Requires:			cgit
-Requires:           python
+Requires:           python-markdown
+Obsoletes:          python-Markdown
 
 Source0: apache2-git.conf
 Source1: public-credentials
