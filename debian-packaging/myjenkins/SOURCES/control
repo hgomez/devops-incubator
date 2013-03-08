@@ -4,9 +4,9 @@ Priority: optional
 Maintainer: Gildas Cuisinier
 Build-Depends: debhelper (>= 5)
 Standards-Version: 3.7.2
-Version: 1.0.0
+Version: @@APP_VERSION@@
 
 Package: @@APP_NAME@@
 Architecture: all
 Depends: daemon, adduser, java6-sdk
-Description: @@APP_NAME@@ @@APP_APPVERSION@@  powered by Apache Tomcat @@APP_TOMCATVERSION@@
+Description: @@APP_NAME@@ @@APP_VERSION@@  powered by Apache Tomcat @@APP_TOMCATVERSION@@
