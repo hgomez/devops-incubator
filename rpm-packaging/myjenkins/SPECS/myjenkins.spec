@@ -137,7 +137,7 @@ cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@JENKINS_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@JENKINS_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@JENKINS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@JENKINS_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{app}
+%{__portsed} 's|@@JENKINS_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}

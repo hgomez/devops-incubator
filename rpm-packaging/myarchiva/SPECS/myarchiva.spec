@@ -57,22 +57,22 @@ Vendor: devops-incubator
 License: ASL 2.0
 BuildArch:  noarch
 
-%define app             myarchiva
+%define appname         myarchiva
 %define appusername     myarchiv
 %define appuserid       1250
 %define appgroupid      1250
 
-%define appdir                     /opt/%{app}
-%define appdatadir                 %{_var}/lib/%{app}
+%define appdir                     /opt/%{appname}
+%define appdatadir                 %{_var}/lib/%{appname}
 %define appdbdir          		   %{appdir}/db
-%define applogdir                  %{_var}/log/%{app}
+%define applogdir                  %{_var}/log/%{appname}
 %define appexec                    %{appdir}/bin/catalina.sh
 %define appconfdir                 %{appdir}/conf
 %define appconflocaldir            %{appdir}/conf/Catalina/localhost
 %define applibdir                  %{appdir}/lib
 %define appwebappdir               %{appdir}/webapps
-%define apptempdir                 /tmp/%{app}
-%define appworkdir                 %{_var}/%{app}
+%define apptempdir                 /tmp/%{appname}
+%define appworkdir                 %{_var}/%{appname}
 
 %define _systemdir        /lib/systemd/system
 %define _initrddir        %{_sysconfdir}/init.d
@@ -168,23 +168,23 @@ cp %{SOURCE15} %{buildroot}%{appconflocaldir}
 %{__portsed} 's|@@ARCHIVA_DATADIR@@|%{appdatadir}|g' %{buildroot}%{appconflocaldir}/ROOT.xml
 
 # init.d
-cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{app}
-%{__portsed} 's|@@ARCHIVA_APP@@|%{app}|g' %{buildroot}%{_initrddir}/%{app}
-%{__portsed} 's|@@ARCHIVA_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{app}
-%{__portsed} 's|@@ARCHIVA_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{app}
-%{__portsed} 's|@@ARCHIVA_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{app}
-%{__portsed} 's|@@ARCHIVA_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{app}
-%{__portsed} 's|@@ARCHIVA_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{app}
-%{__portsed} 's|@@ARCHIVA_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{app}
+cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@ARCHIVA_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@ARCHIVA_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@ARCHIVA_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@ARCHIVA_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@ARCHIVA_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@ARCHIVA_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@ARCHIVA_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
-cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@ARCHIVA_APP@@|%{app}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@ARCHIVA_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@ARCHIVA_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@ARCHIVA_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@ARCHIVA_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
-%{__portsed} 's|@@ARCHIVA_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{app}
+cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@ARCHIVA_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@ARCHIVA_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@ARCHIVA_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@ARCHIVA_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@ARCHIVA_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@ARCHIVA_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
@@ -193,25 +193,25 @@ cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
-%{__portsed} 's|@@ARCHIVA_APP@@|%{app}|g' %{buildroot}%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@ARCHIVA_APP@@|%{appname}|g' %{buildroot}%{appdir}/bin/setenv.sh
 
 # Install logrotate
-cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{app}
-%{__portsed} 's|@@ARCHIVA_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{app}
+cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
+%{__portsed} 's|@@ARCHIVA_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
 
 # Install server.xml.skel
 cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 
 # Setup user limits
-cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{app}.conf
-%{__portsed} 's|@@ARCHIVA_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{app}.conf
+cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
+%{__portsed} 's|@@ARCHIVA_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
 # Setup Systemd
 %ifos linux
 mkdir -p %{buildroot}%{_systemdir}
-cp %{SOURCE10} %{buildroot}%{_systemdir}/%{app}.service
-%{__portsed} 's|@@ARCHIVA_APP@@|%{app}|g' %{buildroot}%{_systemdir}/%{app}.service
-%{__portsed} 's|@@ARCHIVA_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{app}.service
+cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@ARCHIVA_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@ARCHIVA_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
 %endif
 
 # remove uneeded file in RPM
@@ -230,17 +230,17 @@ rm -rf %{buildroot}
 
 %pre
 %if 0%{?suse_version} > 1140
-%service_add_pre %{app}.service
+%service_add_pre %{appname}.service
 %endif
 # First install time, add user and group
 if [ "$1" == "1" ]; then
   %{_sbindir}/groupadd -r -g %{appgroupid} %{appusername} 2>/dev/null || :
-  %{_sbindir}/useradd -s /sbin/nologin -c "%{app} user" -g %{appusername} -r -d %{appdatadir} -u %{appuserid} %{appusername} 2>/dev/null || :
+  %{_sbindir}/useradd -s /sbin/nologin -c "%{appname} user" -g %{appusername} -r -d %{appdatadir} -u %{appuserid} %{appusername} 2>/dev/null || :
 else
 # Update time, stop service if running
   if [ "$1" == "2" ]; then
-    if [ -f %{_var}/run/%{app}.pid ]; then
-      %{_initrddir}/%{app} stop
+    if [ -f %{_var}/run/%{appname}.pid ]; then
+      %{_initrddir}/%{appname} stop
       touch %{applogdir}/rpm-update-stop
     fi
 	# clean up deployed webapps
@@ -250,22 +250,22 @@ fi
 
 %post
 %if 0%{?suse_version} > 1140
-%service_add_post %{app}.service
+%service_add_post %{appname}.service
 %endif
 # First install time, register service, generate random passwords and start application
 if [ "$1" == "1" ]; then
   # register app as service
-  systemctl enable %{app}.service >/dev/null 2>&1
+  systemctl enable %{appname}.service >/dev/null 2>&1
 
 %if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
-  chkconfig %{app} on
+  chkconfig %{appname} on
 %endif
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  %{__portsed} "s|@@ARCHIVA_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
+  %{__portsed} "s|@@ARCHIVA_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  %{__portsed} "s|@@ARCHIVA_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{app}
+  %{__portsed} "s|@@ARCHIVA_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
@@ -274,13 +274,13 @@ if [ "$1" == "1" ]; then
   popd >/dev/null
 
   # start application at first install (uncomment next line this behaviour not expected)
-  # %{_initrddir}/%{app} start
+  # %{_initrddir}/%{appname} start
 else
   # Update time, restart application if it was running
   if [ "$1" == "2" ]; then
     if [ -f %{applogdir}/rpm-update-stop ]; then
       # restart application after update (comment next line this behaviour not expected)
-      %{_initrddir}/%{app} start
+      %{_initrddir}/%{appname} start
       rm -f %{applogdir}/rpm-update-stop
     fi
   fi
@@ -288,19 +288,19 @@ fi
 
 %preun
 %if 0%{?suse_version} > 1140
-%service_del_preun %{app}.service
+%service_del_preun %{appname}.service
 %endif
 if [ "$1" == "0" ]; then
   # Uninstall time, stop service and cleanup
 
   # stop service
-  %{_initrddir}/%{app} stop
+  %{_initrddir}/%{appname} stop
 
   # unregister app from services
-  systemctl disable %{app}.service >/dev/null 2>&1
+  systemctl disable %{appname}.service >/dev/null 2>&1
 
 %if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
-  chkconfig %{app} off
+  chkconfig %{appname} off
 %endif
 
   # finalize housekeeping
@@ -312,19 +312,19 @@ fi
 
 %postun
 %if 0%{?suse_version} > 1140
-%service_del_postun %{app}.service
+%service_del_postun %{appname}.service
 %endif
 
 %files
 %defattr(-,root,root)
 %attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
-%attr(0755, root,root) %{_initrddir}/%{app}
+%attr(0755, root,root) %{_initrddir}/%{appname}
 %ifos linux
-%attr(0644,root,root) %{_systemdir}/%{app}.service
+%attr(0644,root,root) %{_systemdir}/%{appname}.service
 %endif
-%config(noreplace) %{_sysconfdir}/sysconfig/%{app}
-%config %{_sysconfdir}/logrotate.d/%{app}
-%config %{_sysconfdir}/security/limits.d/%{app}.conf
+%config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
+%config %{_sysconfdir}/logrotate.d/%{appname}
+%config %{_sysconfdir}/security/limits.d/%{appname}.conf
 
 %{appdir}/bin
 %{appdir}/conf
