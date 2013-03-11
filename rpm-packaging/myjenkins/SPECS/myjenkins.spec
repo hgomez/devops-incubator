@@ -22,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.504
+%define jenkins_rel    1.505
 %endif
 
 Name: myjenkins
@@ -288,6 +288,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Mar 11 2013 henri.gomez@gmail.com 1.505-1
+- Jenkins 1.505 released
+
 * Wed Mar 6 2013 henri.gomez@gmail.com 1.504-1
 - Jenkins 1.504 released
 
