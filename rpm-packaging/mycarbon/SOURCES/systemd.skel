@@ -6,7 +6,7 @@ After=syslog.target network.target
 
 [Service]
 Type=forking
-#PIDFile=@@SKEL_RUNDIR@@/@@SKEL_APP@@.pid
+PIDFile=@@SKEL_PIDDIR@@/@@SKEL_APP@@.pid
 EnvironmentFile=/etc/sysconfig/@@SKEL_APP@@
 ExecStart=/etc/init.d/@@SKEL_APP@@ start
 ExecStop=/etc/init.d/@@SKEL_APP@@ stop
