@@ -33,7 +33,7 @@
 CONF_DIR = @@SKEL_CONFDIR@@
 LOCAL_DATA_DIR = @@SKEL_WHISPERDIR@@
 LOG_DIR = @@SKEL_LOGDIR@@
-PID_DIR = @@SKEL_RUNDIR@@
+PID_DIR = @@SKEL_PIDDIR@@
 
 # Specify the user to drop privileges to
 # If this is blank carbon runs as the user that invokes it

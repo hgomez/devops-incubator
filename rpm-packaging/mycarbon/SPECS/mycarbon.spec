@@ -24,11 +24,12 @@
 
 %define carbonconfdir      %{_sysconfdir}/graphite/carbon
 %define carbonlogdir       %{_var}/log/graphite/carbon
-%define carbonrundir       %{_var}/run/graphite/carbon
+%define carbonpiddir       %{_var}/run
 %define graphiteroot	   %{_sysconfdir}/graphite
 %define storagedir         %{_var}/lib/graphite/storage
 %define whisperdir         %{storagedir}/whisper
 %define rrddir             %{storagedir}/rrd
+%define carbonexec         /usr/bin/carbon-cache.py
 
 %define _systemdir        /lib/systemd/system
 %define _initrddir        %{_sysconfdir}/init.d
@@ -84,7 +85,6 @@ mv %{buildroot}%{_prefix}/conf/ %{buildroot}%{carbonconfdir}
 # 
 
 install -d -m 0755 %{buildroot}%{carbonlogdir}
-install -d -m 0755 %{buildroot}%{carbonrundir}
 install -d -m 0755 %{buildroot}%{rrddir}
 install -d -m 0755 %{buildroot}%{whisperdir}
 
@@ -96,7 +96,6 @@ cp  %{SOURCE1} %{buildroot}%{_initrddir}/carbon
 %{__portsed} 's|@@SKEL_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/carbon
 %{__portsed} 's|@@SKEL_EXEC@@|%{carbonexec}|g' %{buildroot}%{_initrddir}/carbon
 %{__portsed} 's|@@SKEL_CONFDIR@@|%{carbonconfdir}|g' %{buildroot}%{_initrddir}/carbon
-%{__portsed} 's|@@SKEL_RUNDIR@@|%{carbonrundir}|g' %{buildroot}%{_initrddir}/carbon
 
 # Install logrotate
 install -d -m 0755 %{buildroot}%{_sysconfdir}/logrotate.d
@@ -123,10 +122,7 @@ cp %{SOURCE5} %{buildroot}%{carbonconfdir}/carbon.conf
 %{__portsed} 's|@@SKEL_CONFDIR@@|%{carbonconfdir}|g' %{buildroot}%{carbonconfdir}/carbon.conf
 %{__portsed} 's|@@SKEL_WHISPERDIR@@|%{whisperdir}|g' %{buildroot}%{carbonconfdir}/carbon.conf
 %{__portsed} 's|@@SKEL_LOGDIR@@|%{carbonlogdir}|g' %{buildroot}%{carbonconfdir}/carbon.conf
-%{__portsed} 's|@@SKEL_RUNDIR@@|%{carbonrundir}|g' %{buildroot}%{carbonconfdir}/carbon.conf
-
-# Rundir (PID)
-install -d -m 0755 %{buildroot}%{carbonrundir}
+%{__portsed} 's|@@SKEL_PIDDIR@@|%{carbonpiddir}|g' %{buildroot}%{carbonconfdir}/carbon.conf
 
 # Add default confs
 mv %{SOURCE6} %{buildroot}%{carbonconfdir}/storage-schemas.conf
@@ -235,7 +231,6 @@ fi
 %attr(0755,%{carbonusername},%{carbonusername}) %dir %{whisperdir}
 %attr(0755,%{carbonusername},%{carbonusername}) %dir %{rrddir}
 %attr(0755,%{carbonusername},%{carbonusername}) %dir %{carbonlogdir}
-%attr(0755,%{carbonusername},%{carbonusername}) %dir %{carbonrundir}
 
 %attr(0755, root,root) %{_initrddir}/carbon
 %ifos linux
