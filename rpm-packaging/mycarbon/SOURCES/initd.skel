@@ -40,12 +40,6 @@ config=/etc/sysconfig/@@SKEL_APP@@
 start() {
     echo -n $"Starting $prog: "
 
-    if [ ! -d @@SKEL_RUNDIR@@ ]; the
-      mkdir -p @@SKEL_RUNDIR@@
-      chown $user:$user @@SKEL_RUNDIR@@
-      chmod 755 @@SKEL_RUNDIR@@
-    fi
-
     $exec --config=@@SKEL_CONFDIR@@/carbon.conf start
     
     RETVAL=$?
