@@ -7,7 +7,7 @@ After=syslog.target network.target
 [Service]
 Type=forking
 PIDFile=@@SKEL_PIDDIR@@/carbon-cache-a.pid
-EnvironmentFile=/etc/sysconfig/@@SKEL_APP@@
+EnvironmentFile=@@SKEL_CONFFILE@@
 ExecStart=/etc/init.d/@@SKEL_APP@@ start
 ExecStop=/etc/init.d/@@SKEL_APP@@ stop
 

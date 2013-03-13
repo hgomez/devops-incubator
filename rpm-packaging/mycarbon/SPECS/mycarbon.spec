@@ -78,6 +78,7 @@ python setup.py build
 %install
 python setup.py install --prefix=%{_prefix} --root=%{buildroot}
 install -d -m 0755 %{buildroot}%{_sysconfdir}/graphite/
+install -d -m 0755 %{buildroot}%{_sysconfdir}/graphite/
 mv %{buildroot}%{_prefix}/conf/ %{buildroot}%{carbonconfdir}
 
 #
@@ -109,6 +110,7 @@ cp %{SOURCE3} %{buildroot}%{_systemdir}/carbon.service
 %{__portsed} 's|@@SKEL_APP@@|carbon|g' %{buildroot}%{_systemdir}/carbon.service
 %{__portsed} 's|@@SKEL_EXEC@@|%{carbonexec}|g' %{buildroot}%{_systemdir}/carbon.service
 %{__portsed} 's|@@SKEL_PIDDIR@@|%{carbonpiddir}|g' %{buildroot}%{_systemdir}/carbon.service
+%{__portsed} 's|@@SKEL_CONFFILE@@|%{carbonconfdir}/carbon.conf|g' %{buildroot}%{_systemdir}/carbon.service
 %endif
 
 # Setup user limits
