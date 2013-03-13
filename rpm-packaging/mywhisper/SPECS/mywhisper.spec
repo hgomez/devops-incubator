@@ -32,6 +32,8 @@ BuildRequires:  python-devel >= 2.4
 Url:            http://graphite.wikidot.com/
 Source:         whisper-%{whisper_rel}.tar.gz
 
+Requires:       python-xml
+
 Summary:        Fixed size round-robin style database
 %description
 Fixed size round-robin style database.
