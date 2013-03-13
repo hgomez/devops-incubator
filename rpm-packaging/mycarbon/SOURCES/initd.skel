@@ -42,7 +42,8 @@ start() {
 
     if [ ! -d @@SKEL_RUNDIR@@ ]; the
       mkdir -p @@SKEL_RUNDIR@@
-      chmod 777 @@SKEL_RUNDIR@@
+      chown $user:$user @@SKEL_RUNDIR@@
+      chmod 755 @@SKEL_RUNDIR@@
     fi
 
     /usr/bin/carbon-cache.py --config=@@SKEL_CONFDIR@@/carbon.conf start

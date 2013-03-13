@@ -24,7 +24,7 @@
 
 %define carbonconfdir      %{_sysconfdir}/graphite/carbon
 %define carbonlogdir       %{_var}/log/graphite/carbon
-%define carbonrundir       %{_var}/run/graphite
+%define carbonrundir       %{_var}/run/graphite/carbon
 %define graphiteroot	   %{_sysconfdir}/graphite
 %define storagedir         %{_var}/lib/graphite/storage
 %define whisperdir         %{storagedir}/whisper
@@ -84,7 +84,7 @@ mv %{buildroot}%{_prefix}/conf/ %{buildroot}%{carbonconfdir}
 # 
 
 install -d -m 0755 %{buildroot}%{carbonlogdir}
-install -d -m 0777 %{buildroot}%{carbonrundir}
+install -d -m 0755 %{buildroot}%{carbonrundir}
 install -d -m 0755 %{buildroot}%{rrddir}
 install -d -m 0755 %{buildroot}%{whisperdir}
 
