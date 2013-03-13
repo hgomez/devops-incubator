@@ -108,6 +108,7 @@ install -d -m 0755 %{buildroot}%{_systemdir}
 cp %{SOURCE3} %{buildroot}%{_systemdir}/carbon.service
 %{__portsed} 's|@@SKEL_APP@@|carbon|g' %{buildroot}%{_systemdir}/carbon.service
 %{__portsed} 's|@@SKEL_EXEC@@|%{carbonexec}|g' %{buildroot}%{_systemdir}/carbon.service
+%{__portsed} 's|@@SKEL_PIDDIR@@|%{carbonpiddir}|g' %{buildroot}%{_systemdir}/carbon.service
 %endif
 
 # Setup user limits
