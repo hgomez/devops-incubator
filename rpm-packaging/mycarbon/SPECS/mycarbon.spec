@@ -84,6 +84,7 @@ mv %{buildroot}%{_prefix}/conf/ %{buildroot}%{carbonconfdir}
 # 
 
 install -d -m 0755 %{buildroot}%{carbonlogdir}
+install -d -m 0777 %{buildroot}%{carbonrundir}
 install -d -m 0755 %{buildroot}%{rrddir}
 install -d -m 0755 %{buildroot}%{whisperdir}
 
@@ -95,6 +96,7 @@ cp  %{SOURCE1} %{buildroot}%{_initrddir}/carbon
 %{__portsed} 's|@@SKEL_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/carbon
 %{__portsed} 's|@@SKEL_EXEC@@|%{carbonexec}|g' %{buildroot}%{_initrddir}/carbon
 %{__portsed} 's|@@SKEL_CONFDIR@@|%{carbonconfdir}|g' %{buildroot}%{_initrddir}/carbon
+%{__portsed} 's|@@SKEL_RUNDIR@@|%{carbonrundir}|g' %{buildroot}%{_initrddir}/carbon
 
 # Install logrotate
 install -d -m 0755 %{buildroot}%{_sysconfdir}/logrotate.d
