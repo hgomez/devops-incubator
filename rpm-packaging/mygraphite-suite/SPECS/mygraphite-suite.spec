@@ -66,6 +66,7 @@ install -d -m 0755 %{buildroot}%{python_sitelib}/graphite
 cp %{SOURCE0} %{buildroot}%{python_sitelib}/graphite/local_settings.py
 
 # Graphite local-settings (django/db)
+%{__portsed} 's|SECRET_KEY = ''|SECRET_KEY = 'graphite'|g' %{buildroot}%{python_sitelib}/graphite/app_settings.py
 %{__portsed} 's|@@SKEL_GRAPHITEROOT@@|%{graphiteroot}|g' %{buildroot}%{python_sitelib}/graphite/local_settings.py
 %{__portsed} 's|@@SKEL_CONFDIR@@|%{graphiteroot}|g' %{buildroot}%{python_sitelib}/graphite/local_settings.py
 %{__portsed} 's|@@SKEL_CONTENTDIR@@|%{contentdir}|g' %{buildroot}%{python_sitelib}/graphite/local_settings.py
