@@ -75,6 +75,11 @@ cp %{SOURCE0} %{buildroot}%{python_sitelib}/graphite/local_settings.py
 %{__portsed} 's|@@SKEL_WHISPERDIR@@|%{whisperdir}|g' %{buildroot}%{python_sitelib}/graphite/local_settings.py
 %{__portsed} 's|@@SKEL_LOGDIR@@|%{logdir}|g' %{buildroot}%{python_sitelib}/graphite/local_settings.py
 
+# Django 1.5 mandate ALLOWED_HOSTS, allow everyone
+echo >> %{buildroot}%{python_sitelib}/graphite/local_settings.py <<EOF1
+ALLOWED_HOSTS = ["*"]
+EOF1
+
 # Graphite VHost conf
 install -d -m 0755 %{buildroot}%{_sysconfdir}/apache2/vhosts.d
 cp %{SOURCE1} %{buildroot}%{_sysconfdir}/apache2/vhosts.d/mygraphite.conf
