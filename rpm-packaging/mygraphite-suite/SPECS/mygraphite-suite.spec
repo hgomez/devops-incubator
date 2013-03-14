@@ -54,7 +54,9 @@ BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 %description
 Graphite suite setup using Apache HTTPd in Named VirtualHost mode.
 Designed for openSUSE 12.1/12.2 and SUSE SLES 11 and higher
-
+Add openSUSE Python extra repository :
+zypper ar http://download.opensuse.org/repositories/devel:/languages:/python/openSUSE_12.2/devel:languages:python.repo
+ 
 %prep
 
 %build
