@@ -7,7 +7,7 @@ import com.excilys.ebi.gatling.http.Headers.Names._
 import akka.util.duration._
 import bootstrap._
 
-class BasicExampleSimulation extends Simulation {
+class BasicPerfSimulation extends Simulation {
 
 	val extHost = Option(System.getProperty("host")).getOrElse("localhost")
 	val extPort = Integer.getInteger("port", 8081)

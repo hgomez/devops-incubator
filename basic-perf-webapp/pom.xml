@@ -13,6 +13,7 @@
 		<maven.compiler.source>5</maven.compiler.source>
 		<maven.compiler.target>5</maven.compiler.target>
 		<webapp.name>basic-perf</webapp.name>
+		<http.host>localhost</http.host>
 		<http.port>8081</http.port>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<gatling.version>1.4.5</gatling.version>
@@ -137,6 +138,17 @@
 							<excludes>
 								<exclude>advanced/*.scala</exclude>
 							</excludes>
+							<simulation>basic.BasicPerfSimulation</simulation>
+							<jvmArgs>
+								<jvmArg>-Dhost=${http.host}</jvmArg>
+								<jvmArg>-Dport=${http.port}</jvmArg>
+								<jvmArg>-Dusers=10</jvmArg>
+								<jvmArg>-Drampup=1</jvmArg>
+								<jvmArg>-Dpause=1</jvmArg>
+								<jvmArg>-Dloop=200</jvmArg>
+							</jvmArgs>
+							<fork>true</fork>
+							<failOnError>false</failOnError>
 						</configuration>
 					</execution>
 				</executions>
