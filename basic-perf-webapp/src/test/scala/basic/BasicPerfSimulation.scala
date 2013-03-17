@@ -45,19 +45,25 @@ class BasicPerfSimulation extends Simulation {
 				.check(status.is(200)))
 		.pause(extPause milliseconds)
 		.exec(
-			http("PerfMeter-W100-RESP10K")
+			http("PerfMeter-W100ns-RESP10K")
 				.get(extWebapp + "PerfMeter?waittime=100&responsesize=102400")
 				.headers(headers)
 				.check(status.is(200)))
 		.pause(extPause milliseconds)
 		.exec(
-			http("PerfMeter-W10000-NORESP")
+			http("PerfMeter-W10ms-NORESP")
 				.get(extWebapp + "PerfMeter?waittime=10000&responsesize=-1")
 				.headers(headers)
 				.check(status.is(200)))
 		.pause(extPause milliseconds)
 		.exec(
-			http("PerfMeter-NOW-RESP4K")
+			http("PerfMeter-W500ms-NORESP")
+				.get(extWebapp + "PerfMeter?waittime=500000&responsesize=-1")
+				.headers(headers)
+				.check(status.is(200)))
+		.pause(extPause milliseconds)
+		.exec(
+			http("PerfMeter-W0s-RESP4K")
 				.get(extWebapp + "PerfMeter?waittime=-1&responsesize=4096&response=PerfMe")
 				.headers(headers)
 				.check(status.is(200)))
