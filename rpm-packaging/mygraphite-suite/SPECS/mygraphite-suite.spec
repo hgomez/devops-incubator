@@ -101,6 +101,10 @@ if [ ! -f %{storagedir}/graphite.db ]; then
   chown wwwrun:www %{storagedir}/graphite.db
   touch %{storagedir}/index
   chown wwwrun:www %{storagedir}/index
+
+  echo "create a Django admin user : "
+  echo "cd %{storagedir}/graphite.db"
+  echo "python %{python_sitelib}/graphite/manage.py createsuperuser"
 fi
 
 # Enable Apache module (silently avoid duplicates)

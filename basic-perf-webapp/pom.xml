@@ -1,81 +1,148 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.mycorp</groupId>
-    <artifactId>basic-perf-webapp</artifactId>
-    <packaging>war</packaging>
-    <version>1.0.0-SNAPSHOT</version>
-    <name>Basic Performance Webapp</name>
-    <url>http://maven.apache.org</url>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.mycorp</groupId>
+	<artifactId>basic-perf-webapp</artifactId>
+	<packaging>war</packaging>
+	<version>1.0.1-SNAPSHOT</version>
+	<name>Basic Performance Webapp</name>
+	<url>http://maven.apache.org</url>
 
-    <properties>
-        <!-- Java 5 -->
-        <maven.compiler.source>5</maven.compiler.source>
-        <maven.compiler.target>5</maven.compiler.target>
-	<webapp.name>basic-perf</webapp.name>
-	<http.port>8081</http.port>
-    </properties>
+	<properties>
+		<!-- Java 5 -->
+		<maven.compiler.source>5</maven.compiler.source>
+		<maven.compiler.target>5</maven.compiler.target>
+		<webapp.name>basic-perf</webapp.name>
+		<http.port>8081</http.port>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<gatling.version>1.4.5</gatling.version>
+	</properties>
 
-    <dependencies>
+	<repositories>
+		<repository>
+			<id>excilys</id>
+			<name>Excilys Repository</name>
+			<url>http://repository.excilys.com/content/groups/public</url>
+		</repository>
+	</repositories>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>excilys</id>
+			<name>Excilys Repository</name>
+			<url>http://repository.excilys.com/content/groups/public</url>
+		</pluginRepository>
+	</pluginRepositories>
 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
+	<dependencies>
 
-    </dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
 
-    <build>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <finalName>${webapp.name}</finalName>
+		<dependency>
+			<groupId>com.excilys.ebi.gatling.highcharts</groupId>
+			<artifactId>gatling-charts-highcharts</artifactId>
+			<version>${gatling.version}</version>
+			<scope>test</scope>
+		</dependency>
 
-        <plugins>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat6-maven-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <port>${http.port}</port>
-                    <path>/${webapp.name}</path>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <port>${http.port}</port>
-                    <path>/${webapp.name}</path>
-                </configuration>
-            </plugin>
+	</dependencies>
 
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.10.v20130312</version>
-                <configuration>
-                    <webApp>
-                      <contextPath>/${webapp.name}</contextPath>
-                    </webApp>
-                    <connectors>
-                      <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                        <port>${http.port}</port>
-                        <maxIdleTime>60000</maxIdleTime>
-                      </connector>
-                  </connectors>
-                </configuration>
-            </plugin>
+	<build>
 
-        </plugins>
+		<finalName>${webapp.name}</finalName>
 
-    </build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.1</version>
+
+				<executions>
+					<execution>
+
+						<id>tomcat-run</id>
+						<goals>
+							<goal>run-war-only</goal>
+						</goals>
+						<phase>pre-integration-test</phase>
+						<configuration>
+							<port>${http.port}</port>
+							<path>/${webapp.name}</path>
+							<fork>true</fork>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>tomcat-shutdown</id>
+						<goals>
+							<goal>shutdown</goal>
+						</goals>
+						<phase>post-integration-test</phase>
+						<configuration>
+							<port>${http.port}</port>
+							<path>/${webapp.name}</path>
+							<fork>true</fork>
+						</configuration>
+					</execution>
+				</executions>
+
+			</plugin>
+
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>8.1.10.v20130312</version>
+				<configuration>
+					<webApp>
+						<contextPath>/${webapp.name}</contextPath>
+					</webApp>
+					<connectors>
+						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+							<port>${http.port}</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.excilys.ebi.gatling</groupId>
+				<artifactId>gatling-maven-plugin</artifactId>
+				<version>${gatling.version}</version>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<!-- Default values -->
+							<!--<configDir>src/test/resources</configDir> <dataFolder>src/test/resources/data</dataFolder> 
+								<resultsFolder>target/gatling/results</resultsFolder> <requestBodiesFolder>src/test/resources/request-bodies</requestBodiesFolder> 
+								<simulationsFolder>src/test/scala</simulationsFolder> <includes> <include>**/*.scala</include> 
+								</includes> -->
+							<excludes>
+								<exclude>advanced/*.scala</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+	</build>
 </project>
