@@ -14,6 +14,7 @@ class BasicExampleSimulation extends Simulation {
 	val extUsers = Integer.getInteger("users", 1)
 	val extRampup = Integer.getInteger("rampup", 0).toLong
 	val extPause = Integer.getInteger("pause", 1).toLong
+	val extLoop = Integer.getInteger("loop", 100)
 
 	val extBaseUrl = if (extPort == 443)
 		"https://" + extHost
@@ -32,34 +33,36 @@ class BasicExampleSimulation extends Simulation {
 		.acceptLanguageHeader("fr,fr-fr;q=0.8,en-us;q=0.5,en;q=0.3")
 		.disableFollowRedirect
 
-	val headers_1 = Map(
+	val headers = Map(
 		"Keep-Alive" -> "115")
 
 	val scn = scenario("Scenario name")
-		.exec(
+		.repeat(extLoop) {
+		exec(
 			http("PerfMeter")
 				.get(extWebapp + "PerfMeter")
-				.headers(headers_1)
+				.headers(headers)
 				.check(status.is(200)))
 		.pause(extPause milliseconds)
 		.exec(
 			http("PerfMeter-W100-RESP10K")
 				.get(extWebapp + "PerfMeter?waittime=100&responsesize=102400")
-				.headers(headers_1)
+				.headers(headers)
 				.check(status.is(200)))
 		.pause(extPause milliseconds)
 		.exec(
 			http("PerfMeter-W10000-NORESP")
 				.get(extWebapp + "PerfMeter?waittime=10000&responsesize=-1")
-				.headers(headers_1)
+				.headers(headers)
 				.check(status.is(200)))
 		.pause(extPause milliseconds)
 		.exec(
 			http("PerfMeter-NOW-RESP4K")
 				.get(extWebapp + "PerfMeter?waittime=-1&responsesize=4096&response=PerfMe")
-				.headers(headers_1)
+				.headers(headers)
 				.check(status.is(200)))
 		.pause(extPause milliseconds)
-
+		}
+		
 	setUp(scn.users(extUsers).ramp(extRampup).protocolConfig(httpConf))
 }
