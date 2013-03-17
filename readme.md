@@ -69,3 +69,4 @@ Install a package (jenkins for example)
     sudo zypper update
     sudo zypper install myjenkins
 
+# TODO
