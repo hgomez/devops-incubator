@@ -124,33 +124,33 @@
 				<groupId>com.excilys.ebi.gatling</groupId>
 				<artifactId>gatling-maven-plugin</artifactId>
 				<version>${gatling.version}</version>
+				<configuration>
+					<!-- Default values -->
+					<!--<configDir>src/test/resources</configDir> <dataFolder>src/test/resources/data</dataFolder> 
+						<resultsFolder>target/gatling/results</resultsFolder> <requestBodiesFolder>src/test/resources/request-bodies</requestBodiesFolder> 
+						<simulationsFolder>src/test/scala</simulationsFolder> <includes> <include>**/*.scala</include> 
+						</includes> -->
+					<excludes>
+						<exclude>advanced/*.scala</exclude>
+					</excludes>
+					<simulation>basic.BasicPerfSimulation</simulation>
+					<jvmArgs>
+						<jvmArg>-Dhost=${http.host}</jvmArg>
+						<jvmArg>-Dport=${http.port}</jvmArg>
+						<jvmArg>-Dusers=10</jvmArg>
+						<jvmArg>-Drampup=1</jvmArg>
+						<jvmArg>-Dpause=1</jvmArg>
+						<jvmArg>-Dloop=200</jvmArg>
+					</jvmArgs>
+					<fork>true</fork>
+					<failOnError>false</failOnError>
+				</configuration>
 				<executions>
 					<execution>
 						<phase>integration-test</phase>
 						<goals>
 							<goal>execute</goal>
 						</goals>
-						<configuration>
-							<!-- Default values -->
-							<!--<configDir>src/test/resources</configDir> <dataFolder>src/test/resources/data</dataFolder> 
-								<resultsFolder>target/gatling/results</resultsFolder> <requestBodiesFolder>src/test/resources/request-bodies</requestBodiesFolder> 
-								<simulationsFolder>src/test/scala</simulationsFolder> <includes> <include>**/*.scala</include> 
-								</includes> -->
-							<excludes>
-								<exclude>advanced/*.scala</exclude>
-							</excludes>
-							<simulation>basic.BasicPerfSimulation</simulation>
-							<jvmArgs>
-								<jvmArg>-Dhost=${http.host}</jvmArg>
-								<jvmArg>-Dport=${http.port}</jvmArg>
-								<jvmArg>-Dusers=10</jvmArg>
-								<jvmArg>-Drampup=1</jvmArg>
-								<jvmArg>-Dpause=1</jvmArg>
-								<jvmArg>-Dloop=200</jvmArg>
-							</jvmArgs>
-							<fork>true</fork>
-							<failOnError>false</failOnError>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
