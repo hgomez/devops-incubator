@@ -2,6 +2,8 @@
 
 VERSION=1.0.0
 
+# Test Trigger
+
 # prepare fresh directories
 rm -rf BUILD RPMS SRPMS TEMP
 mkdir -p BUILD RPMS SRPMS TEMP
