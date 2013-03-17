@@ -137,6 +137,7 @@
 					<jvmArgs>
 						<jvmArg>-Dhost=${http.host}</jvmArg>
 						<jvmArg>-Dport=${http.port}</jvmArg>
+						<jvmArg>-Dwebapp=/${webapp.name}/</jvmArg>
 						<jvmArg>-Dusers=10</jvmArg>
 						<jvmArg>-Drampup=1</jvmArg>
 						<jvmArg>-Dpause=1</jvmArg>
