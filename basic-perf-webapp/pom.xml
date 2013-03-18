@@ -134,10 +134,14 @@
 				<version>${gatling.version}</version>
 				<configuration>
 					<!-- Default values -->
-					<!--<configDir>src/test/resources</configDir> <dataFolder>src/test/resources/data</dataFolder> 
-						<resultsFolder>target/gatling/results</resultsFolder> <requestBodiesFolder>src/test/resources/request-bodies</requestBodiesFolder> 
-						<simulationsFolder>src/test/scala</simulationsFolder> <includes> <include>**/*.scala</include> 
-						</includes> -->
+						<configDir>src/test/resources</configDir>
+						<dataFolder>src/test/resources/data</dataFolder> 
+						<resultsFolder>../target/gatling/results</resultsFolder>
+						<requestBodiesFolder>src/test/resources/request-bodies</requestBodiesFolder> 
+						<simulationsFolder>src/test/scala</simulationsFolder>
+						<includes>
+							<include>**/*.scala</include> 
+						</includes>
 					<excludes>
 						<exclude>advanced/*.scala</exclude>
 					</excludes>
