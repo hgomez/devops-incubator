@@ -145,7 +145,6 @@
 						<jvmArg>-Dpause=1</jvmArg>
 						<jvmArg>-Dloop=${simulation.loops}</jvmArg>
 					</jvmArgs>
-					<fork>true</fork>
 					<failOnError>false</failOnError>
 				</configuration>
 				<executions>
@@ -154,6 +153,9 @@
 						<goals>
 							<goal>execute</goal>
 						</goals>
+						<configuration>
+							<fork>true</fork>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
