@@ -15,6 +15,8 @@
 		<webapp.name>basic-perf</webapp.name>
 		<http.host>localhost</http.host>
 		<http.port>8081</http.port>
+		<simulation.users>200</simulation.users>
+		<simulation.loops>100</simulation.loops>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<gatling.version>1.4.5</gatling.version>
 	</properties>
@@ -138,10 +140,10 @@
 						<jvmArg>-Dhost=${http.host}</jvmArg>
 						<jvmArg>-Dport=${http.port}</jvmArg>
 						<jvmArg>-Dwebapp=/${webapp.name}/</jvmArg>
-						<jvmArg>-Dusers=10</jvmArg>
+						<jvmArg>-Dusers=${simulation.users}</jvmArg>
 						<jvmArg>-Drampup=1</jvmArg>
 						<jvmArg>-Dpause=1</jvmArg>
-						<jvmArg>-Dloop=200</jvmArg>
+						<jvmArg>-Dloop=${simulation.loops}</jvmArg>
 					</jvmArgs>
 					<fork>true</fork>
 					<failOnError>false</failOnError>
