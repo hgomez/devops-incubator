@@ -16,6 +16,11 @@
 		<webapp.uri>/${webapp.name}/</webapp.uri>
 		<http.host>localhost</http.host>
 		<http.port>8081</http.port>
+		<simulation.host>${http.host}</simulation.host>
+		<simulation.port>${http.port}</simulation.port>
+		<simulation.rampup>1</simulation.rampup>
+		<simulation.pause>1</simulation.pause>
+		<simulation.port>${http.port}</simulation.port>
 		<simulation.users>200</simulation.users>
 		<simulation.loops>100</simulation.loops>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -138,13 +143,13 @@
 					</excludes>
 					<simulation>basic.BasicPerfSimulation</simulation>
 					<jvmArgs>
-						<jvmArg>-Dhost=${http.host}</jvmArg>
-						<jvmArg>-Dport=${http.port}</jvmArg>
-						<jvmArg>-Dwebapp=${webapp.uri}</jvmArg>
-						<jvmArg>-Dusers=${simulation.users}</jvmArg>
-						<jvmArg>-Drampup=1</jvmArg>
-						<jvmArg>-Dpause=1</jvmArg>
-						<jvmArg>-Dloop=${simulation.loops}</jvmArg>
+						<jvmArg>-DextHost=${simulation.host}</jvmArg>
+						<jvmArg>-DextPort=${simulation.port}</jvmArg>
+						<jvmArg>-DextWebapp=${simulation.uri}</jvmArg>
+						<jvmArg>-DextUsers=${simulation.users}</jvmArg>
+						<jvmArg>-DextRampup=${simulation.rampup}</jvmArg>
+						<jvmArg>-DextPause=${simulation.pause}</jvmArg>
+						<jvmArg>-DextLoop=${simulation.loops}</jvmArg>
 					</jvmArgs>
 					<fork>true</fork>
 					<failOnError>false</failOnError>

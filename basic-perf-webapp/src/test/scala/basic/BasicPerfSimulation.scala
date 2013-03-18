@@ -9,12 +9,12 @@ import bootstrap._
 
 class BasicPerfSimulation extends Simulation {
 
-	val extHost = Option(System.getProperty("host")).getOrElse("localhost")
-	val extPort = Integer.getInteger("port", 8081)
-	val extUsers = Integer.getInteger("users", 1)
-	val extRampup = Integer.getInteger("rampup", 0).toLong
-	val extPause = Integer.getInteger("pause", 1).toLong
-	val extLoop = Integer.getInteger("loop", 100)
+	val extHost = Option(System.getProperty("extHost")).getOrElse("localhost")
+	val extPort = Integer.getInteger("extPort", 8081)
+	val extUsers = Integer.getInteger("extUsers", 1)
+	val extRampup = Integer.getInteger("extRampup", 0).toLong
+	val extPause = Integer.getInteger("extPause", 1).toLong
+	val extLoop = Integer.getInteger("extLoop", 100)
 
 	val extBaseUrl = if (extPort == 443)
 		"https://" + extHost
@@ -23,7 +23,7 @@ class BasicPerfSimulation extends Simulation {
 	else
 		"http://" + extHost
 
-	val extWebapp = Option(System.getProperty("webapp")).getOrElse("/basic-perf/")
+	val extWebapp = Option(System.getProperty("extWebapp")).getOrElse("/basic-perf/")
 
 	val httpConf = httpConfig
 		.baseURL(extBaseUrl)
