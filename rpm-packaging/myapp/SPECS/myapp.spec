@@ -99,92 +99,92 @@ MyApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %install
 # Prep the install location.
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-mkdir -p $RPM_BUILD_ROOT%{_initrddir}
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d
-mkdir -p $RPM_BUILD_ROOT%{_systemdir}
+mkdir -p %{buildroot}%{_initrddir}
+mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
+mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
+mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
+mkdir -p %{buildroot}%{_systemdir}
 
-mkdir -p $RPM_BUILD_ROOT%{myappdir}
-mkdir -p $RPM_BUILD_ROOT%{myappdatadir}
-mkdir -p $RPM_BUILD_ROOT%{myapplogdir}
-mkdir -p $RPM_BUILD_ROOT%{myapptempdir}
-mkdir -p $RPM_BUILD_ROOT%{myappworkdir}
-mkdir -p $RPM_BUILD_ROOT%{myappwebappdir}
+mkdir -p %{buildroot}%{myappdir}
+mkdir -p %{buildroot}%{myappdatadir}
+mkdir -p %{buildroot}%{myapplogdir}
+mkdir -p %{buildroot}%{myapptempdir}
+mkdir -p %{buildroot}%{myappworkdir}
+mkdir -p %{buildroot}%{myappwebappdir}
 
 # Copy tomcat
-mv apache-tomcat-%{tomcat_rel}/* $RPM_BUILD_ROOT%{myappdir}
+mv apache-tomcat-%{tomcat_rel}/* %{buildroot}%{myappdir}
 
 # Create conf/Catalina/localhost
-mkdir -p $RPM_BUILD_ROOT%{myappconflocaldir}
+mkdir -p %{buildroot}%{myappconflocaldir}
 
 # remove default webapps
-rm -rf $RPM_BUILD_ROOT%{myappdir}/webapps/*
+rm -rf %{buildroot}%{myappdir}/webapps/*
 
 # patches to have logs under /var/log/myapp
-%{__portsed} 's|\${catalina.base}/logs|%{myapplogdir}|g' $RPM_BUILD_ROOT%{myappdir}/conf/logging.properties
+%{__portsed} 's|\${catalina.base}/logs|%{myapplogdir}|g' %{buildroot}%{myappdir}/conf/logging.properties
 
 # myapp webapp is ROOT.war (will respond to /)
-cp %{SOURCE1}  $RPM_BUILD_ROOT%{myappwebappdir}/ROOT.war
+cp %{SOURCE1}  %{buildroot}%{myappwebappdir}/ROOT.war
 
 # init.d
-cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-%{__portsed} 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-%{__portsed} 's|@@MYAPP_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-%{__portsed} 's|@@MYAPP_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-%{__portsed} 's|@@MYAPP_DATADIR@@|%{myappdatadir}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
-%{__portsed} 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_initrddir}/%{myapp}
+cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' %{buildroot}%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_USER@@|%{myappusername}|g' %{buildroot}%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_EXEC@@|%{myappexec}|g' %{buildroot}%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{myappdatadir}|g' %{buildroot}%{_initrddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' %{buildroot}%{_initrddir}/%{myapp}
 
 # sysconfig
-cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-%{__portsed} 's|@@MYAPP_APPDIR@@|%{myappdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-%{__portsed} 's|@@MYAPP_DATADIR@@|%{myappdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-%{__portsed} 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-%{__portsed} 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
-%{__portsed} 's|@@MYAPP_CONFDIR@@|%{myappconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{myapp}
+cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{myapp}
+%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{myapp}
+%{__portsed} 's|@@MYAPP_APPDIR@@|%{myappdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{myapp}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{myappdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{myapp}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{myapp}
+%{__portsed} 's|@@MYAPP_USER@@|%{myappusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{myapp}
+%{__portsed} 's|@@MYAPP_CONFDIR@@|%{myappconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{myapp}
 
 # JMX (including JMX Remote)
-cp %{SOURCE11} $RPM_BUILD_ROOT%{myappdir}/lib
-cp %{SOURCE4}  $RPM_BUILD_ROOT%{myappconfdir}/jmxremote.access.skel
-cp %{SOURCE5}  $RPM_BUILD_ROOT%{myappconfdir}/jmxremote.password.skel
+cp %{SOURCE11} %{buildroot}%{myappdir}/lib
+cp %{SOURCE4}  %{buildroot}%{myappconfdir}/jmxremote.access.skel
+cp %{SOURCE5}  %{buildroot}%{myappconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
-cp  %{SOURCE6} $RPM_BUILD_ROOT%{myappdir}/bin/setenv.sh
-%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{myappdir}/bin/setenv.sh
+cp  %{SOURCE6} %{buildroot}%{myappdir}/bin/setenv.sh
+%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' %{buildroot}%{myappdir}/bin/setenv.sh
 
 # Install logrotate
-cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{myapp}
-%{__portsed} 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{myapp}
+cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{myapp}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{myapp}
 
 # Install server.xml.skel
-cp %{SOURCE8} $RPM_BUILD_ROOT%{myappconfdir}/server.xml.skel
+cp %{SOURCE8} %{buildroot}%{myappconfdir}/server.xml.skel
 
 # Setup user limits
-cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}.conf
-%{__portsed} 's|@@MYAPP_USER@@|%{myappusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{myapp}.conf
+cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{myapp}.conf
+%{__portsed} 's|@@MYAPP_USER@@|%{myappusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{myapp}.conf
 
 # Setup Systemd
-cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
-%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
-%{__portsed} 's|@@MYAPP_EXEC@@|%{myappexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{myapp}.service
+cp %{SOURCE10} %{buildroot}%{_systemdir}/%{myapp}.service
+%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' %{buildroot}%{_systemdir}/%{myapp}.service
+%{__portsed} 's|@@MYAPP_EXEC@@|%{myappexec}|g' %{buildroot}%{_systemdir}/%{myapp}.service
 
 # remove uneeded file in RPM
-rm -f $RPM_BUILD_ROOT%{myappdir}/*.sh
-rm -f $RPM_BUILD_ROOT%{myappdir}/*.bat
-rm -f $RPM_BUILD_ROOT%{myappdir}/bin/*.bat
-rm -rf $RPM_BUILD_ROOT%{myappdir}/logs
-rm -rf $RPM_BUILD_ROOT%{myappdir}/temp
-rm -rf $RPM_BUILD_ROOT%{myappdir}/work
+rm -f %{buildroot}%{myappdir}/*.sh
+rm -f %{buildroot}%{myappdir}/*.bat
+rm -f %{buildroot}%{myappdir}/bin/*.bat
+rm -rf %{buildroot}%{myappdir}/logs
+rm -rf %{buildroot}%{myappdir}/temp
+rm -rf %{buildroot}%{myappdir}/work
 
 # ensure shell scripts are executable
-chmod 755 $RPM_BUILD_ROOT%{myappdir}/bin/*.sh
+chmod 755 %{buildroot}%{myappdir}/bin/*.sh
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %pre
 %if 0%{?suse_version} > 1140
