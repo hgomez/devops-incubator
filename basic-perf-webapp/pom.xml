@@ -13,11 +13,11 @@
 		<maven.compiler.source>5</maven.compiler.source>
 		<maven.compiler.target>5</maven.compiler.target>
 		<webapp.name>basic-perf</webapp.name>
-		<webapp.uri>/${webapp.name}/</webapp.uri>
 		<http.host>localhost</http.host>
 		<http.port>8081</http.port>
 		<simulation.host>${http.host}</simulation.host>
 		<simulation.port>${http.port}</simulation.port>
+		<simulation.uri>/${webapp.name}/</simulation.uri>
 		<simulation.rampup>1</simulation.rampup>
 		<simulation.pause>1</simulation.pause>
 		<simulation.port>${http.port}</simulation.port>
