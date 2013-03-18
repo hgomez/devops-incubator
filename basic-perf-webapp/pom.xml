@@ -13,6 +13,7 @@
 		<maven.compiler.source>5</maven.compiler.source>
 		<maven.compiler.target>5</maven.compiler.target>
 		<webapp.name>basic-perf</webapp.name>
+		<webapp.uri>/${webapp.name}</webapp.uri>
 		<http.host>localhost</http.host>
 		<http.port>8081</http.port>
 		<simulation.users>200</simulation.users>
@@ -139,7 +140,7 @@
 					<jvmArgs>
 						<jvmArg>-Dhost=${http.host}</jvmArg>
 						<jvmArg>-Dport=${http.port}</jvmArg>
-						<jvmArg>-Dwebapp=/${webapp.name}/</jvmArg>
+						<jvmArg>-Dwebapp=${webapp.uri}/</jvmArg>
 						<jvmArg>-Dusers=${simulation.users}</jvmArg>
 						<jvmArg>-Drampup=1</jvmArg>
 						<jvmArg>-Dpause=1</jvmArg>
