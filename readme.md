@@ -35,14 +35,14 @@ RPM packages release number are revision, used when something is updated in RPM 
 Thanks to JFrog Bintray and CloudBees BuildHive, RPM packages are now built in continuous and push to a Yum repository.
 They could be installed on CentOS/Fedora/RHEL/Suse/openSUSE.
 
-##CentOS/Fedora/RHEL
+##CentOS/RHEL 5
 
 Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-hgomez-devops-incubator-rpm.repo**
 
     #bintraybintray-hgomez-devops-incubator-rpm - packages by hgomez from Bintray
     [bintraybintray-hgomez-devops-incubator-rpm]
     name=bintray-hgomez-devops-incubator-rpm
-    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm
+    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-centos5-x86-64
     gpgcheck=0
     enabled=1
  
@@ -51,14 +51,46 @@ Install a package (jenkins for example)
     sudo yum update
     sudo yum install myjenkins
 
-##Suse/openSUSE
+##CentOS/RHEL 6
+
+Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-hgomez-devops-incubator-rpm.repo**
+
+    #bintraybintray-hgomez-devops-incubator-rpm - packages by hgomez from Bintray
+    [bintraybintray-hgomez-devops-incubator-rpm]
+    name=bintray-hgomez-devops-incubator-rpm
+    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-centos6-x86-64
+    gpgcheck=0
+    enabled=1
+ 
+Install a package (jenkins for example)
+
+    sudo yum update
+    sudo yum install myjenkins
+
+##Fedora 18
+
+Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-hgomez-devops-incubator-rpm.repo**
+
+    #bintraybintray-hgomez-devops-incubator-rpm - packages by hgomez from Bintray
+    [bintraybintray-hgomez-devops-incubator-rpm]
+    name=bintray-hgomez-devops-incubator-rpm
+    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-fedora18-x86-64
+    gpgcheck=0
+    enabled=1
+ 
+Install a package (jenkins for example)
+
+    sudo yum update
+    sudo yum install myjenkins
+
+##openSUSE 12.1/12.2/12.3
 
 Add Zypper repository by editing repo file **/etc/zypp/repos.d/bintray-hgomez-devops-incubator-rpm.repo**
 
     #bintraybintray-hgomez-devops-incubator-rpm - packages by hgomez from Bintray
     [bintraybintray-hgomez-devops-incubator-rpm]
     name=bintray-hgomez-devops-incubator-rpm
-    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm
+    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-opensuse122-x86-64
     type=rpm-md
     gpgcheck=0
 
