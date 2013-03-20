@@ -56,8 +56,11 @@ start() {
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
     done
 
-    mkdir -p @@ARTIFACTORY_TMPDIR@@
-    chown -R @@ARTIFACTORY_USER@@:@@ARTIFACTORY_USER@@ @@ARTIFACTORY_TMPDIR@@
+    if [ ! -d @@ARTIFACTORY_TMPDIR@@ ]; then
+      mkdir -p @@ARTIFACTORY_TMPDIR@@
+      chmod 755 @@ARTIFACTORY_TMPDIR@@
+      chown $user:$user @@ARTIFACTORY_TMPDIR@@
+    fi
 
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then

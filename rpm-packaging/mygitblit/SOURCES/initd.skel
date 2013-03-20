@@ -56,8 +56,11 @@ start() {
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
     done
 
-    mkdir -p @@GITBLIT_TMPDIR@@
-    chown -R @@GITBLIT_USER@@:@@GITBLIT_USER@@ @@GITBLIT_TMPDIR@@
+    if [ ! -d @@GITBLIT_TMPDIR@@ ]; then
+      mkdir -p @@GITBLIT_TMPDIR@@
+      chmod 755 @@GITBLIT_TMPDIR@@
+      chown $user:$user @@GITBLIT_TMPDIR@@
+    fi
 
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then

@@ -56,8 +56,11 @@ start() {
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
     done
 
-    mkdir -p @@NEXUS_TMPDIR@@
-    chown -R @@NEXUS_USER@@:@@NEXUS_USER@@ @@NEXUS_TMPDIR@@
+    if [ ! -d @@NEXUS_TMPDIR@@ ]; then
+      mkdir -p @@NEXUS_TMPDIR@@
+      chmod 755 @@NEXUS_TMPDIR@@
+      chown $user:$user @@NEXUS_TMPDIR@@
+    fi
 
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
