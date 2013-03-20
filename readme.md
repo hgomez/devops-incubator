@@ -1,5 +1,7 @@
 #devops-incubator - Native Packaging
 
+![devops-incubator Logo](https://raw.github.com/hgomez/devops-incubator/master/images/devops-incubator-33pct.png)
+
 Native Packaging sample for DevOps easy operations.
 These packages will bring you a ready to use Software Factory.
 
