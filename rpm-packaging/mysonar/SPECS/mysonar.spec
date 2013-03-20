@@ -22,12 +22,12 @@
 %if %{?SONAR_REL:1}
 %define sonar_rel    %{SONAR_REL}
 %else
-%define sonar_rel    3.4.1
+%define sonar_rel    3.5
 %endif
 
 Name: mysonar
 Version: %{sonar_rel}
-Release: 4
+Release: 1
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -322,6 +322,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Mar 20 2013 henri.gomez@gmail.com 3.5-1
+- Sonar 3.5 released
+
 * Mon Feb 18 2013 henri.gomez@gmail.com 3.4.1-4
 - Apache Tomcat 7.0.37 released, update package
 

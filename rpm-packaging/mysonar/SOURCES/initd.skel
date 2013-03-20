@@ -56,8 +56,11 @@ start() {
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
     done
 
-    mkdir -p @@SONAR_TMPDIR@@
-    chown -R @@SONAR_USER@@:@@SONAR_USER@@ @@SONAR_TMPDIR@@
+    if [ ! -d @@SONAR_TMPDIR@@ ]; then
+      mkdir -p @@SONAR_TMPDIR@@
+      chmod 755 @@SONAR_TMPDIR@@
+      chown $user:$user @@SONAR_TMPDIR@@
+    fi
 
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
