@@ -90,7 +90,8 @@ Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 
 %description
-MyApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}
+Sample PerfWebApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}.
+This Web application could be used to tune your web benchmark systems
 
 %prep
 %setup -q -c
