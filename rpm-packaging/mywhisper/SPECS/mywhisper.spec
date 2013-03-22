@@ -36,7 +36,7 @@ Requires:       python-xml
 
 Summary:        Fixed size round-robin style database
 %description
-Fixed size round-robin style database.
+Fixed size round-robin style database, used by carbon and graphite suite.
 
 %prep
 %setup -n whisper-%{whisper_rel}
