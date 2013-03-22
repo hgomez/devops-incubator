@@ -49,6 +49,11 @@ function main() {
   PCK_NAME=$(rpm -qp ${RPM} --queryformat "%{NAME}")
   PCK_VERSION=$(rpm -qp ${RPM} --qf "%{VERSION}")
   PCK_RELEASE=$(rpm -qp ${RPM} --qf "%{RELEASE}")
+
+  if [ -z "$PCK_NAME" ] || [ -z "$PCK_VERSION" ] || [ -z "$PCK_RELEASE" ]; then
+   echo "no RPM metadata information in $RPM_FILE, aborting..."
+   exit -1
+  endif
   
   echo "[DEBUG] SUBJECT    : ${SUBJECT}"
   echo "[DEBUG] REPO       : ${REPO}"
