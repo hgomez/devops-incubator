@@ -41,7 +41,7 @@ Requires:           java = 1:1.6.0
 Source0: crash-%{VERSION}.tar.gz
 
 %description
-A shell to extend the Java Platform - Open source and open minded
+The Common Reusable SHell (CRaSH) deploys in a Java runtime and provides interactions with the JVM. Commands are written in Groovy and can be developped at runtime making the extension of the shell very easy with fast development cycle
 
 %prep
 %setup -q -c
