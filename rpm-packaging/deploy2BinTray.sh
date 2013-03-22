@@ -44,7 +44,8 @@ function main() {
   API_KEY=$2
   REPO=$3
   RPM=$4
-  
+  RPM_FILE=`basename ${RPM}`
+
   PCK_NAME=$(rpm -qp ${RPM} --queryformat "%{NAME}")
   PCK_VERSION=$(rpm -qp ${RPM} --qf "%{VERSION}")
   PCK_RELEASE=$(rpm -qp ${RPM} --qf "%{RELEASE}")
@@ -94,18 +95,18 @@ function create_package() {
 }
 
 function upload_content() {
-  echo "[DEBUG] Uploading ${RPM}..."
-  uploaded=` [ $(${CURL} --write-out %{http_code} --silent --output /dev/null -T ${RPM} -H X-Bintray-Package:${PCK_NAME} -H X-Bintray-Version:${PCK_VERSION}-${PCK_RELEASE} ${API}/content/${SUBJECT}/${REPO}/${RPM}) -eq ${CREATED} ] `
-  echo "[DEBUG] RPM ${RPM} uploaded? y:1/N:0 ${package_exists}"
+  echo "[DEBUG] Uploading ${RPM_FILE}..."
+  uploaded=` [ $(${CURL} --write-out %{http_code} --silent --output /dev/null -T ${RPM} -H X-Bintray-Package:${PCK_NAME} -H X-Bintray-Version:${PCK_VERSION}-${PCK_RELEASE} ${API}/content/${SUBJECT}/${REPO}/${RPM_FILE}) -eq ${CREATED} ] `
+  echo "[DEBUG] RPM ${RPM_FILE} uploaded? y:1/N:0 ${package_exists}"
   return ${uploaded}
 }
 function deploy_rpm() {
   
   if ( upload_content); then
-    echo "[DEBUG] Publishing ${RPM}..."
+    echo "[DEBUG] Publishing ${RPM_FILE}..."
     ${CURL} -X POST ${API}/content/${SUBJECT}/${REPO}/${PCK_NAME}/${PCK_VERSION}-${PCK_RELEASE}/publish -d "{ \"discard\": \"false\" }"
   else
-    echo "[SEVERE] First you should upload your rpm ${RPM}"
+    echo "[SEVERE] First you should upload your rpm ${RPM_FILE}"
   fi    
 }
 
