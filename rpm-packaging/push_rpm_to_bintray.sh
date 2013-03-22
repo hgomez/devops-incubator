@@ -27,7 +27,7 @@ RPM_VERSION=`rpm --queryformat "%{VERSION}" -qp $RPM_FILE`
 RPM_RELEASE=`rpm --queryformat "%{RELEASE}" -qp $RPM_FILE`
 RPM_ARCH=`rpm --queryformat "%{ARCH}" -qp $RPM_FILE`
 
-if [ -z "$RPM_NAME" ] || [ -z "$RPM_NAME" ] || [ -z "$RPM_NAME" ] || [ -z "$RPM_NAME" ]; then
+if [ -z "$RPM_NAME" ] || [ -z "$RPM_VERSION" ] || [ -z "$RPM_RELEASE" ] || [ -z "$RPM_ARCH" ]; then
   echo "no RPM metadata information in $RPM_FILE, skipping."
   exit -1
 fi
