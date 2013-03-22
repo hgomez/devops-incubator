@@ -53,7 +53,7 @@ function main() {
   if [ -z "$PCK_NAME" ] || [ -z "$PCK_VERSION" ] || [ -z "$PCK_RELEASE" ]; then
    echo "no RPM metadata information in $RPM_FILE, aborting..."
    exit -1
-  endif
+  fi
   
   echo "[DEBUG] SUBJECT    : ${SUBJECT}"
   echo "[DEBUG] REPO       : ${REPO}"
