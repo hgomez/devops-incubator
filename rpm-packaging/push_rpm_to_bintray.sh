@@ -36,6 +36,11 @@ echo "RPM_NAME=$RPM_NAME, RPM_VERSION=$RPM_VERSION, RPM_RELEASE=$RPM_RELEASE, RP
 echo "BINTRAY_USER=$BINTRAY_USER, BINTRAY_APIKEY=$BINTRAY_APIKEY, BINTRAY_REPO=$BINTRAY_REPO, RPM_FILE=$RPM_FILE, BASE_DESC=$BASE_DESC"
 
 echo "@@@@@@@@@@@@@@@@@@@@@@"
+echo "@@@ delete package @@@"
+echo "@@@@@@@@@@@@@@@@@@@@@@"
+curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X DELETE https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$RPM_NAME
+
+echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ create package @@@"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X POST https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/ --data "{ \"name\": \"$RPM_NAME\", \"desc\": \"auto\", \"desc_url\": \"$BASE_DESC/$RPM_NAME\", \"labels\": \"\" }"
