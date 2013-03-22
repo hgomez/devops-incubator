@@ -50,10 +50,10 @@ curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X
 #echo "@@@@@@@@@@@@@@@@@@@@@@"
 #curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -X DELETE https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$RPM_NAME/versions/$RPM_VERSION-$RPM_RELEASE
 
-echo "@@@@@@@@@@@@@@@@@@@@@@"
-echo "@@@ create version @@@"
-echo "@@@@@@@@@@@@@@@@@@@@@@"
-curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X POST https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$RPM_NAME/versions --data "{ \"name\": \"$RPM_VERSION-$RPM_RELEASE\", \"release_notes\": \"auto\", \"release_url\": \"$BASE_DESC/$RPM_NAME\", \"released\": \"\" }"
+#echo "@@@@@@@@@@@@@@@@@@@@@@"
+#echo "@@@ create version @@@"
+#echo "@@@@@@@@@@@@@@@@@@@@@@"
+#curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X POST https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$RPM_NAME/versions --data "{ \"name\": \"$RPM_VERSION-$RPM_RELEASE\", \"release_notes\": \"auto\", \"release_url\": \"$BASE_DESC/$RPM_NAME\", \"released\": \"\" }"
 
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ upload content @@@"
