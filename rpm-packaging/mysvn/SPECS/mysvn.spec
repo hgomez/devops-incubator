@@ -23,7 +23,7 @@ Source3: credentials
 Source4: viewvc.conf
 
 %description
-Subversion setup for MyCorp
+This package provides a Subversion hosting solution served by Apache HTTPd server, bundled with viewvc to browser your repositories.
 
 %prep
 

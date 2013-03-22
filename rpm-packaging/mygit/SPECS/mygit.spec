@@ -30,7 +30,7 @@ Source8: markdownize_cgit.py
 Source9: private-credentials
 
 %description
-GIT setup for MyCorp
+This package provides a Git hosting solution served by Apache HTTPd server, with git-notifier and smart-http
 
 %prep
 
