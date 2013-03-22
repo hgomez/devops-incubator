@@ -33,6 +33,7 @@ if [ -z "$RPM_NAME" ] || [ -z "$RPM_VERSION" ] || [ -z "$RPM_RELEASE" ] || [ -z 
 fi
 
 echo "RPM_NAME=$RPM_NAME, RPM_VERSION=$RPM_VERSION, RPM_RELEASE=$RPM_RELEASE, RPM_ARCH=$RPM_ARCH"
+echo "BINTRAY_USER=$BINTRAY_USER, BINTRAY_APIKEY=$BINTRAY_APIKEY, BINTRAY_REPO=$BINTRAY_REPO, RPM_FILE=$RPM_FILE, BASE_DESC=$BASE_DESC"
 
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ create package @@@"
