@@ -80,7 +80,9 @@ Source12: context.xml.skel
 Source14: logging.properties.skel
 
 %description
-appname %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
+Gitblit is an open-source, pure Java stack for managing, viewing, and serving Git repositories.
+It's designed primarily as a tool for small workgroups who want to host centralized repositories
+This package contains Gitblit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %prep
 %setup -q -c

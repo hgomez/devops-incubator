@@ -116,7 +116,8 @@ Source15: ROOT.xml
 Source16: logging.properties.skel
 
 %description
-archiva %{archiva_rel} powered by Apache Tomcat
+Apache Archiva™ is an extensible repository management software that helps taking care of your own personal or enterprise-wide build artifact repository. It is the perfect companion for build tools such as Maven, Continuum, and ANT.
+This package contains Apache Archiva %{archiva_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %prep
 %setup -q -c

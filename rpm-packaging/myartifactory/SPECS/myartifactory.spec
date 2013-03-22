@@ -88,9 +88,9 @@ Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: logging.properties.skel
 
 %description
-JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Artifactory offers powerful enterprise features and fine-grained permission control behind a sleek and easy-to-use UI.
 Artifactory acts as a proxy between your build tool (Maven, Ant, Ivy, Gradle etc.) and the outside world.
+This package contains JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %prep
 %setup -q -c

@@ -88,7 +88,8 @@ Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: logging.properties.skel
 
 %description
-Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
+In a nutshell Jenkins CI is the leading open-source continuous integration server. Built with Java, it provides over 400 plugins to support building and testing virtually any project.
+This package contains Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %prep
 %setup -q -c

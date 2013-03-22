@@ -92,7 +92,8 @@ Source13: sonar-setup-mysql.sh
 Source14: logging.properties.skel
 
 %description
-Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
+Sonar is an open platform to manage code quality. As such, it covers the 7 axes of code quality:
+This package contains Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %prep
 %setup -q -c
