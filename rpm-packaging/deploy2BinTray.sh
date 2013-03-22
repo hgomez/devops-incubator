@@ -57,7 +57,8 @@ function main() {
   
   echo "[DEBUG] SUBJECT    : ${SUBJECT}"
   echo "[DEBUG] REPO       : ${REPO}"
-  echo "[DEBUG] RPM        : ${RPM}"
+  echo "[DEBUG] RPM_PATH   : ${RPM}"
+  echo "[DEBUG] RPM        : ${RPM_FILE}"
   echo "[DEBUG] PCK_NAME   : ${PCK_NAME}"
   echo "[DEBUG] PCK_VERSION: ${PCK_VERSION}"
   echo "[DEBUG] PCK_RELEASE: ${PCK_RELEASE}"
