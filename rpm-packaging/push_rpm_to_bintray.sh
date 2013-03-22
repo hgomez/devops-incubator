@@ -58,10 +58,10 @@ curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ upload content @@@"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
-curl -vvf -T $RPM_FILE -u$BINTRAY_USER:$BINTRAY_APIKEY -H "X-Bintray-Package:$RPM_NAME" -H "X-Bintray-Version:$RPM_VERSION-$RPM_RELEASE" https://api.bintray.com/content/$BINTRAY_ACCOUNT/$BINTRAY_REPO/
+curl -vvf -T $RPM_FILE -u$BINTRAY_USER:$BINTRAY_APIKEY -H "X-Bintray-Package:$RPM_NAME" -H "X-Bintray-Version:$RPM_VERSION-$RPM_RELEASE" https://api.bintray.com/content/$BINTRAY_ACCOUNT/$BINTRAY_REPO/;publish=1
 
-echo "@@@@@@@@@@@@@@@@@@@@@@@"
-echo "@@@ publish content @@@"
-echo "@@@@@@@@@@@@@@@@@@@@@@@"
-curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X POST https://api.bintray.com/content/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$RPM_NAME/$RPM_VERSION-$RPM_RELEASE/publish --data "{ \"discard\": \"false\" }"
+#echo "@@@@@@@@@@@@@@@@@@@@@@@"
+#echo "@@@ publish content @@@"
+#echo "@@@@@@@@@@@@@@@@@@@@@@@"
+#curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X POST https://api.bintray.com/content/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$RPM_NAME/$RPM_VERSION-$RPM_RELEASE/publish --data "{ \"discard\": \"false\" }"
 
