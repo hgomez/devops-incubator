@@ -58,7 +58,7 @@ curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ upload content @@@"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
-curl -vvf -T $RPM_FILE -u$BINTRAY_USER:$BINTRAY_APIKEY -H "X-Bintray-Package:$RPM_NAME" -H "X-Bintray-Version:$RPM_VERSION-$RPM_RELEASE" https://api.bintray.com/content/$BINTRAY_ACCOUNT/$BINTRAY_REPO;publish=1
+curl -vvf -T $RPM_FILE -u$BINTRAY_USER:$BINTRAY_APIKEY -H "X-Bintray-Package:$RPM_NAME" -H "X-Bintray-Version:$RPM_VERSION-$RPM_RELEASE" https://api.bintray.com/content/$BINTRAY_ACCOUNT/$BINTRAY_REPO/;publish=1
 
 #echo "@@@@@@@@@@@@@@@@@@@@@@@"
 #echo "@@@ publish content @@@"
