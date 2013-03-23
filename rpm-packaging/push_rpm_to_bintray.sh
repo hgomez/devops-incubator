@@ -52,9 +52,19 @@ echo "@@@@@@@@@@@@@@@@@@@@@@"
 HTTP_CODE=`$CURL_CMD -H "Content-Type: application/json" -X POST https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/ --data "{ \"name\": \"$RPM_NAME\", \"desc\": \"${RPM_DESCRIPTION}\", \"desc_url\": \"$BASE_DESC/$RPM_NAME\", \"labels\": \"\" }"`
 echo "-> $HTTP_CODE"
 
+if [ "$HTTP_CODE" != "201" ]; then
+ echo "can't create package, aborting..."
+ exit -1
+fi
+
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ upload content @@@"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 HTTP_CODE=`$CURL_CMD -T $RPM_FILE -u$BINTRAY_USER:$BINTRAY_APIKEY -H "X-Bintray-Package:$RPM_NAME" -H "X-Bintray-Version:$RPM_VERSION-$RPM_RELEASE" "https://api.bintray.com/content/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$REPO_FILE_PATH;publish=1"`
 echo "-> $HTTP_CODE"
+
+if [ "$HTTP_CODE" != "201" ]; then
+ echo "failed to upload package..."
+ exit -1
+fi
 
