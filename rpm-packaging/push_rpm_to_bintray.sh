@@ -29,6 +29,7 @@ RPM_VERSION=`rpm --queryformat "%{VERSION}" -qp $RPM_FILE`
 RPM_RELEASE=`rpm --queryformat "%{RELEASE}" -qp $RPM_FILE`
 RPM_ARCH=`rpm --queryformat "%{ARCH}" -qp $RPM_FILE`
 REPO_FILE_PATH=`basename $RPM_FILE`
+DESC_URL=$BASE_DESC/$RPM_NAME
 
 RPM_DESCRIPTION=`rpm --queryformat "%{DESCRIPTION}" -qp $RPM_FILE`
 
@@ -49,7 +50,7 @@ echo "delete package -> $HTTP_CODE"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ create package @@@"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
-HTTP_CODE=`$CURL_CMD -H "Content-Type: application/json" -X POST https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/ --data "{ \"name\": \"$RPM_NAME\", \"desc\": \"${RPM_DESCRIPTION}\", \"desc_url\": \"$BASE_DESC/$RPM_NAME\", \"labels\": \"\" }"`
+HTTP_CODE=`$CURL_CMD -H "Content-Type: application/json" -X POST https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/ --data "{ \"name\": \"$RPM_NAME\", \"desc\": \"${RPM_DESCRIPTION}\", \"desc_url\": \"$DESC_URL\", \"labels\": \"\" }"`
 
 if [ "$HTTP_CODE" != "201" ]; then
  echo "can't create package -> $HTTP_CODE"
