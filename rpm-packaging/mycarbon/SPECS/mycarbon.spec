@@ -128,8 +128,8 @@ cp %{SOURCE5} %{buildroot}%{carbonconfdir}/carbon.conf
 %{__portsed} 's|@@SKEL_PIDDIR@@|%{carbonpiddir}|g' %{buildroot}%{carbonconfdir}/carbon.conf
 
 # Add default confs
-mv %{SOURCE6} %{buildroot}%{carbonconfdir}/storage-schemas.conf
-mv %{SOURCE7} %{buildroot}%{carbonconfdir}/storage-aggregation.conf
+cp %{SOURCE6} %{buildroot}%{carbonconfdir}/storage-schemas.conf
+cp %{SOURCE7} %{buildroot}%{carbonconfdir}/storage-aggregation.conf
 
 %clean
 %{__rm} -rf %{buildroot}
