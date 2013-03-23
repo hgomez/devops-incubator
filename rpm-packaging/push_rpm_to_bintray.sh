@@ -20,6 +20,8 @@ BINTRAY_REPO=$3
 RPM_FILE=$4
 BASE_DESC=$5
 
+CURL_CMD="curl --write-out %{http_code} --silent --output /dev/null -u$BINTRAY_USER:$BINTRAY_APIKEY"
+
 BINTRAY_ACCOUNT=$BINTRAY_USER
 
 RPM_NAME=`rpm --queryformat "%{NAME}" -qp $RPM_FILE`
@@ -41,30 +43,18 @@ echo "BINTRAY_USER=$BINTRAY_USER, BINTRAY_APIKEY=$BINTRAY_APIKEY, BINTRAY_REPO=$
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ delete package @@@"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
-curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X DELETE https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$RPM_NAME
+HTTP_CODE=`$CURL_CMD -H "Content-Type: application/json" -X DELETE https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$RPM_NAME`
+echo "-> $HTTP_CODE"
 
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ create package @@@"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
-curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X POST https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/ --data "{ \"name\": \"$RPM_NAME\", \"desc\": \"${RPM_DESCRIPTION}\", \"desc_url\": \"$BASE_DESC/$RPM_NAME\", \"labels\": \"\" }"
-
-#echo "@@@@@@@@@@@@@@@@@@@@@@"
-#echo "@@@ delete version @@@"
-#echo "@@@@@@@@@@@@@@@@@@@@@@"
-#curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -X DELETE https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$RPM_NAME/versions/$RPM_VERSION-$RPM_RELEASE
-
-#echo "@@@@@@@@@@@@@@@@@@@@@@"
-#echo "@@@ create version @@@"
-#echo "@@@@@@@@@@@@@@@@@@@@@@"
-#curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X POST https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$RPM_NAME/versions --data "{ \"name\": \"$RPM_VERSION-$RPM_RELEASE\", \"release_notes\": \"auto\", \"release_url\": \"$BASE_DESC/$RPM_NAME\", \"released\": \"\" }"
+HTTP_CODE=`$CURL_CMD -H "Content-Type: application/json" -X POST https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/ --data "{ \"name\": \"$RPM_NAME\", \"desc\": \"${RPM_DESCRIPTION}\", \"desc_url\": \"$BASE_DESC/$RPM_NAME\", \"labels\": \"\" }"`
+echo "-> $HTTP_CODE"
 
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ upload content @@@"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
-curl -vvf -T $RPM_FILE -u$BINTRAY_USER:$BINTRAY_APIKEY -H "X-Bintray-Package:$RPM_NAME" -H "X-Bintray-Version:$RPM_VERSION-$RPM_RELEASE" "https://api.bintray.com/content/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$REPO_FILE_PATH;publish=1"
-
-#echo "@@@@@@@@@@@@@@@@@@@@@@@"
-#echo "@@@ publish content @@@"
-#echo "@@@@@@@@@@@@@@@@@@@@@@@"
-#curl -vvf -u$BINTRAY_USER:$BINTRAY_APIKEY -H "Content-Type: application/json" -X POST https://api.bintray.com/content/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$RPM_NAME/$RPM_VERSION-$RPM_RELEASE/publish --data "{ \"discard\": \"false\" }"
+HTTP_CODE=`$CURL_CMD -T $RPM_FILE -u$BINTRAY_USER:$BINTRAY_APIKEY -H "X-Bintray-Package:$RPM_NAME" -H "X-Bintray-Version:$RPM_VERSION-$RPM_RELEASE" "https://api.bintray.com/content/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$REPO_FILE_PATH;publish=1"`
+echo "-> $HTTP_CODE"
 
