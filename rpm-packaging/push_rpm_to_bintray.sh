@@ -44,16 +44,15 @@ echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ delete package @@@"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 HTTP_CODE=`$CURL_CMD -H "Content-Type: application/json" -X DELETE https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$RPM_NAME`
-echo "-> $HTTP_CODE"
+echo "delete package -> $HTTP_CODE"
 
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ create package @@@"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 HTTP_CODE=`$CURL_CMD -H "Content-Type: application/json" -X POST https://api.bintray.com/packages/$BINTRAY_ACCOUNT/$BINTRAY_REPO/ --data "{ \"name\": \"$RPM_NAME\", \"desc\": \"${RPM_DESCRIPTION}\", \"desc_url\": \"$BASE_DESC/$RPM_NAME\", \"labels\": \"\" }"`
-echo "-> $HTTP_CODE"
 
 if [ "$HTTP_CODE" != "201" ]; then
- echo "can't create package, aborting..."
+ echo "can't create package -> $HTTP_CODE"
  exit -1
 fi
 
@@ -61,10 +60,11 @@ echo "@@@@@@@@@@@@@@@@@@@@@@"
 echo "@@@ upload content @@@"
 echo "@@@@@@@@@@@@@@@@@@@@@@"
 HTTP_CODE=`$CURL_CMD -T $RPM_FILE -u$BINTRAY_USER:$BINTRAY_APIKEY -H "X-Bintray-Package:$RPM_NAME" -H "X-Bintray-Version:$RPM_VERSION-$RPM_RELEASE" "https://api.bintray.com/content/$BINTRAY_ACCOUNT/$BINTRAY_REPO/$REPO_FILE_PATH;publish=1"`
-echo "-> $HTTP_CODE"
 
 if [ "$HTTP_CODE" != "201" ]; then
- echo "failed to upload package..."
+ echo "failed to upload package -> $HTTP_CODE"
  exit -1
 fi
+
+exit 0
 
