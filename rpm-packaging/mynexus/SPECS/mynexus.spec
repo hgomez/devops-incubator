@@ -88,7 +88,7 @@ Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: logging.properties.skel
 
 %description
-Nexus manages software "artifacts" required for development. If you develop software, your builds can download dependencies from Nexus and can publish artifacts to Nexus creating a new way to share artifacts within an organization.
+Nexus manages software artifacts required for development. If you develop software, your builds can download dependencies from Nexus and can publish artifacts to Nexus creating a new way to share artifacts within an organization.
 This package contains Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %prep
