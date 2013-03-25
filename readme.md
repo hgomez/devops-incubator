@@ -39,12 +39,12 @@ They could be installed on CentOS/Fedora/RHEL/Suse/openSUSE.
 
 ##CentOS/RHEL 5
 
-Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-hgomez-devops-incubator-rpm.repo**
+Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-devops-incubator-noarch.repo**
 
-    #bintraybintray-hgomez-devops-incubator-rpm - packages by hgomez from Bintray
-    [bintraybintray-hgomez-devops-incubator-rpm]
-    name=bintray-hgomez-devops-incubator-rpm
-    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-centos5-x86-64
+    #devops-incubator-noarch.repo - packages by hgomez from Bintray
+    [bintray-devops-incubator-noarch]
+    name=bintray-devops-incubator-noarch
+    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-centos5-noarch
     gpgcheck=0
     enabled=1
  
@@ -55,12 +55,12 @@ Install a package (jenkins for example)
 
 ##CentOS/RHEL 6
 
-Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-hgomez-devops-incubator-rpm.repo**
+Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-devops-incubator-noarch.repo**
 
-    #bintraybintray-hgomez-devops-incubator-rpm - packages by hgomez from Bintray
-    [bintraybintray-hgomez-devops-incubator-rpm]
-    name=bintray-hgomez-devops-incubator-rpm
-    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-centos6-x86-64
+    #devops-incubator-noarch.repo - packages by hgomez from Bintray
+    [bintray-devops-incubator-noarch]
+    name=bintray-devops-incubator-noarch
+    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-centos6-noarch
     gpgcheck=0
     enabled=1
  
@@ -71,12 +71,12 @@ Install a package (jenkins for example)
 
 ##Fedora 18
 
-Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-hgomez-devops-incubator-rpm.repo**
+Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-devops-incubator-noarch.repo**
 
-    #bintraybintray-hgomez-devops-incubator-rpm - packages by hgomez from Bintray
-    [bintraybintray-hgomez-devops-incubator-rpm]
-    name=bintray-hgomez-devops-incubator-rpm
-    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-fedora18-x86-64
+    #devops-incubator-noarch.repo - packages by hgomez from Bintray
+    [bintray-devops-incubator-noarch]
+    name=bintray-devops-incubator-noarch
+    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-fedora18-noarch
     gpgcheck=0
     enabled=1
  
@@ -87,11 +87,20 @@ Install a package (jenkins for example)
 
 ##openSUSE 12.1/12.2/12.3
 
-Add Zypper repository by editing repo file **/etc/zypp/repos.d/bintray-hgomez-devops-incubator-rpm.repo**
+Add Zypper repository by editing repo file **/etc/zypp/repos.d/bintray-devops-incubator-noarch.repo**
 
-    #bintraybintray-hgomez-devops-incubator-rpm - packages by hgomez from Bintray
-    [bintraybintray-hgomez-devops-incubator-rpm]
-    name=bintray-hgomez-devops-incubator-rpm
+    #devops-incubator-noarch.repo - packages by hgomez from Bintray
+    [bintray-devops-incubator-noarch]
+    name=bintray-devops-incubator-noarch
+    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-opensuse122-noarch
+    type=rpm-md
+    gpgcheck=0
+
+For native code (like mycarbon), you should also add architecture dependant repo ;
+
+    #devops-incubator-x86-64.repo - packages by hgomez from Bintray
+    [bintray-devops-incubator-x86-64]
+    name=bintray-devops-incubator-x86-64
     baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-opensuse122-x86-64
     type=rpm-md
     gpgcheck=0
