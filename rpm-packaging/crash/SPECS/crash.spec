@@ -16,15 +16,15 @@
 # Adjust RPM version (- is not allowed, lowercase strings)
 %define rpm_version %(version_rel=`echo %{VERSION} | sed "s/-/./g" | tr "[:upper:]" "[:lower:]"`; echo "$version_rel")
 
-Name: crash
-Version: %{rpm_version}
-Release: 1
-Summary: A shell to extend the Java Platform
-Group: Development/Tools
-URL: http://vietj.github.com/crash/
-Packager: Henri Gomez <henri.gomez@gmail.com>
-License: LGPL
-BuildArch:  noarch
+Name:      crash
+Version:   %{rpm_version}
+Release:   1
+Summary:   A shell to extend the Java Platform
+Group:     Development/Tools
+URL:       http://www.crashub.org/
+Packager:  Henri Gomez <henri.gomez@gmail.com>
+License:   LGPL
+BuildArch: noarch
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -49,21 +49,21 @@ The Common Reusable SHell (CRaSH) deploys in a Java runtime and provides interac
 %build
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-mkdir -p $RPM_BUILD_ROOT%{crashdir}
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
+mkdir -p %{buildroot}%{crashdir}
+mkdir -p %{buildroot}%{_bindir}
 
-mv crash-%{VERSION}/crash/* $RPM_BUILD_ROOT%{crashdir}
-mv crash-%{VERSION}/*.txt $RPM_BUILD_ROOT%{crashdir}
-cp $RPM_BUILD_ROOT%{crashdir}/bin/crash.sh $RPM_BUILD_ROOT%{_bindir}
+mv crash-%{VERSION}/crash/* %{buildroot}%{crashdir}
+mv crash-%{VERSION}/*.txt %{buildroot}%{crashdir}
+cp %{buildroot}%{crashdir}/bin/crash.sh %{buildroot}%{_bindir}
 
 # Set CRASH_HOME
 %{__portsed} 's|# Only set|CRASH_HOME="%{crashdir}"\
-# Only set|g' $RPM_BUILD_ROOT%{_bindir}/crash.sh
+# Only set|g' %{buildroot}%{_bindir}/crash.sh
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
