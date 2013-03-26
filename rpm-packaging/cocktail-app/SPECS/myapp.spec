@@ -19,16 +19,34 @@
 %define tomcat_rel        7.0.37
 %endif
 
-%if %{?MYAPP_REL:1}
-%define myapp_rel    %{MYAPP_REL}
+#
+# app_ver is application version provided by build script from Maven Artifact version
+# ex: 1.0.0, 2.0.1-8, 3.5.0-1
+#
+
+%define app_ver    %{APP_VERSION}
+
+# 
+# app_rel is application release provided by build script from Maven Artifact version
+# 
+# 0.20120710.084839-182 for a SNAPSHOT
+# 1 for a RELEASE
+#
+%define app_rel    %{APP_RELEASE}
+
+#
+# Drop -x from rpm version
+%define rpm_ver %(inworkver=`echo %{app_ver}`; echo "${inworkver%%-*}")
+
+%if 0%{?APP_RELEASE:1}
 %else
-%define myapp_rel    1.0.0
+%define app_rel    1
 %endif
 
 Name:      cocktail-app
-Version:   %{myapp_rel}
-Release:   1
-Summary:   Cocktail App %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}
+Version:   %{rpm_ver}
+Release:   %{app_rel}.%{rpm_rel}%{?dist}
+Summary:   Cocktail App %{app_rel} powered by Apache Tomcat %{tomcat_rel}
 Group:     Applications/Demos
 URL:       https://github.com/jmxtrans/embedded-jmxtrans-samples 
 Vendor:    jmxtrans
