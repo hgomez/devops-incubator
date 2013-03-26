@@ -28,6 +28,11 @@ ARTIFACT_SNAPSHOT_REPOSITORY="http://repository-jmxtrans.forge.cloudbees.com/sna
 TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
+#
+# Fetch Maven Artifact from an external repositoy.
+# Handle release and snapshots
+# For snapshots, ensure you have perl-XML-XPath installed
+#
 fetch_maven() {
 
 	local ART_GROUP=`echo $1 | sed "s#\.#/#g"`
@@ -106,6 +111,10 @@ fetch_maven() {
 	esac
 }
 
+#
+# Download file if not available.
+# Contents is checked after download and function aborted is bad model detected 
+#
 download_file_if_needed()
 {
 	URL=$1
