@@ -25,7 +25,7 @@
 %define myapp_rel    1.0.0
 %endif
 
-Name:      mycocktail-app
+Name:      cocktail-app
 Version:   %{myapp_rel}
 Release:   1
 Summary:   Cocktail App %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}
@@ -36,8 +36,8 @@ Packager:  henri.gomez@gmail.com
 License:   AGPLv1
 BuildArch: noarch
 
-%define myapp             mycocktailapp
-%define myappusername     mycockap
+%define myapp             cocktailapp
+%define myappusername     cocktapp
 %define myappuserid       2234
 %define myappgroupid      2234
 
@@ -90,8 +90,8 @@ Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 
 %description
-Sample PerfWebApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}.
-This Web application could be used to tune your web benchmark systems
+Coktail App %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}.
+This Web application demonstrate use of Embedded JmxTrans.
 
 %prep
 %setup -q -c
