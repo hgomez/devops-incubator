@@ -18,6 +18,11 @@ if [ $# -gt 1 ]; then
   shift
 fi
 
+TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+TOMCAT_FILE=apache-tomcat-${TOMCAT_VERSION}.tar.gz
+CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
+CATALINA_JMX_REMOTE_FILE=catalina-jmx-remote.jar
+
 ARTIFACT_GROUP="org/jmxtrans/embedded/samples"
 ARTIFACT_ID="cocktail-app"
 ARTIFACT_VERSION=$MYAPP_VERSION
@@ -150,13 +155,11 @@ download_file_if_needed()
 }
 
 fetch_maven $ARTIFACT_GROUP $ARTIFACT_ID $ARTIFACT_VERSION $ARTIFACT_TYPE $ARTIFACT_RELEASE_REPOSITORY $ARTIFACT_SNAPSHOT_REPOSITORY
-echo "Artifactoru Download URL is $ARTIFACT_DOWNLOAD_URL, Artifact repo name is $ARTIFACT_REPO_FILE_NAME, RPM source file is $ARTIFACT_RPM_FILE_NAME"
+echo "Artifactory Download URL is $ARTIFACT_DOWNLOAD_URL, Artifact repo name is $ARTIFACT_REPO_FILE_NAME, RPM source file is $ARTIFACT_RPM_FILE_NAME"
 
-TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
-
-download_file_if_needed ${TOMCAT_URL} SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-download_file_if_needed ${CATALINA_JMX_REMOTE_URL} SOURCES/catalina-jmx-remote.jar
+download_file_if_needed ${ARTIFACT_DOWNLOAD_URL}/$ARTIFACT_REPO_FILE_NAME SOURCES/$ARTIFACT_RPM_FILE_NAME
+download_file_if_needed ${TOMCAT_URL} SOURCES/${TOMCAT_FILE}
+download_file_if_needed ${CATALINA_JMX_REMOTE_URL} SOURCES/${CATALINA_JMX_REMOTE_URL}
 
 echo "Version to package Cocktail App $MYAPP_VERSION is powered by Apache Tomcat $TOMCAT_VERSION"
 
