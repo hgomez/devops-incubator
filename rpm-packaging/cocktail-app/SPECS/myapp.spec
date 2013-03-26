@@ -113,7 +113,7 @@ Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 
 %description
-Coktail App %{app_rel} powered by Apache Tomcat %{tomcat_rel}.
+Coktail App %{rpm_ver}.%{app_rel} powered by Apache Tomcat %{tomcat_rel}.
 This Web application demonstrate use of Embedded JmxTrans.
 
 %prep
