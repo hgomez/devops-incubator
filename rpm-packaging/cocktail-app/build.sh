@@ -159,7 +159,7 @@ echo "Artifactory Download URL is $ARTIFACT_DOWNLOAD_URL, Artifact repo name is 
 
 download_file_if_needed ${ARTIFACT_DOWNLOAD_URL}/$ARTIFACT_REPO_FILE_NAME SOURCES/$ARTIFACT_RPM_FILE_NAME
 download_file_if_needed ${TOMCAT_URL} SOURCES/${TOMCAT_FILE}
-download_file_if_needed ${CATALINA_JMX_REMOTE_URL} SOURCES/${CATALINA_JMX_REMOTE_URL}
+download_file_if_needed ${CATALINA_JMX_REMOTE_URL} SOURCES/${CATALINA_JMX_REMOTE_FILE}
 
 echo "Version to package Cocktail App $MYAPP_VERSION is powered by Apache Tomcat $TOMCAT_VERSION"
 
