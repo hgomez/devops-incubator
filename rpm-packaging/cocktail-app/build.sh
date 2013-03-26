@@ -15,6 +15,7 @@ fi
 
 ARTIFACT_GROUP="org/jmxtrans/embedded/samples"
 ARTIFACT_ID="cocktail-app"
+ARTIFACT_VERSION=$MYAPP_VERSION
 ARTIFACT_TYPE="war"
 ARTIFACT_RELEASE_REPOSITORY="http://repo1.maven.org/maven2"
 ARTIFACT_SNAPSHOT_REPOSITORY="http://repository-jmxtrans.forge.cloudbees.com/snapshot"
@@ -135,7 +136,7 @@ download_file_if_needed()
 }
 
 fetch_maven $ARTIFACT_GROUP $ARTIFACT_ID $ARTIFACT_VERSION $ARTIFACT_TYPE $ARTIFACT_RELEASE_REPOSITORY $ARTIFACT_SNAPSHOT_REPOSITORY
-echo "Artifact repo name is $ARTIFACT_REPO_FILE_NAME, RPM source file is $ARTIFACT_RPM_FILE_NAME"
+echo "Artifactoru Download URL is $ARTIFACT_DOWNLOAD_URL, Artifact repo name is $ARTIFACT_REPO_FILE_NAME, RPM source file is $ARTIFACT_RPM_FILE_NAME"
 
 TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
