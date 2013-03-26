@@ -150,5 +150,7 @@ rm -rf BUILD RPMS SRPMS TEMP
 mkdir -p BUILD RPMS SRPMS TEMP
 
 # Build using rpmbuild (use double-quote for define to have shell resolv vars !)
-rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="TOMCAT_REL $TOMCAT_VERSION" --define="APP_VERSION $ARTIFACT_RPM_VERSION" --define="APP_RELEASE $ARTIFACT_RPM_RELEASE"  SPECS/myapp.spec
+rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="TOMCAT_REL $TOMCAT_VERSION" \
+             --define="APP_VERSION $ARTIFACT_RPM_VERSION" --define="APP_RELEASE $ARTIFACT_RPM_RELEASE" \
+             --define "APP_WAR_FILE $ARTIFACT_RPM_FILE_NAME" SPECS/myapp.spec
 
