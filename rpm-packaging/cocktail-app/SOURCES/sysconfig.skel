@@ -59,9 +59,14 @@ APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=$APP_
 
 
 #
-# Graphite Settings
+# Graphite / Embedded jmxtrans Settings
 #
-# Specify here graphite host and port, and prefix. Note we're using pickle, Python serializer (port 2004 by default). 2003 is used for plain text in Carbon 
-#
+# Specify here graphite host and port, and prefix. 
+# Note embedded jmxtrans usepickle, Python serializer, port 2004 by default.  
+# We also override default query/export rates here
+# 
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dgraphite.host=localhost -Dgraphite.port=2004 -Dgraphite.namePrefix=servers.#hostname#."
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Djmxtrans.queryIntervalInSeconds=5 -Djmxtrans.exportIntervalInSeconds=2"
+
+
 
