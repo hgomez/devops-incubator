@@ -56,3 +56,10 @@ APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=true"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=$APP_HOME/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=$APP_HOME/conf/jmxremote.access"
+
+
+#
+# Graphite Settings
+#
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dgraphite.host=localhost -Dgraphite.port=2003 -Dgraphite.namePrefix=servers.#hostname#."
+
