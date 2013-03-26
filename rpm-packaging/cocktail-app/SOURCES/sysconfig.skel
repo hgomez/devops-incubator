@@ -61,5 +61,7 @@ APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=$APP_
 #
 # Graphite Settings
 #
-APP_JAVA_OPTS="$APP_JAVA_OPTS -Dgraphite.host=localhost -Dgraphite.port=2003 -Dgraphite.namePrefix=servers.#hostname#."
+# Specify here graphite host and port, and prefix. Note we're using pickle, Python serializer (port 2004 by default). 2003 is used for plain text in Carbon 
+#
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dgraphite.host=localhost -Dgraphite.port=2004 -Dgraphite.namePrefix=servers.#hostname#."
 
