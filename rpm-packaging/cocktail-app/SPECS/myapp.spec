@@ -35,6 +35,11 @@
 %define app_rel    %{APP_RELEASE}
 
 #
+# RPM release, to be updated when app_ver/app_rel don't change but spec file has been updated
+#
+%define rpm_rel    1
+
+#
 # Drop -x from rpm version
 %define rpm_ver %(inworkver=`echo %{app_ver}`; echo "${inworkver%%-*}")
 
