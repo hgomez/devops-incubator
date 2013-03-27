@@ -94,7 +94,6 @@ cp  %{SOURCE3} %{buildroot}%{_sysconfdir}/graphite/web
 cp  %{SOURCE4} %{buildroot}%{_sysconfdir}/graphite/web
 
 %post
-
 if [ ! -f %{storagedir}/graphite.db ]; then
 
   %{__portsed} "s|SECRET_KEY = ''|SECRET_KEY = 'graphite'|g" %{python_sitelib}/graphite/app_settings.py
@@ -118,10 +117,10 @@ a2enmod wsgi >>/dev/null
 sed -i 's|#NameVirtualHost \*:80|NameVirtualHost \*:80|g' %{_sysconfdir}/apache2/listen.conf
 
 # Ensure worker mode is used (etc/sysconf/apache2)
-sed -i 's|APACHE_MPM=""|APACHE_MPM="worker"|g' %{_sysconfdir}/sysconfig/apache2
+#sed -i 's|APACHE_MPM=""|APACHE_MPM="worker"|g' %{_sysconfdir}/sysconfig/apache2
 
-chkconfig apache2 on
-service apache2 restart
+#chkconfig apache2 on
+#service apache2 restart
 
 %clean
 rm -rf %{buildroot}
