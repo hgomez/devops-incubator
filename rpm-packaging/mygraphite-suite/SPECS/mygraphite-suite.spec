@@ -97,7 +97,7 @@ cp  %{SOURCE4} %{buildroot}%{_sysconfdir}/graphite/web
 
 if [ ! -f %{storagedir}/graphite.db ]; then
 
-  %{__portsed} 's|SECRET_KEY = ''|SECRET_KEY = 'graphite'|g' %{python_sitelib}/graphite/app_settings.py
+  %{__portsed} "s|SECRET_KEY = ''|SECRET_KEY = 'graphite'|g" %{python_sitelib}/graphite/app_settings.py
 
   echo "no" | python %{python_sitelib}/graphite/manage.py syncdb
   chown wwwrun:www %{storagedir}/graphite.db
@@ -105,7 +105,7 @@ if [ ! -f %{storagedir}/graphite.db ]; then
   chown wwwrun:www %{storagedir}/index
 
   echo "create a Django admin user : "
-  echo "cd %{storagedir}/graphite.db"
+  echo "cd %{storagedir}"
   echo "python %{python_sitelib}/graphite/manage.py createsuperuser"
 fi
 
