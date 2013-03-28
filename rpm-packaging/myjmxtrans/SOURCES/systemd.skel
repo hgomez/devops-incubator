@@ -1,0 +1,15 @@
+# Systemd unit file for @@SKEL_APP@@
+#
+[Unit]
+Description=@@SKEL_APP@@
+After=syslog.target network.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/@@SKEL_APP@@.pid
+EnvironmentFile=/etc/sysconfig/@@SKEL_APP@@
+ExecStart=/etc/init.d/@@SKEL_APP@@ start
+ExecStop=/etc/init.d/@@SKEL_APP@@ stop
+
+[Install]
+WantedBy=multi-user.target
