@@ -494,7 +494,7 @@ export CFLAGS="%{optflags} -DLT_LAZY_OR_NOW='RTLD_LAZY|RTLD_GLOBAL'"
 %endif
   --enable-irq \
   --enable-ipmi \
-  --with-java=$JAVA_DIR \
+  --with-java=${JAVA_DIR}/ \
   --enable-java \
   --enable-libvirt \
   --enable-load \
