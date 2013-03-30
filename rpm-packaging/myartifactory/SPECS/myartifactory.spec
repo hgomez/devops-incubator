@@ -16,18 +16,18 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.37
+%define tomcat_rel        7.0.39
 %endif
 
 %if 0%{?ARTIFACTORY_REL:1}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    2.6.6
+%define artifactory_rel    2.6.7
 %endif
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 4
+Release: 1
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -306,6 +306,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Feb 18 2013 henri.gomez@gmail.com 2.6.7-1
+- Apache Tomcat 7.0.39 released
+- Artifactory 2.6.7 released
+
 * Mon Feb 18 2013 henri.gomez@gmail.com 2.6.6-4
 - Apache Tomcat 7.0.37 released, update package
 
