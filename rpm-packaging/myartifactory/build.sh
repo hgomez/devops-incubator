@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ARTIFACTORY_VERSION=2.6.6
-TOMCAT_VERSION=7.0.37
+TOMCAT_VERSION=7.0.39
 
 if [ $# -ge 1 ]; then
 	ARTIFACTORY_VERSION=$1
@@ -14,8 +14,8 @@ if [ $# -ge 1 ]; then
 fi
 
 ARTIFACTORY_URL=http://dfn.dl.sourceforge.net/project/artifactory/artifactory/${ARTIFACTORY_VERSION}/artifactory-${ARTIFACTORY_VERSION}.zip
-TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
+TOMCAT_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+CATALINA_JMX_REMOTE_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
 fetch_remote_file()
 {

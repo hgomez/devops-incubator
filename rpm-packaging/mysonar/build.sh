@@ -1,7 +1,7 @@
 #!/bin/sh
 
 SONAR_VERSION=3.5
-TOMCAT_VERSION=7.0.37
+TOMCAT_VERSION=7.0.39
 
 if [ $# -gt 1 ]; then
   SONAR_VERSION=$1
@@ -14,8 +14,8 @@ if [ $# -gt 1 ]; then
 fi
 
 SONAR_URL=http://dist.sonar.codehaus.org/sonar-${SONAR_VERSION}.zip
-TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
+TOMCAT_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+CATALINA_JMX_REMOTE_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
 fetch_remote_file()
 {

@@ -5,7 +5,7 @@ if [ -z "$MYAPP_VERSION" ]; then
 fi
 
 if [ -z "$TOMCAT_VERSION" ]; then
-  TOMCAT_VERSION=7.0.37
+  TOMCAT_VERSION=7.0.39
 fi
 
 if [ $# -gt 1 ]; then
@@ -18,10 +18,10 @@ if [ $# -gt 1 ]; then
   shift
 fi
 
-TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+TOMCAT_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 TOMCAT_FILE=apache-tomcat-${TOMCAT_VERSION}.tar.gz
-CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
-CATALINA_JMX_REMOTE_FILE=catalina-jmx-remote.jar
+CATALINA_JMX_REMOTE_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
+CATALINA_JMX_REMOTE_FILE=catalina-jmx-remote-${TOMCAT_VERSION}.jar
 
 ARTIFACT_GROUP="org/jmxtrans/embedded/samples"
 ARTIFACT_ID="cocktail-app"
@@ -29,9 +29,6 @@ ARTIFACT_VERSION=$MYAPP_VERSION
 ARTIFACT_TYPE="war"
 ARTIFACT_RELEASE_REPOSITORY="http://repo1.maven.org/maven2"
 ARTIFACT_SNAPSHOT_REPOSITORY="http://repository-jmxtrans.forge.cloudbees.com/snapshot"
-
-TOMCAT_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-CATALINA_JMX_REMOTE_URL=http://mir2.ovh.net/ftp.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
 #
 # Fetch Maven Artifact from an external repositoy.
