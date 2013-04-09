@@ -7,7 +7,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.37
+%define tomcat_rel        7.0.39
 %endif
 
 %if %{?GITBLIT_REL:1}
@@ -18,7 +18,7 @@
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 3
+Release: 4
 Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -38,11 +38,13 @@ BuildArch:  noarch
 %define appconfdir      %{appdir}/conf
 %define appconflocaldir %{appdir}/conf/Catalina/localhost
 %define appwebappdir    %{appdir}/webapps
-%define apptempdir      /tmp/%{appname}
-%define appworkdir      %{_var}/%{appname}
+%define apptempdir      %{_var}/run/%{appname}
+%define appworkdir      %{_var}/spool/%{appname}
+%define appcron         %{appdir}/bin/cron.sh
 
-%define _systemdir      /lib/systemd/system
+%define _cronddir       %{_sysconfdir}/cron.d
 %define _initrddir      %{_sysconfdir}/init.d
+%define _systemdir      /lib/systemd/system
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -77,7 +79,9 @@ Source9: limits.conf.skel
 Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: context.xml.skel
-Source14: logging.properties.skel
+Source13: logging.properties.skel
+Source14: crond.skel
+Source15: cron.sh.skel
 
 %description
 Gitblit is an open-source, pure Java stack for managing, viewing, and serving Git repositories.
@@ -118,7 +122,7 @@ rm -rf %{buildroot}%{appdir}/webapps/*
 
 # patches to have logs under /var/log/app
 # remove manager and host-manager logs (via .skel file)
-cp %{SOURCE14} %{buildroot}%{appdir}/conf/logging.properties
+cp %{SOURCE13} %{buildroot}%{appdir}/conf/logging.properties
 %{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' %{buildroot}%{appdir}/conf/logging.properties
 
 # appname webapp is ROOT.war (will respond to /)
@@ -126,22 +130,22 @@ cp %{SOURCE1}  %{buildroot}%{appwebappdir}/ROOT.war
 
 # init.d
 cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@GITBLIT_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@GITBLIT_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@GITBLIT_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@GITBLIT_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@GITBLIT_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@GITBLIT_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@GITBLIT_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@GITBLIT_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@GITBLIT_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@GITBLIT_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@GITBLIT_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@GITBLIT_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@GITBLIT_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
@@ -150,27 +154,39 @@ cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
-%{__portsed} 's|@@GITBLIT_APP@@|%{appname}|g' %{buildroot}%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{appdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
-%{__portsed} 's|@@GITBLIT_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
 
 # Install server.xml.skel
 cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
-%{__portsed} 's|@@GITBLIT_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
 # Setup Systemd
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@GITBLIT_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@GITBLIT_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
 
 # Install context.xml (override previous one)
 cp %{SOURCE12} %{buildroot}%{appconfdir}/context.xml.skel
-%{__portsed} 's|@@GITBLIT_DATADIR@@|%{appdatadir}|g' %{buildroot}%{appconfdir}/context.xml.skel
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{appconfdir}/context.xml.skel
+
+# Setup cron.d
+cp %{SOURCE14} %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_CRON@@|%{ciarchivacron}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{ciarchivausername}|g' %{buildroot}%{_cronddir}/%{appname}
+
+# Setup cron.sh
+cp %{SOURCE15} %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{appcron}
 
 # remove uneeded file in RPM
 rm -f %{buildroot}%{appdir}/*.sh
@@ -217,9 +233,9 @@ if [ "$1" == "1" ]; then
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  %{__portsed} "s|@@GITBLIT_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  %{__portsed} "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  %{__portsed} "s|@@GITBLIT_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  %{__portsed} "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
@@ -273,6 +289,7 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
 %config %{_sysconfdir}/logrotate.d/%{appname}
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
+%{_cronddir}
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
@@ -287,6 +304,12 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Apr 9 2013 henri.gomez@gmail.com 1.2.1-4
+- Simplify logrotate
+- Use cron for housekeeping
+- Move temp contents to /var/run/myartifactory
+- Move work contents to /var/spool/myartifactory
+
 * Mon Feb 18 2013 henri.gomez@gmail.com 1.2.1-3
 - Apache Tomcat 7.0.37 released, update package
 

@@ -33,17 +33,17 @@ APP_AJP_MAX_THREADS=150
 APP_AJP_MIN_SPARE_THREADS=25
 
 APP_JMX_READER_USER=reader
-APP_JMX_READER_PASSWORD=@@GITBLIT_RO_PWD@@
+APP_JMX_READER_PASSWORD=@@MYAPP_RO_PWD@@
 
 APP_JMX_ADMIN_USER=admin
-APP_JMX_ADMIN_PASSWORD=@@GITBLIT_RW_PWD@@
+APP_JMX_ADMIN_PASSWORD=@@MYAPP_RW_PWD@@
 
 #
 # Linux Service variables
 #
-CATALINA_HOME="@@GITBLIT_APPDIR@@"
-CATALINA_OUT="@@GITBLIT_LOGDIR@@/catalina.out"
-CATALINA_PID="/var/run/@@GITBLIT_APP@@.pid"
+CATALINA_HOME="@@MYAPP_APPDIR@@"
+CATALINA_OUT="@@MYAPP_LOGDIR@@/catalina.out"
+CATALINA_PID="/var/run/@@MYAPP_APP@@.pid"
 SHUTDOWN_WAIT=10
 
 # 
@@ -57,7 +57,7 @@ APP_DATA_FOLDER=@@SKEL_DATADIR@@
 APP_JAVA_HOME=
 APP_JAVA_OPTS="-Xms32m -Xmx64m -XX:MaxPermSize=32m -Xss256k"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
-APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@GITBLIT_LOGDIR@@"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@MYAPP_LOGDIR@@"
 
 #
 # Tweak Tomcat configuration for GitBlit : http://gitblit.com/faq.html
@@ -74,7 +74,7 @@ APP_JAVA_OPTS="$APP_JAVA_OPTS -Dweb.mountParameters=false"
 #
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=true"
-APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=@@GITBLIT_APPDIR@@/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=@@GITBLIT_APPDIR@@/conf/jmxremote.access"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=@@MYAPP_APPDIR@@/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=@@MYAPP_APPDIR@@/conf/jmxremote.access"
 
 
 
