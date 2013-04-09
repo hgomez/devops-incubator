@@ -25,16 +25,16 @@
 %define myapp_rel    1.0.0
 %endif
 
-Name: myapp
-Version: %{myapp_rel}
-Release: 8
-Summary: MyApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}
-Group: Applications/Communications
-URL: http://www.mycorp.org/
-Vendor: MyCorp
-Packager: MyCorp
-License: AGPLv1
-BuildArch:  noarch
+Name:      myapp
+Version:   %{myapp_rel}
+Release:   9
+Summary:   MyApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}
+Group:     Applications/Communications
+URL:       https://github.com/hgomez/devops-incubator
+Vendor:    devops-incubator
+Packager:  devops-incubator
+License:   ASL 2.0
+BuildArch: noarch
 
 %define myapp             myapp
 %define myappusername     myapp
@@ -48,11 +48,12 @@ BuildArch:  noarch
 %define myappconfdir      %{myappdir}/conf
 %define myappconflocaldir %{myappdir}/conf/Catalina/localhost
 %define myappwebappdir    %{myappdir}/webapps
-%define myapptempdir      /tmp/%{myapp}
-%define myappworkdir      %{_var}/%{myapp}
+%define myapptempdir      %{_var}/run/%{myapp}
+%define myappworkdir      %{_var}/spool/%{myapp}
 
-%define _systemdir        /lib/systemd/system
+%define _cronddir         %{_sysconfdir}/cron.d
 %define _initrddir        %{_sysconfdir}/init.d
+%define _systemdir        /lib/systemd/system
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -88,6 +89,8 @@ Source8: server.xml.skel
 Source9: limits.conf.skel
 Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
+Source12: crond.skel
+Source13: cron.sh.skel
 
 %description
 Sample PerfWebApp %{myapp_rel} powered by Apache Tomcat %{tomcat_rel}.
@@ -102,6 +105,7 @@ This Web application could be used to tune your web benchmark systems
 # Prep the install location.
 rm -rf %{buildroot}
 
+mkdir -p %{buildroot}%{_cronddir}
 mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
@@ -172,6 +176,18 @@ cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{myapp}.conf
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{myapp}.service
 %{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' %{buildroot}%{_systemdir}/%{myapp}.service
 %{__portsed} 's|@@MYAPP_EXEC@@|%{myappexec}|g' %{buildroot}%{_systemdir}/%{myapp}.service
+
+# Setup cron.d
+cp %{SOURCE12} %{buildroot}%{_cronddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_APP@@|%{ciarchiva}|g' %{buildroot}%{_cronddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_CRON@@|%{ciarchivacron}|g' %{buildroot}%{_cronddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_USER@@|%{ciarchivausername}|g' %{buildroot}%{_cronddir}/%{myapp}
+
+# Setup cron.sh
+cp %{SOURCE13} %{buildroot}%{myappdir}/bin/cron.sh
+%{__portsed} 's|@@MYAPP_APP@@|%{ciarchiva}|g' %{buildroot}%{myappdir}/bin/cron.sh
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{ciarchivalogdir}|g' %{buildroot}%{myappdir}/bin/cron.sh
+%{__portsed} 's|@@MYAPP_USER@@|%{ciarchivausername}|g' %{buildroot}%{myappdir}/bin/cron.sh
 
 # remove uneeded file in RPM
 rm -f %{buildroot}%{myappdir}/*.sh
@@ -283,6 +299,7 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{myapp}
 %config %{_sysconfdir}/logrotate.d/%{myapp}
 %config %{_sysconfdir}/security/limits.d/%{myapp}.conf
+%{_cronddir}
 %{myappdir}/bin
 %{myappdir}/conf
 %{myappdir}/lib
@@ -297,6 +314,12 @@ fi
 %doc %{myappdir}/RELEASE-NOTES
 
 %changelog
+* Tue Apr 9 2013 henri.gomez@gmail.com 1.0.0-9
+- Simplify logrotate
+- Use cron for housekeeping
+- Move temp contents to /var/run/myapp
+- Move work contents to /var/spool/myapp
+
 * Fri Mar 29 2013 henri.gomez@gmail.com 1.0.0-8
 - Apache Tomcat 7.0.39 released, update package
 
