@@ -2,7 +2,7 @@
 #
 #
 ### BEGIN INIT INFO
-# Provides:          @@NEXUS_APP@@
+# Provides:          @@MYAPP_APP@@
 # Required-Start:    $local_fs $remote_fs $network $time $named
 # Required-Stop:     $local_fs $remote_fs $network $time $named
 # Default-Start:     3 5
@@ -25,19 +25,19 @@ if [ -r /etc/init.d/functions ]; then
 fi
 
 # Read config file
-if [ -r "/etc/sysconfig/@@NEXUS_APP@@" ]; then
-    . /etc/sysconfig/@@NEXUS_APP@@
+if [ -r "/etc/sysconfig/@@MYAPP_APP@@" ]; then
+    . /etc/sysconfig/@@MYAPP_APP@@
 fi
 
 export CATALINA_OPTS CATALINA_OUT CATALINA_PID
 
 RETVAL=0
-prog="@@NEXUS_APP@@"
-user="@@NEXUS_USER@@"
-exec="@@NEXUS_EXEC@@"
+prog="@@MYAPP_APP@@"
+user="@@MYAPP_USER@@"
+exec="@@MYAPP_EXEC@@"
 lockdir=/var/lock/subsys
-lockfile=$lockdir/@@NEXUS_APP@@
-config=/etc/sysconfig/@@NEXUS_APP@@
+lockfile=$lockdir/@@MYAPP_APP@@
+config=/etc/sysconfig/@@MYAPP_APP@@
 
 start() {
     echo -n $"Starting $prog: "
@@ -56,15 +56,15 @@ start() {
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
     done
 
-    if [ ! -d @@NEXUS_TMPDIR@@ ]; then
-      mkdir -p @@NEXUS_TMPDIR@@
-      chmod 755 @@NEXUS_TMPDIR@@
-      chown $user:$user @@NEXUS_TMPDIR@@
+    if [ ! -d @@MYAPP_TMPDIR@@ ]; then
+      mkdir -p @@MYAPP_TMPDIR@@
+      chmod 755 @@MYAPP_TMPDIR@@
+      chown $user:$user @@MYAPP_TMPDIR@@
     fi
 
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
-      HOME=@@NEXUS_DATADIR@@ startproc -s -e -l @@NEXUS_LOGDIR@@/start.log -u $user $exec start
+      HOME=@@MYAPP_DATADIR@@ startproc -s -e -l @@MYAPP_LOGDIR@@/start.log -u $user $exec start
       sleep 1
       if [ -r "$CATALINA_PID" ]; then
         PID=`cat "$CATALINA_PID"`
@@ -124,7 +124,7 @@ case "$1" in
         start
         ;;
     version)
-        echo "${prog} @@NEXUS_VERSION@@"
+        echo "${prog} @@MYAPP_VERSION@@"
         ;;
   *)
         echo $"Usage: $prog {start|stop|restart|force-reload|reload|status|version}"

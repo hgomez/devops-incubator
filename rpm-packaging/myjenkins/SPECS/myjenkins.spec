@@ -311,8 +311,8 @@ fi
 - Jenkins 1.510 released
 - Simplify logrotate
 - Use cron for housekeeping
-- Move temp contents to /var/run/myarchiva
-- Move work contents to /var/spool/myarchiva
+- Move temp contents to /var/run/myjenkins
+- Move work contents to /var/spool/myjenkins
 - Apache Tomcat 7.0.39 released
 
 * Mon Mar 18 2013 henri.gomez@gmail.com 1.506-1

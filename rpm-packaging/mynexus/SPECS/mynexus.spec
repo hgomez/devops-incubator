@@ -47,8 +47,9 @@ BuildArch:  noarch
 %define appconfdir      %{appdir}/conf
 %define appconflocaldir %{appdir}/conf/Catalina/localhost
 %define appwebappdir    %{appdir}/webapps
-%define apptempdir      /tmp/%{appname}
-%define appworkdir      %{_var}/%{appname}
+%define apptempdir      %{_var}/run/%{appname}
+%define appworkdir      %{_var}/spool/%{appname}
+%define appcron         %{appdir}/bin/cron.sh
 
 %define _systemdir      /lib/systemd/system
 %define _initrddir      %{_sysconfdir}/init.d
@@ -86,6 +87,8 @@ Source9: limits.conf.skel
 Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: logging.properties.skel
+Source13: crond.skel
+Source14: cron.sh.skel
 
 %description
 Nexus manages software artifacts required for development. If you develop software, your builds can download dependencies from Nexus and can publish artifacts to Nexus creating a new way to share artifacts within an organization.
@@ -100,6 +103,7 @@ This package contains Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %
 # Prep the install location.
 rm -rf %{buildroot}
 
+mkdir -p %{buildroot}%{_cronddir}
 mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
@@ -132,22 +136,22 @@ cp %{SOURCE1}  %{buildroot}%{appwebappdir}/ROOT.war
 
 # init.d
 cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@NEXUS_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@NEXUS_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@NEXUS_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@NEXUS_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@NEXUS_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@NEXUS_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@NEXUS_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@NEXUS_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@NEXUS_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@NEXUS_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@NEXUS_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
@@ -156,23 +160,35 @@ cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
-%{__portsed} 's|@@NEXUS_APP@@|%{appname}|g' %{buildroot}%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{appdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
-%{__portsed} 's|@@NEXUS_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
 
 # Install server.xml.skel
 cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
-%{__portsed} 's|@@NEXUS_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
 # Setup Systemd
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@NEXUS_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@NEXUS_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+
+# Setup cron.d
+cp %{SOURCE13} %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_CRON@@|%{ciarchivacron}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{ciarchivausername}|g' %{buildroot}%{_cronddir}/%{appname}
+
+# Setup cron.sh
+cp %{SOURCE14} %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{appcron}
 
 # remove uneeded file in RPM
 rm -f %{buildroot}%{appdir}/*.sh
@@ -219,9 +235,9 @@ if [ "$1" == "1" ]; then
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@NEXUS_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  sed -i "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@NEXUS_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  sed -i "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
@@ -280,6 +296,7 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
 %config %{_sysconfdir}/logrotate.d/%{appname}
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
+%{_cronddir}
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
@@ -294,6 +311,13 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Apr 9 2013 henri.gomez@gmail.com 2.3.1-3
+- Simplify logrotate
+- Use cron for housekeeping
+- Move temp contents to /var/run/mynexus
+- Move work contents to /var/spool/mynexus
+- Apache Tomcat 7.0.39 released
+
 * Mon Feb 18 2013 henri.gomez@gmail.com 2.3.1-2
 - Apache Tomcat 7.0.37 released, update package
 
