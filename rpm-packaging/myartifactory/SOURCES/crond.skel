@@ -1,0 +1,4 @@
+#
+# Remove files older than 15 days from log dir
+#
+4 3 * * * @@SKEL_USER@@ @@SKEL_CRON@@
