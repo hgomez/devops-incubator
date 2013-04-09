@@ -137,21 +137,21 @@ cp %{SOURCE1}  %{buildroot}%{appwebappdir}/ROOT.war
 
 # init.d
 cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@app_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@app_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@app_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@app_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@app_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@app_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@app_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@app_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@app_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@app_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@app_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@app_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
@@ -160,35 +160,35 @@ cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
-%{__portsed} 's|@@app_APP@@|%{appname}|g' %{buildroot}%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{appdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
-%{__portsed} 's|@@app_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
 
 # Install server.xml.skel
 cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
-%{__portsed} 's|@@app_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
 # Setup Systemd
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@app_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@app_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
 
 # Setup cron.d
 cp %{SOURCE12} %{buildroot}%{_cronddir}/%{appname}
-%{__portsed} 's|@@app_APP@@|%{appname}|g' %{buildroot}%{_cronddir}/%{appname}
-%{__portsed} 's|@@app_CRON@@|%{appcron}|g' %{buildroot}%{_cronddir}/%{appname}
-%{__portsed} 's|@@app_USER@@|%{appusername}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_CRON@@|%{appcron}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_cronddir}/%{appname}
 
 # Setup cron.sh
 cp %{SOURCE13} %{buildroot}%{appcron}
-%{__portsed} 's|@@app_APP@@|%{appname}|g' %{buildroot}%{appcron}
-%{__portsed} 's|@@app_LOGDIR@@|%{applogdir}|g' %{buildroot}%{appcron}
-%{__portsed} 's|@@app_USER@@|%{appusername}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{appcron}
 
 # remove uneeded file in RPM
 rm -f %{buildroot}%{appdir}/*.sh
@@ -235,9 +235,9 @@ if [ "$1" == "1" ]; then
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@app_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  sed -i "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@app_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  sed -i "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
