@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel		%{TOMCAT_REL}
 %else
-%define tomcat_rel		7.0.37
+%define tomcat_rel		7.0.39
 %endif
 
 %if 0%{?ARCHIVA_REL:1}
@@ -49,7 +49,7 @@
 Name: myarchiva
 
 Version: %{rpm_archiva_rel}
-Release: 6
+Release: 7
 Summary: Apache Archiva %{archiva_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -71,11 +71,13 @@ BuildArch:  noarch
 %define appconflocaldir            %{appdir}/conf/Catalina/localhost
 %define applibdir                  %{appdir}/lib
 %define appwebappdir               %{appdir}/webapps
-%define apptempdir                 /tmp/%{appname}
-%define appworkdir                 %{_var}/%{appname}
+%define apptempdir                 %{_var}/run/%{appname}
+%define appworkdir                 %{_var}/spool/%{appname}
+%define appcron                    %{appdir}/bin/cron.sh
 
-%define _systemdir        /lib/systemd/system
+%define _cronddir         %{_sysconfdir}/cron.d
 %define _initrddir        %{_sysconfdir}/init.d
+%define _systemdir        /lib/systemd/system
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -114,6 +116,8 @@ Source13: activation-%{activation_rel}.jar
 Source14: derby-%{derby_rel}.jar
 Source15: ROOT.xml
 Source16: logging.properties.skel
+Source17: crond.skel
+Source18: cron.sh.skel
 
 %description
 Apache Archiva™ is an extensible repository management software that helps taking care of your own personal or enterprise-wide build artifact repository. It is the perfect companion for build tools such as Maven, Continuum, and ANT.
@@ -128,6 +132,7 @@ This package contains Apache Archiva %{archiva_rel} powered by Apache Tomcat %{t
 # Prep the install location.
 rm -rf %{buildroot}
 
+mkdir -p %{buildroot}%{_cronddir}
 mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
@@ -214,6 +219,19 @@ cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@ARCHIVA_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@ARCHIVA_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
 %endif
+
+# Setup cron.d
+cp %{SOURCE17} %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@ARCHIVA_APP@@|%{appname}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@ARCHIVA_CRON@@|%{ciarchivacron}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@ARCHIVA_USER@@|%{ciarchivausername}|g' %{buildroot}%{_cronddir}/%{appname}
+
+# Setup cron.sh
+cp %{SOURCE18} %{buildroot}%{appcron}
+%{__portsed} 's|@@ARCHIVA_APP@@|%{appname}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@ARCHIVA_LOGDIR@@|%{applogdir}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@ARCHIVA_USER@@|%{appusername}|g' %{buildroot}%{appcron}
+
 
 # remove uneeded file in RPM
 rm -f %{buildroot}%{appdir}/*.sh
@@ -326,11 +344,10 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
 %config %{_sysconfdir}/logrotate.d/%{appname}
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
-
+%{_cronddir}
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
-
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
 %attr(0755,%{appusername},%{appusername}) %dir %{appconflocaldir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
@@ -343,6 +360,12 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Apr 9 2013 henri.gomez@gmail.com 1.4.m3-7
+- Simplify logrotate
+- Use cron for housekeeping
+- Move temp contents to /var/run/myapp
+- Move work contents to /var/spool/myapp
+
 * Mon Feb 18 2013 henri.gomez@gmail.com 1.4.m3-6
 - Apache Tomcat 7.0.37 released, update package
 

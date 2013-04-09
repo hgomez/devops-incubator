@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Cron task for @@ARCHIVA_APP@@
+#
+
+# Read config file
+if [ -r "/etc/sysconfig/@@ARCHIVA_APP@@" ]; then
+  . /etc/sysconfig/@@ARCHIVA_APP@@
+fi
+
+KEEP_LOGS_DAYS=15
+
+if [ ! -z "$APP_KEEP_LOGS_DAYS" ]; then
+  KEEP_LOGS_DAYS=$APP_KEEP_LOGS_DAYS
+fi
+
+find @@ARCHIVA_LOGDIR@@ -type f -mtime +$KEEP_LOGS_DAYS -delete > /dev/null 2>&1

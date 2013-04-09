@@ -5,17 +5,3 @@
  compress
  missingok
 }
-
-@@ARCHIVA_LOGDIR@@/*.*.log {
- daily
- rotate 7
- compress
- missingok
-}
-
-@@ARCHIVA_LOGDIR@@/localhost_access_log.*.txt {
- daily
- rotate 7
- compress
- missingok
-}

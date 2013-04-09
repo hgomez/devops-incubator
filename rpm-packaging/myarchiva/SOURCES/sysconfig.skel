@@ -1,5 +1,5 @@
 #
-# @@APP@@ Configuration
+# @@ARCHIVA_APP@@ Configuration
 #
 # Vars starting with APP_ are used to replace contents in skeletons files
 #
@@ -27,6 +27,11 @@ APP_JMX_READER_PASSWORD=@@ARCHIVA_RO_PWD@@
 
 APP_JMX_ADMIN_USER=admin
 APP_JMX_ADMIN_PASSWORD=@@ARCHIVA_RW_PWD@@
+
+#
+# Number of days to keep log files
+#
+APP_KEEP_LOGS_DAYS=15
 
 #
 # Linux Service variables
