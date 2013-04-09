@@ -39,6 +39,11 @@ APP_JMX_ADMIN_USER=admin
 APP_JMX_ADMIN_PASSWORD=@@MYAPP_RW_PWD@@
 
 #
+# Number of days to keep log files
+#
+APP_KEEP_LOGS_DAYS=15
+
+#
 # Linux Service variables
 #
 CATALINA_HOME="@@MYAPP_APPDIR@@"

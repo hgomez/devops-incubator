@@ -50,6 +50,7 @@ BuildArch: noarch
 %define myappwebappdir    %{myappdir}/webapps
 %define myapptempdir      %{_var}/run/%{myapp}
 %define myappworkdir      %{_var}/spool/%{myapp}
+%define myappcron         %{myappdir}/bin/cron.sh
 
 %define _cronddir         %{_sysconfdir}/cron.d
 %define _initrddir        %{_sysconfdir}/init.d
@@ -179,15 +180,15 @@ cp %{SOURCE10} %{buildroot}%{_systemdir}/%{myapp}.service
 
 # Setup cron.d
 cp %{SOURCE12} %{buildroot}%{_cronddir}/%{myapp}
-%{__portsed} 's|@@MYAPP_APP@@|%{ciarchiva}|g' %{buildroot}%{_cronddir}/%{myapp}
-%{__portsed} 's|@@MYAPP_CRON@@|%{ciarchivacron}|g' %{buildroot}%{_cronddir}/%{myapp}
-%{__portsed} 's|@@MYAPP_USER@@|%{ciarchivausername}|g' %{buildroot}%{_cronddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' %{buildroot}%{_cronddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_CRON@@|%{myappcron}|g' %{buildroot}%{_cronddir}/%{myapp}
+%{__portsed} 's|@@MYAPP_USER@@|%{myappusername}|g' %{buildroot}%{_cronddir}/%{myapp}
 
 # Setup cron.sh
-cp %{SOURCE13} %{buildroot}%{myappdir}/bin/cron.sh
-%{__portsed} 's|@@MYAPP_APP@@|%{ciarchiva}|g' %{buildroot}%{myappdir}/bin/cron.sh
-%{__portsed} 's|@@MYAPP_LOGDIR@@|%{ciarchivalogdir}|g' %{buildroot}%{myappdir}/bin/cron.sh
-%{__portsed} 's|@@MYAPP_USER@@|%{ciarchivausername}|g' %{buildroot}%{myappdir}/bin/cron.sh
+cp %{SOURCE13} %{buildroot}%{myappcron}
+%{__portsed} 's|@@MYAPP_APP@@|%{myapp}|g' %{buildroot}%{myappcron}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{myapplogdir}|g' %{buildroot}%{myappcron}
+%{__portsed} 's|@@MYAPP_USER@@|%{myappusername}|g' %{buildroot}%{myappcron}
 
 # remove uneeded file in RPM
 rm -f %{buildroot}%{myappdir}/*.sh
