@@ -1,15 +1,15 @@
-# Systemd unit file for @@SONAR_APP@@
+# Systemd unit file for @@MYAPP_APP@@
 #
 [Unit]
-Description=@@SONAR_APP@@ powered by Apache Tomcat
+Description=@@MYAPP_APP@@ powered by Apache Tomcat
 After=syslog.target network.target
 
 [Service]
 Type=forking
-PIDFile=/var/run/@@SONAR_APP@@.pid
-EnvironmentFile=/etc/sysconfig/@@SONAR_APP@@
-ExecStart=/etc/init.d/@@SONAR_APP@@ start
-ExecStop=/etc/init.d/@@SONAR_APP@@ stop
+PIDFile=/var/run/@@MYAPP_APP@@.pid
+EnvironmentFile=/etc/sysconfig/@@MYAPP_APP@@
+ExecStart=/etc/init.d/@@MYAPP_APP@@ start
+ExecStop=/etc/init.d/@@MYAPP_APP@@ stop
 
 [Install]
 WantedBy=multi-user.target

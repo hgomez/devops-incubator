@@ -51,8 +51,9 @@ BuildArch:  noarch
 %define appworkdir      %{_var}/spool/%{appname}
 %define appcron         %{appdir}/bin/cron.sh
 
-%define _systemdir      /lib/systemd/system
+%define _cronddir       %{_sysconfdir}/cron.d
 %define _initrddir      %{_sysconfdir}/init.d
+%define _systemdir      /lib/systemd/system
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 

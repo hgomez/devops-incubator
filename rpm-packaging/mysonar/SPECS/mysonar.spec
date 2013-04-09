@@ -47,11 +47,13 @@ BuildArch:  noarch
 %define appconfdir      %{appdir}/conf
 %define appconflocaldir %{appdir}/conf/Catalina/localhost
 %define appwebappdir    %{appdir}/webapps
-%define apptempdir      /tmp/%{appname}
-%define appworkdir      %{_var}/%{appname}
+%define apptempdir      %{_var}/run/%{appname}
+%define appworkdir      %{_var}/spool/%{appname}
+%define appcron         %{appdir}/bin/cron.sh
 
-%define _systemdir        /lib/systemd/system
-%define _initrddir        %{_sysconfdir}/init.d
+%define _cronddir       %{_sysconfdir}/cron.d
+%define _initrddir      %{_sysconfdir}/init.d
+%define _systemdir      /lib/systemd/system
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -90,6 +92,8 @@ Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: sonar.properties
 Source13: sonar-setup-mysql.sh
 Source14: logging.properties.skel
+Source15: crond.skel
+Source16: cron.sh.skel
 
 %description
 Sonar is an open platform to manage code quality. As such, it covers the 7 axes of code quality:
@@ -110,6 +114,7 @@ popd >>/dev/null
 rm -rf %{buildroot}
 
 mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_cronddir}
 mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
@@ -157,22 +162,22 @@ mkdir -p %{buildroot}%{appdatadir}/data
 
 # init.d
 cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SONAR_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SONAR_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SONAR_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SONAR_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SONAR_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SONAR_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SONAR_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@SONAR_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@SONAR_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@SONAR_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@SONAR_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@SONAR_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@SONAR_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
@@ -181,23 +186,35 @@ cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
-%{__portsed} 's|@@SONAR_APP@@|%{appname}|g' %{buildroot}%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{appdir}/bin/setenv.sh
 
 # Install logrotate
 cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
-%{__portsed} 's|@@SONAR_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
 
 # Install server.xml.skel
 cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
-%{__portsed} 's|@@SONAR_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
 # Setup Systemd
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@SONAR_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@SONAR_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+
+# Setup cron.d
+cp %{SOURCE15} %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_CRON@@|%{ciarchivacron}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{ciarchivausername}|g' %{buildroot}%{_cronddir}/%{appname}
+
+# Setup cron.sh
+cp %{SOURCE16} %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{appcron}
 
 # remove uneeded file in RPM
 rm -f %{buildroot}%{appdir}/*.sh
@@ -247,9 +264,9 @@ if [ "$1" == "1" ]; then
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@SONAR_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  sed -i "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@SONAR_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  sed -i "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
@@ -303,6 +320,7 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
 %config %{_sysconfdir}/logrotate.d/%{appname}
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
+%{_cronddir}
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
@@ -323,6 +341,14 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Apr 9 2013 henri.gomez@gmail.com 3.5.1-1
+- Simplify logrotate
+- Use cron for housekeeping
+- Move temp contents to /var/run/mysonar
+- Move work contents to /var/spool/mysonar
+- Sonar 3.5.1 released
+- Apache Tomcat 7.0.39 released
+
 * Wed Mar 20 2013 henri.gomez@gmail.com 3.5-1
 - Sonar 3.5 released
 

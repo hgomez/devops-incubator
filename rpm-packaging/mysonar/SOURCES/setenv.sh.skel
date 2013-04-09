@@ -2,8 +2,8 @@
 # Read config file
 #
 
-if [ -r "/etc/sysconfig/@@SONAR_APP@@" ]; then
-    . /etc/sysconfig/@@SONAR_APP@@
+if [ -r "/etc/sysconfig/@@MYAPP_APP@@" ]; then
+    . /etc/sysconfig/@@MYAPP_APP@@
 fi
 
 if [ ! -z "$APP_JAVA_HOME" ]; then
