@@ -360,6 +360,7 @@ fi
 - Use cron for housekeeping
 - Move temp contents to /var/run/myarchiva
 - Move work contents to /var/spool/myarchiva
+- Apache Tomcat 7.0.39 released
 
 * Mon Feb 18 2013 henri.gomez@gmail.com 1.4.m3-6
 - Apache Tomcat 7.0.37 released, update package
