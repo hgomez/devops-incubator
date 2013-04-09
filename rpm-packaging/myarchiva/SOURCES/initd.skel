@@ -2,7 +2,7 @@
 #
 #
 ### BEGIN INIT INFO
-# Provides:          @@ARCHIVA_APP@@
+# Provides:          @@MYAPP_APP@@
 # Required-Start:    $local_fs $remote_fs $network $time $named
 # Required-Stop:     $local_fs $remote_fs $network $time $named
 # Default-Start:     3 5
@@ -25,19 +25,19 @@ if [ -r /etc/init.d/functions ]; then
 fi
 
 # Read config file
-if [ -r "/etc/sysconfig/@@ARCHIVA_APP@@" ]; then
-    . /etc/sysconfig/@@ARCHIVA_APP@@
+if [ -r "/etc/sysconfig/@@MYAPP_APP@@" ]; then
+    . /etc/sysconfig/@@MYAPP_APP@@
 fi
 
 export CATALINA_OPTS CATALINA_OUT CATALINA_PID
 
 RETVAL=0
-prog="@@ARCHIVA_APP@@"
-user="@@ARCHIVA_USER@@"
-exec="@@ARCHIVA_EXEC@@"
+prog="@@MYAPP_APP@@"
+user="@@MYAPP_USER@@"
+exec="@@MYAPP_EXEC@@"
 lockdir=/var/lock/subsys
-lockfile=$lockdir/@@ARCHIVA_APP@@
-config=/etc/sysconfig/@@ARCHIVA_APP@@
+lockfile=$lockdir/@@MYAPP_APP@@
+config=/etc/sysconfig/@@MYAPP_APP@@
 
 start() {
     echo -n $"Starting $prog: "
@@ -58,7 +58,7 @@ start() {
 
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
-      HOME=@@ARCHIVA_DATADIR@@ startproc -s -e -l @@ARCHIVA_LOGDIR@@/start.log -u $user $exec start
+      HOME=@@MYAPP_DATADIR@@ startproc -s -e -l @@MYAPP_LOGDIR@@/start.log -u $user $exec start
       sleep 1
       if [ -r "$CATALINA_PID" ]; then
         PID=`cat "$CATALINA_PID"`
@@ -118,7 +118,7 @@ case "$1" in
         start
         ;;
     version)
-        echo "${prog} @@ARCHIVA_VERSION@@"
+        echo "${prog} @@MYAPP_VERSION@@"
         ;;
   *)
         echo $"Usage: $prog {start|stop|restart|force-reload|reload|status|version}"

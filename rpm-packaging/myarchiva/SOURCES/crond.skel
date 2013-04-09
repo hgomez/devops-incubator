@@ -1,4 +1,4 @@
 #
 # Remove files older than 15 days from log dir
 #
-4 3 * * * @@ARCHIVA_USER@@ @@ARCHIVA_CRON@@
+4 3 * * * @@MYAPP_USER@@ @@MYAPP_CRON@@

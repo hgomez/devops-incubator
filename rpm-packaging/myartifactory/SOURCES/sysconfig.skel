@@ -1,5 +1,5 @@
 #
-# @@ARTIFACTORY_APP@@ Configuration
+# @@MYAPP_APP@@ Configuration
 #
 
 #
@@ -21,7 +21,7 @@ APP_AJP_PORT=12367
 
 APP_RMIREGISTRY_PORT=12368
 APP_RMISERVER_PORT=12369
-APP_JVM_ROUTE=@@ARTIFACTORY_APP@@
+APP_JVM_ROUTE=@@MYAPP_APP@@
 
 APP_EXECUTOR_MAX_THREADS=300
 APP_EXECUTOR_MIN_SPARE_THREADS=20
@@ -36,23 +36,23 @@ APP_AJP_MAX_THREADS=150
 APP_AJP_MIN_SPARE_THREADS=25
 
 APP_JMX_READER_USER=reader
-APP_JMX_READER_PASSWORD=@@ARTIFACTORY_RO_PWD@@
+APP_JMX_READER_PASSWORD=@@MYAPP_RO_PWD@@
 
 APP_JMX_ADMIN_USER=admin
-APP_JMX_ADMIN_PASSWORD=@@ARTIFACTORY_RW_PWD@@
+APP_JMX_ADMIN_PASSWORD=@@MYAPP_RW_PWD@@
 
 #
 # Linux Service variables
 #
-CATALINA_HOME="@@ARTIFACTORY_APPDIR@@"
-CATALINA_OUT="@@ARTIFACTORY_LOGDIR@@/catalina.out"
-CATALINA_PID="/var/run/@@ARTIFACTORY_APP@@.pid"
+CATALINA_HOME="@@MYAPP_APPDIR@@"
+CATALINA_OUT="@@MYAPP_LOGDIR@@/catalina.out"
+CATALINA_PID="/var/run/@@MYAPP_APP@@.pid"
 SHUTDOWN_WAIT=10
 
 #
 # Artifactory Data location
 #
-export ARTIFACTORY_HOME=@@ARTIFACTORY_DATADIR@@
+export ARTIFACTORY_HOME=@@MYAPP_DATADIR@@
 
 #
 # JVM Settings
@@ -61,7 +61,7 @@ export ARTIFACTORY_HOME=@@ARTIFACTORY_DATADIR@@
 #
 APP_JAVA_OPTS="server -Xms1g -Xmx1g -Xss256k -XX:PermSize=128m -XX:MaxPermSize=128m -XX:SurvivorRatio=8 -XX:NewSize=512m -XX:MaxNewSize=512m -XX:+UseParallelGC -XX:-UseConcMarkSweepGC"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
-APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@ARTIFACTORY_LOGDIR@@"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@MYAPP_LOGDIR@@"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dartifactory.home=$ARTIFACTORY_HOME"
 
 #
@@ -69,4 +69,4 @@ APP_JAVA_OPTS="$APP_JAVA_OPTS -Dartifactory.home=$ARTIFACTORY_HOME"
 #
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.authenticate=true"
-APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=@@ARTIFACTORY_APPDIR@@/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=@@ARTIFACTORY_APPDIR@@/conf/jmxremote.access"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=@@MYAPP_APPDIR@@/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=@@MYAPP_APPDIR@@/conf/jmxremote.access"

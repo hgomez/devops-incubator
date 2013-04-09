@@ -27,7 +27,7 @@
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 1
+Release: 2
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -47,11 +47,13 @@ BuildArch:  noarch
 %define appconfdir      %{appdir}/conf
 %define appconflocaldir %{appdir}/conf/Catalina/localhost
 %define appwebappdir    %{appdir}/webapps
-%define apptempdir      /tmp/%{appname}
-%define appworkdir      %{_var}/%{appname}
+%define apptempdir      %{_var}/run/%{appname}
+%define appworkdir      %{_var}/spool/%{appname}
+%define appcron         %{appdir}/bin/cron.sh
 
-%define _systemdir        /lib/systemd/system
-%define _initrddir        %{_sysconfdir}/init.d
+%define _cronddir       %{_sysconfdir}/cron.d
+%define _initrddir      %{_sysconfdir}/init.d
+%define _systemdir      /lib/systemd/system
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -86,6 +88,8 @@ Source9: limits.conf.skel
 Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: logging.properties.skel
+Source13: crond.skel
+Source14: cron.sh.skel
 
 %description
 Artifactory offers powerful enterprise features and fine-grained permission control behind a sleek and easy-to-use UI.
@@ -99,29 +103,30 @@ This package contains JFrog Artifactory %{artifactory_rel} powered by Apache Tom
 
 %install
 # Prep the install location.
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-mkdir -p $RPM_BUILD_ROOT%{_initrddir}
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d
-mkdir -p $RPM_BUILD_ROOT%{_systemdir}
+mkdir -p %{buildroot}%{_cronddir}
+mkdir -p %{buildroot}%{_initrddir}
+mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
+mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
+mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
+mkdir -p %{buildroot}%{_systemdir}
 
-mkdir -p $RPM_BUILD_ROOT%{appdir}
-mkdir -p $RPM_BUILD_ROOT%{appdatadir}
-mkdir -p $RPM_BUILD_ROOT%{applogdir}
-mkdir -p $RPM_BUILD_ROOT%{apptempdir}
-mkdir -p $RPM_BUILD_ROOT%{appworkdir}
-mkdir -p $RPM_BUILD_ROOT%{appwebappdir}
+mkdir -p %{buildroot}%{appdir}
+mkdir -p %{buildroot}%{appdatadir}
+mkdir -p %{buildroot}%{applogdir}
+mkdir -p %{buildroot}%{apptempdir}
+mkdir -p %{buildroot}%{appworkdir}
+mkdir -p %{buildroot}%{appwebappdir}
 
 # Copy tomcat
-mv apache-tomcat-%{tomcat_rel}/* $RPM_BUILD_ROOT%{appdir}
+mv apache-tomcat-%{tomcat_rel}/* %{buildroot}%{appdir}
 
 # Create conf/Catalina/localhost
-mkdir -p $RPM_BUILD_ROOT%{appconflocaldir}
+mkdir -p %{buildroot}%{appconflocaldir}
 
 # remove default webapps
-rm -rf $RPM_BUILD_ROOT%{appdir}/webapps/*
+rm -rf %{buildroot}%{appdir}/webapps/*
 
 # patches to have logs under /var/log/app
 # remove manager and host-manager logs (via .skel file)
@@ -130,72 +135,84 @@ cp %{SOURCE12} %{buildroot}%{appdir}/conf/logging.properties
 
 # artifactory webapp is ROOT.war (will respond to /), get it from zip file
 unzip %{SOURCE1}
-mv artifactory-%{artifactory_rel}/webapps/artifactory.war $RPM_BUILD_ROOT%{appwebappdir}/ROOT.war
+mv artifactory-%{artifactory_rel}/webapps/artifactory.war %{buildroot}%{appwebappdir}/ROOT.war
 # artifactory config dir/subdirs
-mv artifactory-%{artifactory_rel}/etc $RPM_BUILD_ROOT%{appdatadir}
+mv artifactory-%{artifactory_rel}/etc %{buildroot}%{appdatadir}
 # cleanup
 rm -rf artifactory-%{artifactory_rel}
 
 # setup derby-storage
-%{__portsed} 's|#artifactory.jcr.configDir=null|artifactory.jcr.configDir=repo/filesystem-derby|g' $RPM_BUILD_ROOT%{appdatadir}/etc/artifactory.system.properties
+%{__portsed} 's|#artifactory.jcr.configDir=null|artifactory.jcr.configDir=repo/filesystem-derby|g' %{buildroot}%{appdatadir}/etc/artifactory.system.properties
 
 # init.d
-cp  %{SOURCE2} $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_VERSION@@|version %{version} release %{release}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_initrddir}/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
+cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
-cp  %{SOURCE3}  $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_APPDIR@@|%{appdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_DATADIR@@|%{appdatadir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_CONFDIR@@|%{appconfdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/%{appname}
+cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
 # JMX (including JMX Remote)
-cp %{SOURCE11} $RPM_BUILD_ROOT%{appdir}/lib
-cp %{SOURCE4}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.access.skel
-cp %{SOURCE5}  $RPM_BUILD_ROOT%{appconfdir}/jmxremote.password.skel
+cp %{SOURCE11} %{buildroot}%{appdir}/lib
+cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
+cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
-cp  %{SOURCE6} $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
-%{__portsed} 's|@@ARTIFACTORY_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{appdir}/bin/setenv.sh
+cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{appdir}/bin/setenv.sh
 
 # Install logrotate
-cp %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{appname}
-%{__portsed} 's|@@ARTIFACTORY_LOGDIR@@|%{applogdir}|g' $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{appname}
+cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
 
 # Install server.xml.skel
-cp %{SOURCE8} $RPM_BUILD_ROOT%{appconfdir}/server.xml.skel
+cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 
 # Setup user limits
-cp %{SOURCE9} $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{appname}.conf
-%{__portsed} 's|@@ARTIFACTORY_USER@@|%{appusername}|g' $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/%{appname}.conf
+cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
 # Setup Systemd
-cp %{SOURCE10} $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@ARTIFACTORY_APP@@|%{appname}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@ARTIFACTORY_EXEC@@|%{appexec}|g' $RPM_BUILD_ROOT%{_systemdir}/%{appname}.service
+cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+
+# Setup cron.d
+cp %{SOURCE13} %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_CRON@@|%{ciarchivacron}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{ciarchivausername}|g' %{buildroot}%{_cronddir}/%{appname}
+
+# Setup cron.sh
+cp %{SOURCE14} %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{appcron}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{appcron}
 
 # remove uneeded file in RPM
-rm -f $RPM_BUILD_ROOT%{appdir}/*.sh
-rm -f $RPM_BUILD_ROOT%{appdir}/*.bat
-rm -f $RPM_BUILD_ROOT%{appdir}/bin/*.bat
-rm -rf $RPM_BUILD_ROOT%{appdir}/logs
-rm -rf $RPM_BUILD_ROOT%{appdir}/temp
-rm -rf $RPM_BUILD_ROOT%{appdir}/work
+rm -f %{buildroot}%{appdir}/*.sh
+rm -f %{buildroot}%{appdir}/*.bat
+rm -f %{buildroot}%{appdir}/bin/*.bat
+rm -rf %{buildroot}%{appdir}/logs
+rm -rf %{buildroot}%{appdir}/temp
+rm -rf %{buildroot}%{appdir}/work
 
 # ensure shell scripts are executable
-chmod 755 $RPM_BUILD_ROOT%{appdir}/bin/*.sh
+chmod 755 %{buildroot}%{appdir}/bin/*.sh
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %pre
 %if 0%{?suse_version} > 1140
@@ -228,9 +245,9 @@ if [ "$1" == "1" ]; then
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@ARTIFACTORY_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  sed -i "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@ARTIFACTORY_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  sed -i "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
@@ -306,6 +323,12 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Apr 9 2013 henri.gomez@gmail.com 2.6.7-2
+- Simplify logrotate
+- Use cron for housekeeping
+- Move temp contents to /var/run/myartifactory
+- Move work contents to /var/spool/myartifactory
+
 * Mon Feb 18 2013 henri.gomez@gmail.com 2.6.7-1
 - Apache Tomcat 7.0.39 released
 - Artifactory 2.6.7 released

@@ -2,9 +2,9 @@
 # set limit for @@APP_USER@@
 #
 
-@@ARCHIVA_USER@@        soft nofile 2048
-@@ARCHIVA_USER@@        hard nofile 4096
+@@MYAPP_USER@@        soft nofile 2048
+@@MYAPP_USER@@        hard nofile 4096
 
-@@ARCHIVA_USER@@        soft nproc  8192
-@@ARCHIVA_USER@@        hard nproc  8192
+@@MYAPP_USER@@        soft nproc  8192
+@@MYAPP_USER@@        hard nproc  8192
 

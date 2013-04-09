@@ -1,4 +1,4 @@
-@@ARCHIVA_LOGDIR@@/catalina.out {
+@@MYAPP_LOGDIR@@/catalina.out {
  copytruncate
  daily
  rotate 7

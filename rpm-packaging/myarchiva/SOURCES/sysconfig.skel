@@ -1,5 +1,5 @@
 #
-# @@ARCHIVA_APP@@ Configuration
+# @@MYAPP_APP@@ Configuration
 #
 # Vars starting with APP_ are used to replace contents in skeletons files
 #
@@ -11,7 +11,7 @@ APP_AJP_PORT=12367
 
 APP_RMIREGISTRY_PORT=12368
 APP_RMISERVER_PORT=12369
-APP_JVM_ROUTE=@@ARCHIVA_APP@@
+APP_JVM_ROUTE=@@MYAPP_APP@@
 
 APP_HTTP_MAX_THREADS=150
 APP_HTTP_MIN_SPARE_THREADS=25
@@ -23,10 +23,10 @@ APP_AJP_MAX_THREADS=150
 APP_AJP_MIN_SPARE_THREADS=25
 
 APP_JMX_READER_USER=reader
-APP_JMX_READER_PASSWORD=@@ARCHIVA_RO_PWD@@
+APP_JMX_READER_PASSWORD=@@MYAPP_RO_PWD@@
 
 APP_JMX_ADMIN_USER=admin
-APP_JMX_ADMIN_PASSWORD=@@ARCHIVA_RW_PWD@@
+APP_JMX_ADMIN_PASSWORD=@@MYAPP_RW_PWD@@
 
 #
 # Number of days to keep log files
@@ -36,15 +36,15 @@ APP_KEEP_LOGS_DAYS=15
 #
 # Linux Service variables
 #
-CATALINA_HOME="@@ARCHIVA_APPDIR@@"
-CATALINA_OUT="@@ARCHIVA_LOGDIR@@/catalina.out"
-CATALINA_PID="/var/run/@@ARCHIVA_APP@@.pid"
+CATALINA_HOME="@@MYAPP_APPDIR@@"
+CATALINA_OUT="@@MYAPP_LOGDIR@@/catalina.out"
+CATALINA_PID="/var/run/@@MYAPP_APP@@.pid"
 SHUTDOWN_WAIT=10
 
 #
 # Artifactory Data location
 #
-export ARCHIVA_HOME=@@ARCHIVA_DATADIR@@
+export ARCHIVA_HOME=@@MYAPP_DATADIR@@
 
 #
 # JVM Settings
@@ -54,7 +54,7 @@ APP_JAVA_OPTS="$APP_JAVA_OPTS -Xms256M -Xmx1g -XX:+UseCompressedOops"
 
 APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:SurvivorRatio=8 -XX:+UseParallelGC -XX:-UseConcMarkSweepGC"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
-APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@ARCHIVA_LOGDIR@@"
+APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@MYAPP_LOGDIR@@"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dappserver.base=$ARCHIVA_HOME -Dappserver.home=$ARCHIVA_HOME"
 
 #
