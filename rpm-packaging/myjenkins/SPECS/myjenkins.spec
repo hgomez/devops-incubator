@@ -313,6 +313,7 @@ fi
 - Use cron for housekeeping
 - Move temp contents to /var/run/myarchiva
 - Move work contents to /var/spool/myarchiva
+- Apache Tomcat 7.0.39 released
 
 * Mon Mar 18 2013 henri.gomez@gmail.com 1.506-1
 - Jenkins 1.506 released
