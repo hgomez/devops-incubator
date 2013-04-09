@@ -179,8 +179,8 @@ cp %{SOURCE12} %{buildroot}%{appconfdir}/context.xml.skel
 # Setup cron.d
 cp %{SOURCE14} %{buildroot}%{_cronddir}/%{appname}
 %{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_cronddir}/%{appname}
-%{__portsed} 's|@@MYAPP_CRON@@|%{ciarchivacron}|g' %{buildroot}%{_cronddir}/%{appname}
-%{__portsed} 's|@@MYAPP_USER@@|%{ciarchivausername}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_CRON@@|%{appcron}|g' %{buildroot}%{_cronddir}/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_cronddir}/%{appname}
 
 # Setup cron.sh
 cp %{SOURCE15} %{buildroot}%{appcron}
