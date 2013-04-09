@@ -21,20 +21,20 @@
 %define myjmxtransuserid       1356
 %define myjmxtransgroupid      1356
 
-%define myjmxtransdir          /opt/%{myjmxtrans}
-%define myjmxtransconfdir      %{myjmxtransdir}/conf
-%define myjmxtransdatadir      %{_var}/lib/%{myjmxtrans}
-%define myjmxtranslogdir       %{_var}/log/%{myjmxtrans}
-%define myjmxtransexec         %{myjmxtransdir}/jmxtrans.sh
-%define myjmxtranstempdir      /tmp/%{myjmxtrans}
-%define myjmxtransworkdir      %{_var}/%{myjmxtrans}
+%define myjmxtransdir       /opt/%{myjmxtrans}
+%define myjmxtransconfdir   %{myjmxtransdir}/conf
+%define myjmxtransdatadir   %{_var}/lib/%{myjmxtrans}
+%define myjmxtranslogdir    %{_var}/log/%{myjmxtrans}
+%define myjmxtransexec      %{myjmxtransdir}/jmxtrans.sh
+%define myjmxtranstempdir   %{_var}/run/%{myjmxtrans}
+%define myjmxtransworkdir   %{_var}/spool/%{myjmxtrans}
 
-%define _systemdir        /lib/systemd/system
-%define _initrddir        %{_sysconfdir}/init.d
+%define _initrddir          %{_sysconfdir}/init.d
+%define _systemdir          /lib/systemd/system
 
 Name: myjmxtrans
 Version: %{jmxtrans_rel}
-Release: 1%{?dist}
+Release: 1
 Summary: JMX Transformer - more than meets the eye
 Group: Applications/Communications
 URL: https://github.com/jmxtrans/jmxtrans/
