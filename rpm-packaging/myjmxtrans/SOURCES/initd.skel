@@ -47,6 +47,12 @@ start() {
     touch /var/run/@@SKEL_APP@@.pid
     chown $user /var/run/@@SKEL_APP@@.pid
 
+    if [ ! -d @@MYAPP_TMPDIR@@ ]; then
+      mkdir -p @@MYAPP_TMPDIR@@
+      chmod 755 @@MYAPP_TMPDIR@@
+      chown $user:$user @@MYAPP_TMPDIR@@
+    fi
+
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
       HOME=@@SKEL_DATADIR@@ startproc -s -e -l @@SKEL_LOGDIR@@/start.log -u $user $exec start
