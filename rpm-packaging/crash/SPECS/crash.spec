@@ -73,6 +73,9 @@ rm -rf %{buildroot}
 %doc %{crashdir}/lgpl-2.1.txt
 
 %changelog
+* Fri Apr 12 2013 henri.gomez@gmail.com 1.2.1-1
+- crsh 1.2.1 released
+
 * Fri Mar 29 2013 henri.gomez@gmail.com 1.2.0-1
 - crsh 1.2.0 released
 
