@@ -22,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.510
+%define jenkins_rel    1.511
 %endif
 
 Name: myjenkins
@@ -307,6 +307,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Apr 15 2013 henri.gomez@gmail.com 1.511-1
+- Jenkins 1.511 released
+
 * Tue Apr 9 2013 henri.gomez@gmail.com 1.510-1
 - Jenkins 1.510 released
 - Simplify logrotate
