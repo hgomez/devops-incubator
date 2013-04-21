@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z "$MYAPP_VERSION" ]; then
-  MYAPP_VERSION=1.0.5
+  MYAPP_VERSION=1.0.6
 fi
 
 if [ -z "$TOMCAT_VERSION" ]; then

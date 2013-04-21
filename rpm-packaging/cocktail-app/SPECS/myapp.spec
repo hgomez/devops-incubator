@@ -16,7 +16,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.37
+%define tomcat_rel        7.0.39
 %endif
 
 #
@@ -320,5 +320,8 @@ fi
 %doc %{myappdir}/RELEASE-NOTES
 
 %changelog
+* Sun Apr 21 2013 henri.gomez@gmail.com 1.0.6-1
+- Update package to use cocktail-app 1.0.6
+
 * Tue Mar 26 2013 henri.gomez@gmail.com 1.0.4-1
 - Initial RPM
