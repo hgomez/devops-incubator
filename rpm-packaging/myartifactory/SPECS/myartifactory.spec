@@ -22,12 +22,12 @@
 %if 0%{?ARTIFACTORY_REL:1}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    2.6.7
+%define artifactory_rel    3.0.0
 %endif
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 2
+Release: 1
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -323,7 +323,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Tue Apr 9 2013 henri.gomez@gmail.com 2.6.7-2
+* Sun Apr 21 2013 henri.gomez@gmail.com 3.0.0-1
+- Artifactory 3.0.0 released
+
 - Simplify logrotate
 - Use cron for housekeeping
 - Move temp contents to /var/run/myartifactory
