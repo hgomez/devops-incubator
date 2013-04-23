@@ -65,11 +65,11 @@ BuildRequires: systemd
 %endif
 
 %if 0%{?suse_version}
-Requires:           java >= 1.6.0
+Requires:           java >= 1.7.0
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
-Requires:           java >= 1:1.6.0
+Requires:           java >= 1:1.7.0
 %endif
 
 Requires(pre):      %{_sbindir}/groupadd
