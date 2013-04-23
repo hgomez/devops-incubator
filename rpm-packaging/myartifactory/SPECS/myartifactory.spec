@@ -138,6 +138,9 @@ unzip %{SOURCE1}
 mv artifactory-%{artifactory_rel}/webapps/artifactory.war %{buildroot}%{appwebappdir}/ROOT.war
 # artifactory config dir/subdirs
 mv artifactory-%{artifactory_rel}/etc %{buildroot}%{appdatadir}
+# artifactory misc files
+mv artifactory-%{artifactory_rel}/misc %{buildroot}%{appdir}
+
 # cleanup
 rm -rf artifactory-%{artifactory_rel}
 
@@ -310,6 +313,7 @@ fi
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
+%{appdir}/misc
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
 %attr(0755,%{appusername},%{appusername}) %dir %{appconflocaldir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
