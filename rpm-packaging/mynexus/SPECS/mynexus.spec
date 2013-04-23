@@ -16,18 +16,18 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.37
+%define tomcat_rel        7.0.39
 %endif
 
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.3.1
+%define nexus_rel    2.4.0
 %endif
 
 Name: mynexus
 Version: %{nexus_rel}
-Release: 2
+Release: 1
 Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -312,6 +312,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Apr 23 2013 henri.gomez@gmail.com 2.4.0-1
+- Nexus 2.4.0 released
+
 * Tue Apr 9 2013 henri.gomez@gmail.com 2.3.1-3
 - Simplify logrotate
 - Use cron for housekeeping
