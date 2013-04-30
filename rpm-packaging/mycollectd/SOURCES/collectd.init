@@ -35,18 +35,16 @@ fi
 
 start () {
 	echo -n $"Starting $prog: "
-	if [ -r "$CONFIG" ]
-	then
-	
-    # start_daemon on Suse, daemon on RH
-    if [ -x /sbin/startproc ]; then
-      startproc -s -e $exec /usr/sbin/collectd -C "$CONFIG"
-      RETVAL=$?
-      sleep 1
-      fi
-    else
-      daemon /usr/sbin/collectd -C "$CONFIG"
-      RETVAL=$?
+	if [ -r "$CONFIG" ]; then
+        # start_daemon on Suse, daemon on RH
+        if [ -x /sbin/startproc ]; then
+          startproc -s -e $exec /usr/sbin/collectd -C "$CONFIG"
+          RETVAL=$?
+          sleep 1
+        else
+          daemon /usr/sbin/collectd -C "$CONFIG"
+          RETVAL=$?
+        fi
     fi
 }
 stop () {
