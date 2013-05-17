@@ -16,7 +16,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.39
+%define tomcat_rel        7.0.40
 %endif
 
 %if %{?app_REL:1}
@@ -27,7 +27,7 @@
 
 Name:      app
 Version:   %{app_rel}
-Release:   9
+Release:   10
 Summary:   app %{app_rel} powered by Apache Tomcat %{tomcat_rel}
 Group:     Applications/Communications
 URL:       https://github.com/hgomez/devops-incubator
@@ -315,6 +315,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri May 17 2013 henri.gomez@gmail.com 1.0.0-10
+- Apache Tomcat 7.0.40 released, update package
+
 * Tue Apr 9 2013 henri.gomez@gmail.com 1.0.0-9
 - Simplify logrotate
 - Use cron for housekeeping

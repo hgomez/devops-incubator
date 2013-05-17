@@ -16,13 +16,13 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.39
+%define tomcat_rel        7.0.40
 %endif
 
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.512
+%define jenkins_rel    1.514
 %endif
 
 Name: myjenkins
@@ -307,6 +307,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri May 17 2013 henri.gomez@gmail.com 1.514-1
+- Apache Tomcat 7.0.40 released, update package
+- Jenkins 1.514 released
+
 * Tue Apr 23 2013 henri.gomez@gmail.com 1.512-1
 - Jenkins 1.512 released
 

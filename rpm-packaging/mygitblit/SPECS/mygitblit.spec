@@ -7,7 +7,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.39
+%define tomcat_rel        7.0.40
 %endif
 
 %if %{?GITBLIT_REL:1}
@@ -18,7 +18,7 @@
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 4
+Release: 5
 Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -304,6 +304,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri May 17 2013 henri.gomez@gmail.com 1.2.1-5
+- Apache Tomcat 7.0.40 released, update package
+
 * Tue Apr 9 2013 henri.gomez@gmail.com 1.2.1-4
 - Simplify logrotate
 - Use cron for housekeeping
