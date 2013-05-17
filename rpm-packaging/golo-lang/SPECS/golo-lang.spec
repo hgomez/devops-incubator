@@ -94,6 +94,9 @@ rm -rf %{buildroot}
 %{golodir}/samples
 
 %changelog
+* Fri May 17 2013 henri.gomez@gmail.com 1.0.1-1
+- golo 0-preview4 released
+
 * Mon Mar 25 2013 henri.gomez@gmail.com 1.0.1-1
 - golo 0-preview2 released
 
