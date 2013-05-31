@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=1.2.4
+VERSION=1.2.6
 
 # prepare fresh directories
 rm -rf BUILD RPMS SRPMS TEMP
