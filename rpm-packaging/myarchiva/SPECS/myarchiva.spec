@@ -22,7 +22,7 @@
 %if 0%{?ARCHIVA_REL:1}
 %define archiva_rel		%{ARCHIVA_REL}
 %else
-%define archiva_rel		1.4-M3
+%define archiva_rel		1.4-M4
 %endif
 
 %if 0%{?MAIL_REL:1}
@@ -40,7 +40,7 @@
 %if 0%{?DERBY_REL:1}
 %define derby_rel       %{DERBY_REL}
 %else
-%define derby_rel    	10.9.1.0
+%define derby_rel    	10.10.1.1
 %endif
 
 # Adjust RPM version (- is not allowed, lowercase strings)
@@ -355,6 +355,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Jun 3 2013 henri.gomez@gmail.com 1.4.m4-1
+- Apache Archiva 1.4-m4
+- Derby 10.10.1.1
+
 * Fri May 17 2013 henri.gomez@gmail.com 1.4.m3-8
 - Apache Tomcat 7.0.40 released, update package
 
