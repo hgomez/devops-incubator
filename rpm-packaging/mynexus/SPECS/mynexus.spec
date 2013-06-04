@@ -22,12 +22,12 @@
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.4.0
+%define nexus_rel    2.5.0
 %endif
 
 Name: mynexus
 Version: %{nexus_rel}
-Release: 2
+Release: 1
 Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -65,11 +65,11 @@ BuildRequires: systemd
 %endif
 
 %if 0%{?suse_version}
-Requires:           java >= 1.6.0
+Requires:           java >= 1.7.0
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
-Requires:           java >= 1:1.6.0
+Requires:           java >= 1:1.7.0
 %endif
 
 Requires(pre):      %{_sbindir}/groupadd
@@ -312,6 +312,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Jun 4 2013 henri.gomez@gmail.com 2.5.0-1
+- Nexys 2.5.0 released
+- Java 7 required, Nexus 2.6+ will mandate it
+
 * Fri May 17 2013 henri.gomez@gmail.com 2.4.0-2
 - Apache Tomcat 7.0.40 released, update package
 
