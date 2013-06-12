@@ -5,7 +5,7 @@ if [ -z "$ARCHIVA_VERSION" ]; then
 fi
 
 if [ -z "$TOMCAT_VERSION" ]; then
-  TOMCAT_VERSION=7.0.40
+  TOMCAT_VERSION=7.0.41
 fi
 
 if [ -z "$ACTIVATION_VERSION" ]; then
