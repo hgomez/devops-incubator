@@ -1,0 +1,15 @@
+# Systemd unit file for @@MYAPP_APP@@
+#
+[Unit]
+Description=@@MYAPP_APP@@ powered by Apache Tomcat
+After=syslog.target network.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/@@MYAPP_APP@@.pid
+EnvironmentFile=/etc/sysconfig/@@MYAPP_APP@@
+ExecStart=/etc/init.d/@@MYAPP_APP@@ start
+ExecStop=/etc/init.d/@@MYAPP_APP@@ stop
+
+[Install]
+WantedBy=multi-user.target
