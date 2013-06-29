@@ -21,5 +21,5 @@ rm -rf BUILD RPMS SRPMS TEMP
 mkdir -p BUILD RPMS SRPMS TEMP
 
 # Build using rpmbuild (use double-quote for define to have shell resolv vars !)
-rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="TOMEE_REL $TOMCAT_VERSION" SPECS/tomee-webprofile.spec
+rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="TOMEE_REL $TOMEE_VERSION" SPECS/tomee-webprofile.spec
 
