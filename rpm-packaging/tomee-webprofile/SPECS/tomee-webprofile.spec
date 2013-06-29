@@ -285,6 +285,7 @@ fi
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
 %{_cronddir}
 %{appdir}/bin
+%{appdir}/endorsed
 %{appdir}/conf
 %{appdir}/lib
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
