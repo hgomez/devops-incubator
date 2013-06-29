@@ -7,11 +7,12 @@ if [ $# -gt 1 ]; then
   shift
 fi
 
-TOMEE_URL=http://www.apache.org/dyn/closer.cgi/tomee/tomee-$TOMEE_VERSION/apache-tomee-$TOMEE_VERSION-webprofile.tar.gz
+TOMEE_FILE=tomee-$TOMEE_VERSION/apache-tomee-$TOMEE_VERSION-webprofile.tar.gz
+TOMEE_URL=http://apache.osuosl.org/tomee/tomee-$TOMEE_VERSION/$TOMEE_FILE
 
-if [ ! -f SOURCES/apache-tomee-$TOMEE_VERSION-webprofile.tar.gz ]; then
-  echo "downloading apache-tomee-$TOMEE_VERSION-webprofile.tar.gz from $TOMEE_URL"
-  curl -s -L $TOMEE_URL -o SOURCES/apache-tomee-$TOMEE_VERSION-webprofile.tar.gz
+if [ ! -f SOURCES/$TOMEE_FILE ]; then
+  echo "downloading $TOMEE_FILE from $TOMEE_URL"
+  curl -s -L $TOMEE_URL -o SOURCES/$TOMEE_FILE
 fi
 
 echo "RPM Packaging TomEE WebProfile for $TOMEE_VERSION"
