@@ -17,11 +17,9 @@ if [ ! -f SOURCES/$TOMEE_FILE ]; then
   curl -s -L $TOMEE_URL -o SOURCES/$TOMEE_FILE
 fi
 
-if [ ! -f SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar ]; then
+if [ ! -f SOURCES/catalina-jmx-remote.jar ]; then
   echo "downloading catalina-jmx-remote-${TOMCAT_VERSION}.jar from $CATALINA_JMX_REMOTE_URL"
-  curl -s -L $CATALINA_JMX_REMOTE_URL -o SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar
-  rm -f SOURCES/catalina-jmx-remote.jar
-  ln -s SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar SOURCES/catalina-jmx-remote.jar
+  curl -s -L $CATALINA_JMX_REMOTE_URL -o SOURCES/catalina-jmx-remote.jar
 fi
 
 echo "RPM Packaging TomEE WebProfile for $TOMEE_VERSION"
