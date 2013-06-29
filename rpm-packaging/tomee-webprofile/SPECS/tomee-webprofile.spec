@@ -299,3 +299,4 @@ fi
 %changelog
 * Sat Jun 29 2013 henri.gomez@gmail.com 1.5.2-1
 - Initial RPM for Apache TomEE Web Profile
+- Warning work in progress
