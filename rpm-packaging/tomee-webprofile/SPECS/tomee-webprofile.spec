@@ -80,6 +80,7 @@ Source6: setenv.sh.skel
 Source7: logrotate.skel
 Source9: limits.conf.skel
 Source10: systemd.skel
+Source11: catalina-jmx-remote.jar
 Source12: crond.skel
 Source13: cron.sh.skel
 
@@ -134,8 +135,8 @@ cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
-# JMX (including JMX Remote) - not yet
-#cp %{SOURCE11} %{buildroot}%{appdir}/lib
+# JMX (including JMX Remote)
+cp %{SOURCE11} %{buildroot}%{appdir}/lib
 cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
 cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
