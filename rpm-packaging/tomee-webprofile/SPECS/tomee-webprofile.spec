@@ -138,10 +138,10 @@ cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
-# JMX (including JMX Remote)
-cp %{SOURCE11} %{buildroot}%{appdir}/lib
-cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
-cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
+# JMX (including JMX Remote) - not yet
+#cp %{SOURCE11} %{buildroot}%{appdir}/lib
+#cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
+#cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
