@@ -1,0 +1,4 @@
+#
+# Housekeeping via cron task
+#
+4 3 * * * @@MYAPP_USER@@ @@MYAPP_CRON@@
