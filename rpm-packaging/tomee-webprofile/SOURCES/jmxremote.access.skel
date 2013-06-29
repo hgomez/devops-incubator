@@ -1,0 +1,10 @@
+#
+# JMX Access Control file
+#
+monitorRole   readonly
+controlRole   readwrite \
+              create javax.management.monitor.*,javax.management.timer.* \
+              unregister
+
+@APP_JMX_READER_USER@	readonly
+@APP_JMX_ADMIN_USER@    readwrite
