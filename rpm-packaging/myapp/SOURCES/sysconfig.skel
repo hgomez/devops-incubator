@@ -55,7 +55,7 @@ SHUTDOWN_WAIT=10
 # JVM Settings
 #
 APP_JAVA_HOME=
-APP_JAVA_OPTS="-Xms32m -Xmx64m -XX:MaxPermSize=32m -Xss256k -XX:+UseCompressedOops"
+APP_JAVA_OPTS="-Xms64m -Xmx256m -XX:MaxPermSize=128m -Xss256k -XX:+UseCompressedOops"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@MYAPP_LOGDIR@@"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false"

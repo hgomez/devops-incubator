@@ -136,8 +136,8 @@ cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
 # JMX (including JMX Remote) - not yet
 #cp %{SOURCE11} %{buildroot}%{appdir}/lib
-#cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
-#cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
+cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
+cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
@@ -149,10 +149,10 @@ cp %{SOURCE7} %{buildroot}%{_sysconfdir}/logrotate.d/%{appname}
 
 # Hack original server.xml in server.xml.skel
 cp %{buildroot}%{appconfdir}/server.xml %{buildroot}%{appconfdir}/server.xml.skel
-%{__portsed} 's|8005|@@APP_SERVER_PORT@@|g' %{buildroot}%{appconfdir}/server.xml.skel
-%{__portsed} 's|8080|@@APP_HTTP_PORT@@|g' %{buildroot}%{appconfdir}/server.xml.skel
-%{__portsed} 's|8443|@@APP_HTTPS_PORT@@|g' %{buildroot}%{appconfdir}/server.xml.skel
-%{__portsed} 's|8009|@@APP_AJP_PORT@@|g' %{buildroot}%{appconfdir}/server.xml.skel
+%{__portsed} 's|8005|@APP_SERVER_PORT@|g' %{buildroot}%{appconfdir}/server.xml.skel
+%{__portsed} 's|8080|@APP_HTTP_PORT@|g' %{buildroot}%{appconfdir}/server.xml.skel
+%{__portsed} 's|8443|@APP_HTTPS_PORT@|g' %{buildroot}%{appconfdir}/server.xml.skel
+%{__portsed} 's|8009|@APP_AJP_PORT@|g' %{buildroot}%{appconfdir}/server.xml.skel
 
 # Setup user limits
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
@@ -285,8 +285,8 @@ fi
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
 %{_cronddir}
 %{appdir}/bin
-%{appdir}/endorsed
 %{appdir}/conf
+%{appdir}/endorsed
 %{appdir}/lib
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
