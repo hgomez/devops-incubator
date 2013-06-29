@@ -112,7 +112,7 @@ mkdir -p %{buildroot}%{appworkdir}
 mkdir -p %{buildroot}%{appwebappdir}
 
 # Copy tomcat
-mv apache-tomee-webprofile-%{tomee_rel}/* %{buildroot}%{appdir}
+mv apache-tomee-jaxrs-%{tomee_rel}/* %{buildroot}%{appdir}
 
 # patches to have logs under /var/log/app
 %{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' %{buildroot}%{appdir}/conf/logging.properties
