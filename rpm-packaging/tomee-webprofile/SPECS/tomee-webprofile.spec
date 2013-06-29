@@ -72,7 +72,7 @@ Requires:           java >= 1:1.6.0
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
-Source0: apache-tomee-$TOMEE_VERSION-webprofile.tar.gz
+Source0: apache-tomee-%{tomee_rel}-webprofile.tar.gz
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
