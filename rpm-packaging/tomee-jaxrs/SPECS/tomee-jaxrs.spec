@@ -19,7 +19,7 @@
 %define tomee_rel        1.5.2
 %endif
 
-Name:      tomee-webprofile
+Name:      tomee-jaxrs
 Version:   %{tomee_rel}
 Release:   1
 Summary:   Apache TomEE JAX-RS
