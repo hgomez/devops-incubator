@@ -86,7 +86,12 @@ Source13: cron.sh.skel
 
 %description
 Apache TomEE Plus %{tomee_rel}.
-Apache TomEE, pronounced "Tommy", is an all-Apache stack aimed at Java EE 6 Web Profile certification where Tomcat is top dog
+Apache TomEE, pronounced Tommy, is an all-Apache stack aimed at Java EE 6  where Tomcat is top dog
+The TomEE Plus distribution adds the following :
+JAX-RS - Apache CXF
+JAX-WS - Apache CXF
+JMS - Apache ActiveMQ
+Connector - Apache Geronimo Connector 
 
 %prep
 %setup -q -c

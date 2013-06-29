@@ -86,7 +86,7 @@ Source13: cron.sh.skel
 
 %description
 Apache TomEE JAX-RS %{tomee_rel}.
-Apache TomEE, pronounced "Tommy", is an all-Apache stack aimed at Java EE 6 Web Profile certification where Tomcat is top dog
+Apache TomEE, pronounced Tommy, is an all-Apache stack aimed at Java EE 6 where Tomcat is top dog.
 
 %prep
 %setup -q -c
