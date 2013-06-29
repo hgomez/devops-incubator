@@ -40,7 +40,6 @@ BuildArch: noarch
 %define applogdir       %{_var}/log/%{appname}
 %define appexec         %{appdir}/bin/catalina.sh
 %define appconfdir      %{appdir}/conf
-%define appconflocaldir %{appdir}/conf/Catalina/localhost
 %define appwebappdir    %{appdir}/webapps
 %define apptempdir      %{_var}/run/%{appname}
 %define appworkdir      %{_var}/spool/%{appname}
@@ -113,9 +112,6 @@ mkdir -p %{buildroot}%{appwebappdir}
 
 # Copy tomcat
 mv apache-tomee-webprofile-%{tomee_rel}/* %{buildroot}%{appdir}
-
-# Create conf/Catalina/localhost
-#mkdir -p %{buildroot}%{appconflocaldir}
 
 # patches to have logs under /var/log/app
 %{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' %{buildroot}%{appdir}/conf/logging.properties
@@ -292,7 +288,6 @@ fi
 %{appdir}/conf
 %{appdir}/lib
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
-%attr(0755,%{appusername},%{appusername}) %dir %{appconflocaldir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
 %attr(0755,%{appusername},%{appusername}) %dir %{apptempdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appworkdir}
