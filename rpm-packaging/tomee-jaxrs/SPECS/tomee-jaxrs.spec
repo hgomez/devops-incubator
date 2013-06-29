@@ -32,8 +32,8 @@ BuildArch: noarch
 
 %define appname         tomee-jaxrs
 %define appusername     tomeejrs
-%define appuserid       10001
-%define appgroupid      10001
+%define appuserid       10002
+%define appgroupid      10002
 
 %define appdir          /opt/asf/%{appname}
 %define appdatadir      %{_var}/lib/%{appname}
@@ -71,7 +71,7 @@ Requires:           java >= 1:1.6.0
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
-Source0: apache-tomee-%{tomee_rel}-webprofile.tar.gz
+Source0: apache-tomee-%{tomee_rel}-jaxrs.tar.gz
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
