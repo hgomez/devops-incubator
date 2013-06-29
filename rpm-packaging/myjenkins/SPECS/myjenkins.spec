@@ -22,12 +22,12 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.517
+%define jenkins_rel    1.520
 %endif
 
 Name: myjenkins
 Version: %{jenkins_rel}
-Release: 2
+Release: 1
 Summary: Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools
 URL: https://github.com/hgomez/devops-incubator
@@ -307,6 +307,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sat Jun 29 2013 henri.gomez@gmail.com 1.520-1
+- Jenkins 1.520 released
+
 * Wed Jun 12 2013 henri.gomez@gmail.com 1.517-2
 - Apache Tomcat 7.0.41 released, update package
 
