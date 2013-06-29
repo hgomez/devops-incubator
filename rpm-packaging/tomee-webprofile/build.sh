@@ -18,7 +18,7 @@ if [ ! -f SOURCES/$TOMEE_FILE ]; then
 fi
 
 if [ ! -f SOURCES/catalina-jmx-remote.jar ]; then
-  echo "downloading catalina-jmx-remote-${TOMCAT_VERSION}.jar from $CATALINA_JMX_REMOTE_URL"
+  echo "downloading catalina-jmx-remote.jar from $CATALINA_JMX_REMOTE_URL"
   curl -s -L $CATALINA_JMX_REMOTE_URL -o SOURCES/catalina-jmx-remote.jar
 fi
 
