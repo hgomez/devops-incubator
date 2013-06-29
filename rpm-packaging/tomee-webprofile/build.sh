@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TOMEE_VERSION=1.0.52
+TOMEE_VERSION=1.5.2
 
 if [ $# -gt 1 ]; then
   TOMEE_VERSION=$1

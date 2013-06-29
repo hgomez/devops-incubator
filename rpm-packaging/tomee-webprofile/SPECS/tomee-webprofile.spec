@@ -16,7 +16,7 @@
 %if %{?TOMEE_REL:1}
 %define tomee_rel        %{TOMEE_REL}
 %else
-%define tomee_rel        1.0.52
+%define tomee_rel        1.5.2
 %endif
 
 Name:      tomee-webprofile
