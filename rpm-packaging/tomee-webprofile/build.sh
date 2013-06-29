@@ -7,7 +7,7 @@ if [ $# -gt 1 ]; then
   shift
 fi
 
-TOMEE_FILE=tomee-$TOMEE_VERSION/apache-tomee-$TOMEE_VERSION-webprofile.tar.gz
+TOMEE_FILE=apache-tomee-$TOMEE_VERSION-webprofile.tar.gz
 TOMEE_URL=http://apache.osuosl.org/tomee/tomee-$TOMEE_VERSION/$TOMEE_FILE
 
 if [ ! -f SOURCES/$TOMEE_FILE ]; then
