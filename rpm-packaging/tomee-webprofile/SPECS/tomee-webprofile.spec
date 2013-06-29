@@ -35,7 +35,7 @@ BuildArch: noarch
 %define appuserid       10001
 %define appgroupid      10001
 
-%define appdir          /opt/%{appname}
+%define appdir          /opt/asf/%{appname}
 %define appdatadir      %{_var}/lib/%{appname}
 %define applogdir       %{_var}/log/%{appname}
 %define appexec         %{appdir}/bin/catalina.sh
