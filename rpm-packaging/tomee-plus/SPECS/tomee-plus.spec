@@ -36,13 +36,13 @@ BuildArch: noarch
 %define appgroupid      10003
 
 %define appdir          /opt/asf/%{appname}
-%define appdatadir      %{_var}/lib/%{appname}
-%define applogdir       %{_var}/log/%{appname}
+%define appdatadir      %{_var}/lib/asf/%{appname}
+%define applogdir       %{_var}/log/asf/%{appname}
 %define appexec         %{appdir}/bin/catalina.sh
 %define appconfdir      %{appdir}/conf
 %define appwebappdir    %{appdir}/webapps
-%define apptempdir      %{_var}/run/%{appname}
-%define appworkdir      %{_var}/spool/%{appname}
+%define apptempdir      %{_var}/run/asf/%{appname}
+%define appworkdir      %{_var}/spool/asf/%{appname}
 %define appcron         %{appdir}/bin/cron.sh
 
 %define _cronddir         %{_sysconfdir}/cron.d
