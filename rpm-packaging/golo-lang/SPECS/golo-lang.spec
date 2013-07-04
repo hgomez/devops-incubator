@@ -70,9 +70,6 @@ cp %{buildroot}%{golodir}/bin/* %{buildroot}%{_bindir}
 
 # Set GOLO REPO location
 %{__portsed} 's|# resolve links|REPO=%{golodir}/lib\n# resolve links]|g' %{buildroot}%{_bindir}/golo
-%{__portsed} 's|# resolve links|REPO=%{golodir}/lib\n# resolve links]|g' %{buildroot}%{_bindir}/goloc
-%{__portsed} 's|# resolve links|REPO=%{golodir}/lib\n# resolve links]|g' %{buildroot}%{_bindir}/gologolo
-
 
 %clean
 rm -rf %{buildroot}
@@ -94,14 +91,15 @@ rm -rf %{buildroot}
 %{golodir}/samples
 
 %changelog
-* Thu Jul 4 2013 henri.gomez@gmail.com 1.0.1-1
+* Thu Jul 4 2013 henri.gomez@gmail.com 0.preview5-1
 - golo 0-preview5 released
+- gologolo and goloc removed
 
-* Fri May 17 2013 henri.gomez@gmail.com 1.0.1-1
+* Fri May 17 2013 henri.gomez@gmail.com 0.preview4-1
 - golo 0-preview4 released
 
-* Mon Mar 25 2013 henri.gomez@gmail.com 1.0.1-1
+* Mon Mar 25 2013 henri.gomez@gmail.com 0.preview2-1
 - golo 0-preview2 released
 
-* Mon Mar 25 2013 henri.gomez@gmail.com 1.0.0-1
+* Mon Mar 25 2013 henri.gomez@gmail.com 0.preview1-1
 - Initial RPM
