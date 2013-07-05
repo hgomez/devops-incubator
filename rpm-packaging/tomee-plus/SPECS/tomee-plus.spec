@@ -114,7 +114,6 @@ mkdir -p %{buildroot}%{appdatadir}
 mkdir -p %{buildroot}%{applogdir}
 mkdir -p %{buildroot}%{apptempdir}
 mkdir -p %{buildroot}%{appworkdir}
-mkdir -p %{buildroot}%{appwebappdir}
 
 # Copy tomcat
 mv apache-tomee-plus-%{tomee_rel}/* %{buildroot}%{appdir}
