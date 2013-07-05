@@ -2,7 +2,7 @@
 %define		debug_package %{nil}
 
 # Avoid jar repack (brp-java-repack-jars)
-#%define __jar_repack 0
+%define __jar_repack 0
 
 # Avoid CentOS 5/6 extras processes on contents (especially brp-java-repack-jars)
 %define __os_install_post %{nil}
@@ -13,7 +13,7 @@
 %define __portsed sed -i
 %endif
 
-%if %{?TOMEE_REL:1}
+%if 0%{?TOMEE_REL:1}
 %define tomee_rel        %{TOMEE_REL}
 %else
 %define tomee_rel        1.5.2

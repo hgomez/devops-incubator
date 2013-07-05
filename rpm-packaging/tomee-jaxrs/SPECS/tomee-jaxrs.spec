@@ -13,7 +13,7 @@
 %define __portsed sed -i
 %endif
 
-%if %{?TOMEE_REL:1}
+%if 0%{?TOMEE_REL:1}
 %define tomee_rel        %{TOMEE_REL}
 %else
 %define tomee_rel        1.5.2
