@@ -1,8 +1,12 @@
+%if ! 0%{?VERSION:1}
+%define VERSION        1.2.6
+%endif
+
 # Avoid unnecessary debug-information (native code)
 %define		debug_package %{nil}
 
 # Avoid jar repack (brp-java-repack-jars)
-#%define __jar_repack 0
+%define __jar_repack 0
 
 # Avoid CentOS 5/6 extras processes on contents (especially brp-java-repack-jars)
 %define __os_install_post %{nil}
@@ -20,10 +24,10 @@ Name:      crash
 Version:   %{rpm_version}
 Release:   1
 Summary:   A shell to extend the Java Platform
-Group:     Development/Tools
+Group:     Development/Tools/Debuggers
 URL:       http://www.crashub.org/
 Packager:  Henri Gomez <henri.gomez@gmail.com>
-License:   LGPL
+License:   LGPL-2.1
 BuildArch: noarch
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
@@ -38,7 +42,8 @@ Requires:           java = 1.6.0
 Requires:           java = 1:1.6.0
 %endif
 
-Source0: crash-%{VERSION}.tar.gz
+
+Source0: https://crsh.googlecode.com/files/crash-%{VERSION}.tar.gz
 
 %description
 The Common Reusable SHell (CRaSH) deploys in a Java runtime and provides interactions with the JVM. Commands are written in Groovy and can be developped at runtime making the extension of the shell very easy with fast development cycle
@@ -56,7 +61,11 @@ mkdir -p %{buildroot}%{_bindir}
 
 mv crash-%{VERSION}/crash/* %{buildroot}%{crashdir}
 mv crash-%{VERSION}/*.txt %{buildroot}%{crashdir}
-cp %{buildroot}%{crashdir}/bin/crash.sh %{buildroot}%{_bindir}
+chmod 755 %{buildroot}%{crashdir}/bin/crash.sh
+rm %{buildroot}%{crashdir}/bin/crash.bat
+pushd %{buildroot}%{_bindir}
+ln -s ../..%{crashdir}/bin/crash.sh . 
+popd
 
 # Set CRASH_HOME
 %{__portsed} 's|# Only set|CRASH_HOME="%{crashdir}"\
@@ -67,10 +76,12 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%attr(0755,root,root) %{crashdir}
-%attr(0755,root,root) %{_bindir}
 %doc %{crashdir}/Readme.txt
 %doc %{crashdir}/lgpl-2.1.txt
+%exclude %{crashdir}/Readme.txt
+%exclude %{crashdir}/lgpl-2.1.txt
+%{crashdir}
+%{_bindir}/crash.sh
 
 %changelog
 * Fri May 31 2013 henri.gomez@gmail.com 1.2.6-1

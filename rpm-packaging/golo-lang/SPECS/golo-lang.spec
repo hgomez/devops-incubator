@@ -1,8 +1,12 @@
+%if ! 0%{?VERSION:1}
+%define VERSION        0-preview5
+%endif
+
 # Avoid unnecessary debug-information (native code)
 %define		debug_package %{nil}
 
 # Avoid jar repack (brp-java-repack-jars)
-#%define __jar_repack 0
+%define __jar_repack 0
 
 # Avoid CentOS 5/6 extras processes on contents (especially brp-java-repack-jars)
 %define __os_install_post %{nil}
@@ -18,12 +22,12 @@
 
 Name:     golo-lang
 Version:  %{rpm_version}
-Release:  1
+Release:  0
 Summary:   Golo, a lightweight dynamic language for the JVM
-Group:     Development/Languages
+Group:     Development/Languages/Other
 URL:       http://golo-lang.org/
 Packager:  Henri Gomez <henri.gomez@gmail.com>
-License:   ASL 2.0
+License:   Apache-2.0
 BuildArch: noarch
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
@@ -66,7 +70,9 @@ mkdir -p %{buildroot}%{_bindir}
 # no need for bat
 rm -f bin/*.bat
 cp -rf * %{buildroot}%{golodir}
-cp %{buildroot}%{golodir}/bin/* %{buildroot}%{_bindir}
+pushd %{buildroot}%{_bindir}
+ln -s ../..%{golodir}/bin/golo . 
+popd
 
 # Set GOLO REPO location
 %{__portsed} 's|# resolve links|REPO=%{golodir}/lib\n# resolve links]|g' %{buildroot}%{_bindir}/golo
@@ -76,15 +82,19 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%attr(0755,root,root) %{golodir}
-%attr(0755,root,root) %{_bindir}
-%exclude %{golodir}/doc
-%exclude %{golodir}/samples
 %doc %{golodir}/CONTRIB*
 %doc %{golodir}/LICENSE*
 %doc %{golodir}/NOTICE*
 %doc %{golodir}/README*
 %doc %{golodir}/doc
+%exclude %{golodir}/CONTRIB*
+%exclude %{golodir}/LICENSE*
+%exclude %{golodir}/NOTICE*
+%exclude %{golodir}/README*
+%exclude %{golodir}/doc
+%exclude %{golodir}/samples
+%{golodir}
+%{_bindir}/golo
 
 %files samples
 %defattr(-,root,root)
