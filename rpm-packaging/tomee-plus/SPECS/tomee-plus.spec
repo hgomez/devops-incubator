@@ -2,7 +2,7 @@
 %define		debug_package %{nil}
 
 # Avoid jar repack (brp-java-repack-jars)
-#%define __jar_repack 0
+%define __jar_repack 0
 
 # Avoid CentOS 5/6 extras processes on contents (especially brp-java-repack-jars)
 %define __os_install_post %{nil}
@@ -27,7 +27,7 @@ Group:     Applications/Communications
 URL:       https://github.com/hgomez/devops-incubator
 Vendor:    devops-incubator
 Packager:  devops-incubator
-License:   ASL 2.0
+License:   Apache-2.0
 BuildArch: noarch
 
 %define appname         tomee-plus
