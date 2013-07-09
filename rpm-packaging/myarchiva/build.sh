@@ -64,6 +64,7 @@ download_file_if_needed()
 download_file_if_needed $ARCHIVA_URL SOURCES/apache-archiva-${ARCHIVA_VERSION}.war
 download_file_if_needed $TOMCAT_URL SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 download_file_if_needed $CATALINA_JMX_REMOTE_URL SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar
+cp SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar SOURCES/catalina-jmx-remote.jar
 download_file_if_needed $ACTIVATION_URL SOURCES/activation-${ACTIVATION_VERSION}.jar
 download_file_if_needed $MAIL_URL SOURCES/mail-${MAIL_VERSION}.jar
 download_file_if_needed $DERBY_URL SOURCES/derby-${DERBY_VERSION}.jar
