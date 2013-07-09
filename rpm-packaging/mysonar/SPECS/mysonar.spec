@@ -16,7 +16,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.41
+%define tomcat_rel        7.0.42
 %endif
 
 %if %{?SONAR_REL:1}
@@ -27,12 +27,12 @@
 
 Name: mysonar
 Version: %{sonar_rel}
-Release: 1
+Release: 2
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
-Group: Development/Tools
-URL: https://github.com/hgomez/devops-incubator
+Group: Group: Development/Tools/Building
+URL: http://www.sonarqube.org/
 Vendor: devops-incubator
-License: LGPL
+License: LGPL-3.0
 BuildArch:  noarch
 
 %define appname         mysonar
@@ -64,21 +64,28 @@ BuildRequires: systemd
 %define systemd_requires %{nil}
 %endif
 
+%if 0%{?suse_version}
+Requires: cron
+Requires: logrotate
+%endif
+
 BuildRequires:      unzip
 
 %if 0%{?suse_version}
+BuildRequires:      java >= 1.6.0
 Requires:           java >= 1.6.0
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
+BuildRequires:      java >= 1:1.6.0
 Requires:           java >= 1:1.6.0
 %endif
 
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
-Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: sonar-%{sonar_rel}.zip
+Source0: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/apache-tomcat-%{tomcat_rel}.tar.gz
+Source1: http://dist.sonar.codehaus.org/sonar-%{sonar_rel}.zip
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
@@ -320,14 +327,14 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
 %config %{_sysconfdir}/logrotate.d/%{appname}
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
-%{_cronddir}
+%config %{_cronddir}/%{appname}
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
 %attr(0755,%{appusername},%{appusername}) %dir %{appconflocaldir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
-%attr(0755,%{appusername},%{appusername}) %dir %{apptempdir}
+%ghost %{apptempdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appworkdir}
 %config(noreplace) %{appdatadir}/conf
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/data
@@ -341,6 +348,12 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Jul 8 2013 henri.gomez@gmail.com 3.6-2
+- Apache Tomcat 7.0.42 released
+- Use %ghost directive for /var/run contents (rpmlint)
+- cron contents should be marked as %config (rpmlint)
+- cron/logrotate required for SUSE (rpmlint)
+
 * Sat Jun 29 2013 henri.gomez@gmail.com 3.6-1
 - Sonar 3.6 released
 
