@@ -65,6 +65,11 @@ BuildRequires: systemd
 %endif
 
 %if 0%{?suse_version}
+Requires: cron
+Requires: logrotate
+%endif
+
+%if 0%{?suse_version}
 Requires:           java >= 1.7.0
 %endif
 
