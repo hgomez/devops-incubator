@@ -13,7 +13,7 @@ if [ -z "$ACTIVATION_VERSION" ]; then
 fi
 
 if [ -z "$MAIL_VERSION" ]; then
-  MAIL_VERSION=1.4.5
+  MAIL_VERSION=1.4.7
 fi
 
 if [ -z "$DERBY_VERSION" ]; then

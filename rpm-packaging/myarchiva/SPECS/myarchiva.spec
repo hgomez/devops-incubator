@@ -28,7 +28,7 @@
 %if 0%{?MAIL_REL:1}
 %define mail_rel		%{MAIL_REL}
 %else
-%define mail_rel		1.4.5
+%define mail_rel		1.4.7
 %endif
 
 %if 0%{?ACTIVATION_REL:1}
