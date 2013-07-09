@@ -23,7 +23,7 @@ Name:      tomee-jaxrs
 Version:   %{tomee_rel}
 Release:   1
 Summary:   Apache TomEE JAX-RS
-Group:     Applications/Communications
+Group:     Productivity/Networking/Web/Servers
 URL:       https://github.com/hgomez/devops-incubator
 Vendor:    devops-incubator
 Packager:  devops-incubator
@@ -35,14 +35,20 @@ BuildArch: noarch
 %define appuserid       10002
 %define appgroupid      10002
 
-%define appdir          /opt/asf/%{appname}
-%define appdatadir      %{_var}/lib/asf/%{appname}
-%define applogdir       %{_var}/log/asf/%{appname}
+%define asfdir          /opt/asf
+%define asfvarlibdir    %{_var}/lib/asf
+%define asfvarlogdir    %{_var}/log/asf
+%define asfvarrundir    %{_var}/run/asf
+%define asfvarspooldir  %{_var}/spool/asf
+
+%define appdir          %{asfdir}/%{appname}
+%define appdatadir      %{asfvarlibdir}/%{appname}
+%define applogdir       %{asfvarlogdir}/%{appname}
 %define appexec         %{appdir}/bin/catalina.sh
 %define appconfdir      %{appdir}/conf
 %define appwebappdir    %{appdir}/webapps
-%define apptempdir      %{_var}/run/asf/%{appname}
-%define appworkdir      %{_var}/spool/asf/%{appname}
+%define apptempdir      %{asfvarrundir}/%{appname}
+%define appworkdir      %{asfvarspooldir}/%{appname}
 %define appcron         %{appdir}/bin/cron.sh
 
 %define _cronddir         %{_sysconfdir}/cron.d
@@ -62,6 +68,8 @@ BuildRequires: systemd
 
 %if 0%{?suse_version}
 Requires:           java >= 1.6.0
+Requires:           logrotate
+Requires:           cron
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
@@ -110,7 +118,7 @@ mkdir -p %{buildroot}%{applogdir}
 mkdir -p %{buildroot}%{apptempdir}
 mkdir -p %{buildroot}%{appworkdir}
 
-# Copy tomcat
+# Copy TomEE
 mv apache-tomee-jaxrs-%{tomee_rel}/* %{buildroot}%{appdir}
 
 # patches to have logs under /var/log/app
@@ -133,6 +141,11 @@ cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+
+%if 0%{?suse_version} > 1140
+mkdir -p %{buildroot}%{_var}/adm/fillup-templates
+mv %{buildroot}%{_sysconfdir}/sysconfig/%{appname} %{buildroot}%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%endif
 
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
@@ -179,11 +192,18 @@ cp %{SOURCE13} %{buildroot}%{appcron}
 rm -f %{buildroot}%{appdir}/*.sh
 rm -f %{buildroot}%{appdir}/*.bat
 rm -f %{buildroot}%{appdir}/bin/*.bat
+rm -f %{buildroot}%{appdir}/bin/*.bat.original
 rm -rf %{buildroot}%{appdir}/logs
 rm -rf %{buildroot}%{appdir}/temp
 rm -rf %{buildroot}%{appdir}/work
 
-# ensure shell scripts are executable
+# cleanup dos/exec files (rpmlint requirements)
+sed -i 's/\r//' %{buildroot}%{appdir}/bin/catalina-tasks.xml
+sed -i 's/\r//' %{buildroot}%{appdir}/RELEASE-NOTES
+sed -i 's/\r//' %{buildroot}%{appdir}/RUNNING.txt
+chmod 644 %{buildroot}%{appdir}/bin/commons-daemon-native.tar.gz
+chmod 644 %{buildroot}%{appdir}/bin/tomcat-native.tar.gz
+chmod 644 %{buildroot}%{appdir}/bin/*.xml
 chmod 755 %{buildroot}%{appdir}/bin/*.sh
 
 %clean
@@ -210,6 +230,7 @@ fi
 %post
 %if 0%{?suse_version} > 1140
 %service_add_post %{appname}.service
+%fillup_only
 %endif
 # First install time, register service, generate random passwords and start application
 if [ "$1" == "1" ]; then
@@ -249,7 +270,11 @@ if [ "$1" == "0" ]; then
   # Uninstall time, stop service and cleanup
 
   # stop service
+%if 0%{?suse_version} > 1140
+  %stop_on_removal %{appname} 
+%else
   %{_initrddir}/%{appname} stop
+%endif
 
   # unregister app from services
   systemctl disable %{appname}.service >/dev/null 2>&1
@@ -280,17 +305,33 @@ fi
 %attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
 %attr(0755, root,root) %{_initrddir}/%{appname}
 %attr(0644,root,root) %{_systemdir}/%{appname}.service
+
+%if 0%{?suse_version} > 1140
+%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%else
+%dir %{_sysconfdir}/sysconfig
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
+%endif
+
 %config %{_sysconfdir}/logrotate.d/%{appname}
+%dir %{_sysconfdir}/security/limits.d
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
-%{_cronddir}
+%config %{_cronddir}/%{appname}
+
+# Suse Lint requires new dirs to be defined (owned)
+%dir %{asfdir}
+%dir %{asfvarlibdir}
+%dir %{asfvarlogdir}
+%ghost %{asfvarrundir}
+%dir %{asfvarspooldir}
+%dir %{appdir}
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/endorsed
 %{appdir}/lib
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
-%attr(0755,%{appusername},%{appusername}) %dir %{apptempdir}
+%ghost %{apptempdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appworkdir}
 %doc %{appdir}/NOTICE
 %doc %{appdir}/RUNNING.txt
