@@ -344,7 +344,7 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
 %config %{_sysconfdir}/logrotate.d/%{appname}
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
-%{_cronddir}/%{appname}
+%config %{_cronddir}/%{appname}
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
@@ -361,7 +361,7 @@ fi
 
 %changelog
 * Mon Jul 8 2013 henri.gomez@gmail.com 1.4.m4-3
-- Apache Tomcat 7.0.42 released, update package
+- Apache Tomcat 7.0.42 released
 - Use %ghost directive for /var/run contents (rpmlint)
 - cron contents should be marked as %config (rpmlint)
 - cron/logrotate required for SUSE (rpmlint)
