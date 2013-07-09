@@ -7,7 +7,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.41
+%define tomcat_rel        7.0.42
 %endif
 
 %if %{?GITBLIT_REL:1}
@@ -18,12 +18,12 @@
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 6
+Release: 7
 Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
-Group: Development/Tools
-URL: https://github.com/hgomez/devops-incubator
+Group: Development/Tools/Version Control
+URL: http://gitblit.com/
 Vendor: devops-incubator
-License: ASL 2.0
+License: Apache-2.0
 BuildArch:  noarch
 
 %define appname         mygitblit
@@ -56,6 +56,11 @@ BuildRequires: systemd
 %endif
 
 %if 0%{?suse_version}
+Requires: cron
+Requires: logrotate
+%endif
+
+%if 0%{?suse_version}
 Requires:           java >= 1.6.0
 %endif
 
@@ -66,8 +71,8 @@ Requires:           java >= 1:1.6.0
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
-Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: gitblit-%{gitblit_rel}.war
+Source0: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/apache-tomcat-%{tomcat_rel}.tar.gz
+Source1: http://gitblit.googlecode.com/files/gitblit-%{gitblit_rel}.war
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
@@ -289,14 +294,14 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
 %config %{_sysconfdir}/logrotate.d/%{appname}
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
-%{_cronddir}
+%config %{_cronddir}/%{appname}
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
 %attr(0755,%{appusername},%{appusername}) %dir %{appconflocaldir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
-%attr(0755,%{appusername},%{appusername}) %dir %{apptempdir}
+%ghost %{apptempdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appworkdir}
 %doc %{appdir}/NOTICE
 %doc %{appdir}/RUNNING.txt
@@ -304,6 +309,12 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Jul 8 2013 henri.gomez@gmail.com 1.2.1-7
+- Apache Tomcat 7.0.42 released
+- Use %ghost directive for /var/run contents (rpmlint)
+- cron contents should be marked as %config (rpmlint)
+- cron/logrotate required for SUSE (rpmlint)
+
 * Wed Jun 12 2013 henri.gomez@gmail.com 1.2.1-6
 - Apache Tomcat 7.0.41 released, update package
 
