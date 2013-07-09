@@ -16,21 +16,21 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.41
+%define tomcat_rel        7.0.42
 %endif
 
 %if 0%{?ARTIFACTORY_REL:1}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    3.0.1
+%define artifactory_rel    3.0.2
 %endif
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 2
+Release: 1
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
-Group: Development/Tools
-URL: https://github.com/hgomez/devops-incubator
+Group: Development/Tools/Building
+URL: http://www.jfrog.com/
 Vendor: devops-incubator
 License: GPLv3
 BuildArch:  noarch
@@ -75,8 +75,8 @@ Requires:           java >= 1:1.7.0
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
-Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: artifactory-%{artifactory_rel}.zip
+Source0: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/apache-tomcat-%{tomcat_rel}.tar.gz
+Source1: http://dfn.dl.sourceforge.net/project/artifactory/artifactory/%{artifactory_rel}/artifactory-%{artifactory_rel}.zip
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
@@ -309,7 +309,7 @@ fi
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
 %config %{_sysconfdir}/logrotate.d/%{appname}
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
-%{_cronddir}
+%config %{_cronddir}/%{appname}
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
@@ -317,7 +317,7 @@ fi
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
 %attr(0755,%{appusername},%{appusername}) %dir %{appconflocaldir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
-%attr(0755,%{appusername},%{appusername}) %dir %{apptempdir}
+%ghost %{apptempdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appworkdir}
 # etc should be owned by app
 %attr(-,%{appusername}, %{appusername})  %{appdatadir}/etc
@@ -327,6 +327,13 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Jul 8 2013 henri.gomez@gmail.com 3.0.2-1
+- Apache Tomcat 7.0.42 released
+- Artifactory 3.0.2 released
+- Use %ghost directive for /var/run contents (rpmlint)
+- cron contents should be marked as %config (rpmlint)
+- cron/logrotate required for SUSE (rpmlint)
+
 * Wed Jun 12 2013 henri.gomez@gmail.com 3.0.1-2
 - Apache Tomcat 7.0.41 released, update package
 
