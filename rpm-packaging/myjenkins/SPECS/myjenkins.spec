@@ -22,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.522
+%define jenkins_rel    1.528
 %endif
 
 Name: myjenkins
@@ -312,6 +312,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Aug 20 2013 henri.gomez@gmail.com 1.528-1
+- Jenkins 1.528 released
+
 * Mon Jul 8 2013 henri.gomez@gmail.com 1.522-1
 - Apache Tomcat 7.0.42 released
 - Jenkins 1.522 released
