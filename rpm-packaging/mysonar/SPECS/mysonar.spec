@@ -22,7 +22,7 @@
 %if %{?SONAR_REL:1}
 %define sonar_rel    %{SONAR_REL}
 %else
-%define sonar_rel    3.6
+%define sonar_rel    3.7
 %endif
 
 Name: mysonar
@@ -348,6 +348,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Aug 20 2013 henri.gomez@gmail.com 3.7-1
+- Sonar 3.7 released
+
 * Mon Jul 8 2013 henri.gomez@gmail.com 3.6-2
 - Apache Tomcat 7.0.42 released
 - Use %ghost directive for /var/run contents (rpmlint)
