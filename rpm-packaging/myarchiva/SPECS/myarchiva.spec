@@ -149,7 +149,6 @@ mkdir -p %{buildroot}%{appdatadir}/conf
 mkdir -p %{buildroot}%{applogdir}
 mkdir -p %{buildroot}%{apptempdir}
 mkdir -p %{buildroot}%{appworkdir}
-mkdir -p %{buildroot}%{appwebappdir}
 mkdir -p %{buildroot}%{appdbdir}
 
 # Copy tomcat
@@ -197,6 +196,11 @@ cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
+%if 0%{?suse_version} > 1000
+mkdir -p %{buildroot}%{_var}/adm/fillup-templates
+mv %{buildroot}%{_sysconfdir}/sysconfig/%{appname} %{buildroot}%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%endif
+
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
 cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
@@ -217,11 +221,13 @@ cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
+%if 0%{?suse_version} > 1140
 # Setup Systemd
 mkdir -p %{buildroot}%{_systemdir}
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%endif
 
 # Setup cron.d
 cp %{SOURCE17} %{buildroot}%{_cronddir}/%{appname}
@@ -272,6 +278,9 @@ fi
 %post
 %if 0%{?suse_version} > 1140
 %service_add_post %{appname}.service
+%endif
+%if 0%{?suse_version} > 1000
+%fillup_only
 %endif
 # First install time, register service, generate random passwords and start application
 if [ "$1" == "1" ]; then
@@ -338,11 +347,23 @@ fi
 
 %files
 %defattr(-,root,root)
+%dir %{appdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
 %attr(0755, root,root) %{_initrddir}/%{appname}
+
+%if 0%{?suse_version} > 1140
 %attr(0644,root,root) %{_systemdir}/%{appname}.service
+%endif
+
+%if 0%{?suse_version} > 1000
+%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%else
+%dir %{_sysconfdir}/sysconfig
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
+%endif
+
 %config %{_sysconfdir}/logrotate.d/%{appname}
+%dir %{_sysconfdir}/security/limits.d
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
 %config %{_cronddir}/%{appname}
 %{appdir}/bin

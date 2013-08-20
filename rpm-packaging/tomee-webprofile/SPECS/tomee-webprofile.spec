@@ -19,12 +19,14 @@
 %define tomee_rel        1.5.2
 %endif
 
+%define tomcat_rel       7.0.37
+
 Name:      tomee-webprofile
 Version:   %{tomee_rel}
 Release:   1
 Summary:   Apache TomEE WebProfile
 Group:     Productivity/Networking/Web/Servers
-URL:       https://github.com/hgomez/devops-incubator
+URL:       http://tomee.apache.org/
 Vendor:    devops-incubator
 Packager:  devops-incubator
 License:   Apache-2.0
@@ -70,8 +72,6 @@ BuildRequires: systemd
 Requires:           java >= 1.6.0
 Requires:           logrotate
 Requires:           cron
-#BuildRequires:      -post-build-checks
-#BuildRequires:      -rpmlint
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
@@ -81,7 +81,7 @@ Requires:           java >= 1:1.6.0
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
-Source0: apache-tomee-%{tomee_rel}-webprofile.tar.gz
+Source0: http://apache.osuosl.org/tomee/tomee-%{tomee_rel}/apache-tomee-%{tomee_rel}-webprofile.tar.gz
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
@@ -90,7 +90,7 @@ Source6: setenv.sh.skel
 Source7: logrotate.skel
 Source9: limits.conf.skel
 Source10: systemd.skel
-Source11: catalina-jmx-remote.jar
+Source11: http://archive.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/extras/catalina-jmx-remote.jar
 Source12: crond.skel
 Source13: cron.sh.skel
 
@@ -112,7 +112,9 @@ mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
+%if 0%{?suse_version} > 1140
 mkdir -p %{buildroot}%{_systemdir}
+%endif
 
 mkdir -p %{buildroot}%{appdir}
 mkdir -p %{buildroot}%{appdatadir}
@@ -144,7 +146,7 @@ cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
-%if 0%{?suse_version} > 1140
+%if 0%{?suse_version} > 1000
 mkdir -p %{buildroot}%{_var}/adm/fillup-templates
 mv %{buildroot}%{_sysconfdir}/sysconfig/%{appname} %{buildroot}%{_var}/adm/fillup-templates/sysconfig.%{appname}
 %endif
@@ -173,10 +175,12 @@ cp %{buildroot}%{appconfdir}/server.xml %{buildroot}%{appconfdir}/server.xml.ske
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
+%if 0%{?suse_version} > 1140
 # Setup Systemd
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%endif
 
 # Setup cron.d
 cp %{SOURCE12} %{buildroot}%{_cronddir}/%{appname}
@@ -232,6 +236,8 @@ fi
 %post
 %if 0%{?suse_version} > 1140
 %service_add_post %{appname}.service
+%endif
+%if 0%{?suse_version} > 1000
 %fillup_only
 %endif
 # First install time, register service, generate random passwords and start application
@@ -298,9 +304,12 @@ fi
 %defattr(-,root,root)
 %attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
 %attr(0755, root,root) %{_initrddir}/%{appname}
-%attr(0644,root,root) %{_systemdir}/%{appname}.service
 
 %if 0%{?suse_version} > 1140
+%attr(0644,root,root) %{_systemdir}/%{appname}.service
+%endif
+
+%if 0%{?suse_version} > 1000
 %{_var}/adm/fillup-templates/sysconfig.%{appname}
 %else
 %dir %{_sysconfdir}/sysconfig

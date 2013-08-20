@@ -19,12 +19,14 @@
 %define tomee_rel        1.5.2
 %endif
 
+%define tomcat_rel       7.0.37
+
 Name:      tomee-plus
 Version:   %{tomee_rel}
 Release:   1
 Summary:   Apache TomEE Plus
 Group:     Productivity/Networking/Web/Servers
-URL:       https://github.com/hgomez/devops-incubator
+URL:       http://tomee.apache.org/
 Vendor:    devops-incubator
 Packager:  devops-incubator
 License:   Apache-2.0
@@ -115,7 +117,9 @@ mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
+%if 0%{?suse_version} > 1140
 mkdir -p %{buildroot}%{_systemdir}
+%endif
 
 mkdir -p %{buildroot}%{appdir}
 mkdir -p %{buildroot}%{appdatadir}
@@ -147,15 +151,15 @@ cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
+%if 0%{?suse_version} > 1000
+mkdir -p %{buildroot}%{_var}/adm/fillup-templates
+mv %{buildroot}%{_sysconfdir}/sysconfig/%{appname} %{buildroot}%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%endif
+
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
 cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
 cp %{SOURCE5}  %{buildroot}%{appconfdir}/jmxremote.password.skel
-
-%if 0%{?suse_version} > 1140
-mkdir -p %{buildroot}%{_var}/adm/fillup-templates
-mv %{buildroot}%{_sysconfdir}/sysconfig/%{appname} %{buildroot}%{_var}/adm/fillup-templates/sysconfig.%{appname}
-%endif
 
 # Our custom setenv.sh to get back env variables
 cp  %{SOURCE6} %{buildroot}%{appdir}/bin/setenv.sh
@@ -176,10 +180,12 @@ cp %{buildroot}%{appconfdir}/server.xml %{buildroot}%{appconfdir}/server.xml.ske
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
+%if 0%{?suse_version} > 1140
 # Setup Systemd
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%endif
 
 # Setup cron.d
 cp %{SOURCE12} %{buildroot}%{_cronddir}/%{appname}
@@ -235,6 +241,8 @@ fi
 %post
 %if 0%{?suse_version} > 1140
 %service_add_post %{appname}.service
+%endif
+%if 0%{?suse_version} > 1000
 %fillup_only
 %endif
 # First install time, register service, generate random passwords and start application
@@ -309,9 +317,12 @@ fi
 %defattr(-,root,root)
 %attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
 %attr(0755, root,root) %{_initrddir}/%{appname}
-%attr(0644,root,root) %{_systemdir}/%{appname}.service
 
 %if 0%{?suse_version} > 1140
+%attr(0644,root,root) %{_systemdir}/%{appname}.service
+%endif
+
+%if 0%{?suse_version} > 1000
 %{_var}/adm/fillup-templates/sysconfig.%{appname}
 %else
 %dir %{_sysconfdir}/sysconfig
