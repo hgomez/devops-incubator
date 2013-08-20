@@ -1,5 +1,5 @@
 %if ! 0%{?VERSION:1}
-%define VERSION        0-preview5
+%define VERSION        0-preview6
 %endif
 
 # Avoid unnecessary debug-information (native code)
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %{golodir}/samples
 
 %changelog
+* Tue Aug 20 2013 henri.gomez@gmail.com 0.preview6-1
+- golo 0-preview6 released
+
 * Thu Jul 4 2013 henri.gomez@gmail.com 0.preview5-1
 - golo 0-preview5 released
 - gologolo and goloc removed
