@@ -9,7 +9,7 @@
 %if 0%{?WHISPER_REL:1}
 %define whisper_rel        %{WHISPER_REL}
 %else
-%define whisper_rel        0.9.10
+%define whisper_rel        0.9.11
 %endif
 
 # norootforbuild
@@ -61,5 +61,8 @@ python setup.py install --prefix=%{_prefix} --root=%{buildroot}
 %{python_sitelib}/whisper*
 
 %changelog
+* Tue Aug 20 2013 henri.gomez@gmail.com 0.9.11-1
+- Graphite 0.9.11 released
+
 * Fri Feb 22 2013 henri.gomez@gmail.com 0.9.10-1
 - initial package (v0.9.10)

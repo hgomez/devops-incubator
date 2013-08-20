@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z "$WHISPER_VERSION" ]; then
-  WHISPER_VERSION=0.9.10
+  WHISPER_VERSION=0.9.11
 fi
 
 if [ -z "$WHISPER_HIGH_VERSION" ]; then
@@ -17,9 +17,6 @@ if [ $# -gt 1 ]; then
  WHISPER_HIGH_VERSION=$1
  shift
 fi
-
-
-           https://launchpad.net/graphite/0.9/0.9.10/+download/whisper-0.9.10.tar.gz
 
 WHISPER_URL=http://launchpad.net/graphite/$WHISPER_HIGH_VERSION/$WHISPER_VERSION/+download/whisper-$WHISPER_VERSION.tar.gz
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z "$CARBON_VERSION" ]; then
-  CARBON_VERSION=0.9.10
+  CARBON_VERSION=0.9.11
 fi
 
 if [ -z "$CARBON_HIGH_VERSION" ]; then

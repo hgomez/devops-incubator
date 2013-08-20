@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z "$GRAPHITE_VERSION" ]; then
-  GRAPHITE_VERSION=0.9.10
+  GRAPHITE_VERSION=0.9.11
 fi
 
 if [ -z "$GRAPHITE_HIGH_VERSION" ]; then

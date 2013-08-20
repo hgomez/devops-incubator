@@ -15,7 +15,7 @@
 %if 0%{?CARBON_REL:1}
 %define carbon_rel        %{CARBON_REL}
 %else
-%define carbon_rel        0.9.10
+%define carbon_rel        0.9.11
 %endif
 
 %define carbonusername     mycarbon
@@ -241,5 +241,8 @@ fi
 %endif
 
 %changelog
+* Tue Aug 20 2013 henri.gomez@gmail.com 0.9.11-1
+- Graphite 0.9.11 released
+
 * Fri Feb 22 2013 henri.gomez@gmail.com 0.9.10-1
 - initial package (v0.9.10)
