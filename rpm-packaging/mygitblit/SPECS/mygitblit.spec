@@ -13,12 +13,12 @@
 %if %{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
-%define gitblit_rel    1.2.1
+%define gitblit_rel    1.3.1
 %endif
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 7
+Release: 1
 Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Version Control
 URL: http://gitblit.com/
@@ -309,6 +309,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Aug 20 2013 henri.gomez@gmail.com 1.3.1-1
+- GitBlit 1.3.1
+
 * Mon Jul 8 2013 henri.gomez@gmail.com 1.2.1-7
 - Apache Tomcat 7.0.42 released
 - Use %ghost directive for /var/run contents (rpmlint)
