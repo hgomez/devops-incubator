@@ -22,7 +22,7 @@
 %if %{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.6.1
+%define nexus_rel    2.6.3
 %endif
 
 Name: mynexus
@@ -317,6 +317,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Sep 18 2013 henri.gomez@gmail.com 2.6.3-1
+- Nexus 2.6.3 released
+
 * Tue Aug 20 2013 henri.gomez@gmail.com 2.6.1-1
 - Nexus 2.6.1 released
 
