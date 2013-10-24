@@ -22,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.533
+%define jenkins_rel    1.536
 %endif
 
 Name: myjenkins
@@ -312,6 +312,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Oct 24 2013 henri.gomez@gmail.com 1.536-1
+- Jenkins 1.536 released
+
 * Fri Oct 4 2013 henri.gomez@gmail.com 1.533-1
 - Jenkins 1.533 released
 
