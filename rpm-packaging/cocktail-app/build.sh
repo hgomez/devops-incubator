@@ -5,7 +5,7 @@ if [ -z "$MYAPP_VERSION" ]; then
 fi
 
 if [ -z "$TOMCAT_VERSION" ]; then
-  TOMCAT_VERSION=7.0.41
+  TOMCAT_VERSION=7.0.47
 fi
 
 if [ $# -gt 1 ]; then
