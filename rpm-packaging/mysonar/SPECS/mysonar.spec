@@ -16,7 +16,7 @@
 %if %{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.42
+%define tomcat_rel        7.0.47
 %endif
 
 %if %{?SONAR_REL:1}
@@ -27,7 +27,7 @@
 
 Name: mysonar
 Version: %{sonar_rel}
-Release: 1
+Release: 2
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Group: Development/Tools/Building
 URL: http://www.sonarqube.org/
@@ -348,6 +348,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sun Oct 27 2013 henri.gomez@gmail.com 3.7.2-2
+- Update Tomcat to 7.0.47
+
 * Fri Oct 4 2013 henri.gomez@gmail.com 3.7.2-1
 - Sonar 3.7.2 released
 

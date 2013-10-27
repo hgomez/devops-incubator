@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel		%{TOMCAT_REL}
 %else
-%define tomcat_rel		7.0.42
+%define tomcat_rel		7.0.47
 %endif
 
 %if 0%{?ARCHIVA_REL:1}
@@ -49,7 +49,7 @@
 Name: myarchiva
 
 Version: %{rpm_archiva_rel}
-Release: 3
+Release: 4
 Summary: Apache Archiva %{archiva_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://archiva.apache.org/
@@ -381,6 +381,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sun Oct 27 2013 henri.gomez@gmail.com 1.4.m4-4
+- Update Tomcat to 7.0.47
+
 * Mon Jul 8 2013 henri.gomez@gmail.com 1.4.m4-3
 - Apache Tomcat 7.0.42 released
 - Use %ghost directive for /var/run contents (rpmlint)
