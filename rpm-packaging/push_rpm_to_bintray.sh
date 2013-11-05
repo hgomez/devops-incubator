@@ -23,7 +23,7 @@ BASE_DESC=$5
 CURL_SILENT_CMD="curl --write-out %{http_code} --silent --output /dev/null -u$BINTRAY_USER:$BINTRAY_APIKEY"
 CURL_VERBOSE_CMD="curl --write-out %{http_code} -u$BINTRAY_USER:$BINTRAY_APIKEY"
 
-if [ "$XDEBUG" = "true" ]; then
+if [ "$XDEBUG" = "true" ]; then
   CURL_CMD=$CURL_VERBOSE_CMD
 else
   CURL_CMD=$CURL_SILENT_CMD
