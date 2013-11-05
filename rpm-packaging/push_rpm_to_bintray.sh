@@ -20,7 +20,14 @@ BINTRAY_REPO=$3
 RPM_FILE=$4
 BASE_DESC=$5
 
-CURL_CMD="curl --write-out %{http_code} --silent --output /dev/null -u$BINTRAY_USER:$BINTRAY_APIKEY"
+CURL_SILENT_CMD="curl --write-out %{http_code} --silent --output /dev/null -u$BINTRAY_USER:$BINTRAY_APIKEY"
+CURL_VERBOSE_CMD="curl --write-out %{http_code} -u$BINTRAY_USER:$BINTRAY_APIKEY"
+
+if [ ! -z "$XDEBUG" ]; then
+  CURL_CMD=$CURL_VERBOSE_CMD
+else
+  CURL_CMD=$CURL_SILENT_CMD
+fi
 
 BINTRAY_ACCOUNT=$BINTRAY_USER
 
