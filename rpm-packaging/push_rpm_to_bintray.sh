@@ -59,7 +59,7 @@ else
 fi
 
 echo "Creating package on Bintray.."
-DATA_JSON="{ \"name\": \"$RPM_NAME\", \"desc\": \"${RPM_DESCRIPTION}\", \"desc_url\": \"$DESC_URL\", \"labels\": \"\", \"licenses\": [ \"$RPM_LICENSE\" }"
+DATA_JSON="{ \"name\": \"$RPM_NAME\", \"desc\": \"${RPM_DESCRIPTION}\", \"desc_url\": \"$DESC_URL\", \"labels\": \"\", \"licenses\": [ \"$RPM_LICENSE\" ] }"
 
 if [ "$XDEBUG" = "true" ]; then
  echo "DATA_JSON=$DATA_JSON"
