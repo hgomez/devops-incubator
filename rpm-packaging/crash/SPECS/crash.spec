@@ -1,5 +1,5 @@
 %if ! 0%{?VERSION:1}
-%define VERSION        1.2.7
+%define VERSION        1.2.8
 %endif
 
 # Avoid unnecessary debug-information (native code)
@@ -84,6 +84,9 @@ rm -rf %{buildroot}
 %{_bindir}/crash.sh
 
 %changelog
+* Tue Nov 5 2013 henri.gomez@gmail.com 1.2.8-1
+- crsh 1.2.8 released
+
 * Tue Aug 20 2013 henri.gomez@gmail.com 1.2.7-1
 - crsh 1.2.7 released
 
