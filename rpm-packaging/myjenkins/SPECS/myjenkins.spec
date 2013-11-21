@@ -121,7 +121,6 @@ mkdir -p %{buildroot}%{appdatadir}
 mkdir -p %{buildroot}%{applogdir}
 mkdir -p %{buildroot}%{apptempdir}
 mkdir -p %{buildroot}%{appworkdir}
-mkdir -p %{buildroot}%{appwebappdir}
 
 # Copy tomcat
 mv apache-tomcat-%{tomcat_rel}/* %{buildroot}%{appdir}
