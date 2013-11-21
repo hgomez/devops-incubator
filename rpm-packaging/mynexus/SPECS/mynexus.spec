@@ -252,10 +252,12 @@ if [ "$1" == "1" ]; then
 %endif
 
   # Generated random password for RO and RW accounts
-  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
-  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  if [ -f %{_sysconfdir}/sysconfig/%{appname} ]; then
+    RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
+    sed -i "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+    RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
+    sed -i "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  fi
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
