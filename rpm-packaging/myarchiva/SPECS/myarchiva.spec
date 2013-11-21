@@ -286,17 +286,23 @@ fi
 # First install time, register service, generate random passwords and start application
 if [ "$1" == "1" ]; then
   # register app as service
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
+  chkconfig %{appname} on
+%else
   systemctl enable %{appname}.service >/dev/null 2>&1
+%endif
 
 %if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
   chkconfig %{appname} on
 %endif
 
   # Generated random password for RO and RW accounts
-  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  %{__portsed} "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
-  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  %{__portsed} "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  if [ -f %{_sysconfdir}/sysconfig/%{appname} ]; then
+    RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
+    %{__portsed} "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+    RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
+    %{__portsed} "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  fi
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
@@ -325,7 +331,11 @@ if [ "$1" == "0" ]; then
   # Uninstall time, stop service and cleanup
 
   # stop service
-  %{_initrddir}/%{appname} stop
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
+  chkconfig %{appname} off
+%else
+  systemctl disable %{appname}.service >/dev/null 2>&1
+%endif
 
   # unregister app from services
   systemctl disable %{appname}.service >/dev/null 2>&1
