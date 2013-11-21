@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TOMEE_VERSION=1.5.2
+TOMEE_VERSION=1.6.0
 TOMCAT_VERSION=7.0.47
 
 if [ $# -gt 1 ]; then

@@ -16,14 +16,14 @@
 %if 0%{?TOMEE_REL:1}
 %define tomee_rel        %{TOMEE_REL}
 %else
-%define tomee_rel        1.5.2
+%define tomee_rel        1.6.0
 %endif
 
 %define tomcat_rel       7.0.47
 
 Name:      tomee-jaxrs
 Version:   %{tomee_rel}
-Release:   2
+Release:   1
 Summary:   Apache TomEE JAX-RS
 Group:     Productivity/Networking/Web/Servers
 URL:       http://tomee.apache.org/
@@ -358,6 +358,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Nov 21 2013 henri.gomez@gmail.com 1.6.0-1
+- TomEE 1.6.0 released, package updated to 1.6.0
+
 * Thu Nov 21 2013 henri.gomez@gmail.com 1.5.2-2
 - Fixes for SLES to ensure service is correctly registered/unregistered thanks to Castedo Ellerman
 - Upgrade Apache Tomcat to 7.0.47
