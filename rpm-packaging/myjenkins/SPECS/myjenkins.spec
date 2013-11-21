@@ -331,7 +331,6 @@ fi
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
 %config %{_cronddir}/%{appname}
 
-%{dir}  
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
