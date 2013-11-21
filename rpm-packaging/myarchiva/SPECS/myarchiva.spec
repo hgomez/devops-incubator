@@ -419,7 +419,7 @@ fi
 * Thu Jan 17 2013 henri.gomez@gmail.com 1.4.m3-4
 - Apache Tomcat 7.0.35 released, update package
 
-* Tue Dec 19 2012 henri.gomez@gmail.com 1.4.m3-3
+* Wed Dec 19 2012 henri.gomez@gmail.com 1.4.m3-3
 - Update to Apache Tomcat 7.0.34
 - Apply patch from Brett Potter
 
@@ -430,5 +430,5 @@ fi
 * Wed Oct 3 2012 henri.gomez@gmail.com 1.4.m2-2
 - Reduce number of log files (manager and host-manager)
 
-* Mon Sep 28 2012 henri.gomez@gmail.com 1.4.m2-1
+* Fri Sep 28 2012 henri.gomez@gmail.com 1.4.m2-1
 - Initial RPM
