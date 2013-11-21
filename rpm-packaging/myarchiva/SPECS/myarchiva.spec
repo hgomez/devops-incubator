@@ -77,7 +77,8 @@ BuildArch:  noarch
 
 %define _cronddir         %{_sysconfdir}/cron.d
 %define _initrddir        %{_sysconfdir}/init.d
-%define _systemdir        /lib/systemd/system
+%define _systemddir       /lib/systemd
+%define _systemdir        %{_systemddir}/system
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -352,6 +353,8 @@ fi
 %attr(0755, root,root) %{_initrddir}/%{appname}
 
 %if 0%{?suse_version} > 1140
+%dir %{_systemddir}
+%dir %{_systemdir}
 %attr(0644,root,root) %{_systemdir}/%{appname}.service
 %endif
 
