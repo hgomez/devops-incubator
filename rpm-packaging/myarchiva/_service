@@ -1,0 +1,60 @@
+<services>
+
+  <service name="tar_scm">
+    <param name="scm">git</param>
+    <param name="url">https://github.com/hgomez/devops-incubator.git</param>
+    <param name="versionformat">1.4</param>
+  </service>
+
+  <service name="recompress">
+    <param name="compression">gz</param>
+    <param name="file">*.tar</param>
+  </service>
+
+  <service name="extract_file">
+    <param name="archive">*devops-incubator*.tar.gz</param>
+    <param name="files">devops-incubator*/rpm-packaging/myarchiva/SOURCES/*</param>
+    <param name="files">devops-incubator*/rpm-packaging/myarchiva/SPECS/*.spec</param>
+  </service>
+
+  <service name="download_url">
+   <param name="host">archive.apache.org</param>
+   <param name="protocol">http</param>
+   <param name="path">/dist/archiva/1.4-M4/binaries/apache-archiva-1.4-M4.war</param>
+  </service>
+
+  <service name="download_url">
+   <param name="host">archive.apache.org</param>
+   <param name="protocol">http</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.47/bin/extras/catalina-jmx-remote.jar</param>
+   <param name="filename">catalina-jmx-remote-7.0.47.jar</param>
+   </service>
+
+  <service name="download_url">
+   <param name="host">archive.apache.org</param>
+   <param name="protocol">http</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.47/bin/apache-tomcat-7.0.47.tar.gz</param>
+   </service>
+
+  <service name="download_url">
+    <param name="host">central.maven.org</param>
+    <param name="protocol">http</param>
+    <param name="path">/maven2/javax/mail/mail/1.4.7/mail-1.4.7.jar</param>
+  </service>
+
+  <service name="download_url">
+    <param name="host">central.maven.org</param>
+    <param name="protocol">http</param>
+    <param name="path">/maven2/javax/activation/activation/1.1.1/activation-1.1.1.jar</param>
+  </service>
+
+  <service name="download_url">
+   <param name="host">central.maven.org</param>
+   <param name="protocol">http</param>
+   <param name="path">/maven2/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar</param>
+  </service>
+
+ </services>
+
+<services>
+
