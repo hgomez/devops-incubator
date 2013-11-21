@@ -1,7 +1,7 @@
 #!/bin/sh
 
 TOMEE_VERSION=1.5.2
-TOMCAT_VERSION=7.0.37
+TOMCAT_VERSION=7.0.47
 
 if [ $# -gt 1 ]; then
   TOMEE_VERSION=$1
