@@ -23,7 +23,7 @@
 
 Name:      tomee-webprofile
 Version:   %{tomee_rel}
-Release:   1
+Release:   2
 Summary:   Apache TomEE WebProfile
 Group:     Productivity/Networking/Web/Servers
 URL:       http://tomee.apache.org/
@@ -243,7 +243,11 @@ fi
 # First install time, register service, generate random passwords and start application
 if [ "$1" == "1" ]; then
   # register app as service
+%if 0%{?suse_version} < 1200
+  chkconfig %{appname} on
+%else
   systemctl enable %{appname}.service >/dev/null 2>&1
+%endif
 
   # Generated random password for RO and RW accounts
   RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
@@ -285,7 +289,11 @@ if [ "$1" == "0" ]; then
 %endif
 
   # unregister app from services
+%if 0%{?suse_version} < 1200
+  chkconfig %{appname} off
+%else
   systemctl disable %{appname}.service >/dev/null 2>&1
+%endif
 
   # finalize housekeeping
   rm -rf %{appdir}
@@ -342,6 +350,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Nov 21 2013 henri.gomez@gmail.com 1.5.2-2
+- Fixes for SLES to ensure service is correctly registered/unregistered thanks to Castedo Ellerman
+
 * Sat Jun 29 2013 henri.gomez@gmail.com 1.5.2-1
 - Initial RPM for Apache TomEE Web Profile
 - Warning work in progress
