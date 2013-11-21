@@ -159,6 +159,11 @@ cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
+%if 0%{?suse_version} > 1000
+mkdir -p %{buildroot}%{_var}/adm/fillup-templates
+mv %{buildroot}%{_sysconfdir}/sysconfig/%{appname} %{buildroot}%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%endif
+
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
 cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
@@ -307,7 +312,14 @@ fi
 %attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
 %attr(0755, root,root) %{_initrddir}/%{appname}
 %attr(0644,root,root) %{_systemdir}/%{appname}.service
+
+%if 0%{?suse_version} > 1000
+%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%else
+%dir %{_sysconfdir}/sysconfig
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
+%endif
+
 %config %{_sysconfdir}/logrotate.d/%{appname}
 %dir %{_sysconfdir}/security/limits.d
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
