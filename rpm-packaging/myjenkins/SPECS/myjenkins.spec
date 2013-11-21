@@ -115,7 +115,6 @@ mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
-mkdir -p %{buildroot}%{_systemdir}
 
 mkdir -p %{buildroot}%{appdir}
 mkdir -p %{buildroot}%{appdatadir}
@@ -185,10 +184,13 @@ cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
+%if 0%{?suse_version} > 1140
 # Setup Systemd
+mkdir -p %{buildroot}%{_systemdir}
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%endif
 
 # Setup cron.d
 cp %{SOURCE13} %{buildroot}%{_cronddir}/%{appname}
