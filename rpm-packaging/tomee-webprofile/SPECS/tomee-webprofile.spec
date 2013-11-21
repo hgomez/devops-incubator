@@ -19,7 +19,7 @@
 %define tomee_rel        1.5.2
 %endif
 
-%define tomcat_rel       7.0.37
+%define tomcat_rel       7.0.47
 
 Name:      tomee-webprofile
 Version:   %{tomee_rel}
@@ -352,6 +352,7 @@ fi
 %changelog
 * Thu Nov 21 2013 henri.gomez@gmail.com 1.5.2-2
 - Fixes for SLES to ensure service is correctly registered/unregistered thanks to Castedo Ellerman
+- Upgrade Apache Tomcat to 7.0.47
 
 * Sat Jun 29 2013 henri.gomez@gmail.com 1.5.2-1
 - Initial RPM for Apache TomEE Web Profile
