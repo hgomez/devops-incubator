@@ -307,6 +307,7 @@ fi
 
 %files
 %defattr(-,root,root)
+%dir %{appdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
 %attr(0755, root,root) %{_initrddir}/%{appname}
 
@@ -324,8 +325,11 @@ fi
 %endif
 
 %config %{_sysconfdir}/logrotate.d/%{appname}
+%dir %{_sysconfdir}/security/limits.d
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
 %config %{_cronddir}/%{appname}
+
+%{dir}  
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
