@@ -27,7 +27,7 @@
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
    <param name="path">/dist/tomcat/tomcat-7/v7.0.47/bin/extras/catalina-jmx-remote.jar</param>
-   <param name="filename">catalina-jmx-remote-7.0.47.jar</param>
+   <param name="filename">catalina-jmx-remote.jar</param>
    </service>
 
   <service name="download_url">
