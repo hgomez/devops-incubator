@@ -311,7 +311,10 @@ fi
 %defattr(-,root,root)
 %attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
 %attr(0755, root,root) %{_initrddir}/%{appname}
+
+%if 0%{?suse_version} > 1140
 %attr(0644,root,root) %{_systemdir}/%{appname}.service
+%endif
 
 %if 0%{?suse_version} > 1000
 %{_var}/adm/fillup-templates/sysconfig.%{appname}
