@@ -22,7 +22,7 @@
 %if %{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.538
+%define jenkins_rel    1.539
 %endif
 
 Name: myjenkins
@@ -312,8 +312,8 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Tue Nov 5 2013 henri.gomez@gmail.com 1.538-1
-- Jenkins 1.538 released
+* Thu Nov 21 2013 henri.gomez@gmail.com 1.539-1
+- Jenkins 1.539 released
 
 * Sun Oct 27 2013 henri.gomez@gmail.com 1.536-2
 - Update Tomcat to 7.0.47
