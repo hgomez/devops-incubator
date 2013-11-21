@@ -18,7 +18,7 @@
   </service>
 
   <service name="download_url">
-   <param name="host">download.sonatype.com</param>
+   <param name="host">mirrors.jenkins-ci.org</param>
    <param name="protocol">http</param>
    <param name="path">/war/1.540/jenkins.war</param>
   </service>
