@@ -54,7 +54,5 @@
    <param name="path">/maven2/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar</param>
   </service>
 
- </services>
-
 <services>
 
