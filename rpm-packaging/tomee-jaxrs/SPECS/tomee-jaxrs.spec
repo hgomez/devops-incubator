@@ -324,6 +324,7 @@ fi
 %attr(0755, root,root) %{_initrddir}/%{appname}
 
 %if 0%{?suse_version} > 1140
+%dir %{_systemdir}
 %attr(0644,root,root) %{_systemdir}/%{appname}.service
 %endif
 
