@@ -13,13 +13,13 @@
 %define __portsed sed -i
 %endif
 
-%if %{?TOMCAT_REL:1}
+%if 0%{?TOMCAT_REL}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
 %define tomcat_rel        7.0.47
 %endif
 
-%if %{?NEXUS_REL:1}
+%if 0%{?NEXUS_REL}
 %define nexus_rel    %{NEXUS_REL}
 %else
 %define nexus_rel    2.6.3
