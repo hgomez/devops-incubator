@@ -309,8 +309,12 @@ fi
 %attr(0644,root,root) %{_systemdir}/%{appname}.service
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
 %config %{_sysconfdir}/logrotate.d/%{appname}
+%dir %{_sysconfdir}/security/limits.d
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
 %config %{_cronddir}/%{appname}
+
+# Suse Lint requires new dirs to be defined (owned)
+%dir %{appdir}
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
