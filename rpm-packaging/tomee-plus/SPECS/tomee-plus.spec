@@ -248,7 +248,7 @@ fi
 # First install time, register service, generate random passwords and start application
 if [ "$1" == "1" ]; then
   # register app as service
-%if 0%{?suse_version} < 1200
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
   chkconfig %{appname} on
 %else
    systemctl enable %{appname}.service >/dev/null 2>&1
@@ -294,7 +294,7 @@ if [ "$1" == "0" ]; then
 %endif
 
   # unregister app from services
-%if 0%{?suse_version} < 1200
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
   chkconfig %{appname} off
 %else
    systemctl disable %{appname}.service >/dev/null 2>&1
