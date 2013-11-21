@@ -37,9 +37,6 @@
    <param name="path">/dist/tomcat/tomcat-7/v7.0.47/bin/apache-tomcat-7.0.47.tar.gz</param>
    </service>
 
-  <service name="set_version">
-  </service>
-
 </services>
 
 
