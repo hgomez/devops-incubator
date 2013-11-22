@@ -65,6 +65,8 @@ BuildRequires: systemd
 %define systemd_requires %{nil}
 %endif
 
+BuildRequires: unzip
+
 %if 0%{?suse_version}
 Requires: cron
 Requires: logrotate
