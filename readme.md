@@ -34,17 +34,30 @@ RPM packages release number are revision, used when something is updated in RPM 
 
 #Yum Repository
 
-Thanks to JFrog Bintray and CloudBees BuildHive, RPM packages are now built in continuous and push to a Yum repository.
+Thanks to openSUSE Build Services, RPM packages are now built and push to Yum repositories on OBS.
 They could be installed on CentOS/Fedora/RHEL/Suse/openSUSE.
 
-##CentOS/RHEL 5
+##CentOS
 
-Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-devops-incubator-noarch.repo**
+###CentOS 5
 
-    #devops-incubator-noarch.repo - packages by hgomez from Bintray
-    [bintray-devops-incubator-noarch]
-    name=bintray-devops-incubator-noarch
-    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-centos5-noarch
+Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
+
+    #devops-incubator.repo - packages by hgomez from OBS
+    [devops-incubator]
+    name=devops-incubator
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_CentOS-5/
+    gpgcheck=0
+    enabled=1
+ 
+###CentOS 6
+
+Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
+
+    #devops-incubator.repo - packages by hgomez from OBS
+    [devops-incubator]
+    name=devops-incubator
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_CentOS-6/
     gpgcheck=0
     enabled=1
  
@@ -53,14 +66,27 @@ Install a package (jenkins for example)
     sudo yum update
     sudo yum install myjenkins
 
-##CentOS/RHEL 6
+##Fedora
 
-Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-devops-incubator-noarch.repo**
+###Fedora 18
 
-    #devops-incubator-noarch.repo - packages by hgomez from Bintray
-    [bintray-devops-incubator-noarch]
-    name=bintray-devops-incubator-noarch
-    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-centos6-noarch
+Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
+
+    #devops-incubator.repo - packages by hgomez from OBS
+    [devops-incubator]
+    name=devops-incubator
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/Fedora_18/
+    gpgcheck=0
+    enabled=1
+ 
+###Fedora 19
+
+Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
+
+    #devops-incubator.repo - packages by hgomez from OBS
+    [devops-incubator]
+    name=devops-incubator
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/Fedora_19/
     gpgcheck=0
     enabled=1
  
@@ -69,14 +95,27 @@ Install a package (jenkins for example)
     sudo yum update
     sudo yum install myjenkins
 
-##Fedora 18
+##RHEL
 
-Add Yum repository by editing repo file **/etc/yum.repos.d/bintray-devops-incubator-noarch.repo**
+###RHEL 5
 
-    #devops-incubator-noarch.repo - packages by hgomez from Bintray
-    [bintray-devops-incubator-noarch]
-    name=bintray-devops-incubator-noarch
-    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-fedora18-noarch
+Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
+
+    #devops-incubator.repo - packages by hgomez from OBS
+    [devops-incubator]
+    name=devops-incubator
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/RedHat_RHEL-5/
+    gpgcheck=0
+    enabled=1
+ 
+###RHEL 6
+
+Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
+
+    #devops-incubator.repo - packages by hgomez from OBS
+    [devops-incubator]
+    name=devops-incubator
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/RedHat_RHEL-6/
     gpgcheck=0
     enabled=1
  
@@ -85,23 +124,40 @@ Install a package (jenkins for example)
     sudo yum update
     sudo yum install myjenkins
 
-##openSUSE 12.1/12.2/12.3
 
-Add Zypper repository by editing repo file **/etc/zypp/repos.d/bintray-devops-incubator-noarch.repo**
 
-    #devops-incubator-noarch.repo - packages by hgomez from Bintray
-    [bintray-devops-incubator-noarch]
-    name=bintray-devops-incubator-noarch
-    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-opensuse122-noarch
+##openSUSE
+
+###openSUSE 12.2
+
+Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.repo**
+
+    #devops-incubator.repo - packages by hgomez from OBS
+    [devops-incubator]
+    name=devops-incubator
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_12.2/
     type=rpm-md
     gpgcheck=0
 
-For native code (like mycarbon), you should also add architecture dependant repo ;
+###openSUSE 12.3
 
-    #devops-incubator-x86-64.repo - packages by hgomez from Bintray
-    [bintray-devops-incubator-x86-64]
-    name=bintray-devops-incubator-x86-64
-    baseurl=http://dl.bintray.com/content/hgomez/devops-incubator-rpm-opensuse122-x86-64
+Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.repo**
+
+    #devops-incubator.repo - packages by hgomez from OBS
+    [devops-incubator]
+    name=devops-incubator
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_12.3/
+    type=rpm-md
+    gpgcheck=0
+
+###openSUSE 13.1
+
+Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.repo**
+
+    #devops-incubator.repo - packages by hgomez from OBS
+    [devops-incubator]
+    name=devops-incubator
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_13.1/
     type=rpm-md
     gpgcheck=0
 
@@ -111,4 +167,5 @@ Install a package (jenkins for example)
     sudo zypper ref 
     sudo zypper update
     sudo zypper install myjenkins
+
 
