@@ -1,4 +1,4 @@
-%if ! 0%{?VERSION:1}
+%if ! 0%{?VERSION}
 %define VERSION        1.2.8
 %endif
 

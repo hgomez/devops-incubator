@@ -19,7 +19,7 @@
   <service name="download_url">
    <param name="host">crsh.googlecode.com</param>
    <param name="protocol">https</param>
-   <param name="path">/files/crash-1.2.7.tar.gz</param>
+   <param name="path">/files/crash-1.2.8.tar.gz</param>
   </service>
 
 </services>
