@@ -12,7 +12,6 @@
 
   <service name="extract_file">
     <param name="archive">*devops-incubator*.tar.gz</param>
-    <param name="files">devops-incubator*/rpm-packaging/crash/SOURCES/*</param>
     <param name="files">devops-incubator*/rpm-packaging/crash/SPECS/*.spec</param>
   </service>
 
