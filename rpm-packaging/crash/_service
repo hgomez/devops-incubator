@@ -1,0 +1,27 @@
+<services>
+
+  <service name="tar_scm">
+    <param name="scm">git</param>
+    <param name="url">https://github.com/hgomez/devops-incubator.git</param>
+  </service>
+
+  <service name="recompress">
+    <param name="compression">gz</param>
+    <param name="file">*.tar</param>
+  </service>
+
+  <service name="extract_file">
+    <param name="archive">*devops-incubator*.tar.gz</param>
+    <param name="files">devops-incubator*/rpm-packaging/crash/SOURCES/*</param>
+    <param name="files">devops-incubator*/rpm-packaging/crash/SPECS/*.spec</param>
+  </service>
+
+  <service name="download_url">
+   <param name="host">crsh.googlecode.com</param>
+   <param name="protocol">https</param>
+   <param name="path">/files/crash-1.2.7.tar.gz</param>
+  </service>
+
+</services>
+
+
