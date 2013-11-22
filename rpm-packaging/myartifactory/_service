@@ -19,7 +19,7 @@
   <service name="download_url">
    <param name="host">dfn.dl.sourceforge.net</param>
    <param name="protocol">http</param>
-   <param name="path">/project/artifactory/artifactory/artifactory-3.0.4.zip</param>
+   <param name="path">/project/artifactory/artifactory/3.0.4/artifactory-3.0.4.zip</param>
   </service>
 
   <service name="download_url">
