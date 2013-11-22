@@ -53,7 +53,8 @@ BuildArch:  noarch
 
 %define _cronddir       %{_sysconfdir}/cron.d
 %define _initrddir      %{_sysconfdir}/init.d
-%define _systemdir      /lib/systemd/system
+%define _systemddir     /lib/systemd
+%define _systemdir      %{_systemddir}/system
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -115,7 +116,9 @@ mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
+%if 0%{?suse_version} > 1140
 mkdir -p %{buildroot}%{_systemdir}
+%endif
 
 mkdir -p %{buildroot}%{appdir}
 mkdir -p %{buildroot}%{appdatadir}
@@ -171,6 +174,11 @@ cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
+%if 0%{?suse_version} > 1000
+mkdir -p %{buildroot}%{_var}/adm/fillup-templates
+mv %{buildroot}%{_sysconfdir}/sysconfig/%{appname} %{buildroot}%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%endif
+
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
 cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
@@ -191,10 +199,12 @@ cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
+%if 0%{?suse_version} > 1140
 # Setup Systemd
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%endif
 
 # Setup cron.d
 cp %{SOURCE13} %{buildroot}%{_cronddir}/%{appname}
@@ -249,13 +259,19 @@ fi
 # First install time, register service, generate random passwords and start application
 if [ "$1" == "1" ]; then
   # register app as service
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
+  chkconfig %{appname} on
+%else
   systemctl enable %{appname}.service >/dev/null 2>&1
+%endif
 
   # Generated random password for RO and RW accounts
-  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
-  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  sed -i "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  if [ -f %{_sysconfdir}/sysconfig/%{appname} ]; then
+    RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
+    sed -i "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+    RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
+    sed -i "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  fi
 
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
@@ -289,7 +305,11 @@ if [ "$1" == "0" ]; then
   # Uninstall time, stop service and cleanup
 
   # stop service
-  %{_initrddir}/%{appname} stop
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
+  chkconfig %{appname} off
+%else
+  systemctl disable %{appname}.service >/dev/null 2>&1
+%endif
 
   # unregister app from services
   systemctl disable %{appname}.service >/dev/null 2>&1
@@ -310,11 +330,27 @@ fi
 %defattr(-,root,root)
 %attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
 %attr(0755, root,root) %{_initrddir}/%{appname}
+
+%if 0%{?suse_version} > 1140
+%dir %{_systemddir}
+%dir %{_systemdir}
 %attr(0644,root,root) %{_systemdir}/%{appname}.service
+%endif
+
+%if 0%{?suse_version} > 1000
+%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%else
+%dir %{_sysconfdir}/sysconfig
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
+%endif
+
 %config %{_sysconfdir}/logrotate.d/%{appname}
+%dir %{_sysconfdir}/security/limits.d
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
 %config %{_cronddir}/%{appname}
+
+# Suse Lint requires new dirs to be defined (owned)
+%dir %{appdir}
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
