@@ -1,0 +1,25 @@
+<services>
+
+  <service name="tar_scm">
+    <param name="scm">git</param>
+    <param name="url">https://github.com/hgomez/devops-incubator.git</param>
+  </service>
+
+  <service name="recompress">
+    <param name="compression">gz</param>
+    <param name="file">*.tar</param>
+  </service>
+
+  <service name="extract_file">
+    <param name="archive">*devops-incubator*.tar.gz</param>
+    <param name="files">devops-incubator*/rpm-packaging/golo-lang/SPECS/*.spec</param>
+  </service>
+
+  <service name="download_url">
+    <param name="host">repo1.maven.org</param>
+    <param name="protocol">http</param>
+    <param name="path">/maven2/org/golo-lang/golo/0-preview9/golo-0-preview9-distribution.tar.gz</param>
+  </service>
+
+</services>
+

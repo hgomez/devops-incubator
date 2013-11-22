@@ -1,5 +1,5 @@
 %if ! 0%{?VERSION:1}
-%define VERSION        0-preview8
+%define VERSION        0-preview9
 %endif
 
 # Avoid unnecessary debug-information (native code)
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %{golodir}/samples
 
 %changelog
+* Fri Nov 22 2013 henri.gomez@gmail.com 0.preview9-1
+- golo 0-preview9 released
+
 * Tue Nov 5 2013 henri.gomez@gmail.com 0.preview8-1
 - golo 0-preview8 released
 
