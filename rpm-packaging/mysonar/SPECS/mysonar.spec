@@ -162,8 +162,13 @@ cp sonar-%{sonar_rel}/conf/logback.xml %{buildroot}%{appdatadir}/conf
 # copy sonar.properties also in SONAR_HOME/conf
 cp %{SOURCE12} %{buildroot}%{appdatadir}/conf
 # copy required stuff in SONAR_HOME
-cp -r sonar-%{sonar_rel}/extras %{buildroot}%{appdatadir}
-cp -r sonar-%{sonar_rel}/extensions %{buildroot}%{appdatadir}
+if [ -d sonar-%{sonar_rel}/extras ]; then 
+  cp -r sonar-%{sonar_rel}/extras %{buildroot}%{appdatadir}
+fi
+if [ -d sonar-%{sonar_rel}/extensions ]; then 
+  cp -r sonar-%{sonar_rel}/extensions %{buildroot}%{appdatadir}
+fi
+
 find %{buildroot}%{appdatadir}/extensions -type f -name "*.jar" -exec chmod 644 \{\} \;
 cp -r sonar-%{sonar_rel}/lib %{buildroot}%{appdatadir}
 # data dir (if derby usage)
