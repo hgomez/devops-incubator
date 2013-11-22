@@ -73,12 +73,12 @@ Requires: logrotate
 BuildRequires:      unzip
 
 %if 0%{?suse_version}
-BuildRequires:      java >= 1.6.0
+BuildRequires:      java
 Requires:           java >= 1.6.0
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
-BuildRequires:      java >= 1:1.6.0
+BuildRequires:      java
 Requires:           java >= 1:1.6.0
 %endif
 
