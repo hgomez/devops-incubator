@@ -59,7 +59,8 @@ export ARTIFACTORY_HOME=@@MYAPP_DATADIR@@
 #
 # http://wiki.jfrog.org/confluence/display/RTF/Requirements
 #
-APP_JAVA_OPTS="server -Xms1g -Xmx1g -Xss256k -XX:PermSize=128m -XX:MaxPermSize=128m -XX:SurvivorRatio=8 -XX:NewSize=512m -XX:MaxNewSize=512m -XX:+UseParallelGC -XX:-UseConcMarkSweepGC"
+#APP_JAVA_OPTS="server -Xms1g -Xmx1g -Xss256k -XX:PermSize=128m -XX:MaxPermSize=128m -XX:SurvivorRatio=8 -XX:NewSize=512m -XX:MaxNewSize=512m -XX:+UseParallelGC -XX:-UseConcMarkSweepGC"
+APP_JAVA_OPTS="-Xms256g -Xmx256g"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@MYAPP_LOGDIR@@"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dartifactory.home=$ARTIFACTORY_HOME"

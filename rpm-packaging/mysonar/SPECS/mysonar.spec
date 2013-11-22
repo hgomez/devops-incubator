@@ -13,16 +13,16 @@
 %define __portsed sed -i
 %endif
 
-%if %{?TOMCAT_REL:1}
+%if 0%{?TOMCAT_REL}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
 %define tomcat_rel        7.0.47
 %endif
 
-%if %{?SONAR_REL:1}
+%if 0%{?SONAR_REL}
 %define sonar_rel    %{SONAR_REL}
 %else
-%define sonar_rel    3.7.2
+%define sonar_rel    3.7.4
 %endif
 
 Name: mysonar
@@ -53,7 +53,8 @@ BuildArch:  noarch
 
 %define _cronddir       %{_sysconfdir}/cron.d
 %define _initrddir      %{_sysconfdir}/init.d
-%define _systemdir      /lib/systemd/system
+%define _systemddir     /lib/systemd
+%define _systemdir      %{_systemddir}/system
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -127,7 +128,9 @@ mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
+%if 0%{?suse_version} > 1140
 mkdir -p %{buildroot}%{_systemdir}
+%endif
 
 mkdir -p %{buildroot}%{appdir}
 mkdir -p %{buildroot}%{appdatadir}
@@ -135,7 +138,6 @@ mkdir -p %{buildroot}%{appdatadir}/conf
 mkdir -p %{buildroot}%{applogdir}
 mkdir -p %{buildroot}%{apptempdir}
 mkdir -p %{buildroot}%{appworkdir}
-mkdir -p %{buildroot}%{appwebappdir}
 
 # Copy tomcat
 mv apache-tomcat-%{tomcat_rel}/* %{buildroot}%{appdir}
@@ -186,6 +188,11 @@ cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
+%if 0%{?suse_version} > 1000
+mkdir -p %{buildroot}%{_var}/adm/fillup-templates
+mv %{buildroot}%{_sysconfdir}/sysconfig/%{appname} %{buildroot}%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%endif
+
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
 cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
@@ -207,9 +214,12 @@ cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
 # Setup Systemd
+%if 0%{?suse_version} > 1140
+# Setup Systemd
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%endif
 
 # Setup cron.d
 cp %{SOURCE15} %{buildroot}%{_cronddir}/%{appname}
