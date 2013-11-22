@@ -98,7 +98,6 @@ Source9: limits.conf.skel
 Source10: systemd.skel
 Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: sonar.properties
-Source13: sonar-setup-mysql.sh
 Source14: logging.properties.skel
 Source15: crond.skel
 Source16: cron.sh.skel
@@ -121,7 +120,6 @@ popd >>/dev/null
 # Prep the install location.
 rm -rf %{buildroot}
 
-mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_cronddir}
 mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_initrddir}
@@ -243,9 +241,6 @@ rm -rf %{buildroot}%{appdir}/work
 
 # ensure shell scripts are executable
 chmod 755 %{buildroot}%{appdir}/bin/*.sh
-
-# install mysql setup for sonar
-cp %{SOURCE13} %{buildroot}%{_bindir}
 
 %clean
 rm -rf %{buildroot}
@@ -376,7 +371,6 @@ fi
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}/data
 %attr(-,%{appusername},%{appusername}) %{appdatadir}/extensions
 %{appdatadir}/lib
-%{_bindir}
 %doc %{appdir}/NOTICE
 %doc %{appdir}/RUNNING.txt
 %doc %{appdir}/LICENSE
