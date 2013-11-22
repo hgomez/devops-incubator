@@ -358,6 +358,7 @@ fi
 %endif
 
 %config %{_sysconfdir}/logrotate.d/%{appname}
+%dir %{_sysconfdir}/security/limits.d
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
 %config %{_cronddir}/%{appname}
 
