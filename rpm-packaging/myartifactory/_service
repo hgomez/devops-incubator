@@ -17,9 +17,9 @@
   </service>
 
   <service name="download_url">
-   <param name="host">download.sonatype.com</param>
+   <param name="host">dfn.dl.sourceforge.net</param>
    <param name="protocol">http</param>
-   <param name="path">/http://dfn.dl.sourceforge.net/project/artifactory/artifactory/artifactory-3.0.4.zip</param>
+   <param name="path">/project/artifactory/artifactory/artifactory-3.0.4.zip</param>
   </service>
 
   <service name="download_url">
