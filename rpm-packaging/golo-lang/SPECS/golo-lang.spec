@@ -20,9 +20,9 @@
 # Adjust RPM version (- is not allowed, lowercase strings)
 %define rpm_version %(version_rel=`echo %{VERSION} | sed "s/-/./g" | tr "[:upper:]" "[:lower:]"`; echo "$version_rel")
 
-Name:     golo-lang
-Version:  %{rpm_version}
-Release:  0
+Name:      golo-lang
+Version:   %{rpm_version}
+Release:   0
 Summary:   Golo, a lightweight dynamic language for the JVM
 Group:     Development/Languages/Other
 URL:       http://golo-lang.org/
