@@ -22,7 +22,7 @@
 %if 0%{?SONAR_REL}
 %define sonar_rel    %{SONAR_REL}
 %else
-%define sonar_rel    3.7.4
+%define sonar_rel    3.7.3
 %endif
 
 Name: mysonar
@@ -384,7 +384,7 @@ fi
 
 %changelog
 * Fri Nov 22 2013 henri.gomez@gmail.com 3.7.4-1
-- Sonar 3.7.4 released
+- Sonar 3.7.3 released
 
 * Sun Oct 27 2013 henri.gomez@gmail.com 3.7.2-2
 - Update Tomcat to 7.0.47

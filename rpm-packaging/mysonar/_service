@@ -19,7 +19,7 @@
   <service name="download_url">
    <param name="host">dist.sonar.codehaus.org</param>
    <param name="protocol">http</param>
-   <param name="path">sonar-3.7.4.zip</param>
+   <param name="path">sonar-3.7.3.zip</param>
   </service>
 
   <service name="download_url">
