@@ -43,22 +43,24 @@ They could be installed on CentOS/Fedora/RHEL/Suse/openSUSE.
 
 Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
 
-    #devops-incubator.repo - packages by hgomez from OBS
-    [devops-incubator]
-    name=devops-incubator
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (CentOS_CentOS-5)
+    type=rpm-md
     baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_CentOS-5/
-    gpgcheck=0
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_CentOS-5/repodata/repomd.xml.key
     enabled=1
  
 ###CentOS 6
 
 Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
 
-    #devops-incubator.repo - packages by hgomez from OBS
-    [devops-incubator]
-    name=devops-incubator
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (CentOS_CentOS-6)
+    type=rpm-md
     baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_CentOS-6/
-    gpgcheck=0
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_CentOS-6/repodata/repomd.xml.key
     enabled=1
  
 Install a package (jenkins for example)
@@ -72,22 +74,24 @@ Install a package (jenkins for example)
 
 Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
 
-    #devops-incubator.repo - packages by hgomez from OBS
-    [devops-incubator]
-    name=devops-incubator
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (Fedora_18)
+    type=rpm-md
     baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/Fedora_18/
-    gpgcheck=0
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/Fedora_18/repodata/repomd.xml.key
     enabled=1
  
 ###Fedora 19
 
 Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
 
-    #devops-incubator.repo - packages by hgomez from OBS
-    [devops-incubator]
-    name=devops-incubator
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (Fedora_19)
+    type=rpm-md
     baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/Fedora_19/
-    gpgcheck=0
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/Fedora_19/repodata/repomd.xml.key
     enabled=1
  
 Install a package (jenkins for example)
@@ -101,22 +105,24 @@ Install a package (jenkins for example)
 
 Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
 
-    #devops-incubator.repo - packages by hgomez from OBS
-    [devops-incubator]
-    name=devops-incubator
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (RedHat_RHEL-5)
+    type=rpm-md
     baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/RedHat_RHEL-5/
-    gpgcheck=0
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/RedHat_RHEL-5/repodata/repomd.xml.key
     enabled=1
  
 ###RHEL 6
 
 Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
 
-    #devops-incubator.repo - packages by hgomez from OBS
-    [devops-incubator]
-    name=devops-incubator
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (RedHat_RHEL-6)
+    type=rpm-md
     baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/RedHat_RHEL-6/
-    gpgcheck=0
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/RedHat_RHEL-6/repodata/repomd.xml.key
     enabled=1
  
 Install a package (jenkins for example)
@@ -132,34 +138,107 @@ Install a package (jenkins for example)
 
 Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.repo**
 
-    #devops-incubator.repo - packages by hgomez from OBS
-    [devops-incubator]
-    name=devops-incubator
-    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_12.2/
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (openSUSE_12.2)
     type=rpm-md
-    gpgcheck=0
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_12.2/
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_12.2/repodata/repomd.xml.key
+    enabled=1
 
 ###openSUSE 12.3
 
 Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.repo**
 
-    #devops-incubator.repo - packages by hgomez from OBS
-    [devops-incubator]
-    name=devops-incubator
-    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_12.3/
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (openSUSE_12.3)
     type=rpm-md
-    gpgcheck=0
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_12.3/
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_12.3/repodata/repomd.xml.key
+    enabled=1
 
 ###openSUSE 13.1
 
 Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.repo**
 
-    #devops-incubator.repo - packages by hgomez from OBS
-    [devops-incubator]
-    name=devops-incubator
-    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_13.1/
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (openSUSE_13.1)
     type=rpm-md
-    gpgcheck=0
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_13.1/
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_13.1/repodata/repomd.xml.key
+    enabled=1
+
+
+Install a package (jenkins for example)
+
+    sudo zypper ref 
+    sudo zypper update
+    sudo zypper install myjenkins
+
+
+##SUSE Enterprise
+
+###SLES 10
+
+Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.repo**
+
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (SLE_10_SDK)
+    type=rpm-md
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/SLE_10_SDK/
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/SLE_10_SDK/repodata/repomd.xml.key
+    enabled=1
+
+###SLES 11
+
+Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.repo**
+
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (SLE_11)
+    type=rpm-md
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/SLE_11/
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/SLE_11/repodata/repomd.xml.key
+    enabled=1
+
+###SLES 11 SP1
+
+Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.repo**
+
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (SLE_11_SP1)
+    type=rpm-md
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/SLE_11_SP1/
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/SLE_11_SP1/repodata/repomd.xml.key
+    enabled=1
+
+###SLES 11 SP2
+
+Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.repo**
+
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (SLE_11_SP2)
+    type=rpm-md
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/SLE_11_SP2/
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/SLE_11_SP2/repodata/repomd.xml.key
+    enabled=1
+
+###SLES 11 SP3
+
+Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.repo**
+
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (SLE_11_SP3)
+    type=rpm-md
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/SLE_11_SP3/
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/SLE_11_SP3/repodata/repomd.xml.key
+    enabled=1
 
 
 Install a package (jenkins for example)
