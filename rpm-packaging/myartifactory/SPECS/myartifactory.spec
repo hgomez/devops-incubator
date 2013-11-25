@@ -27,7 +27,7 @@
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 2
+Release: 3
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://www.jfrog.com/
@@ -63,6 +63,10 @@ BuildRequires: systemd
 %{?systemd_requires}
 %else
 %define systemd_requires %{nil}
+%endif
+
+%if 0%{?suse_version} > 1000
+PreReq: %fillup_prereq
 %endif
 
 BuildRequires: unzip
@@ -257,6 +261,10 @@ fi
 %if 0%{?suse_version} > 1140
 %service_add_post %{appname}.service
 %endif
+%if 0%{?suse_version} > 1000
+%fillup_only
+%endif
+
 # First install time, register service, generate random passwords and start application
 if [ "$1" == "1" ]; then
   # register app as service

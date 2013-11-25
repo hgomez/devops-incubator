@@ -89,6 +89,10 @@ BuildRequires: systemd
 %define systemd_requires %{nil}
 %endif
 
+%if 0%{?suse_version} > 1000
+PreReq: %fillup_prereq
+%endif
+
 %if 0%{?suse_version}
 Requires: cron
 Requires: logrotate
