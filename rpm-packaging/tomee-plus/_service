@@ -3,7 +3,6 @@
   <service name="tar_scm">
     <param name="scm">git</param>
     <param name="url">https://github.com/hgomez/devops-incubator.git</param>
-    <param name="versionformat">1.6.0</param>
   </service>
 
   <service name="recompress">
