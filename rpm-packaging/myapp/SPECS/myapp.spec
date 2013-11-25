@@ -79,8 +79,8 @@ Requires:           java >= 1:1.6.0
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
-Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: myapp-%{app_rel}.war
+Source0: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/apache-tomcat-%{tomcat_rel}.tar.gz
+Source1: https://github.com/hgomez/devops-incubator/blob/master/rpm-packaging/myapp/SOURCES/myapp-%{app_rel}.war
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
