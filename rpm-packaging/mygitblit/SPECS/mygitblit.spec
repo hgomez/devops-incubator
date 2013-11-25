@@ -107,6 +107,7 @@ This package contains Gitblit %{gitblit_rel} powered by Apache Tomcat %{tomcat_r
 # Prep the install location.
 rm -rf %{buildroot}
 
+mkdir -p %{buildroot}%{_cronddir}
 mkdir -p %{buildroot}%{_initrddir}
 mkdir -p %{buildroot}%{_sysconfdir}/sysconfig
 mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
