@@ -324,7 +324,7 @@ fi
 %config %{_sysconfdir}/logrotate.d/%{appname}
 %dir %{_sysconfdir}/security/limits.d
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
-%{_cronddir}
+%config %{_cronddir}/%{appname}
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
