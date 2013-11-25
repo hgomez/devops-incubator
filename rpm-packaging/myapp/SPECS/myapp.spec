@@ -80,7 +80,7 @@ Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: app.war
+Source1: myapp.war
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
@@ -154,7 +154,7 @@ cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
-%if 0%{?suse_version} > 1140
+%if 0%{?suse_version} > 1000
 mkdir -p %{buildroot}%{_var}/adm/fillup-templates
 mv %{buildroot}%{_sysconfdir}/sysconfig/%{appname} %{buildroot}%{_var}/adm/fillup-templates/sysconfig.%{appname}
 %endif
@@ -315,7 +315,7 @@ fi
 %attr(0755, root,root) %{_initrddir}/%{appname}
 %attr(0644,root,root) %{_systemdir}/%{appname}.service
 
-%if 0%{?suse_version} > 1140
+%if 0%{?suse_version} > 1000
 %{_var}/adm/fillup-templates/sysconfig.%{appname}
 %else
 %dir %{_sysconfdir}/sysconfig
