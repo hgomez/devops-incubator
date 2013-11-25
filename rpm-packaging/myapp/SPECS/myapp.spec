@@ -80,7 +80,7 @@ Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
 Source0: apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: myapp.war
+Source1: myapp-%{app_rel}.war
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
