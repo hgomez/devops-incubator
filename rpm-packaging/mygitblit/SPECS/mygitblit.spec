@@ -4,13 +4,13 @@
 %define __portsed sed -i
 %endif
 
-%if %{?TOMCAT_REL:1}
+%if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
 %define tomcat_rel        7.0.47
 %endif
 
-%if %{?GITBLIT_REL:1}
+%if 0%{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
 %define gitblit_rel    1.3.2
@@ -44,7 +44,8 @@ BuildArch:  noarch
 
 %define _cronddir       %{_sysconfdir}/cron.d
 %define _initrddir      %{_sysconfdir}/init.d
-%define _systemdir      /lib/systemd/system
+%define _systemddir     /lib/systemd
+%define _systemdir      %{_systemddir}/system
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -53,6 +54,10 @@ BuildRequires: systemd
 %{?systemd_requires}
 %else
 %define systemd_requires %{nil}
+%endif
+
+%if 0%{?suse_version} > 1000
+PreReq: %fillup_prereq
 %endif
 
 %if 0%{?suse_version}
@@ -114,7 +119,6 @@ mkdir -p %{buildroot}%{appdatadir}
 mkdir -p %{buildroot}%{applogdir}
 mkdir -p %{buildroot}%{apptempdir}
 mkdir -p %{buildroot}%{appworkdir}
-mkdir -p %{buildroot}%{appwebappdir}
 
 # Copy tomcat
 mv apache-tomcat-%{tomcat_rel}/* %{buildroot}%{appdir}
@@ -152,6 +156,11 @@ cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
+%if 0%{?suse_version} > 1000
+mkdir -p %{buildroot}%{_var}/adm/fillup-templates
+mv %{buildroot}%{_sysconfdir}/sysconfig/%{appname} %{buildroot}%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%endif
+
 # JMX (including JMX Remote)
 cp %{SOURCE11} %{buildroot}%{appdir}/lib
 cp %{SOURCE4}  %{buildroot}%{appconfdir}/jmxremote.access.skel
@@ -172,10 +181,12 @@ cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
+%if 0%{?suse_version} > 1140
 # Setup Systemd
 cp %{SOURCE10} %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%endif
 
 # Install context.xml (override previous one)
 cp %{SOURCE12} %{buildroot}%{appconfdir}/context.xml.skel
@@ -231,17 +242,27 @@ fi
 %if 0%{?suse_version} > 1140
 %service_add_post %{appname}.service
 %endif
+%if 0%{?suse_version} > 1000
+%fillup_only
+%endif
+
 # First install time, register service, generate random passwords and start application
 if [ "$1" == "1" ]; then
   # register app as service
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
+  chkconfig %{appname} on
+%else
   systemctl enable %{appname}.service >/dev/null 2>&1
+%endif
 
   # Generated random password for RO and RW accounts
-  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  %{__portsed} "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
-  RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
-  %{__portsed} "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
-
+  if [ -f %{_sysconfdir}/sysconfig/%{appname} ]; then
+    RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
+    %{__portsed} "s|@@MYAPP_RO_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+    RANDOMVAL=`echo $RANDOM | md5sum | sed "s| -||g" | tr -d " "`
+    %{__portsed} "s|@@MYAPP_RW_PWD@@|$RANDOMVAL|g" %{_sysconfdir}/sysconfig/%{appname}
+  fi
+  
   pushd %{appdir} >/dev/null
   ln -s %{applogdir}  logs
   ln -s %{apptempdir} temp
@@ -272,7 +293,11 @@ if [ "$1" == "0" ]; then
   %{_initrddir}/%{appname} stop
 
   # unregister app from services
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
+  chkconfig %{appname} off
+%else
   systemctl disable %{appname}.service >/dev/null 2>&1
+%endif
 
   # finalize housekeeping
   rm -rf %{appdir}
@@ -288,11 +313,25 @@ fi
 
 %files
 %defattr(-,root,root)
+%dir %{appdir}
 %attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
 %attr(0755, root,root) %{_initrddir}/%{appname}
+
+%if 0%{?suse_version} > 1140
+%dir %{_systemddir}
+%dir %{_systemdir}
 %attr(0644,root,root) %{_systemdir}/%{appname}.service
+%endif
+
+%if 0%{?suse_version} > 1000
+%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%else
+%dir %{_sysconfdir}/sysconfig
 %config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
+%endif
+
 %config %{_sysconfdir}/logrotate.d/%{appname}
+%dir %{_sysconfdir}/security/limits.d
 %config %{_sysconfdir}/security/limits.d/%{appname}.conf
 %config %{_cronddir}/%{appname}
 %{appdir}/bin
@@ -311,6 +350,7 @@ fi
 %changelog
 * Sun Oct 27 2013 henri.gomez@gmail.com 1.3.2-2
 - Update Tomcat to 7.0.47
+- Move to OBS
 
 * Wed Sep 18 2013 henri.gomez@gmail.com 1.3.2-1
 - GitBlit 1.3.2
