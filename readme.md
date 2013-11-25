@@ -34,8 +34,8 @@ RPM packages release number are revision, used when something is updated in RPM 
 
 #Yum Repository
 
-Thanks to openSUSE Build Services, RPM packages are now built and push to Yum repositories on OBS.
-They could be installed on CentOS/Fedora/RHEL/Suse/openSUSE.
+Thanks to [openSUSE Build Services](https://build.opensuse.org/project/show/home:henri_gomez:devops-incubator), RPM packages are now built and push to Yum repositories on OBS.
+They could be installed on CentOS/Fedora/RHEL/Suse SLES/openSUSE.
 
 ##CentOS
 
