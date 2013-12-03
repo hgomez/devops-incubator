@@ -23,7 +23,7 @@ These packages will bring you a ready to use Software, QA and Ops Factories.
 
 ###Packages for QA Factories
 
-* myapp - Simple web application powered by Apache Tomcat 7.x
+* myapp - [Simple web application](https://github.com/hgomez/devops-incubator/tree/master/basic-perf-webapp) powered by Apache Tomcat 7.x
 * mycarbon - [Graphite suite](http://graphite.wikidot.com/) data collector
 * mygraphite-web - [Graphite suite](http://graphite.wikidot.com/) web adaptor
 * mygraphite-suite - [Graphite suite](http://graphite.wikidot.com/) (designed for openSUSE 12.x and SUSE SLES 11+)
