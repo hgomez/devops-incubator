@@ -23,12 +23,12 @@ These packages will bring you a ready to use Software, QA and Ops Factories.
 
 ###Packages for QA Factories
 
+* jstatd-daemon - [JStatd](http://docs.oracle.com/javase/7/docs/technotes/tools/share/jstatd.html) 
 * myapp - [Simple web application](https://github.com/hgomez/devops-incubator/tree/master/basic-perf-webapp) powered by Apache Tomcat 7.x
 * mycarbon - [Graphite suite](http://graphite.wikidot.com/) data collector
 * mygraphite-web - [Graphite suite](http://graphite.wikidot.com/) web adaptor
 * mygraphite-suite - [Graphite suite](http://graphite.wikidot.com/) (designed for openSUSE 12.x and SUSE SLES 11+)
 * mywhisper - [Graphite](http://graphite.wikidot.com/) data storage backend
-* jstatd-daemon - [JStatd](http://docs.oracle.com/javase/7/docs/technotes/tools/share/jstatd.html) 
 
 ###Packages for Ops Factories
 * crash - The shell for the Java Platform, [Crash](http://www.crashub.org/) 
