@@ -15,7 +15,7 @@ These packages will bring you a ready to use Software, QA and Ops Factories.
 * myartifactory - JFrog [Artifactory](http://www.jfrog.org/) powered by Apache Tomcat 7.x
 * myforge-apache2-front - Apache HTTPd front-ends for Forge service via Named VHosts
 * mygit - Git repositories hosted by Apache HTTPd and cgit
-* mygitblit - GitBlig (Git Repositories manager) powered by Apache Tomcat 7.x
+* mygitblit - [GitBlit](http://gitblit.com/) powered by Apache Tomcat 7.x
 * myjenkins - [Jenkins-CI](http://jenkins-ci.org/) powered by Apache Tomcat 7.x
 * mynexus - Sonatype [Nexus OSS](http://www.sonatype.org/nexus/) powered by Apache Tomcat 7.x
 * mysonar - SonarQube [Sonar](http://www.sonarqube.org/)  powered by Apache Tomcat 7.x
