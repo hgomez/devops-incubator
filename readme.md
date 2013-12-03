@@ -10,7 +10,7 @@ These packages will bring you a ready to use Software, QA and Ops Factories.
 
 ###Packages for Software Factories
 
-* golo-lang -  [Golo](http://golo-lang.org/)
+* golo-lang - A lightweight dynamic language for the JVM, [Golo](http://golo-lang.org/)
 * myarchiva - Apache [Archiva](http://archiva.apache.org/) powered by Apache Tomcat 7.x.
 * myartifactory - JFrog [Artifactory](http://www.jfrog.org/) powered by Apache Tomcat 7.x
 * myforge-apache2-front - Apache HTTPd front-ends for Forge service via Named VHosts
@@ -30,7 +30,7 @@ These packages will bring you a ready to use Software, QA and Ops Factories.
 * mywhisper - [Graphite](http://graphite.wikidot.com/) data storage backend
 
 ###Packages for Ops Factories
-* crash - [CrashHub](http://www.crashub.org/) 
+* crash - The shell for the Java Platform, [Crash](http://www.crashub.org/) 
 * tomee-jaxrx - Apache [TomEE](http://tomee.apache.org/) with JAXRS
 * tomee-plus - Apache [TomEE](http://tomee.apache.org/) with Plus
 * tomee-webprofile - Apache [TomEE](http://tomee.apache.org/) with WebProfile
