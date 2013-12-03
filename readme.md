@@ -3,40 +3,40 @@
 ![devops-incubator Logo](https://raw.github.com/hgomez/devops-incubator/master/images/devops-incubator-33pct.png)
 
 Native Packaging sample for DevOps easy operations.
-These packages will bring you a ready to use Software Factory.
+These packages will bring you a ready to use Software, QA and Ops Factories.
 
 ##RPM packages
 [![Build Status](https://buildhive.cloudbees.com/job/hgomez/job/devops-incubator/badge/icon)](https://buildhive.cloudbees.com/job/hgomez/job/devops-incubator/)
 
-* myarchiva - Apache Archiva powered by Apache Tomcat 7.x.
-* myapp - Simple web application powered by Apache Tomcat 7.x
-* myartifactory - JFrog Artifactory powered by Apache Tomcat 7.x
-* mycarbon - Graphite suite data collector
+###Packages for Software Factories
+
+* golo-lang -  [Golo](http://golo-lang.org/)
+* myarchiva - Apache [Archiva](http://archiva.apache.org/) powered by Apache Tomcat 7.x.
+* myartifactory - JFrog [Artifactory](http://www.jfrog.org/) powered by Apache Tomcat 7.x
 * myforge-apache2-front - Apache HTTPd front-ends for Forge service via Named VHosts
-* mygraphite-web - Graphite suite web adaptor
-* mygraphite-suite - Graphite suite (designed for openSUSE 12.x and SUSE SLES 11+)
 * mygit - Git repositories hosted by Apache HTTPd and cgit
 * mygitblit - GitBlig (Git Repositories manager) powered by Apache Tomcat 7.x
-* myjenkins - Jenkins-CI powered by Apache Tomcat 7.x
-* mynexus - Sonatype Nexus OSS powered by Apache Tomcat 7.x
-* mysonar - Sonar powered by Apache Tomcat 7.x
-* mysvn - Suversion hosted by Apache HTTPd
-* mywhisper - Graphite suite data storage backend
+* myjenkins - [Jenkins-CI](http://jenkins-ci.org/) powered by Apache Tomcat 7.x
+* mynexus - Sonatype [Nexus OSS](http://www.sonatype.org/nexus/) powered by Apache Tomcat 7.x
+* mysonar - SonarQube [Sonar](http://www.sonarqube.org/)  powered by Apache Tomcat 7.x
+* mysvn - Apache [Subversion](http://subversion.apache.org/) hosted by Apache HTTPd
 
-* crash - CrashHub
-* golo-lang - Golo Language
-* tomee-jaxrx - Apache TomEE with JAXRS
-* tomee-plus - Apache TomEE with Plus
-* tomee-webprofile - Apache TomEE with WebProfile
+###Packages for QA Factories
+
+* myapp - Simple web application powered by Apache Tomcat 7.x
+* mycarbon - [Graphite suite](http://graphite.wikidot.com/) data collector
+* mygraphite-web - [Graphite suite](http://graphite.wikidot.com/) web adaptor
+* mygraphite-suite - [Graphite suite](http://graphite.wikidot.com/) (designed for openSUSE 12.x and SUSE SLES 11+)
+* mywhisper - [Graphite](http://graphite.wikidot.com/) data storage backend
+
+###Packages for Ops Factories
+* crash - [CrashHub](http://www.crashub.org/) 
+* tomee-jaxrx - Apache [TomEE](http://tomee.apache.org/) with JAXRS
+* tomee-plus - Apache [TomEE](http://tomee.apache.org/) with Plus
+* tomee-webprofile - Apache [TomEE](http://tomee.apache.org/) with WebProfile
  
 RPM packages version number follow application version number.
 RPM packages release number are revision, used when something is updated in RPM like Apache Tomcat or in packaging.
-
-##DEB packages
-
-* mygitblit - GitBlig (Git Repositories manager) powered by Apache Tomcat 7.x
-* myjenkins - Jenkins-CI powered by Apache Tomcat 7.x
-* mynexus - Nexus OSS powered by Apache Tomcat 7.x
 
 #Yum Repository
 
