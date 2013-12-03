@@ -22,7 +22,7 @@
 %if 0%{?JENKINS_REL}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.541
+%define jenkins_rel    1.542
 %endif
 
 Name: myjenkins
@@ -352,6 +352,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Dec 3 2013 henri.gomez@gmail.com 1.542-1
+- Jenkins 1.542 released
+
 * Mon Nov 25 2013 henri.gomez@gmail.com 1.541-1
 - Jenkins 1.541 released
 
