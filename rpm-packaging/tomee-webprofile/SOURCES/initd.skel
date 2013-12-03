@@ -54,8 +54,14 @@ start() {
     for XFILE in $CATALINA_HOME/conf/server.xml.skel $CATALINA_HOME/conf/jmxremote.access.skel $CATALINA_HOME/conf/jmxremote.password.skel; do
       DXFILE=${XFILE%.skel}
       eval "cat ${XFILE} $XREPLACE > ${DXFILE}"
-    done
-
+ 
+    # Ensure temp dir exist
+    if [ ! -d @@MYAPP_TMPDIR@@ ]; then
+      mkdir -p @@MYAPP_TMPDIR@@
+      chmod 755 @@MYAPP_TMPDIR@@
+      chown $user:$user @@MYAPP_TMPDIR@@
+    fi
+ 
     # start_daemon on Suse, daemon on RH
     if [ -x /sbin/startproc ]; then
       HOME=@@MYAPP_DATADIR@@ startproc -s -e -l @@MYAPP_LOGDIR@@/start.log -u $user $exec start
