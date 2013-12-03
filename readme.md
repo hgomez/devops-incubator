@@ -9,7 +9,7 @@ These packages will bring you a ready to use Software Factory.
 [![Build Status](https://buildhive.cloudbees.com/job/hgomez/job/devops-incubator/badge/icon)](https://buildhive.cloudbees.com/job/hgomez/job/devops-incubator/)
 
 * myarchiva - Apache Archiva powered by Apache Tomcat 7.x.
-* myapp - simple web application powered by Apache Tomcat 7.x
+* myapp - Simple web application powered by Apache Tomcat 7.x
 * myartifactory - JFrog Artifactory powered by Apache Tomcat 7.x
 * mycarbon - Graphite suite data collector
 * myforge-apache2-front - Apache HTTPd front-ends for Forge service via Named VHosts
@@ -23,6 +23,12 @@ These packages will bring you a ready to use Software Factory.
 * mysvn - Suversion hosted by Apache HTTPd
 * mywhisper - Graphite suite data storage backend
 
+* crash - CrashHub
+* golo-lang - Golo Language
+* tomee-jaxrx - Apache TomEE with JAXRS
+* tomee-plus - Apache TomEE with Plus
+* tomee-webprofile - Apache TomEE with WebProfile
+ 
 RPM packages version number follow application version number.
 RPM packages release number are revision, used when something is updated in RPM like Apache Tomcat or in packaging.
 
