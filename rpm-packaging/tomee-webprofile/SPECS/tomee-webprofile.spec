@@ -139,6 +139,7 @@ cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
