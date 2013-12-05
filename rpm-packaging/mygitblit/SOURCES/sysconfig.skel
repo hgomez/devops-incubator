@@ -3,14 +3,6 @@
 #
 
 #
-# If a common myforge profile is available use it to initialize envs, like JAVA_HOME and PATHs
-#
-
-if [ -f /etc/profile.d/myforge.sh ]; then
-	source /etc/profile.d/myforge.sh
-fi
-
-#
 # Vars starting with APP_ are used to replace contents in skeletons files
 #
 

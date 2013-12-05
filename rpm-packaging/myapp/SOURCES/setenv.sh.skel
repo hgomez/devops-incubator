@@ -6,6 +6,14 @@ if [ -r "/etc/sysconfig/@@MYAPP_APP@@" ]; then
     . /etc/sysconfig/@@MYAPP_APP@@
 fi
 
+#
+# If a common myforge profile is available use it to initialize envs, like JAVA_HOME and PATHs
+#
+
+if [ -f /etc/profile.d/myforge.sh ]; then
+	source /etc/profile.d/myforge.sh
+fi
+
 if [ ! -z "$APP_JAVA_HOME" ]; then
   JAVA_HOME=$APP_JAVA_HOME
 fi

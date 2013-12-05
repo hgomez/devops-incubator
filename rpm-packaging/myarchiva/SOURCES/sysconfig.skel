@@ -63,19 +63,3 @@ APP_JAVA_OPTS="$APP_JAVA_OPTS -Dappserver.base=$ARCHIVA_HOME -Dappserver.home=$A
 JMX_EXT_IP=""
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=true"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Dcom.sun.management.jmxremote.password.file=$CATALINA_HOME/conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=$CATALINA_HOME/conf/jmxremote.access"
-
-#
-# Make sure to use D2D JAVA_HOME if /etc/profile.d/ci.sh exist
-# In this case remove env vars defined by OS like openSUSE 12.2
-#
-
-if [ -f /etc/profile.d/ci.sh ]; then
-
-  unset JAVA_HOME
-  unset JRE_HOME
-  unset JDK_HOME
-  unset SDK_HOME
-
-  source /etc/profile.d/ci.sh
-fi
-
