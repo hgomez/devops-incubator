@@ -246,7 +246,7 @@ fi
 %service_add_post %{appname}.service
 %endif
 %if 0%{?suse_version} > 1000
-%fillup_only
+%fillup_only -n %{appname}
 %endif
 
 # First install time, register service, generate random passwords and start application
