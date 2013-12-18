@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=0-preview8
+VERSION=0-preview10
 
 # prepare fresh directories
 rm -rf BUILD RPMS SRPMS TEMP
