@@ -27,7 +27,7 @@
 
 Name:      app
 Version:   %{app_rel}
-Release:   12
+Release:   13
 Summary:   app %{app_rel} powered by Apache Tomcat %{tomcat_rel}
 Group:     Applications/Communications
 URL:       https://github.com/hgomez/devops-incubator
@@ -145,6 +145,7 @@ cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_TMPDIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
@@ -352,6 +353,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Dec 18 2013 henri.gomez@gmail.com 1.0.0-13
+- Add seding init.d tempdir
+
 * Sun Oct 27 2013 henri.gomez@gmail.com 1.0.0-12
 - Apache Tomcat 7.0.47
 - Move to OBS

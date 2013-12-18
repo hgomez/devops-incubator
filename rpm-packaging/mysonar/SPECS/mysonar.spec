@@ -27,7 +27,7 @@
 
 Name: mysonar
 Version: %{sonar_rel}
-Release: 1
+Release: 2
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Group: Development/Tools/Building
 URL: http://www.sonarqube.org/
@@ -184,7 +184,7 @@ cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@MYAPP_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_TMPDIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
@@ -390,7 +390,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Fri Nov 22 2013 henri.gomez@gmail.com 3.7.4-1
+* Wed Dec 18 2013 henri.gomez@gmail.com 3.7.3-2
+- Fix typo in seding init.d tempdir
+
+* Fri Nov 22 2013 henri.gomez@gmail.com 3.7.3-1
 - Sonar 3.7.3 released
 
 * Sun Oct 27 2013 henri.gomez@gmail.com 3.7.2-2

@@ -23,7 +23,7 @@
 
 Name:      tomee-jaxrs
 Version:   %{tomee_rel}
-Release:   1
+Release:   2
 Summary:   Apache TomEE JAX-RS
 Group:     Productivity/Networking/Web/Servers
 URL:       http://tomee.apache.org/
@@ -139,7 +139,7 @@ cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
 %{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@MYAPP_TMPIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_TMPDIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
@@ -367,6 +367,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Dec 18 2013 henri.gomez@gmail.com 1.6.0-2
+- Fix typo in seding init.d tempdir
+
 * Thu Nov 21 2013 henri.gomez@gmail.com 1.6.0-1
 - TomEE 1.6.0 released, package updated to 1.6.0
 
