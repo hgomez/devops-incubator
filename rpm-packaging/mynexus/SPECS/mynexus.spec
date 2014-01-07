@@ -27,7 +27,7 @@
 
 Name: mynexus
 Version: %{nexus_rel}
-Release: 1
+Release: 2
 Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://www.sonatype.org/nexus/
@@ -360,6 +360,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Jan 7 2014 henri.gomez@gmail.com 2.7.0-2
+- Nexus 2.7.0-06 released
+
 * Wed Dec 18 2013 henri.gomez@gmail.com 2.7.0-1
 - Nexus 2.7.0 released
 - Fix typo in seding init.d tempdir

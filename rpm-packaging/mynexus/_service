@@ -19,7 +19,7 @@
   <service name="download_url">
    <param name="host">download.sonatype.com</param>
    <param name="protocol">http</param>
-   <param name="path">/nexus/oss/nexus-2.7.0-03.war</param>
+   <param name="path">/nexus/oss/nexus-2.7.0-06.war</param>
    <param name="filename">nexus-2.7.0.war</param>
   </service>
 
