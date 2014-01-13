@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.47
+%define tomcat_rel        7.0.50
 %endif
 
 %if 0%{?GITBLIT_REL:1}
@@ -27,7 +27,7 @@
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 3
+Release: 4
 Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Version Control
 URL: http://gitblit.com/
@@ -358,6 +358,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Jan 13 2014 henri.gomez@gmail.com 1.3.2-4
+- Update Tomcat to 7.0.50
+
 * Wed Dec 18 2013 henri.gomez@gmail.com 1.3.2-3
 - Fix typo in seding init.d tempdir
 
