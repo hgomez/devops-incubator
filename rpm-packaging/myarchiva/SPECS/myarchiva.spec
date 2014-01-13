@@ -49,7 +49,7 @@
 Name: myarchiva
 
 Version: %{rpm_archiva_rel}
-Release: 5
+Release: 6
 Summary: Apache Archiva %{archiva_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://archiva.apache.org/
@@ -398,6 +398,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Jan 13 2014 henri.gomez@gmail.com 1.4.m4-6
+- Update Tomcat to 7.0.50
+
 * Wed Dec 18 2013 henri.gomez@gmail.com 1.4.m4-5
 - Fix typo in seding init.d tempdir
 
