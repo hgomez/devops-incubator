@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.47
+%define tomcat_rel        7.0.50
 %endif
 
 %if 0%{?ARTIFACTORY_REL}
@@ -27,7 +27,7 @@
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 2
+Release: 3
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://www.jfrog.com/
@@ -377,6 +377,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Jan 13 2014 henri.gomez@gmail.com 3.1.0-3
+- Update Tomcat to 7.0.50
+
 * Wed Dec 18 2013 henri.gomez@gmail.com 3.1.0-2
 - Fix typo in seding init.d tempdir
 
