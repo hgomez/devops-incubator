@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.47
+%define tomcat_rel        7.0.50
 %endif
 
 %if 0%{?JENKINS_REL}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.544
+%define jenkins_rel    1.547
 %endif
 
 Name: myjenkins
@@ -352,6 +352,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Jan 13 2013 henri.gomez@gmail.com 1.547-1
+- Jenkins 1.547 released
+- Apache Tomcat 7.0.50 released
+
 * Wed Dec 18 2013 henri.gomez@gmail.com 1.544-1
 - Jenkins 1.544 released
 - Fix typo in seding init.d tempdir
