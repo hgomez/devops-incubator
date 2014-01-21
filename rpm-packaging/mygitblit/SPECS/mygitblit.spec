@@ -27,7 +27,7 @@
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 4
+Release: 5
 Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Version Control
 URL: http://gitblit.com/
@@ -96,7 +96,7 @@ Source7: logrotate.skel
 Source8: server.xml.skel
 Source9: limits.conf.skel
 Source10: systemd.skel
-Source11: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/extras/catalina-jmx-remote.jar
+Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: context.xml.skel
 Source13: logging.properties.skel
 Source14: crond.skel
@@ -358,6 +358,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Jan 21 2014 drautureau@gmail.com 1.3.2-5
+- Fix sysconfig
+
 * Mon Jan 13 2014 henri.gomez@gmail.com 1.3.2-4
 - Update Tomcat to 7.0.50
 
