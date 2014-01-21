@@ -120,7 +120,7 @@ Source7: logrotate.skel
 Source8: server.xml.skel
 Source9: limits.conf.skel
 Source10: systemd.skel
-Source11: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/extras/catalina-jmx-remote.jar
+Source11: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/extras/catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: http://central.maven.org/maven2/javax/mail/mail/%{mail_rel}/mail-%{mail_rel}.jar
 Source13: http://central.maven.org/maven2/javax/activation/activation/%{activation_rel}/activation-%{activation_rel}.jar
 Source14: http://central.maven.org/maven2/org/apache/derby/derby/%{derby_rel}/derby-%{derby_rel}.jar

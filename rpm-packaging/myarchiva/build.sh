@@ -27,47 +27,62 @@ ACTIVATION_URL=http://central.maven.org/maven2/javax/activation/activation/${ACT
 MAIL_URL=http://central.maven.org/maven2/javax/mail/mail/${MAIL_VERSION}/mail-${MAIL_VERSION}.jar
 DERBY_URL=http://central.maven.org/maven2/org/apache/derby/derby/${DERBY_VERSION}/derby-${DERBY_VERSION}.jar
 
-download_file_if_needed()
+fetch_remote_file()
 {
 	URL=$1
 	DEST=$2
+	BDEST=`basename $DEST`
 
 	if [ ! -f $DEST ]; then
 
-		echo "downloading from $URL to $DEST..."
-		curl -L $URL -o $DEST
+    if [ -z "$WORKSPACE" ]; then
+       WORKSPACE="."
+    fi
 
-		case $DEST in
-			*.tar.gz)
-	        	tar tzf $DEST >>/dev/null 2>&1
-	        	;;
-	    	*.zip)
-	        	unzip -t $DEST >>/dev/null 2>&1
-	        	;;
-	    	*.jar)
-	        	unzip -t $DEST >>/dev/null 2>&1
-	        	;;
-	    	*.war)
-	        	unzip -t $DEST >>/dev/null 2>&1
-	        	;;
-		esac
+		DROP_DIR=$WORKSPACE/DROP_DIR
+		mkdir -p $DROP_DIR
+		DD_FILE=$DROP_DIR/$BDEST
 
-		if [ $? != 0 ]; then
-			rm -f $DEST
-			echo "invalid content for `basename $DEST` downloaded from $URL, discarding content and aborting build."
-			exit -1
+		if [ -f $DD_FILE ]; then
+			cp $DD_FILE $DEST
+		else
+			echo "downloading from $URL to $DEST..."
+			curl -L $URL -o $DD_FILE
+
+			case $DD_FILE in
+				*.tar.gz)
+		        	tar tzf $DD_FILE >>/dev/null 2>&1
+		        	;;
+		    	*.zip)
+		        	unzip -t $DD_FILE >>/dev/null 2>&1
+		        	;;
+		    	*.jar)
+		        	unzip -t $DD_FILE >>/dev/null 2>&1
+		        	;;
+		    	*.war)
+		        	unzip -t $DD_FILE >>/dev/null 2>&1
+		        	;;
+			esac
+
+			if [ $? != 0 ]; then
+				rm -f $DD_FILE
+				echo "invalid content $BDEST downloaded from $URL, discarding content and aborting build."
+				exit -1
+			else
+				cp $DD_FILE $DEST
+			fi
 		fi
 
 	fi
 }
 
-download_file_if_needed $ARCHIVA_URL SOURCES/apache-archiva-${ARCHIVA_VERSION}.war
-download_file_if_needed $TOMCAT_URL SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-download_file_if_needed $CATALINA_JMX_REMOTE_URL SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar
-cp SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar SOURCES/catalina-jmx-remote.jar
-download_file_if_needed $ACTIVATION_URL SOURCES/activation-${ACTIVATION_VERSION}.jar
-download_file_if_needed $MAIL_URL SOURCES/mail-${MAIL_VERSION}.jar
-download_file_if_needed $DERBY_URL SOURCES/derby-${DERBY_VERSION}.jar
+
+fetch_remote_file $ARCHIVA_URL SOURCES/apache-archiva-${ARCHIVA_VERSION}.war
+fetch_remote_file $TOMCAT_URL SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+fetch_remote_file $CATALINA_JMX_REMOTE_URL SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar
+fetch_remote_file $ACTIVATION_URL SOURCES/activation-${ACTIVATION_VERSION}.jar
+fetch_remote_file $MAIL_URL SOURCES/mail-${MAIL_VERSION}.jar
+fetch_remote_file $DERBY_URL SOURCES/derby-${DERBY_VERSION}.jar
 
 echo "Version to package is $ARCHIVA_VERSION, powered by Apache Tomcat $TOMCAT_VERSION"
 

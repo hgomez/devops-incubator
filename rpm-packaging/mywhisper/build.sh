@@ -20,35 +20,53 @@ fi
 
 WHISPER_URL=http://launchpad.net/graphite/$WHISPER_HIGH_VERSION/$WHISPER_VERSION/+download/whisper-$WHISPER_VERSION.tar.gz
 
-download_file_if_needed()
+#
+# Fetch Function
+#
+fetch_remote_file()
 {
 	URL=$1
 	DEST=$2
+	BDEST=`basename $DEST`
 
 	if [ ! -f $DEST ]; then
 
-		echo "downloading from $URL to $DEST..."
-		curl -L $URL -o $DEST
+    if [ -z "$WORKSPACE" ]; then
+       WORKSPACE="."
+    fi
 
-		case $DEST in
-			*.tar.gz)
-	        	tar tzf $DEST >>/dev/null 2>&1
-	        	;;
-	    	*.zip)
-	        	unzip -t $DEST >>/dev/null 2>&1
-	        	;;
-	    	*.jar)
-	        	unzip -t $DEST >>/dev/null 2>&1
-	        	;;
-	    	*.war)
-	        	unzip -t $DEST >>/dev/null 2>&1
-	        	;;
-		esac
+		DROP_DIR=$WORKSPACE/DROP_DIR
+		mkdir -p $DROP_DIR
+		DD_FILE=$DROP_DIR/$BDEST
 
-		if [ $? != 0 ]; then
-			rm -f $DEST
-			echo "invalid content for `basename $DEST` downloaded from $URL, discarding content and aborting build."
-			exit -1
+		if [ -f $DD_FILE ]; then
+			cp $DD_FILE $DEST
+		else
+			echo "downloading from $URL to $DEST..."
+			curl -L $URL -o $DD_FILE
+
+			case $DD_FILE in
+				*.tar.gz)
+		        	tar tzf $DD_FILE >>/dev/null 2>&1
+		        	;;
+		    	*.zip)
+		        	unzip -t $DD_FILE >>/dev/null 2>&1
+		        	;;
+		    	*.jar)
+		        	unzip -t $DD_FILE >>/dev/null 2>&1
+		        	;;
+		    	*.war)
+		        	unzip -t $DD_FILE >>/dev/null 2>&1
+		        	;;
+			esac
+
+			if [ $? != 0 ]; then
+				rm -f $DD_FILE
+				echo "invalid content $BDEST downloaded from $URL, discarding content and aborting build."
+				exit -1
+			else
+				cp $DD_FILE $DEST
+			fi
 		fi
 
 	fi
@@ -56,7 +74,7 @@ download_file_if_needed()
 
 mkdir -p SOURCES
 
-download_file_if_needed $WHISPER_URL SOURCES/whisper-${WHISPER_VERSION}.tar.gz
+fetch_remote_file $WHISPER_URL SOURCES/whisper-${WHISPER_VERSION}.tar.gz
 
 echo "Version to package is $WHISPER_VERSION"
 
