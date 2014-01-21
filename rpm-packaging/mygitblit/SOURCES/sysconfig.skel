@@ -1,5 +1,5 @@
 #
-# @@SKEL_APP@@ Configuration
+# @@MYAPP_APP@@ Configuration
 #
 
 #
@@ -46,7 +46,7 @@ SHUTDOWN_WAIT=10
 # 
 # GitBlit Settings (injected in WEB-INF/web.xml from context.xml)
 #
-APP_DATA_FOLDER=@@SKEL_DATADIR@@
+APP_DATA_FOLDER=@@MYAPP_DATADIR@@
 
 #
 # JVM Settings
