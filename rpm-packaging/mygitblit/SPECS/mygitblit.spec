@@ -96,7 +96,8 @@ Source7: logrotate.skel
 Source8: server.xml.skel
 Source9: limits.conf.skel
 Source10: systemd.skel
-Source11: catalina-jmx-remote-%{tomcat_rel}.jar
+
+Source11: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/extras/catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: context.xml.skel
 Source13: logging.properties.skel
 Source14: crond.skel
