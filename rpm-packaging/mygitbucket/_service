@@ -1,0 +1,39 @@
+H<services>
+
+  <service name="tar_scm">
+    <param name="scm">git</param>
+    <param name="url">https://github.com/hgomez/devops-incubator.git</param>
+  </service>
+
+  <service name="recompress">
+    <param name="compression">gz</param>
+    <param name="file">*.tar</param>
+  </service>
+
+  <service name="extract_file">
+    <param name="archive">*devops-incubator*.tar.gz</param>
+    <param name="files">devops-incubator*/rpm-packaging/mygitbucket/SOURCES/*</param>
+    <param name="files">devops-incubator*/rpm-packaging/mygitbucket/SPECS/*.spec</param>
+  </service>
+
+  <service name="download_url">
+   <param name="host">github.com</param>
+   <param name="protocol">https</param>
+   <param name="path">/takezoe/gitbucket/releases/download/1.9/gitblit.war</param>
+  </service>
+
+  <service name="download_url">
+   <param name="host">archive.apache.org</param>
+   <param name="protocol">http</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.50/bin/extras/catalina-jmx-remote.jar</param>
+   <param name="filename">catalina-jmx-remote.jar</param>
+   </service>
+
+  <service name="download_url">
+   <param name="host">archive.apache.org</param>
+   <param name="protocol">http</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.50/bin/apache-tomcat-7.0.50.tar.gz</param>
+   </service>
+
+</services>
+
