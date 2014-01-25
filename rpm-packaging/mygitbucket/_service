@@ -1,4 +1,4 @@
-H<services>
+<services>
 
   <service name="tar_scm">
     <param name="scm">git</param>
