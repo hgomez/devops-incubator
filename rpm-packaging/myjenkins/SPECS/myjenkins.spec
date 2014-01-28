@@ -22,7 +22,7 @@
 %if 0%{?JENKINS_REL}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.547
+%define jenkins_rel    1.549
 %endif
 
 Name: myjenkins
@@ -352,7 +352,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Mon Jan 13 2013 henri.gomez@gmail.com 1.547-1
+* Tue Jan 28 2014 henri.gomez@gmail.com 1.549-1
+- Jenkins 1.549 released
+
+* Mon Jan 13 2014 henri.gomez@gmail.com 1.547-1
 - Jenkins 1.547 released
 - Apache Tomcat 7.0.50 released
 
