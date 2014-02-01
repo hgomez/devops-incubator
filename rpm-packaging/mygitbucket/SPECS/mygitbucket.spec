@@ -22,7 +22,7 @@
 %if 0%{?GITBUCKET_REL:1}
 %define gitbucket_rel    %{GITBUCKET_REL}
 %else
-%define gitbucket_rel    1.9
+%define gitbucket_rel    1.10
 %endif
 
 Name: mygitbucket
@@ -358,97 +358,8 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Tue Jan 21 2014 drautureau@gmail.com 1.3.2-5
-- Fix sysconfig
+* Sat Feb 1 2014 henri.gomez@gmail.com 1.10-1
+- GitBucket 1.10 released
 
-* Mon Jan 13 2014 henri.gomez@gmail.com 1.3.2-4
-- Update Tomcat to 7.0.50
-
-* Wed Dec 18 2013 henri.gomez@gmail.com 1.3.2-3
-- Fix typo in seding init.d tempdir
-
-* Sun Oct 27 2013 henri.gomez@gmail.com 1.3.2-2
-- Update Tomcat to 7.0.47
-- Move to OBS
-
-* Wed Sep 18 2013 henri.gomez@gmail.com 1.3.2-1
-- GitBucket 1.3.2
-
-* Tue Aug 20 2013 henri.gomez@gmail.com 1.3.1-1
-- GitBucket 1.3.1
-
-* Mon Jul 8 2013 henri.gomez@gmail.com 1.2.1-7
-- Apache Tomcat 7.0.42 released
-- Use %ghost directive for /var/run contents (rpmlint)
-- cron contents should be marked as %config (rpmlint)
-- cron/logrotate required for SUSE (rpmlint)
-
-* Wed Jun 12 2013 henri.gomez@gmail.com 1.2.1-6
-- Apache Tomcat 7.0.41 released, update package
-
-* Fri May 17 2013 henri.gomez@gmail.com 1.2.1-5
-- Apache Tomcat 7.0.40 released, update package
-
-* Tue Apr 9 2013 henri.gomez@gmail.com 1.2.1-4
-- Simplify logrotate
-- Use cron for housekeeping
-- Move temp contents to /var/run/myartifactory
-- Move work contents to /var/spool/myartifactory
-
-* Mon Feb 18 2013 henri.gomez@gmail.com 1.2.1-3
-- Apache Tomcat 7.0.37 released, update package
-
-* Fri Feb 1 2013 henri.gomez@gmail.com 1.2.1-2
-- Use startproc instead of start_daemon to ensure userid is not overrided 
-
-* Fri Jan 17 2013 henri.gomez@gmail.com 1.2.1-1
-- Update to GitBucket 1.2.1
-- credentials are now under %{appdatadir}/conf/users.conf
-
-* Thu Jan 17 2013 henri.gomez@gmail.com 1.2.0-2
-- Apache Tomcat 7.0.35 released, update package
-
-* Fri Jan 11 2013 henri.gomez@gmail.com 1.2.0-1
-- Update to GitBucket 1.2.0 
-
-* Tue Dec 19 2012 henri.gomez@gmail.com 1.1.0-4
-- Update to Apache Tomcat 7.0.34
-
-* Fri Oct 12 2012 henri.gomez@gmail.com 1.1.0-3
-- Update to Apache Tomcat 7.0.32
-
-* Wed Oct 3 2012 henri.gomez@gmail.com 1.1.0-2
-- Reduce number of log files (manager and host-manager)
-
-* Fri Sep 28 2012 henri.gomez@gmail.com 1.1.0-1
-- Update to Apache Tomcat 7.0.30
-- Update to GitBucket 1.1.0
-
-* Mon Aug 20 2012 henri.gomez@gmail.com 1.0.0-3
-- Remove duplicate JMX settings definition
-
-* Thu Jul 19 2012 henri.gomez@gmail.com 1.0.0-2
-- Rework WEB-INF properties injection in init.d using context.xml.skel
-- Add missing subdir scripts and grape
-- Update ownership of conf directory
-
-* Mon Jul 16 2012 henri.gomez@gmail.com 1.0.0-1
-- Update to GitBucket 1.0.0
-
-* Wed Jul 11 2012 henri.gomez@gmail.com 0.9.3-3
-- Update to Tomcat 7.0.29
-
-* Wed Jun 20 2012 henri.gomez@gmail.com 0.9.3-2
-- Update to Tomcat 7.0.28
-
-* Wed Apr 25 2012 henri.gomez@gmail.com 0.9.3-1
-- Update to GitBucket 0.9.3 
-
-* Wed Mar 7 2012 henri.gomez@gmail.com 0.8.2-0
-- Distribution dependant Requires for Java
-
-* Fri Jan 6 2012 henri.gomez@gmail.com 0.8.1-1
-- Create conf/Catalina/localhost with user rights
-
-* Sat Dec 3 2011 henri.gomez@gmail.com 0.8.1-0
+* Sat Jan 25 2014 henri.gomez@gmail.com 1.9-1
 - Initial RPM
