@@ -1,11 +1,11 @@
 #!/bin/sh
 
 if [ -z "$ARCHIVA_VERSION" ]; then
-  ARCHIVA_VERSION=1.4-M4
+  ARCHIVA_VERSION=2.0.0
 fi
 
 if [ -z "$TOMCAT_VERSION" ]; then
-  TOMCAT_VERSION=7.0.50
+  TOMCAT_VERSION=7.0.52
 fi
 
 if [ -z "$ACTIVATION_VERSION" ]; then
@@ -20,9 +20,9 @@ if [ -z "$DERBY_VERSION" ]; then
   DERBY_VERSION=10.10.1.1
 fi
 
-ARCHIVA_URL=http://mir2.ovh.net/ftp.apache.org/dist/archiva/${ARCHIVA_VERSION}/binaries/apache-archiva-${ARCHIVA_VERSION}.war
-TOMCAT_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-CATALINA_JMX_REMOTE_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
+ARCHIVA_URL=http://apache.mirrors.multidist.eu/archiva/${ARCHIVA_VERSION}/binaries/apache-archiva-${ARCHIVA_VERSION}.war
+TOMCAT_URL=http://apache.mirrors.multidist.eu/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+CATALINA_JMX_REMOTE_URL=http://apache.mirrors.multidist.eu/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 ACTIVATION_URL=http://central.maven.org/maven2/javax/activation/activation/${ACTIVATION_VERSION}/activation-${ACTIVATION_VERSION}.jar
 MAIL_URL=http://central.maven.org/maven2/javax/mail/mail/${MAIL_VERSION}/mail-${MAIL_VERSION}.jar
 DERBY_URL=http://central.maven.org/maven2/org/apache/derby/derby/${DERBY_VERSION}/derby-${DERBY_VERSION}.jar
