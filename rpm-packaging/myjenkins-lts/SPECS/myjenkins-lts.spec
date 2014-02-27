@@ -22,13 +22,13 @@
 %if 0%{?JENKINS_REL}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.552
+%define jenkins_rel    1.532.2
 %endif
 
-Name: myjenkins
+Name: myjenkins-lts
 Version: %{jenkins_rel}
 Release: 1
-Summary: Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
+Summary: Jenkins LTS %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://jenkins-ci.org/
 Vendor: devops-incubator
@@ -102,11 +102,11 @@ Source13: crond.skel
 Source14: cron.sh.skel
 
 # myjenkins and myjenkins-lts are exclusive
-Conflicts: myjenkins-lts
+Conflicts: myjenkins
 
 %description
 In a nutshell Jenkins CI is the leading open-source continuous integration server. Built with Java, it provides over 400 plugins to support building and testing virtually any project.
-This package contains Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
+This package contains Jenkins LTS %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %prep
 %setup -q -c
@@ -355,162 +355,6 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Thu Feb 27 2014 henri.gomez@gmail.com 1.552-1
-- Jenkins 1.552 released
+* Thu Feb 27 2014 henri.gomez@gmail.com 1.532.2-1
+- Initial RPM of Jenkins LTS 1.532.2
 - Use Apache Tomcat 7.0.52
-
-* Tue Jan 28 2014 henri.gomez@gmail.com 1.549-1
-- Jenkins 1.549 released
-
-* Mon Jan 13 2014 henri.gomez@gmail.com 1.547-1
-- Jenkins 1.547 released
-- Apache Tomcat 7.0.50 released
-
-* Wed Dec 18 2013 henri.gomez@gmail.com 1.544-1
-- Jenkins 1.544 released
-- Fix typo in seding init.d tempdir
-
-* Tue Dec 3 2013 henri.gomez@gmail.com 1.542-1
-- Jenkins 1.542 released
-
-* Mon Nov 25 2013 henri.gomez@gmail.com 1.541-1
-- Jenkins 1.541 released
-
-* Thu Nov 21 2013 henri.gomez@gmail.com 1.540-1
-- Jenkins 1.540 released
-
-* Thu Nov 21 2013 henri.gomez@gmail.com 1.539-1
-- Jenkins 1.539 released
-
-* Sun Oct 27 2013 henri.gomez@gmail.com 1.536-2
-- Update Tomcat to 7.0.47
-
-* Thu Oct 24 2013 henri.gomez@gmail.com 1.536-1
-- Jenkins 1.536 released
-
-* Fri Oct 4 2013 henri.gomez@gmail.com 1.533-1
-- Jenkins 1.533 released
-
-* Wed Sep 18 2013 henri.gomez@gmail.com 1.531-1
-- Jenkins 1.531 released
-
-* Tue Aug 20 2013 henri.gomez@gmail.com 1.528-1
-- Jenkins 1.528 released
-
-* Mon Jul 8 2013 henri.gomez@gmail.com 1.522-1
-- Apache Tomcat 7.0.42 released
-- Jenkins 1.522 released
-- Use %ghost directive for /var/run contents (rpmlint)
-- cron contents should be marked as %config (rpmlint)
-- cron/logrotate required for SUSE (rpmlint)
-
-* Sat Jun 29 2013 henri.gomez@gmail.com 1.520-1
-- Jenkins 1.520 released
-
-* Wed Jun 12 2013 henri.gomez@gmail.com 1.517-2
-- Apache Tomcat 7.0.41 released, update package
-
-* Tue Jun 3 2013 henri.gomez@gmail.com 1.517-1
-- Jenkins 1.517 released
-
-* Fri May 17 2013 henri.gomez@gmail.com 1.514-1
-- Apache Tomcat 7.0.40 released, update package
-- Jenkins 1.514 released
-
-* Tue Apr 23 2013 henri.gomez@gmail.com 1.512-1
-- Jenkins 1.512 released
-
-* Mon Apr 15 2013 henri.gomez@gmail.com 1.511-1
-- Jenkins 1.511 released
-
-* Tue Apr 9 2013 henri.gomez@gmail.com 1.510-1
-- Jenkins 1.510 released
-- Simplify logrotate
-- Use cron for housekeeping
-- Move temp contents to /var/run/myjenkins
-- Move work contents to /var/spool/myjenkins
-- Apache Tomcat 7.0.39 released
-
-* Mon Mar 18 2013 henri.gomez@gmail.com 1.506-1
-- Jenkins 1.506 released
-
-* Mon Mar 11 2013 henri.gomez@gmail.com 1.505-1
-- Jenkins 1.505 released
-
-* Wed Mar 6 2013 henri.gomez@gmail.com 1.504-1
-- Jenkins 1.504 released
-
-* Fri Feb 22 2013 henri.gomez@gmail.com 1.502-1
-- Jenkins 1.502 released
-
-* Mon Feb 18 2013 henri.gomez@gmail.com 1.501-2
-- Apache Tomcat 7.0.37 released, update package
-
-* Fri Feb 15 2013 henri.gomez@gmail.com 1.501-1
-- Jenkins 1.501 released
-
-* Fri Feb 1 2013 henri.gomez@gmail.com 1.500-1
-- Use startproc instead of start_daemon to ensure userid is not overrided 
-- Jenkins 1.500 released
-
-* Thu Jan 17 2013 henri.gomez@gmail.com 1.499-1
-- Apache Tomcat 7.0.35 released, update package
-- Jenkins 1.499 released
-
-* Tue Jan 8 2013 henri.gomez@gmail.com 1.498-1
-- Jenkins 1.498 released (security fix)
-
-* Thu Jan 3 2013 henri.gomez@gmail.com 1.496-1
-- Jenkins 1.496 released
-
-* Tue Dec 19 2012 henri.gomez@gmail.com 1.494-1
-- Jenkins 1.494 released
-- Use Apache Tomcat 7.0.34
-
-* Fri Oct 12 2012 henri.gomez@gmail.com 1.485-1
-- Jenkins 1.485 released
-- Use Apache Tomcat 7.0.32
-
-* Wed Oct 3 2012 henri.gomez@gmail.com 1.484-1
-- Jenkins 1.484 released
-- Reduce number of log files (manager and host-manager)
-
-* Fri Sep 28 2012 henri.gomez@gmail.com 1.483-1
-- Use Apache Tomcat 7.0.30
-- Jenkins 1.483 released
-
-* Fri Aug 31 2012 henri.gomez@gmail.com 1.479-1
-- Jenkins 1.479 released
-
-* Tue Aug 21 2012 henri.gomez@gmail.com 1.478-1
-- Jenkins 1.478 released
-
-* Mon Aug 20 2012 henri.gomez@gmail.com 1.477-1
-- Jenkins 1.477 released
-- Remove duplicate JMX settings definition
-
-* Wed Jul 11 2012 henri.gomez@gmail.com 1.474-1
-- Jenkins 1.474 released
-- Tomcat 7.0.29 released
-
-* Wed Jun 20 2012 henri.gomez@gmail.com 1.471-1
-- Jenkins 1.471 released
-- Tomcat 7.0.28 released
-
-* Thu May 24 2012 henri.gomez@gmail.com 1.465-1
-- Jenkins 1.465 released
-
-* Wed May 16 2012 henri.gomez@gmail.com 1.464-1
-- Jenkins 1.464 released
-
-* Wed Apr 25 2012 henri.gomez@gmail.com 1.461-1
-- Jenkins 1.461 released
-
-* Wed Mar 7 2012 henri.gomez@gmail.com 1.455-0
-- Distribution dependant Requires for Java
-
-* Fri Jan 6 2012 henri.gomez@gmail.com 1.454-0
-- Create conf/Catalina/localhost with user rights
-
-* Sat Dec 3 2011 henri.gomez@gmail.com 1.453-0
-- Initial RPM

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-JENKINS_VERSION=1.552
+JENKINS_LTS_VERSION=1.532.2
 TOMCAT_VERSION=7.0.52
 
 if [ $# -gt 1 ]; then
@@ -13,8 +13,10 @@ if [ $# -gt 1 ]; then
   shift
 fi
 
-JENKINS_URL=http://mirrors.jenkins-ci.org/war/${JENKINS_VERSION}/jenkins.war
 JENKINS_LTS_URL=http://mirrors.jenkins-ci.org/war-stable/${JENKINS_LTS_VERSION}/jenkins.war
+
+JENKINS_URL=$JENKINS_LTS_URL
+JENKINS_VERSION=$JENKINS_LTS_VERSION
 
 TOMCAT_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
@@ -79,5 +81,5 @@ rm -rf BUILD RPMS SRPMS TEMP
 mkdir -p BUILD RPMS SRPMS TEMP
 
 # Build using rpmbuild (use double-quote for define to have shell resolv vars !)
-rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="TOMCAT_REL $TOMCAT_VERSION" --define="JENKINS_REL $JENKINS_VERSION"  SPECS/myjenkins.spec
+rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="TOMCAT_REL $TOMCAT_VERSION" --define="JENKINS_REL $JENKINS_VERSION"  SPECS/myjenkins-lts.spec
 
