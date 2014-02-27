@@ -19,20 +19,20 @@
   <service name="download_url">
    <param name="host">dfn.dl.sourceforge.net</param>
    <param name="protocol">http</param>
-   <param name="path">/project/artifactory/artifactory/3.1.0/artifactory-3.1.0.zip</param>
+   <param name="path">/project/artifactory/artifactory/3.1.1.1/artifactory-3.1.1.1.zip</param>
   </service>
 
   <service name="download_url">
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
-   <param name="path">/dist/tomcat/tomcat-7/v7.0.50/bin/extras/catalina-jmx-remote.jar</param>
-   <param name="filename">catalina-jmx-remote-7.0.50.jar</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.52/bin/extras/catalina-jmx-remote.jar</param>
+   <param name="filename">catalina-jmx-remote-7.0.52.jar</param>
    </service>
 
   <service name="download_url">
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
-   <param name="path">/dist/tomcat/tomcat-7/v7.0.50/bin/apache-tomcat-7.0.50.tar.gz</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.52/bin/apache-tomcat-7.0.52.tar.gz</param>
    </service>
 
 </services>
