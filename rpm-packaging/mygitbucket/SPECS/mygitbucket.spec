@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.50
+%define tomcat_rel        7.0.52
 %endif
 
 %if 0%{?GITBUCKET_REL:1}
@@ -27,7 +27,7 @@
 
 Name: mygitbucket
 Version: %{gitbucket_rel}
-Release: 5
+Release: 2
 Summary: GitBucket %{gitbucket_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Version Control
 URL: http://gitbucket.com/
@@ -358,6 +358,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sat Mar 1 2014 henri.gomez@gmail.com 1.10-2
+- Move to Apache Tomcat 7.0.52
+
 * Sat Feb 1 2014 henri.gomez@gmail.com 1.10-1
 - GitBucket 1.10 released
 
