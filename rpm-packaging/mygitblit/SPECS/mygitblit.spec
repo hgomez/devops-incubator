@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.50
+%define tomcat_rel        7.0.52
 %endif
 
 %if 0%{?GITBLIT_REL:1}
@@ -27,7 +27,7 @@
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 5
+Release: 6
 Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Version Control
 URL: http://gitblit.com/
@@ -359,6 +359,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sat Mar 1 2014 hgomez@gmail.com 1.3.2-6
+- Update Tomcat to 7.0.52
+
 * Tue Jan 21 2014 drautureau@gmail.com 1.3.2-5
 - Fix sysconfig
 
