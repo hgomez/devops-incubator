@@ -22,12 +22,12 @@
 %if 0%{?GITBUCKET_REL:1}
 %define gitbucket_rel    %{GITBUCKET_REL}
 %else
-%define gitbucket_rel    1.10
+%define gitbucket_rel    1.11
 %endif
 
 Name: mygitbucket
 Version: %{gitbucket_rel}
-Release: 2
+Release: 1
 Summary: GitBucket %{gitbucket_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Version Control
 URL: http://gitbucket.com/
@@ -86,7 +86,7 @@ Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
 Source0: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: https://github.com/takezoe/gitbucket/releases/download/%{gitbucket_rel}/gitbucket.war
+Source1: https://github.com/takezoe/gitbucket/releases/download/%{gitbucket_rel}/gitbucket-%{gitbucket_rel}.war
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
@@ -358,6 +358,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sat Mar 1 2014 henri.gomez@gmail.com 1.11-1
+- GitBucket 1.11 released
+
 * Sat Mar 1 2014 henri.gomez@gmail.com 1.10-2
 - Move to Apache Tomcat 7.0.52
 
