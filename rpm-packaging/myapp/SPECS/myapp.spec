@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.50
+%define tomcat_rel        7.0.52
 %endif
 
 %if 0%{?app_REL}
@@ -27,7 +27,7 @@
 
 Name:      app
 Version:   %{app_rel}
-Release:   14
+Release:   15
 Summary:   app %{app_rel} powered by Apache Tomcat %{tomcat_rel}
 Group:     Applications/Communications
 URL:       https://github.com/hgomez/devops-incubator
@@ -92,7 +92,7 @@ Source7: logrotate.skel
 Source8: server.xml.skel
 Source9: limits.conf.skel
 Source10: systemd.skel
-Source11: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/extras/catalina-jmx-remote.jar
+Source11: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/extras/catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: crond.skel
 Source13: cron.sh.skel
 
@@ -353,6 +353,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sat Mar 1 2014 henri.gomez@gmail.com 1.0.0-15
+- Apache Tomcat 7.0.52
+
 * Mon Jan 13 2014 henri.gomez@gmail.com 1.0.0-14
 - Apache Tomcat 7.0.50
 
