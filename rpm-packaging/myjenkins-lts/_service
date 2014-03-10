@@ -12,8 +12,8 @@
 
   <service name="extract_file">
     <param name="archive">*devops-incubator*.tar.gz</param>
-    <param name="files">devops-incubator*/rpm-packaging/myjenkins/SOURCES/*</param>
-    <param name="files">devops-incubator*/rpm-packaging/myjenkins/SPECS/*.spec</param>
+    <param name="files">devops-incubator*/rpm-packaging/myjenkins-lts/SOURCES/*</param>
+    <param name="files">devops-incubator*/rpm-packaging/myjenkins-lts/SPECS/*.spec</param>
   </service>
 
   <service name="download_url">
