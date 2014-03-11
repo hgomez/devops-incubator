@@ -6,7 +6,7 @@ Native Packaging sample for DevOps easy operations.
 These packages will bring you a ready to use Software, QA and Ops Factories.
 
 ##RPM packages
-[![Build Status](https://buildhive.cloudbees.com/job/hgomez/job/devops-incubator/badge/icon)](https://buildhive.cloudbees.com/job/hgomez/job/devops-incubator/)
+[![Build Status](https://buildhive.cloudbees.com/job/hgomez/job/devops-incubator/badge/icon)](https://buildhive.cloudbees.com/job/hgomez/job/devops-incubator/) [![Is maintained?](http://stillmaintained.com/hgomez/devops-incubator.png)](http://stillmaintained.com/hgomez/devops-incubator)
 
 ###Packages for Software Factories
 
