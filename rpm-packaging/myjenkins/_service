@@ -19,8 +19,8 @@
   <service name="download_url">
    <param name="host">mirrors.jenkins-ci.org</param>
    <param name="protocol">http</param>
-   <param name="path">/war/1.554/jenkins.war</param>
-   <param name="filename">jenkins-1.554.war</param>
+   <param name="path">/war/1.556/jenkins.war</param>
+   <param name="filename">jenkins-1.556.war</param>
   </service>
 
   <service name="download_url">
