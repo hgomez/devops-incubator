@@ -22,12 +22,12 @@
 %if 0%{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
-%define gitblit_rel    1.3.2
+%define gitblit_rel    1.4.1
 %endif
 
 Name: mygitblit
 Version: %{gitblit_rel}
-Release: 6
+Release: 1
 Summary: GitBlit %{gitblit_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Version Control
 URL: http://gitblit.com/
@@ -85,8 +85,8 @@ Requires:           java >= 1:1.6.0
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
-Source0: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: http://gitblit.googlecode.com/files/gitblit-%{gitblit_rel}.war
+Source0: http://archive.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/apache-tomcat-%{tomcat_rel}.tar.gz
+Source1: http://dl.bintray.com/jamesmoger/generic/gitblit-%{gitblit_rel}.war
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
@@ -96,8 +96,7 @@ Source7: logrotate.skel
 Source8: server.xml.skel
 Source9: limits.conf.skel
 Source10: systemd.skel
-
-Source11: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/extras/catalina-jmx-remote-%{tomcat_rel}.jar
+Source11: http://archive.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/extras/catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: context.xml.skel
 Source13: logging.properties.skel
 Source14: crond.skel
@@ -359,6 +358,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Mar 24 2014 henri.gomez@gmail.com 1.4.1-1
+- GitBlit 1.4.1
+- Update download URL (bintray)
+
 * Sat Mar 1 2014 hgomez@gmail.com 1.3.2-6
 - Update Tomcat to 7.0.52
 

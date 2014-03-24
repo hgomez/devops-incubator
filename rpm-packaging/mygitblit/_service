@@ -17,9 +17,9 @@
   </service>
 
   <service name="download_url">
-   <param name="host">gitblit.googlecode.com</param>
+   <param name="host">dl.bintray.com</param>
    <param name="protocol">http</param>
-   <param name="path">/files/gitblit-1.3.2.war</param>
+   <param name="path">/jamesmoger/generic/gitblit-1.4.1.war</param>
   </service>
 
   <service name="download_url">
