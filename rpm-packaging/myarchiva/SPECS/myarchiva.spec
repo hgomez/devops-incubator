@@ -275,8 +275,8 @@ else
       %{_initrddir}/%{appname} stop
       touch %{applogdir}/rpm-update-stop
     fi
-	# clean up deployed webapps
-	rm -rf %{appwebappdir}/ROOT
+	  # clean up deployed webapps
+	  rm -rf %{appwebappdir}/ROOT
   fi
 fi
 

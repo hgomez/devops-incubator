@@ -314,11 +314,6 @@ fi
 %if 0%{?suse_version} > 1140
 %service_del_postun %{appname}.service
 %endif
-if [ "$1" == "0" ]; then
-  if [ -d %{appwebappdir}/ROOT ]; then 
-    rm -rf %{appwebappdir}/ROOT
-  fi
-fi
 
 # Specific actions in relations with others packages
 #%triggerin -- otherapp
