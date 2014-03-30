@@ -22,7 +22,7 @@
 %if 0%{?GITBUCKET_REL:1}
 %define gitbucket_rel    %{GITBUCKET_REL}
 %else
-%define gitbucket_rel    1.11.1
+%define gitbucket_rel    1.12
 %endif
 
 Name: mygitbucket
@@ -363,6 +363,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sun Mar 30 2014 henri.gomez@gmail.com 1.12-1
+- GitBucket 1.12 released (ssh added)
+
 * Tue Mar 11 2014 henri.gomez@gmail.com 1.11.1-1
 - GitBucket 1.11.1 released (bug fix)
 

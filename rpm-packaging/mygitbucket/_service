@@ -19,8 +19,8 @@
   <service name="download_url">
    <param name="host">github.com</param>
    <param name="protocol">https</param>
-   <param name="path">/takezoe/gitbucket/releases/download/1.11.1/gitbucket.war</param>
-   <param name="filename">gitbucket-1.11.1.war</param>
+   <param name="path">/takezoe/gitbucket/releases/download/1.12/gitbucket.war</param>
+   <param name="filename">gitbucket-1.12.war</param>
   </service>
 
   <service name="download_url">
