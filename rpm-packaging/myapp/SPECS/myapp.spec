@@ -231,6 +231,8 @@ else
     fi
     # clean up deployed webapp
     rm -rf %{appwebappdir}/ROOT
+    # clean up Tomcat workdir 
+    rm -rf %{appworkdir}/Catalina
   fi
 fi
 

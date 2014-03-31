@@ -239,6 +239,8 @@ else
       %{_initrddir}/%{appname} stop
       touch %{applogdir}/rpm-update-stop
     fi
+    # clean up Tomcat workdir 
+    rm -rf %{appworkdir}/Catalina
   fi
 fi
 
