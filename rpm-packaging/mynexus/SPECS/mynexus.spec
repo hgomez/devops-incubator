@@ -143,8 +143,16 @@ rm -rf %{buildroot}%{appdir}/webapps/*
 cp %{SOURCE12} %{buildroot}%{appdir}/conf/logging.properties
 %{__portsed} 's|\${catalina.base}/logs|%{applogdir}|g' %{buildroot}%{appdir}/conf/logging.properties
 
-# nexus webapp is ROOT.war (will respond to /)
-cp %{SOURCE1}  %{buildroot}%{appwebappdir}/ROOT.war
+# hack nexus.properties inside war
+mkdir webapp
+cd webapp
+unzip %{SOURCE1}
+# remove /sonatype-work/nexus
+%{__portsed} 's|/sonatype-work/nexus||g' WEB-INF/classes/nexus.properties
+zip -r ROOT.war *
+cp ROOT.war %{buildroot}%{cinexuswebappdir}/ROOT.war
+cd ..
+rm -rf webapp
 
 # init.d
 cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
@@ -370,6 +378,7 @@ fi
 * Thu Apr 10 2014 henri.gomez@gmail.com 2.8.0-1
 - Nexus 2.8.0-05 released
 - Apache Tomcay 7.0.53 released
+- Hack nexus.properties inside webapp
 
 * Mon Feb 24 2014 henri.gomez@gmail.com 2.7.2-1
 - Nexus 2.7.2-03 released
