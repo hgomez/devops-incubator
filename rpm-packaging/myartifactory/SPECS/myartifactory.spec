@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.52
+%define tomcat_rel        7.0.53
 %endif
 
 %if 0%{?ARTIFACTORY_REL}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    3.1.1.1
+%define artifactory_rel    3.2.0
 %endif
 
 Name: myartifactory
@@ -384,6 +384,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Apr 10 2014 henri.gomez@gmail.com 3.2.0-1
+- Artifactory 3.2.0 released
+- Update Tomcat to 7.0.53
+
 * Thu Feb 27 2014 henri.gomez@gmail.com 3.1.1.1-1
 - Artifactory 3.1.1.1 released
 - Update Tomcat to 7.0.52
