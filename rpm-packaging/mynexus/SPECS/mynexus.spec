@@ -65,6 +65,9 @@ BuildRequires: systemd
 %define systemd_requires %{nil}
 %endif
 
+BuildRequires:      zip
+BuildRequires:      unzip
+
 %if 0%{?suse_version} > 1000
 PreReq: %fillup_prereq
 %endif
