@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.52
+%define tomcat_rel        7.0.53
 %endif
 
 %if 0%{?NEXUS_REL}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.7.2
+%define nexus_rel    2.8.0
 %endif
 
 Name: mynexus
@@ -367,6 +367,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Apr 10 2014 henri.gomez@gmail.com 2.8.0-1
+- Nexus 2.8.0-05 released
+- Apache Tomcay 7.0.53 released
+
 * Mon Feb 24 2014 henri.gomez@gmail.com 2.7.2-1
 - Nexus 2.7.2-03 released
 - Apache Tomcay 7.0.52 released
