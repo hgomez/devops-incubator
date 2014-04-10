@@ -153,7 +153,7 @@ unzip %{SOURCE1}
 # remove /sonatype-work/nexus
 %{__portsed} 's|/sonatype-work/nexus||g' WEB-INF/classes/nexus.properties
 zip -r ROOT.war *
-cp ROOT.war %{buildroot}%{cinexuswebappdir}/ROOT.war
+cp ROOT.war %{buildroot}%{appwebappdir}/ROOT.war
 cd ..
 rm -rf webapp
 
