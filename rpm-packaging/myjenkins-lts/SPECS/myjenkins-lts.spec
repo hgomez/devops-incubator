@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.52
+%define tomcat_rel        7.0.53
 %endif
 
 %if 0%{?JENKINS_REL}
@@ -362,6 +362,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Apr 15 2014 hgomez@gmail.com 1.532.3-2
+- Use Apache Tomcat 7.0.53
+
 * Mon Apr 15 2014 drautureau@gmail.com 1.532.3-1
 - Update to Jenkins LTS 1.532.3
 
