@@ -22,7 +22,7 @@
 %if 0%{?JENKINS_REL}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.532.2
+%define jenkins_rel    1.532.3
 %endif
 
 Name: myjenkins-lts
@@ -362,6 +362,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Apr 15 2014 drautureau@gmail.com 1.532.3-1
+- Update to Jenkins LTS 1.532.3
+
 * Thu Feb 27 2014 henri.gomez@gmail.com 1.532.2-1
 - Initial RPM of Jenkins LTS 1.532.2
 - Use Apache Tomcat 7.0.52
