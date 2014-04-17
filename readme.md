@@ -101,10 +101,22 @@ Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo
     gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/Fedora_19/repodata/repomd.xml.key
     enabled=1
  
-Install a package (jenkins for example)
+###Fedora 20
+
+Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
+
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (Fedora_20)
+    type=rpm-md
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/Fedora_20/
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/Fedora_19/repodata/repomd.xml.key
+    enabled=1
+ 
+Install a package (crash for example)
 
     sudo yum update
-    sudo yum install myjenkins
+    sudo yum install crash
 
 ##RHEL
 
