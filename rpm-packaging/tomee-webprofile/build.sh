@@ -1,7 +1,7 @@
 #!/bin/sh
 
-TOMEE_VERSION=1.6.0
-TOMCAT_VERSION=7.0.47
+TOMEE_VERSION=1.6.0.1
+TOMCAT_VERSION=7.0.53
 
 if [ $# -gt 1 ]; then
   TOMEE_VERSION=$1
@@ -9,7 +9,7 @@ if [ $# -gt 1 ]; then
 fi
 
 TOMEE_FILE=apache-tomee-$TOMEE_VERSION-webprofile.tar.gz
-TOMEE_URL=http://apache.osuosl.org/tomee/tomee-$TOMEE_VERSION/$TOMEE_FILE
+TOMEE_URL=http://archive.apache.org/dist/tomee/tomee-$TOMEE_VERSION/$TOMEE_FILE
 CATALINA_JMX_REMOTE_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
 if [ ! -f SOURCES/$TOMEE_FILE ]; then

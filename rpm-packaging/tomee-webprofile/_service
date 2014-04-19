@@ -18,13 +18,13 @@
 
   <service name="download_url">
    <param name="host">archive.apache.org</param><param name="protocol">http</param>
-   <param name="path">/dist/tomcat/tomcat-7/v7.0.47/bin/extras/catalina-jmx-remote.jar</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.53/bin/extras/catalina-jmx-remote.jar</param>
   </service>
 
   <service name="download_url">
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
-   <param name="path">/dist/tomee/tomee-1.6.0/apache-tomee-1.6.0-webprofile.tar.gz</param>
+   <param name="path">/dist/tomee/tomee-1.6.0.1/apache-tomee-1.6.0.1-webprofile.tar.gz</param>
   </service>
 
 </services>

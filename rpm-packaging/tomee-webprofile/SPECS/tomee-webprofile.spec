@@ -16,14 +16,14 @@
 %if 0%{?TOMEE_REL:1}
 %define tomee_rel        %{TOMEE_REL}
 %else
-%define tomee_rel        1.6.0
+%define tomee_rel        1.6.0.1
 %endif
 
-%define tomcat_rel       7.0.47
+%define tomcat_rel       7.0.53
 
 Name:      tomee-webprofile
 Version:   %{tomee_rel}
-Release:   2
+Release:   1
 Summary:   Apache TomEE WebProfile
 Group:     Productivity/Networking/Web/Servers
 URL:       http://tomee.apache.org/
@@ -362,6 +362,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sat Apr 19 2014 henri.gomez@gmail.com 1.6.0.1-1
+- TomEE 1.6.0.1 released, based on Tomcat 7.0.53
+
 * Wed Dec 18 2013 henri.gomez@gmail.com 1.6.0-2
 - Fix typo in seding init.d tempdir
 
