@@ -22,7 +22,7 @@
 %if 0%{?JENKINS_REL}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.559
+%define jenkins_rel    1.562
 %endif
 
 Name: myjenkins
@@ -53,8 +53,8 @@ BuildArch:  noarch
 
 %define _cronddir       %{_sysconfdir}/cron.d
 %define _initrddir      %{_sysconfdir}/init.d
-%define _systemddir       /lib/systemd
-%define _systemdir        %{_systemddir}/system
+%define _systemddir     /lib/systemd
+%define _systemdir      %{_systemddir}/system
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
@@ -362,6 +362,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue May 6 2014 henri.gomez@gmail.com 1.562-1
+- Jenkins 1.562 released
+
 * Mon Apr 14 2014 henri.gomez@gmail.com 1.559-1
 - Jenkins 1.559 released
 
