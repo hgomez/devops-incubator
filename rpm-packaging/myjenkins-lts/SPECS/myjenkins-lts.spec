@@ -22,7 +22,7 @@
 %if 0%{?JENKINS_REL}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.544.1
+%define jenkins_rel    1.544.2
 %endif
 
 Name: myjenkins-lts
@@ -362,6 +362,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Jun 2 2014 drautureau@gmail.com 1.544.2
+- Update to Jenkins LTS 1.544.2
+
 * Tue May 6 2014 hgomez@gmail.com 1.544.1
 - Update to Jenkins LTS 1.544.1
 
