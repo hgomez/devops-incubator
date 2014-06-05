@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.53
+%define tomcat_rel        7.0.54
 %endif
 
 %if 0%{?GITBUCKET_REL:1}
 %define gitbucket_rel    %{GITBUCKET_REL}
 %else
-%define gitbucket_rel    1.13
+%define gitbucket_rel    2.0
 %endif
 
 Name: mygitbucket
@@ -365,6 +365,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Jun 5 2014 henri.gomez@gmail.com 2.0-&
+- GitBucket 2.0 released
+- Move to Apache Tomcat 7.0.54
+
 * Fri May 2 2014 henri.gomez@gmail.com 1.13-1
 - GitBucket 1.13 released (Ace Editor)
 - Move to Apache Tomcat 7.0.53
