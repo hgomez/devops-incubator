@@ -1,5 +1,5 @@
 %if ! 0%{?VERSION:1}
-%define VERSION        0-preview11
+%define VERSION        0-preview12
 %endif
 
 # Avoid unnecessary debug-information (native code)
