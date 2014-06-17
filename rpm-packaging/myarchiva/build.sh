@@ -1,11 +1,11 @@
 #!/bin/sh
 
 if [ -z "$ARCHIVA_VERSION" ]; then
-  ARCHIVA_VERSION=2.0.0
+  ARCHIVA_VERSION=2.0.1
 fi
 
 if [ -z "$TOMCAT_VERSION" ]; then
-  TOMCAT_VERSION=7.0.52
+  TOMCAT_VERSION=7.0.54
 fi
 
 if [ -z "$ACTIVATION_VERSION" ]; then
@@ -17,7 +17,7 @@ if [ -z "$MAIL_VERSION" ]; then
 fi
 
 if [ -z "$DERBY_VERSION" ]; then
-  DERBY_VERSION=10.10.1.1
+  DERBY_VERSION=10.10.2.0
 fi
 
 ARCHIVA_URL=http://apache.mirrors.multidist.eu/archiva/${ARCHIVA_VERSION}/binaries/apache-archiva-${ARCHIVA_VERSION}.war

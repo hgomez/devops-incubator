@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel		%{TOMCAT_REL}
 %else
-%define tomcat_rel		7.0.52
+%define tomcat_rel		7.0.54
 %endif
 
 %if 0%{?ARCHIVA_REL:1}
 %define archiva_rel		%{ARCHIVA_REL}
 %else
-%define archiva_rel		2.0.0
+%define archiva_rel		2.0.1
 %endif
 
 %if 0%{?MAIL_REL:1}
@@ -40,7 +40,7 @@
 %if 0%{?DERBY_REL:1}
 %define derby_rel       %{DERBY_REL}
 %else
-%define derby_rel    	10.10.1.1
+%define derby_rel    	10.10.2.0
 %endif
 
 # Adjust RPM version (- is not allowed, lowercase strings)
@@ -405,6 +405,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Jun 17 2014 henri.gomez@gmail.com 2.0.1-1
+- Archiva 2.0.1 released
+- Update Tomcat to 7.0.54
+
 * Wed Feb 19 2014 henri.gomez@gmail.com 2.0.0-1
 - Archiva 2.0.0 released
 - Update Tomcat to 7.0.52

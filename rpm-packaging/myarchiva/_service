@@ -19,20 +19,20 @@
   <service name="download_url">
    <param name="host">apache.mirrors.multidist.eu</param>
    <param name="protocol">http</param>
-   <param name="path">/archiva/2.0.0/binaries/apache-archiva-2.0.0.war</param>
+   <param name="path">/archiva/2.0.1/binaries/apache-archiva-2.0.1.war</param>
   </service>
 
   <service name="download_url">
    <param name="host">apache.mirrors.multidist.eu</param>
    <param name="protocol">http</param>
-   <param name="path">/tomcat/tomcat-7/v7.0.52/bin/extras/catalina-jmx-remote.jar</param>
-   <param name="filename">catalina-jmx-remote-7.0.52.jar</param>
+   <param name="path">/tomcat/tomcat-7/v7.0.54/bin/extras/catalina-jmx-remote.jar</param>
+   <param name="filename">catalina-jmx-remote-7.0.54.jar</param>
    </service>
 
   <service name="download_url">
    <param name="host">apache.mirrors.multidist.eu</param>
    <param name="protocol">http</param>
-   <param name="path">/tomcat/tomcat-7/v7.0.52/bin/apache-tomcat-7.0.52.tar.gz</param>
+   <param name="path">/tomcat/tomcat-7/v7.0.54/bin/apache-tomcat-7.0.54.tar.gz</param>
    </service>
 
   <service name="download_url">
@@ -50,7 +50,7 @@
   <service name="download_url">
    <param name="host">central.maven.org</param>
    <param name="protocol">http</param>
-   <param name="path">/maven2/org/apache/derby/derby/10.10.1.1/derby-10.10.1.1.jar</param>
+   <param name="path">/maven2/org/apache/derby/derby/10.10.1.1/derby-10.10.2.0.jar</param>
   </service>
 
 </services>
