@@ -22,7 +22,7 @@
 %if 0%{?JENKINS_REL}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.566
+%define jenkins_rel    1.568
 %endif
 
 Name: myjenkins
@@ -362,6 +362,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Jun 17 2014 henri.gomez@gmail.com 1.568-1
+- Jenkins 1.568 released
+
 * Tue Jun 3 2014 henri.gomez@gmail.com 1.566-1
 - Jenkins 1.566 released
 - Use Apache Tomcat 7.0.54
