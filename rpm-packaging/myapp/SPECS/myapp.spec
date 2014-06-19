@@ -33,7 +33,7 @@ Group:     Applications/Communications
 URL:       https://github.com/hgomez/devops-incubator
 Vendor:    devops-incubator
 Packager:  devops-incubator
-License:   ASL 2.0
+License:   Apache-2.0
 BuildArch: noarch
 
 %define appname         myapp
