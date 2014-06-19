@@ -6,7 +6,7 @@ VERSION=0-preview12
 rm -rf BUILD RPMS SRPMS TEMP
 mkdir -p BUILD RPMS SRPMS SOURCES TEMP
 
-GOLO_URL=http://sourceforge.net/projects/golo-lang/files/${VERSION}/golo-${VERSION}-distribution.tar.gz/download 
+GOLO_URL=http://repo1.maven.org/maven2/org/golo-lang/golo/${VERSION}/golo-${VERSION}-distribution.tar.gz
 
 if [ ! -f SOURCES/golo-${VERSION}.tar.gz ]; then
   echo "downloading golo-${VERSION}.tar.gz from $GOLO_URL"
