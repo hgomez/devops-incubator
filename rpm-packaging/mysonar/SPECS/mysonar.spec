@@ -82,7 +82,7 @@ Requires:           java >= 1.6.0
 %endif
 
 %if 0%{?fedora} 
-BuildRequires:      java >= 1:1.6.0
+BuildRequires:      java
 Requires:           java >= 1:1.6.0
 %endif
 
