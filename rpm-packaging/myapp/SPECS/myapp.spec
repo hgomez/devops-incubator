@@ -13,13 +13,13 @@
 %define __portsed sed -i
 %endif
 
-%if 0%{?TOMCAT_REL}
+%if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
 %define tomcat_rel        7.0.54
 %endif
 
-%if 0%{?app_REL}
+%if 0%{?app_REL:1}
 %define app_rel    %{app_REL}
 %else
 %define app_rel    1.0.0
