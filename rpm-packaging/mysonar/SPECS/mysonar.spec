@@ -13,14 +13,14 @@
 %define __portsed sed -i
 %endif
 
-%if 0%{?TOMCAT_REL}
-%define tomcat_rel   %{TOMCAT_REL:1}
+%if 0%{?TOMCAT_REL:1}
+%define tomcat_rel   %{TOMCAT_REL}
 %else
 %define tomcat_rel   7.0.54
 %endif
 
-%if 0%{?SONAR_REL}
-%define sonar_rel    %{SONAR_REL:1}
+%if 0%{?SONAR_REL:1}
+%define sonar_rel    %{SONAR_REL}
 %else
 %define sonar_rel    3.7.4
 %endif
