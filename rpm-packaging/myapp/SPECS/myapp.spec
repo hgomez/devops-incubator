@@ -25,7 +25,7 @@
 %define app_rel    1.0.0
 %endif
 
-Name:      app
+Name:      myapp
 Version:   %{app_rel}
 Release:   16
 Summary:   app %{app_rel} powered by Apache Tomcat %{tomcat_rel}
