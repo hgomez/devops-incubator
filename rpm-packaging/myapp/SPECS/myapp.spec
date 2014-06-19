@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.52
+%define tomcat_rel        7.0.54
 %endif
 
 %if 0%{?app_REL}
@@ -27,7 +27,7 @@
 
 Name:      app
 Version:   %{app_rel}
-Release:   15
+Release:   16
 Summary:   app %{app_rel} powered by Apache Tomcat %{tomcat_rel}
 Group:     Applications/Communications
 URL:       https://github.com/hgomez/devops-incubator
@@ -355,6 +355,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Jun 19 2014 henri.gomez@gmail.com 1.0.0-16
+- Apache Tomcat 7.0.54
+
 * Sat Mar 1 2014 henri.gomez@gmail.com 1.0.0-15
 - Apache Tomcat 7.0.52
 

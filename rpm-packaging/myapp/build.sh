@@ -1,7 +1,7 @@
 #!/bin/sh
 
 MYAPP_VERSION=1.0.0
-TOMCAT_VERSION=7.0.50
+TOMCAT_VERSION=7.0.54
 
 if [ $# -gt 1 ]; then
   TOMCAT_VERSION=$1
