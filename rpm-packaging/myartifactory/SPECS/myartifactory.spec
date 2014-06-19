@@ -32,7 +32,7 @@ Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_
 Group: Development/Tools/Building
 URL: http://www.jfrog.com/
 Vendor: devops-incubator
-License: GPLv3
+License: GPL-3.0
 BuildArch:  noarch
 
 %define appname         myartifactory
