@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.52
+%define tomcat_rel        7.0.54
 %endif
 
 %if 0%{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
-%define gitblit_rel    1.4.1
+%define gitblit_rel    1.5.0
 %endif
 
 Name: mygitblit
@@ -365,6 +365,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Jun 19 2014 henri.gomez@gmail.com 1.5.0-1
+- GitBlit 1.5.0
+- Update Tomcat to 7.0.54
+
 * Mon Mar 24 2014 henri.gomez@gmail.com 1.4.1-1
 - GitBlit 1.4.1
 - Update download URL (bintray)
