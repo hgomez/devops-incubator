@@ -1,5 +1,5 @@
 %if ! 0%{?VERSION:1}
-%define VERSION        1.2.8
+%define VERSION        1.3.0
 %endif
 
 # Avoid unnecessary debug-information (native code)
@@ -43,7 +43,7 @@ Requires:           java = 1:1.6.0
 %endif
 
 
-Source0: https://crsh.googlecode.com/files/crash-%{VERSION}.tar.gz
+Source0: http://central.maven.org/maven2/org/crashub/crash.distrib/%{VERSION}/crash.distrib-%{VERSION}.tar.gz
 
 %description
 The Common Reusable SHell (CRaSH) deploys in a Java runtime and provides interactions with the JVM. Commands are written in Groovy and can be developped at runtime making the extension of the shell very easy with fast development cycle
@@ -84,6 +84,9 @@ rm -rf %{buildroot}
 %{_bindir}/crash.sh
 
 %changelog
+* Fri Jun 27 2014 henri.gomez@gmail.com 1.3.0-1
+- crsh 1.3.0 released
+
 * Tue Nov 5 2013 henri.gomez@gmail.com 1.2.8-1
 - crsh 1.2.8 released
 

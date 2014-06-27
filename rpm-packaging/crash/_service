@@ -16,11 +16,9 @@
   </service>
 
   <service name="download_url">
-   <param name="host">crsh.googlecode.com</param>
-   <param name="protocol">https</param>
-   <param name="path">/files/crash-1.2.8.tar.gz</param>
+   <param name="host">central.maven.org</param>
+   <param name="protocol">http</param>
+   <param name="path">/maven2/org/crashub/crash.distrib/1.3.0/crash.distrib-1.3.0.tar.gz</param>
   </service>
 
 </services>
-
-
