@@ -22,7 +22,7 @@
 %if 0%{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
-%define gitblit_rel    1.5.0
+%define gitblit_rel    1.6.0
 %endif
 
 Name: mygitblit
@@ -86,7 +86,7 @@ Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
 Source0: http://archive.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: http://dl.bintray.com/jamesmoger/generic/gitblit-%{gitblit_rel}.war
+Source1: http://dl.bintray.com/gitblit/releases/gitblit-%{gitblit_rel}.war
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel

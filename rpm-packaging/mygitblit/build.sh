@@ -1,6 +1,6 @@
 #!/bin/sh
 
-GITBLIT_VERSION=1.5.0
+GITBLIT_VERSION=1.6.0
 TOMCAT_VERSION=7.0.54
 
 if [ $# -gt 1 ]; then
@@ -13,7 +13,7 @@ if [ $# -gt 1 ]; then
   shift
 fi
 
-GITBLIT_URL=http://dl.bintray.com/jamesmoger/generic/gitblit-${GITBLIT_VERSION}.war
+GITBLIT_URL=http://dl.bintray.com/gitblit/releases/gitblit-${GITBLIT_VERSION}.war
 TOMCAT_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
