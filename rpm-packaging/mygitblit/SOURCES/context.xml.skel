@@ -32,6 +32,6 @@
     <Valve className="org.apache.catalina.valves.CometConnectionManagerValve" />
     -->
 
-    <Parameter name="baseFolder" value="@APP_DATA_FOLDER@" override="false"/>
+    <Environment name="baseFolder" type="java.lang.String" value="@APP_DATA_FOLDER@" override="false"/>
 
 </Context>
