@@ -52,7 +52,7 @@ APP_DATA_FOLDER=@@MYAPP_DATADIR@@
 # JVM Settings
 #
 APP_JAVA_HOME=
-APP_JAVA_OPTS="-Xms32m -Xmx64m -XX:MaxPermSize=32m -Xss256k"
+APP_JAVA_OPTS="-Xms128m -Xmx512m -XX:MaxPermSize=256m -Xss256k"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
 APP_JAVA_OPTS="$APP_JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=@@MYAPP_LOGDIR@@"
 
