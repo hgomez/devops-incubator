@@ -18,7 +18,7 @@ else
   # https://github.com/jmxtrans/jmxtrans/archive/v242.tar.gz
   #
   JMXTRANS_URL=https://github.com/jmxtrans/jmxtrans/archive/v${JMXTRANS_VERSION}.tar.gz
-  download_file_if_needed $JMXTRANS_URL SOURCES/jmxtrans-${JMXTRANS_VERSION}.tar.gz
+  download_file_if_needed $JMXTRANS_URL SOURCES/jmxtrans-v${JMXTRANS_VERSION}.tar.gz
 fi
 
 #
