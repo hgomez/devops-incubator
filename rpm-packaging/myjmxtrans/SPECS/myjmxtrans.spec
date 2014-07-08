@@ -142,22 +142,22 @@ chmod 755 %{buildroot}%{appdir}/tools/setup-vm.sh
 
 # init.d
 cp  %{SOURCE1} %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SKEL_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SKEL_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SKEL_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SKEL_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SKEL_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SKEL_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
-%{__portsed} 's|@@SKEL_TMPDIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_VERSION@@|version %{version} release %{release}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_initrddir}/%{appname}
+%{__portsed} 's|@@MYAPP_TMPDIR@@|%{apptempdir}|g' %{buildroot}%{_initrddir}/%{appname}
 
 # sysconfig
 cp  %{SOURCE2}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@SKEL_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@SKEL_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@SKEL_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@SKEL_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@SKEL_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
-%{__portsed} 's|@@SKEL_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_APPDIR@@|%{appdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_DATADIR@@|%{appdatadir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_LOGDIR@@|%{applogdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
+%{__portsed} 's|@@MYAPP_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
 %if 0%{?suse_version} > 1000
 mkdir -p %{buildroot}%{_var}/adm/fillup-templates
@@ -167,8 +167,8 @@ mv %{buildroot}%{_sysconfdir}/sysconfig/%{appname} %{buildroot}%{_var}/adm/fillu
 # Setup Systemd
 mkdir -p %{buildroot}%{_systemdir}
 cp %{SOURCE3} %{buildroot}%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@SKEL_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
-%{__portsed} 's|@@SKEL_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_systemdir}/%{appname}.service
+%{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_systemdir}/%{appname}.service
 
 # Use correct sysconfig file in control script
 %{__portsed} 's|/etc/sysconfig/jmxtrans|%{_sysconfdir}/sysconfig/%{appname}|g' %{buildroot}%{appexec}

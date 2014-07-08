@@ -1,13 +1,13 @@
 #
-# @@SKEL_APP@@ Configuration
+# @@MYAPP_APP@@ Configuration
 #
 # Vars starting with APP_ are used to replace contents in skeletons files
 #
 
-PIDFILE="/var/run/@@SKEL_APP@@.pid"
-JAR_FILE="@@SKEL_APPDIR@@/jmxtrans-all.jar"
-LOG_DIR="@@SKEL_LOGDIR@@"
-JSON_DIR="@@SKEL_DATADIR@@"
+PIDFILE="/var/run/@@MYAPP_APP@@.pid"
+JAR_FILE="@@MYAPP_APPDIR@@/jmxtrans-all.jar"
+LOG_DIR="@@MYAPP_LOGDIR@@"
+JSON_DIR="@@MYAPP_DATADIR@@"
 
 SECONDS_BETWEEN_RUNS=5
 CPU_CORES=1
@@ -23,6 +23,6 @@ JMX_PORT=14000
 #
 
 if [ -f /etc/profile.d/myforge.sh ]; then
-	source /etc/profile.d/myforge.sh
+  source /etc/profile.d/myforge.sh
 fi
 
