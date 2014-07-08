@@ -182,6 +182,14 @@ rm -rf %{buildroot}
 if [ "$1" == "1" ]; then
   %{_sbindir}/groupadd -r -g %{appgroupid} %{appusername} 2>/dev/null || :
   %{_sbindir}/useradd -s /sbin/nologin -c "%{appname} user" -g %{appusername} -r -d %{appdatadir} -u %{appuserid} %{appusername} 2>/dev/null || :
+else
+# Update time, stop service if running
+  if [ "$1" == "2" ]; then
+    if [ -f %{_var}/run/%{appname}.pid ]; then
+      %{_initrddir}/%{appname} stop
+      touch %{applogdir}/rpm-update-stop
+    fi
+  fi
 fi
 
 %post
@@ -200,6 +208,16 @@ if [ $1 = 1 ]; then
 %if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
   chkconfig %{appname} on
 %endif
+
+else
+  # Update time, restart application if it was running
+  if [ "$1" == "2" ]; then
+    if [ -f %{applogdir}/rpm-update-stop ]; then
+      # restart application after update (comment next line this behaviour not expected)
+      %{_initrddir}/%{appname} start
+      rm -f %{applogdir}/rpm-update-stop
+    fi
+  fi
 
 fi
 
