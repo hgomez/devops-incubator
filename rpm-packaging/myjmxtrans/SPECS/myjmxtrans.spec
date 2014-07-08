@@ -64,10 +64,10 @@ Then outputs the data in whatever format you want via special 'Writer' objects w
 It does this with a very efficient engine design that will scale to querying thousands of machines.
 
 %prep
-%setup -q -n jmxtrans-%{version}
+%setup -q -n jmxtrans-%{jmxtrans_rel}
 
 %build
-ant clean dist -Dversion=%{JMXTRANS_REL}
+ant clean dist -Dversion=%{jmxtrans_rel}
 
 %install
 # Prep the install location.
