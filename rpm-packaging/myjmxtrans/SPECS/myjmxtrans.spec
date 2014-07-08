@@ -222,7 +222,6 @@ else
       rm -f %{applogdir}/rpm-update-stop
     fi
   fi
-
 fi
 
 %preun
@@ -236,10 +235,10 @@ if [ "$1" == "0" ]; then
   %{_initrddir}/%{appname} stop
 
   # unregister app from services
-  systemctl disable %{appname}.service >/dev/null 2>&1
-
-%if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
   chkconfig %{appname} off
+%else
+  systemctl disable %{appname}.service >/dev/null 2>&1
 %endif
 
   # finalize housekeeping
