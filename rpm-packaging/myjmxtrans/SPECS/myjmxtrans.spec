@@ -202,15 +202,17 @@ fi
 %fillup_only -n %{appname}
 %endif
 
-if [ $1 = 1 ]; then
-
+# First install time, register service, generate random passwords and start application
+if [ "$1" == "1" ]; then
   # register app as service
-  systemctl enable %{appname}.service >/dev/null 2>&1
-
-%if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
   chkconfig %{appname} on
+%else
+  systemctl enable %{appname}.service >/dev/null 2>&1
 %endif
 
+  # start application at first install (uncomment next line this behaviour not expected)
+  # %{_initrddir}/%{appname} start
 else
   # Update time, restart application if it was running
   if [ "$1" == "2" ]; then
