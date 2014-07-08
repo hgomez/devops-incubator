@@ -50,6 +50,17 @@ Source3: systemd.skel
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
+%if 0%{?suse_version} > 1140
+BuildRequires: systemd
+%{?systemd_requires}
+%else
+%define systemd_requires %{nil}
+%endif
+
+%if 0%{?suse_version} > 1000
+PreReq: %fillup_prereq
+%endif
+
 Requires(pre):   /usr/sbin/groupadd
 Requires(pre):   /usr/sbin/useradd
 
@@ -167,6 +178,10 @@ fi
 %if 0%{?suse_version} > 1140
 %service_add_post %{myjmxtrans}.service
 %endif
+%if 0%{?suse_version} > 1000
+%fillup_only -n %{appname}
+%endif
+
 if [ $1 = 1 ]; then
 
   # register app as service
