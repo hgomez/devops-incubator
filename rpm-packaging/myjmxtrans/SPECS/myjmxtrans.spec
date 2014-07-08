@@ -134,6 +134,8 @@ popd
 
 # ensure shell scripts are executable
 chmod 755 %{buildroot}%{appdir}/*.sh
+chmod 755 %{buildroot}%{appdir}/tools/yaml2jmxtrans.py
+chmod 755 %{buildroot}%{appdir}/tools/setup-vm.sh
 
 # init.d
 cp  %{SOURCE1} %{buildroot}%{_initrddir}/%{appname}
