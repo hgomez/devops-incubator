@@ -116,7 +116,8 @@ mkdir -p %{buildroot}%{appworkdir}
 unzip target/jmxtrans-%{jmxtrans_rel}.zip
 pushd jmxtrans-%{jmxtrans_rel}
 
-rm -rf src/com
+rm -rf src
+rm -rf javadoc
 cp -rf * %{buildroot}%{appdir}
 
 # copy yaml2jmxtrans.py to bin
@@ -236,8 +237,15 @@ fi
 
 %files
 %defattr(-,root,root)
+%dir %{appdir}
+%{appdir}/bin
+%{appdir}/tools
+%{appdir}/*.jar
+%{appdir}/*.json
+%{appdir}/*.sh
+%{appdir}/*.xml
+
 %{_bindir}
-%{appdir}
 %exclude                                       %{appdir}/README.html
 %exclude                                       %{appdir}/doc
 %attr(0755,root,root)                          %{_initrddir}/%{appname}
