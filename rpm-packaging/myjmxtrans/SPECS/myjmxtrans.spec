@@ -64,7 +64,7 @@ PreReq: %fillup_prereq
 Requires(pre):   /usr/sbin/groupadd
 Requires(pre):   /usr/sbin/useradd
 
-BuildRequires:  ant
+BuildRequires:  ant >= 1.7
 BuildRequires:  java-devel
 
 %if 0%{?suse_version} > 1010
