@@ -5,11 +5,6 @@
     <param name="url">https://github.com/hgomez/devops-incubator.git</param>
   </service>
 
-  <service name="tar_scm">
-    <param name="scm">git</param>
-    <param name="url">https://github.com/jmxtrans/jmxtrans.git</param>
-  </service>
-
   <service name="recompress">
     <param name="compression">gz</param>
     <param name="file">*.tar</param>

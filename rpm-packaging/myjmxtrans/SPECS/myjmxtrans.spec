@@ -43,7 +43,7 @@ Packager: Henri Gomez <henri.gomez@gmail.com>
 License: OpenSource Software by Jon Stevens
 BuildArch:  noarch
 
-Source0: jmxtrans-%{jmxtrans_rel}.tar.gz
+Source0: jmxtrans-v%{jmxtrans_rel}.tar.gz
 Source1: initd.skel
 Source2: sysconfig.skel
 Source3: systemd.skel
