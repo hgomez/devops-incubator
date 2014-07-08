@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ $# -gt 1 ]; then
+if [ $# -ge 1 ]; then
  JMXTRANS_VERSION=$1
  shift
 fi
