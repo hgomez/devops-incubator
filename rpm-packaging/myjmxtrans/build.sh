@@ -1,17 +1,25 @@
 #!/bin/sh
 
-if [ -z "$JMXTRANS_VERSION" ]; then
-  JMXTRANS_VERSION=242
-fi
-
 if [ $# -gt 1 ]; then
  JMXTRANS_VERSION=$1
  shift
 fi
 
+if [ -z "$JMXTRANS_VERSION" ]; then
 
+  JMXTRANS_VERSION=`date +%Y%m%d`
+  rm -f SOURCES/jmxtrans-*.tar.gz
+  git clone https://github.com/jmxtrans/jmxtrans.git
+  mv jmxtrans jmxtrans-$JMXTRANS_VERSION
+  tar cvzf SOURCES/jmxtrans-$JMXTRANS_VERSION.tar.gz jmxtrans-$JMXTRANS_VERSION
 
-JMXTRANS_URL=https://github.com/jmxtrans/jmxtrans/archive/v${JMXTRANS_VERSION}.tar.gz
+else
+  #
+  # https://github.com/jmxtrans/jmxtrans/archive/v242.tar.gz
+  #
+  JMXTRANS_URL=https://github.com/jmxtrans/jmxtrans/archive/v${JMXTRANS_VERSION}.tar.gz
+  download_file_if_needed $JMXTRANS_URL SOURCES/jmxtrans-${JMXTRANS_VERSION}.tar.gz
+fi
 
 #
 # Fetch Function
