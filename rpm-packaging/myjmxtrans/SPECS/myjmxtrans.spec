@@ -54,6 +54,15 @@ Requires(pre):   /usr/sbin/groupadd
 Requires(pre):   /usr/sbin/useradd
 
 BuildRequires:  ant
+BuildRequires:  java-devel
+
+%if 0%{?suse_version} > 1000
+BuildRequires:  java-devel >= 1.6.0
+%endif
+
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
+BuildRequires:           java-devel >= 1:1.6.0
+%endif
 
 %define xuser       jmxtrans
 
