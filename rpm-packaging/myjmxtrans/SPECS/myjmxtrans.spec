@@ -69,7 +69,7 @@ BuildRequires:  java-devel
 
 %if 0%{?suse_version} > 1010
 BuildRequires:  java-devel >= 1.6.0
-else
+%else
 BuildRequires:  java-devel >= 1.5.0
 %endif
 
