@@ -71,6 +71,8 @@ BuildRequires:  java-devel
 BuildRequires:  java-devel >= 1.6.0
 %endif
 
+BuildRequires: unzip
+
 %if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
 BuildRequires:           java-devel >= 1:1.6.0
 %endif
