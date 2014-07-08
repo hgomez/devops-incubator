@@ -156,6 +156,11 @@ cp  %{SOURCE2}  %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@SKEL_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 %{__portsed} 's|@@SKEL_CONFDIR@@|%{appconfdir}|g' %{buildroot}%{_sysconfdir}/sysconfig/%{appname}
 
+%if 0%{?suse_version} > 1000
+mkdir -p %{buildroot}%{_var}/adm/fillup-templates
+mv %{buildroot}%{_sysconfdir}/sysconfig/%{appname} %{buildroot}%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%endif
+
 # Setup Systemd
 mkdir -p %{buildroot}%{_systemdir}
 cp %{SOURCE3} %{buildroot}%{_systemdir}/%{appname}.service
@@ -237,7 +242,12 @@ fi
 %exclude                                       %{appdir}/doc
 %attr(0755,root,root)                          %{_initrddir}/%{appname}
 %attr(0644,root,root)                          %{_systemdir}/%{appname}.service
-%config(noreplace)                             %{_sysconfdir}/sysconfig/%{appname}
+%if 0%{?suse_version} > 1000
+%{_var}/adm/fillup-templates/sysconfig.%{appname}
+%else
+%dir %{_sysconfdir}/sysconfig
+%config(noreplace) %{_sysconfdir}/sysconfig/%{appname}
+%endif
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
 %attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
 %ghost %{apptempdir}
