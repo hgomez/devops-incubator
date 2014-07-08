@@ -53,6 +53,8 @@ BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 Requires(pre):   /usr/sbin/groupadd
 Requires(pre):   /usr/sbin/useradd
 
+BuildRequires:  ant >= 1.8.1
+
 %define xuser       jmxtrans
 
 %define _systemdir        /lib/systemd/system
