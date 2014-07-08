@@ -256,7 +256,7 @@ fi
 %files
 %defattr(-,root,root)
 %dir %{appdir}
-%{appdir}/bin
+%{appdir}/lib
 %{appdir}/tools
 %{appdir}/*.jar
 %{appdir}/*.json
