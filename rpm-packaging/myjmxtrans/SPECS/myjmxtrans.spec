@@ -111,8 +111,8 @@ mkdir -p %{buildroot}%{myjmxtranstempdir}
 mkdir -p %{buildroot}%{myjmxtransworkdir}
 
 # remove source (unneeded here)
-unzip target/jmxtrans-%{JMXTRANS_REL}.zip
-pushd jmxtrans-%{JMXTRANS_REL}
+unzip target/jmxtrans-%{jmxtrans_rel}.zip
+pushd jmxtrans-%{jmxtrans_rel}
 
 rm -rf src/com
 cp -rf * %{buildroot}%{myjmxtransdir}
