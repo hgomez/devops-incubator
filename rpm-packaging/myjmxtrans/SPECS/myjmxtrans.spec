@@ -13,7 +13,7 @@
 %if 0%{?JMXTRANS_REL:1}
 %define jmxtrans_rel        %{JMXTRANS_REL}
 %else
-%define jmxtrans_rel        242
+%define jmxtrans_rel        243
 %endif
 
 %define myjmxtrans             myjmxtrans
@@ -217,5 +217,8 @@ fi
 
 
 %changelog
+* Tue Jul 8 2014 Henri Gomez <henri.gomez@gmail.com> - 243-1
+- Update to latest changes, including Librato Writer
+
 * Fri Mar 29 2013 Henri Gomez <henri.gomez@gmail.com> - 242-1
 - Initial RPM
