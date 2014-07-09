@@ -13,7 +13,7 @@
 %if 0%{?JMXTRANS_REL:1}
 %define jmxtrans_rel        %{JMXTRANS_REL}
 %else
-%define jmxtrans_rel        243
+%define jmxtrans_rel        244
 %endif
 
 %define appname      myjmxtrans
@@ -286,8 +286,13 @@ fi
 
 
 %changelog
+* Wed Jul 9 2014 Henri Gomez <henri.gomez@gmail.com> - 244-1
+- Log4jWriter support
+- dot allow in keys
+
 * Tue Jul 8 2014 Henri Gomez <henri.gomez@gmail.com> - 243-1
 - Update to latest changes, including Librato Writer
+
 
 * Fri Mar 29 2013 Henri Gomez <henri.gomez@gmail.com> - 242-1
 - Initial RPM

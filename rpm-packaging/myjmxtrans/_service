@@ -19,8 +19,8 @@
   <service name="download_url">
    <param name="host">github.com</param>
    <param name="protocol">https</param>
-   <param name="path">/jmxtrans/jmxtrans/archive/v243.tar.gz</param>
-   <param name="filename">jmxtrans-v243.tar.gz</param>
+   <param name="path">/jmxtrans/jmxtrans/archive/v244.tar.gz</param>
+   <param name="filename">jmxtrans-v244.tar.gz</param>
   </service>
 
 </services>
