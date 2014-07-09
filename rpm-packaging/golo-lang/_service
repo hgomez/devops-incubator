@@ -18,7 +18,7 @@
   <service name="download_url">
     <param name="host">repo1.maven.org</param>
     <param name="protocol">http</param>
-    <param name="path">/maven2/org/golo-lang/golo/0-preview12/golo-0-preview12-distribution.tar.gz</param>
+    <param name="path">/maven2/org/golo-lang/golo/1.0.0/golo-1.0.0-distribution.tar.gz</param>
   </service>
 
 </services>
