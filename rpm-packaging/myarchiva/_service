@@ -19,7 +19,7 @@
   <service name="download_url">
    <param name="host">apache.mirrors.multidist.eu</param>
    <param name="protocol">http</param>
-   <param name="path">/archiva/2.0.1/binaries/apache-archiva-2.0.1.war</param>
+   <param name="path">/archiva/2.1.0/binaries/apache-archiva-2.1.0.war</param>
   </service>
 
   <service name="download_url">

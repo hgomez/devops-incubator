@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z "$ARCHIVA_VERSION" ]; then
-  ARCHIVA_VERSION=2.0.1
+  ARCHIVA_VERSION=2.1.0
 fi
 
 if [ -z "$TOMCAT_VERSION" ]; then
