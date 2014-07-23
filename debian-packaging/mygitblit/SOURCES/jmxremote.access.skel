@@ -1,6 +1,8 @@
 #
-# JMX Access Password file
+# JMX Access Control file
 #
 
-@APP_JMX_READER_USER@ @APP_JMX_READER_PASSWORD@
-@APP_JMX_ADMIN_USER@  @APP_JMX_ADMIN_PASSWORD@
+@APP_JMX_READER_USER@   readonly
+@APP_JMX_ADMIN_USER@    readwrite \
+              create javax.management.monitor.*,javax.management.timer.*,com.sun.management.*,com.oracle.jrockit.* \
+              unregister
