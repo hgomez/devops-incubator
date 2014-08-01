@@ -22,7 +22,7 @@
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.570
+%define jenkins_rel    1.574
 %endif
 
 Name: myjenkins
@@ -362,6 +362,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Aug 1 2014 hgomez@gmail.com 1.574-1
+- Jenkins 1.574
+
 * Tue Jul 1 2014 hgomez@gmail.com 1.570-1
 - Jenkins 1.570
 
