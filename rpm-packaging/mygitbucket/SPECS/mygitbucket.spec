@@ -22,7 +22,7 @@
 %if 0%{?GITBUCKET_REL:1}
 %define gitbucket_rel    %{GITBUCKET_REL}
 %else
-%define gitbucket_rel    2.0
+%define gitbucket_rel    2.2.1
 %endif
 
 Name: mygitbucket
@@ -365,7 +365,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Thu Jun 5 2014 henri.gomez@gmail.com 2.0-&
+* Mon Aug 25 2014 henri.gomez@gmail.com 2.2.1-1
+- GitBucket 2.2.1 released
+
+* Thu Jun 5 2014 henri.gomez@gmail.com 2.0-1
 - GitBucket 2.0 released
 - Move to Apache Tomcat 7.0.54
 

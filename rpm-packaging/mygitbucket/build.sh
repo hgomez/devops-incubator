@@ -1,6 +1,6 @@
 #!/bin/sh
 
-GITBUCKET_VERSION=2.0
+GITBUCKET_VERSION=2.2.1
 TOMCAT_VERSION=7.0.54
 
 if [ $# -gt 1 ]; then
