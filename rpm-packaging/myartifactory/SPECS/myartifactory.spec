@@ -22,7 +22,7 @@
 %if 0%{?ARTIFACTORY_REL:1}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    3.2.1
+%define artifactory_rel    3.3.0
 %endif
 
 Name: myartifactory
@@ -88,7 +88,7 @@ Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
 Source0: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/apache-tomcat-%{tomcat_rel}.tar.gz
-Source1: http://dfn.dl.sourceforge.net/project/artifactory/artifactory/%{artifactory_rel}/artifactory-%{artifactory_rel}.zip
+Source1: http://dl.bintray.com/jfrog/artifactory/artifactory-%{artifactory_rel}.zip
 Source2: initd.skel
 Source3: sysconfig.skel
 Source4: jmxremote.access.skel
@@ -384,6 +384,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Aug 27 2014 henri.gomez@gmail.com 3.3.0-1
+- Artifactory 3.3.0 released
+- Download url moved to Bintray
+
 * Wed Jun 4 2014 henri.gomez@gmail.com 3.2.1-1
 - Artifactory 3.2.1 released
 - Update Tomcat to 7.0.54
