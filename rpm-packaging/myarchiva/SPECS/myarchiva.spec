@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel		%{TOMCAT_REL}
 %else
-%define tomcat_rel		7.0.54
+%define tomcat_rel		7.0.55
 %endif
 
 %if 0%{?ARCHIVA_REL:1}
 %define archiva_rel		%{ARCHIVA_REL}
 %else
-%define archiva_rel		2.1.0
+%define archiva_rel		2.1.1
 %endif
 
 %if 0%{?MAIL_REL:1}
@@ -405,6 +405,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Sep 5 2014 henri.gomez@gmail.com 2.1.1-1
+- Archiva 2.1.1 released
+- Update Tomcat to 7.0.55
+
 * Mon Jul 21 2014 henri.gomez@gmail.com 2.1.0-1
 - Archiva 2.1.0 released
 

@@ -1,11 +1,11 @@
 #!/bin/sh
 
 if [ -z "$ARCHIVA_VERSION" ]; then
-  ARCHIVA_VERSION=2.1.0
+  ARCHIVA_VERSION=2.1.1
 fi
 
 if [ -z "$TOMCAT_VERSION" ]; then
-  TOMCAT_VERSION=7.0.54
+  TOMCAT_VERSION=7.0.55
 fi
 
 if [ -z "$ACTIVATION_VERSION" ]; then
