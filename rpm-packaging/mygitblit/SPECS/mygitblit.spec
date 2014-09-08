@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.54
+%define tomcat_rel        7.0.55
 %endif
 
 %if 0%{?GITBLIT_REL:1}
