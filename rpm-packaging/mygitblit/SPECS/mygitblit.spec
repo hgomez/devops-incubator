@@ -369,6 +369,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Sep 8 2014 henri.gomez@gmail.com 1.6.0-1
+- GitBlit 1.6.0
+- Update Tomcat to 7.0.55
+
 * Thu Jun 19 2014 henri.gomez@gmail.com 1.5.0-1
 - GitBlit 1.5.0
 - Update Tomcat to 7.0.54
