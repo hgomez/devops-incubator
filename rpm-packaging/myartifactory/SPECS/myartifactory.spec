@@ -304,7 +304,7 @@ if [ "$1" == "1" ]; then
   popd >/dev/null
 
   # start application at first install (uncomment next line this behaviour not expected)
-  # %{_initrddir}/%{name} start
+  # %{servicestart}
 else
   # Update time, restart application if it was running
   if [ "$1" == "2" ]; then

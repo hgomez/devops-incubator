@@ -80,6 +80,19 @@ BuildArch:  noarch
 %define _systemddir       /lib/systemd
 %define _systemdir        %{_systemddir}/system
 
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
+%define servicestart %{_initrddir}/%{appname} start
+%define servicestop  %{_initrddir}/%{appname} stop
+%define serviceon    chkconfig %{appname} on
+%define serviceoff   chkconfig %{appname} off
+%else
+%define servicestart service %{appname} start
+%define servicestop  service %{appname} stop
+%define serviceon    systemctl enable %{appname}
+%define serviceoff   systemctl disable %{appname} 
+%endif
+
+
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
 %if 0%{?suse_version} > 1140
