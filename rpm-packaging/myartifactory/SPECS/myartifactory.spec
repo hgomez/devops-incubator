@@ -56,6 +56,18 @@ BuildArch:  noarch
 %define _systemddir     /lib/systemd
 %define _systemdir      %{_systemddir}/system
 
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
+%define servicestart %{_initrddir}/%{appname} start
+%define servicestop  %{_initrddir}/%{appname} stop
+%define serviceon    chkconfig %{appname} on
+%define serviceoff   chkconfig %{appname} off
+%else
+%define servicestart service %{appname} start
+%define servicestop  service %{appname} stop
+%define serviceon    systemctl enable %{appname}
+%define serviceoff   systemctl disable %{appname} 
+%endif
+
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
 %if 0%{?suse_version} > 1140
@@ -249,7 +261,7 @@ else
 # Update time, stop service if running
   if [ "$1" == "2" ]; then
     if [ -f %{_var}/run/%{appname}.pid ]; then
-      %{_initrddir}/%{appname} stop
+      %{servicestop}
       touch %{applogdir}rpm-update-stop
     fi
     # clean up deployed webapp
@@ -270,11 +282,7 @@ fi
 # First install time, register service, generate random passwords and start application
 if [ "$1" == "1" ]; then
   # register app as service
-%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
-  chkconfig %{appname} on
-%else
-  systemctl enable %{appname}.service >/dev/null 2>&1
-%endif
+  %{serviceon}
 
   # Generated random password for RO and RW accounts
   if [ -f %{_sysconfdir}/sysconfig/%{appname} ]; then
@@ -302,7 +310,7 @@ else
   if [ "$1" == "2" ]; then
     if [ -f %{applogdir}/rpm-update-stop ]; then
       # restart application after update (comment next line this behaviour not expected)
-      %{_initrddir}/%{name} start
+      %{servicestart}
       rm -f %{applogdir}/rpm-update-stop
     fi
   fi
@@ -316,14 +324,10 @@ if [ "$1" == "0" ]; then
   # Uninstall time, stop service and cleanup
 
   # stop service
-%if 0%{?fedora} || 0%{?rhel} || 0%{?centos} || 0%{?suse_version} < 1200
-  chkconfig %{appname} off
-%else
-  systemctl disable %{appname}.service >/dev/null 2>&1
-%endif
+  %{servicestop}
 
   # unregister app from services
-  systemctl disable %{appname}.service >/dev/null 2>&1
+  %{serviceoff}
 
   # finalize housekeeping
   rm -rf %{appdir}
