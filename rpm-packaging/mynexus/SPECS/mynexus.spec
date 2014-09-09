@@ -22,7 +22,7 @@
 %if 0%{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.9.0
+%define nexus_rel    2.9.1
 %endif
 
 Name: mynexus
@@ -394,6 +394,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Sep 9 2014 henri.gomez@gmail.com 2.9.1-1
+- Nexus 2.9.1-02 released
+
 * Fri Sep 5 2014 henri.gomez@gmail.com 2.9.0-1
 - Nexus 2.9.0-04 released
 - Use Apache Tomcay 7.0.55
