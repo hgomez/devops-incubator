@@ -1,5 +1,5 @@
 %if ! 0%{?VERSION:1}
-%define VERSION        1.0.0
+%define VERSION        1.1.0
 %endif
 
 # Avoid unnecessary debug-information (native code)
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %{golodir}/samples
 
 %changelog
+* Mon Sep 22 2014 henri.gomez@gmail.com 1.1.0-1
+- golo 1.1.0 released
+
 * Wed Jul 9 2014 henri.gomez@gmail.com 1.0.0-1
 - golo 1.0.0 released
 
