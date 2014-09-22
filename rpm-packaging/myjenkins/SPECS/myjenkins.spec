@@ -22,7 +22,7 @@
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.579
+%define jenkins_rel    1.581
 %endif
 
 Name: myjenkins
@@ -366,6 +366,12 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Sep 22 2014 hgomez@gmail.com 1.581-1
+- Jenkins 1.581
+
+* Mon Sep 15 2014 hgomez@gmail.com 1.580-1
+- Jenkins 1.580
+
 * Mon Sep 8 2014 hgomez@gmail.com 1.579-1
 - Jenkins 1.579
 - Use Apache Tomcat 7.0.55

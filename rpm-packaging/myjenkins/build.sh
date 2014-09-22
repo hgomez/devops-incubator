@@ -1,6 +1,6 @@
 #!/bin/sh
 
-JENKINS_VERSION=1.579
+JENKINS_VERSION=1.581
 TOMCAT_VERSION=7.0.55
 
 if [ $# -gt 1 ]; then
