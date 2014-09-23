@@ -26,13 +26,13 @@
   <service name="download_url">
    <param name="host">repo1.maven.org</param>
    <param name="protocol">http</param>
-   <param name="path">maven2/org/sonatype/nexus/plugins/nexus-p2-bridge-plugin/2.9.1-02/nexus-p2-bridge-plugin-2.9.1-02-bundle.zip</param>
+   <param name="path">/maven2/org/sonatype/nexus/plugins/nexus-p2-bridge-plugin/2.9.1-02/nexus-p2-bridge-plugin-2.9.1-02-bundle.zip</param>
   </service>
 
   <service name="download_url">
    <param name="host">repo1.maven.org</param>
    <param name="protocol">http</param>
-   <param name="path">maven2/org/sonatype/nexus/plugins/nexus-p2-repository-plugin/2.9.1-02/nexus-p2-repository-plugin-2.9.1-02-bundle.zip</param>
+   <param name="path">/maven2/org/sonatype/nexus/plugins/nexus-p2-repository-plugin/2.9.1-02/nexus-p2-repository-plugin-2.9.1-02-bundle.zip</param>
   </service>
 
   <service name="download_url">
