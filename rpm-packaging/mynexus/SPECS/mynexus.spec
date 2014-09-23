@@ -297,11 +297,11 @@ else
     rm -rf %{appworkdir}/Catalina
 
     # remove P2 plugins if existing
-    if [ -d %{appdatadir}/plugin-repository/nexus-p2-bridge-plugin-* ]; then
+    if [ -d %{appdatadir}/plugin-repository/nexus-p2-bridge-plugin-* ]; then
       rm -rf %{appdatadir}/plugin-repository/nexus-p2-bridge-plugin-*
     fi
     
-    if [ -d %{appdatadir}/plugin-repository/nexus-p2-repository-plugin-* ]; then
+    if [ -d %{appdatadir}/plugin-repository/nexus-p2-repository-plugin-* ]; then
       rm -rf %{appdatadir}/plugin-repository/nexus-p2-repository-plugin-*
     fi
     
