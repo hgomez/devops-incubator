@@ -195,7 +195,9 @@ unzip %{SOURCE15}
 mv nexus-p2-bridge-plugin-* %{buildroot}%{appdatadir}/plugin-repository
 unzip %{SOURCE16}
 mv nexus-p2-repository-plugin-* %{buildroot}%{appdatadir}/plugin-repository
-
+# fix mad rights (rpmlint)
+find %{buildroot}%{appdatadir}/plugin-repository -type f -exec chown 644 \{\} \;
+find %{buildroot}%{appdatadir}/plugin-repository -type d -exec chown 755 \{\} \;
 
 # init.d
 cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
