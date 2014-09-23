@@ -1,5 +1,5 @@
 # Avoid unnecessary debug-information (native code)
-%define		debug_package %{nil}
+%define     debug_package %{nil}
 
 # Avoid jar repack (brp-java-repack-jars)
 #%define __jar_repack 0
@@ -25,9 +25,15 @@
 %define nexus_rel    2.9.1
 %endif
 
+%if 0%{?NEXUS_FULL_REL:1}
+%define nexus_full_rel    %{NEXUS_FULL_REL}
+%else
+%define nexus_full_rel    2.9.1-02
+%endif
+
 Name: mynexus
 Version: %{nexus_rel}
-Release: 1
+Release: 2
 Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://www.sonatype.org/nexus/
@@ -127,6 +133,8 @@ Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: logging.properties.skel
 Source13: crond.skel
 Source14: cron.sh.skel
+Source15: http://repo1.maven.org/maven2/org/sonatype/nexus/plugins/nexus-p2-bridge-plugin/%{nexus_full_rel}/nexus-p2-bridge-plugin-%{nexus_full_rel}-bundle.zip
+Source16: http://repo1.maven.org/maven2/org/sonatype/nexus/plugins/nexus-p2-repository-plugin/%{nexus_full_rel}/nexus-p2-repository-plugin-%{nexus_full_rel}-bundle.zip
 
 %description
 Nexus manages software artifacts required for development. If you develop software, your builds can download dependencies from Nexus and can publish artifacts to Nexus creating a new way to share artifacts within an organization.
@@ -180,6 +188,14 @@ zip -r ROOT.war *
 cp ROOT.war %{buildroot}%{appwebappdir}/ROOT.war
 cd ..
 rm -rf webapp
+
+# Copy P2 Plugins
+mkdir -p %{buildroot}%{appdatadir}/plugin-repository
+unzip %{SOURCE15}
+mv nexus-p2-bridge-plugin-* %{buildroot}%{appdatadir}/plugin-repository
+unzip %{SOURCE16}
+mv nexus-p2-repository-plugin-* %{buildroot}%{appdatadir}/plugin-repository
+
 
 # init.d
 cp  %{SOURCE2} %{buildroot}%{_initrddir}/%{appname}
@@ -277,6 +293,16 @@ else
     rm -rf %{appwebappdir}/ROOT
     # clean up Tomcat workdir 
     rm -rf %{appworkdir}/Catalina
+
+    # remove P2 plugins if existing
+    if [ -d %{appdatadir}/plugin-repository/nexus-p2-bridge-plugin-* ]; then
+      rm -rf %{appdatadir}/plugin-repository/nexus-p2-bridge-plugin-*
+    fi
+    
+    if [ -d %{appdatadir}/plugin-repository/nexus-p2-repository-plugin-* ]; then
+      rm -rf %{appdatadir}/plugin-repository/nexus-p2-repository-plugin-*
+    fi
+    
   fi
 fi
 
@@ -383,6 +409,8 @@ fi
 %{appdir}/bin
 %{appdir}/conf
 %{appdir}/lib
+%attr(-,%{appusername},%{appusername}) %{appdatadir}/plugin-repository
+
 %attr(-,%{appusername}, %{appusername}) %{appdir}/webapps
 %attr(0755,%{appusername},%{appusername}) %dir %{appconflocaldir}
 %attr(0755,%{appusername},%{appusername}) %dir %{appdatadir}
@@ -394,6 +422,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Sep 23 2014 henri.gomez@gmail.com 2.9.1-2
+- Add P2 support via P2 OSS Plugins
+
 * Tue Sep 9 2014 henri.gomez@gmail.com 2.9.1-1
 - Nexus 2.9.1-02 released
 

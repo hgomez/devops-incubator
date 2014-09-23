@@ -24,6 +24,9 @@ NEXUS_URL=http://download.sonatype.com/nexus/oss/nexus-${NEXUS_DOWNLOAD_VERSION}
 TOMCAT_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
+NEXUS_P2_BRIDGE_URL=http://repo1.maven.org/maven2/org/sonatype/nexus/plugins/nexus-p2-bridge-plugin/${NEXUS_DOWNLOAD_VERSION}/nexus-p2-bridge-plugin-${NEXUS_DOWNLOAD_VERSION}-bundle.zip
+NEXUS_P2_REPO_URL=http://repo1.maven.org/maven2/org/sonatype/nexus/plugins/nexus-p2-repository-plugin/${NEXUS_DOWNLOAD_VERSION}/nexus-p2-repository-plugin-${NEXUS_DOWNLOAD_VERSION}-bundle.zip
+
 #
 # Fetch Function
 #
@@ -79,6 +82,8 @@ fetch_remote_file()
 fetch_remote_file $NEXUS_URL SOURCES/nexus-${NEXUS_VERSION}.war
 fetch_remote_file $TOMCAT_URL SOURCES/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 fetch_remote_file $CATALINA_JMX_REMOTE_URL SOURCES/catalina-jmx-remote-${TOMCAT_VERSION}.jar
+fetch_remote_file $NEXUS_P2_BRIDGE_URL SOURCES/nexus-p2-bridge-plugin-${NEXUS_DOWNLOAD_VERSION}-bundle.zip
+fetch_remote_file $NEXUS_P2_REPO_URL SOURCES/nexus-p2-repository-plugin-${NEXUS_DOWNLOAD_VERSION}-bundle.zip
 
 echo "Version to package is $NEXUS_VERSION, powered by Apache Tomcat $TOMCAT_VERSION"
 
@@ -87,5 +92,5 @@ rm -rf BUILD RPMS SRPMS TEMP
 mkdir -p BUILD RPMS SRPMS TEMP
 
 # Build using rpmbuild (use double-quote for define to have shell resolv vars !)
-rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="TOMCAT_REL $TOMCAT_VERSION" --define="NEXUS_REL $NEXUS_VERSION"  SPECS/mynexus.spec
+rpmbuild -bb --define="_topdir $PWD" --define="_tmppath $PWD/TEMP" --define="TOMCAT_REL $TOMCAT_VERSION" --define="NEXUS_REL $NEXUS_VERSION" --define="NEXUS_FULL_REL $NEXUS_DOWNLOAD_VERSION" SPECS/mynexus.spec
 

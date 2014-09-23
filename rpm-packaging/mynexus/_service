@@ -24,17 +24,29 @@
   </service>
 
   <service name="download_url">
+   <param name="host">repo1.maven.org</param>
+   <param name="protocol">http</param>
+   <param name="path">maven2/org/sonatype/nexus/plugins/nexus-p2-bridge-plugin/2.9.1-02/nexus-p2-bridge-plugin-2.9.1-02-bundle.zip</param>
+  </service>
+
+  <service name="download_url">
+   <param name="host">repo1.maven.org</param>
+   <param name="protocol">http</param>
+   <param name="path">maven2/org/sonatype/nexus/plugins/nexus-p2-repository-plugin/2.9.1-02/nexus-p2-repository-plugin-2.9.1-02-bundle.zip</param>
+  </service>
+
+  <service name="download_url">
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
    <param name="path">/dist/tomcat/tomcat-7/v7.0.55/bin/extras/catalina-jmx-remote.jar</param>
    <param name="filename">catalina-jmx-remote-7.0.55.jar</param>
-   </service>
+  </service>
 
   <service name="download_url">
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
    <param name="path">/dist/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz</param>
-   </service>
+  </service>
 
 </services>
 
