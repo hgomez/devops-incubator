@@ -13,7 +13,7 @@
 %if 0%{?JMXTRANS_REL:1}
 %define jmxtrans_rel        %{JMXTRANS_REL}
 %else
-%define jmxtrans_rel        244
+%define jmxtrans_rel        246
 %endif
 
 %define appname      myjmxtrans
