@@ -22,7 +22,7 @@
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.565.2
+%define jenkins_rel    1.565.3
 %endif
 
 Name: myjenkins-lts
@@ -366,6 +366,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Oct 2 2014 hgomez@gmail.com 1.565.3-1
+- Jenkins 1.565.3
+
 * Mon Sep 8 2014 hgomez@gmail.com 1.565.2-1
 - Jenkins LTS 1.565.2
 - Use Apache Tomcat 7.0.55
