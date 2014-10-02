@@ -22,18 +22,18 @@
 %if 0%{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.9.1
+%define nexus_rel    2.9.2
 %endif
 
 %if 0%{?NEXUS_FULL_REL:1}
 %define nexus_full_rel    %{NEXUS_FULL_REL}
 %else
-%define nexus_full_rel    2.9.1-02
+%define nexus_full_rel    2.9.2-01
 %endif
 
 Name: mynexus
 Version: %{nexus_rel}
-Release: 2
+Release: 1
 Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://www.sonatype.org/nexus/
@@ -415,6 +415,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Oct 2 2014 henri.gomez@gmail.com 2.9.2-1
+- Nexus 2.9.2-01 released
+
 * Tue Sep 23 2014 henri.gomez@gmail.com 2.9.1-2
 - Add P2 support via P2 OSS Plugins
 
