@@ -22,7 +22,7 @@
 %if 0%{?GITBLIT_REL:1}
 %define gitblit_rel    %{GITBLIT_REL}
 %else
-%define gitblit_rel    1.6.0
+%define gitblit_rel    1.6.2
 %endif
 
 Name: mygitblit
@@ -369,9 +369,11 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Mon Sep 8 2014 henri.gomez@gmail.com 1.6.0-1
-- GitBlit 1.6.0
-- Update Tomcat to 7.0.55
+* Tue Oct 28 2014 henri.gomez@gmail.com 1.6.2-1
+- GitBlit 1.6.2
+
+* Tue Oct 21 2014 henri.gomez@gmail.com 1.6.0-1
+- GitBlit 1.6.1
 
 * Thu Jun 19 2014 henri.gomez@gmail.com 1.5.0-1
 - GitBlit 1.5.0

@@ -19,7 +19,7 @@
   <service name="download_url">
    <param name="host">dl.bintray.com</param>
    <param name="protocol">http</param>
-   <param name="path">/gitblit/releases/gitblit-1.6.0.war</param>
+   <param name="path">/gitblit/releases/gitblit-1.6.2.war</param>
   </service>
 
   <service name="download_url">
