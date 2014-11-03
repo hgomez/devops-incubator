@@ -117,7 +117,7 @@ Source14: cron.sh.skel
 Conflicts: myjenkins-lts
 
 %description
-In a nutshell Jenkins CI is the leading open-source continuous integration server. Built with Java, it provides over 400 plugins to support building and testing virtually any project.
+In a nutshell Jenkins CI is the leading open-source continuous integration server. Built with Java, it provides over 1000 plugins to support building and testing virtually any project.
 This package contains Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 
 %prep
