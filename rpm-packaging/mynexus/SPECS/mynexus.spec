@@ -22,13 +22,13 @@
 %if 0%{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.9.2
+%define nexus_rel    2.10.0
 %endif
 
 %if 0%{?NEXUS_FULL_REL:1}
 %define nexus_full_rel    %{NEXUS_FULL_REL}
 %else
-%define nexus_full_rel    2.9.2-01
+%define nexus_full_rel    2.10.0-02
 %endif
 
 Name: mynexus
@@ -415,6 +415,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sat Nov 8 2014 henri.gomez@gmail.com 2.10.0-1
+- Nexus 2.10.0-02 released
+
 * Thu Oct 2 2014 henri.gomez@gmail.com 2.9.2-1
 - Nexus 2.9.2-01 released
 
