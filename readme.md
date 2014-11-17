@@ -189,6 +189,17 @@ Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.
     gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_13.1/repodata/repomd.xml.key
     enabled=1
 
+###openSUSE 13.2
+
+Add Zypper repository by editing repo file **/etc/zypp/repos.d/devops-incubator.repo**
+
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (openSUSE_13.2)
+    type=rpm-md
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_13.2/
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/openSUSE_13.2/repodata/repomd.xml.key
+    enabled=1
 
 Install a package (jenkins for example)
 
