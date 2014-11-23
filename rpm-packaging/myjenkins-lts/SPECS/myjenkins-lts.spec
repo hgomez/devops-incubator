@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.55
+%define tomcat_rel        7.0.57
 %endif
 
 %if 0%{?JENKINS_REL:1}
@@ -366,6 +366,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sun Nov 23 2014 hgomez@gmail.com 1.580.1-2
+- Use Tomcat 7.0.57
+
 * Mon Nov 3 2014 hgomez@gmail.com 1.580.1-1
 - Jenkins LTS 1.580.1
 
