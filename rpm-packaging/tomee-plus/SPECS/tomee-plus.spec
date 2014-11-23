@@ -16,10 +16,10 @@
 %if 0%{?TOMEE_REL:1}
 %define tomee_rel        %{TOMEE_REL}
 %else
-%define tomee_rel        1.6.0.1
+%define tomee_rel        1.7.1
 %endif
 
-%define tomcat_rel       7.0.53
+%define tomcat_rel       7.0.55
 
 Name:      tomee-plus
 Version:   %{tomee_rel}
@@ -374,6 +374,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sun Nov 23 2014 henri.gomez@gmail.com 1.7.1-1
+- TomEE 1.7.1 released, based on Tomcat 7.0.55
+
 * Sat Apr 19 2014 henri.gomez@gmail.com 1.6.0.1-1
 - TomEE 1.6.0.1 released, based on Tomcat 7.0.53
 
