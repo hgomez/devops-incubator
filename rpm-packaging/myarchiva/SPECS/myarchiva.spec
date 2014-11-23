@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel		%{TOMCAT_REL}
 %else
-%define tomcat_rel		7.0.55
+%define tomcat_rel		7.0.57
 %endif
 
 %if 0%{?ARCHIVA_REL:1}
@@ -49,7 +49,7 @@
 Name: myarchiva
 
 Version: %{rpm_archiva_rel}
-Release: 6
+Release: 2
 Summary: Apache Archiva %{archiva_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://archiva.apache.org/
@@ -402,6 +402,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sun Nov 23 2014 henri.gomez@gmail.com 2.1.1-2
+- Update Tomcat to 7.0.57
+
 * Fri Sep 5 2014 henri.gomez@gmail.com 2.1.1-1
 - Archiva 2.1.1 released
 - Update Tomcat to 7.0.55
