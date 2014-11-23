@@ -1,7 +1,7 @@
 #!/bin/sh
 
 JENKINS_VERSION=1.588
-TOMCAT_VERSION=7.0.55
+TOMCAT_VERSION=7.0.57
 
 if [ $# -gt 1 ]; then
   JENKINS_VERSION=$1
