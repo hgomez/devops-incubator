@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel   %{TOMCAT_REL}
 %else
-%define tomcat_rel   7.0.54
+%define tomcat_rel   7.0.57
 %endif
 
 %if 0%{?SONAR_REL:1}
@@ -27,7 +27,7 @@
 
 Name: mysonar
 Version: %{sonar_rel}
-Release: 4
+Release: 5
 Summary: Sonar %{sonar_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Group: Development/Tools/Building
 URL: http://www.sonarqube.org/
@@ -47,7 +47,13 @@ BuildArch:  noarch
 %define appconfdir      %{appdir}/conf
 %define appconflocaldir %{appdir}/conf/Catalina/localhost
 %define appwebappdir    %{appdir}/webapps
-%define apptempdir      %{_var}/run/%{appname}
+
+%if 0%{?suse_version} >= 1320
+%define apptempdir        /run/%{appname}
+%else
+%define apptempdir        %{_var}/run/%{appname}
+%endif
+
 %define appworkdir      %{_var}/spool/%{appname}
 %define appcron         %{appdir}/bin/cron.sh
 

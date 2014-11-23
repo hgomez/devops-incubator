@@ -53,7 +53,13 @@ BuildArch:  noarch
 %define appconfdir      %{appdir}/conf
 %define appconflocaldir %{appdir}/conf/Catalina/localhost
 %define appwebappdir    %{appdir}/webapps
-%define apptempdir      %{_var}/run/%{appname}
+
+%if 0%{?suse_version} >= 1320
+%define apptempdir        /run/%{appname}
+%else
+%define apptempdir        %{_var}/run/%{appname}
+%endif
+
 %define appworkdir      %{_var}/spool/%{appname}
 %define appcron         %{appdir}/bin/cron.sh
 
