@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.55
+%define tomcat_rel        7.0.57
 %endif
 
 %if 0%{?GITBUCKET_REL:1}
 %define gitbucket_rel    %{GITBUCKET_REL}
 %else
-%define gitbucket_rel    2.3
+%define gitbucket_rel    2.6
 %endif
 
 Name: mygitbucket
@@ -369,6 +369,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Sun Nov 23 2014 henri.gomez@gmail.com 2.6-1
+- GitBucket 2.6 released
+- Update Tomcat to 7.0.57
+
 * Mon Sep 8 2014 henri.gomez@gmail.com 2.3-1
 - GitBucket 2.3 released
 - Update Tomcat to 7.0.55

@@ -19,21 +19,21 @@
   <service name="download_url">
    <param name="host">github.com</param>
    <param name="protocol">https</param>
-   <param name="path">/takezoe/gitbucket/releases/download/2.3/gitbucket.war</param>
-   <param name="filename">gitbucket-2.3.war</param>
+   <param name="path">/takezoe/gitbucket/releases/download/2.6/gitbucket.war</param>
+   <param name="filename">gitbucket-2.6.war</param>
   </service>
 
   <service name="download_url">
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
-   <param name="path">/dist/tomcat/tomcat-7/v7.0.55/bin/extras/catalina-jmx-remote.jar</param>
-   <param name="filename">catalina-jmx-remote-7.0.55.jar</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.57/bin/extras/catalina-jmx-remote.jar</param>
+   <param name="filename">catalina-jmx-remote-7.0.57.jar</param>
    </service>
 
   <service name="download_url">
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
-   <param name="path">/dist/tomcat/tomcat-7/v7.0.55/bin/apache-tomcat-7.0.55.tar.gz</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.57/bin/apache-tomcat-7.0.57.tar.gz</param>
    </service>
 
 </services>
