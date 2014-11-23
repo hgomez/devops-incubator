@@ -40,7 +40,13 @@ BuildArch: noarch
 %define asfdir          /opt/asf
 %define asfvarlibdir    %{_var}/lib/asf
 %define asfvarlogdir    %{_var}/log/asf
+
+%if 0%{?suse_version} >= 1320
+%define asfvarrundir    /run/asf
+%else
 %define asfvarrundir    %{_var}/run/asf
+%endif
+
 %define asfvarspooldir  %{_var}/spool/asf
 
 %define appdir          %{asfdir}/%{appname}
