@@ -1,4 +1,4 @@
-# devops-incubator-centos6
+# di-centos6-base
 #
 # Devops Incubator image based on CentOS 6
 #
