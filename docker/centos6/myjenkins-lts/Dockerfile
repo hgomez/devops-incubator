@@ -8,4 +8,4 @@ FROM     hgomez/di-centos6-base
 MAINTAINER Henri Gomez "henri.gomez@gmail.com"
 
 # Install Jenkins LTS
-RUN yum install myjenkins-lts
+RUN yum install myjenkins-lts -y
