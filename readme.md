@@ -70,6 +70,18 @@ Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo
     gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_CentOS-6/repodata/repomd.xml.key
     enabled=1
  
+###CentOS 7
+
+Add Yum repository by editing repo file **/etc/yum.repos.d/devops-incubator.repo**
+
+    [home_henri_gomez_devops-incubator]
+    name=Devops Incubator Packages   (CentOS_CentOS-7)
+    type=rpm-md
+    baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_CentOS-7/
+    gpgcheck=1
+    gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_CentOS-7/repodata/repomd.xml.key
+    enabled=1
+ 
 Install a package (jenkins for example)
 
     sudo yum update
