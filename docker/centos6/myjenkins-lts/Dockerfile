@@ -4,7 +4,7 @@
 #
 # VERSION               0.0.1
 
-FROM     hgomez:di-centos6-base
+FROM     hgomez/di-centos6-base
 MAINTAINER Henri Gomez "henri.gomez@gmail.com"
 
 # Install Jenkins LTS
