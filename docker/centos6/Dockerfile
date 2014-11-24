@@ -19,3 +19,9 @@ RUN echo "enabled=1" >> /etc/yum.repos.d/devops-incubator.repo
 # Update distribution
 RUN yum clean all
 RUN yum update -y
+
+# Install Oracle Java 7 
+RUN wget --no-check-certificate --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" -O jdk7-linux-x64.rpm "http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.rpm"
+RUN rpm -Uvh jdk7-linux-x64.rpm
+RUN rm jdk7-linux-x64.rpm
+ENV JAVA_HOME /usr/java/default
