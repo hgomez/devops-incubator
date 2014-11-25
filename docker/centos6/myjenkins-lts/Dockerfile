@@ -10,12 +10,9 @@ MAINTAINER Henri Gomez "henri.gomez@gmail.com"
 # Install Jenkins LTS
 RUN yum install myjenkins-lts -y
 
-# Install supervisord config
-add ./supervisord.conf /etc/supervisord.conf
-
 # Jenkins HTTP port is 12355
 EXPOSE 12355
 
-# Start supervisor
-cmd ["supervisord", "-n"]
+# Start Monitor Service
+cmd ["/usr/bin/monitor-service.sh", "myjenkins"]
 

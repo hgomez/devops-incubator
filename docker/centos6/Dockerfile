@@ -19,11 +19,13 @@ RUN curl -L http://download.opensuse.org/repositories/home:/henri_gomez:/devops-
 RUN yum clean all
 RUN yum update -y
 
-# Install supervisord
-RUN yum install supervisor -y
-
 # Install Oracle Java 7 
 RUN curl -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.rpm -o jdk7-linux-x64.rpm
 RUN rpm -Uvh jdk7-linux-x64.rpm
 RUN rm jdk7-linux-x64.rpm
 ENV JAVA_HOME /usr/java/default
+
+# Install basic monitor script
+add ./monitor-service.sh /usr/bin/monitor-service.sh
+RUN chmod 755 /usr/bin/monitor-service.sh
+
