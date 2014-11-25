@@ -5,6 +5,15 @@ readonly PROGNAME=$(basename $0)
 readonly PROGDIR=$(readlink -m $(dirname $0))
 readonly ARGS="$@"
 
+# Trap SIGTERM / SIGINT
+trap catchsignal INT
+trap catchsignal TERM
+
+function signal() {
+    /etc/init.d/$1 stop
+    sleep 1
+}
+
 main() {
 
     /etc/init.d/$1 start
