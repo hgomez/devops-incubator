@@ -23,7 +23,7 @@ main() {
     /etc/init.d/$1 start
     sleep 1
 
-    local SERVICE_PID=/var/run/$1.pid"
+    local SERVICE_PID=/var/run/$1.pid
 
     while true; do
 
