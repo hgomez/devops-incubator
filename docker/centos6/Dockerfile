@@ -7,24 +7,23 @@
 FROM     centos:centos6
 MAINTAINER Henri Gomez "henri.gomez@gmail.com"
 
-# Register Devops Incubator for CentOS 6
-RUN echo "[home_henri_gomez_devops-incubator]" >> /etc/yum.repos.d/devops-incubator.repo
-RUN echo "name=Devops Incubator Packages   (CentOS_CentOS-6)" >> /etc/yum.repos.d/devops-incubator.repo
-RUN echo "type=rpm-md" >> /etc/yum.repos.d/devops-incubator.repo
-RUN echo "baseurl=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_CentOS-6/" >> /etc/yum.repos.d/devops-incubator.repo
-RUN echo "gpgcheck=1" >> /etc/yum.repos.d/devops-incubator.repo
-RUN echo "gpgkey=http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_CentOS-6/repodata/repomd.xml.key" >> /etc/yum.repos.d/devops-incubator.repo
-RUN echo "enabled=1" >> /etc/yum.repos.d/devops-incubator.repo
+# Install EPEL
+RUN curl -L http://mir01.syntis.net/epel/6/x86_64/epel-release-6-8.noarch.rpm -o epel-release.noarch.rpm
+RUN rpm -Uvh epel-release.noarch.rpm
+RUN rm -f epel-release.noarch.rpm
+
+# Install Devops Incubator
+RUN curl -L http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_CentOS-6/home:henri_gomez:devops-incubator.repo -o /etc/yum.repos.d/devops-incubator.repo
 
 # Update distribution
 RUN yum clean all
 RUN yum update -y
 
-# Install wget and supervisor
-RUN yum install wget supervisor -y
+# Install supervisord
+RUN yum install supervisor -y
 
 # Install Oracle Java 7 
-RUN wget --no-check-certificate --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" -O jdk7-linux-x64.rpm "http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.rpm"
+RUN curl -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.rpm -o jdk7-linux-x64.rpm
 RUN rpm -Uvh jdk7-linux-x64.rpm
 RUN rm jdk7-linux-x64.rpm
 ENV JAVA_HOME /usr/java/default
