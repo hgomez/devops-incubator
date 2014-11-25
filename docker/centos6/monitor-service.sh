@@ -13,17 +13,9 @@ readonly ARGS="$@"
 trap catchsignal INT
 trap catchsignal TERM
 
-function signal() {
-    /etc/init.d/$1 stop
-    sleep 1
-}
+waitprocess() {
 
-main() {
-
-    /etc/init.d/$1 start
-    sleep 1
-
-    local SERVICE_PID=/var/run/$1.pid
+    local SERVICE_PID=/var/run/$SERVICE_NAME.pid
 
     while true; do
 
@@ -40,6 +32,25 @@ main() {
       sleep 1
 
     done
+}
+
+catchsignal() {
+
+    if [ ! -z "$SERVICE_NAME" ]; then
+      /etc/init.d/$SERVICE_NAME stop
+      waitprocess
+    fi
+}
+
+main() {
+
+    SERVICE_NAME=$1
+
+    /etc/init.d/$SERVICE_NAME start
+    sleep 1
+
+    local SERVICE_PID=/var/run/$SERVICE_NAME.pid
+    waitprocess
 }
 
 main $ARGS
