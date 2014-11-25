@@ -1,6 +1,10 @@
 #!/bin/sh
 #
 
+#
+# read MYPID MYCMD MYSTATE MYPPID MYPGRP MYSESSION MYTTYNR MYTPGID MYREST < /proc/self/stat
+#
+
 readonly PROGNAME=$(basename $0)
 readonly PROGDIR=$(readlink -m $(dirname $0))
 readonly ARGS="$@"
