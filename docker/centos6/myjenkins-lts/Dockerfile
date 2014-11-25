@@ -13,6 +13,19 @@ RUN yum install myjenkins-lts -y
 # Jenkins HTTP port is 12355
 EXPOSE 12355
 
-# Start Monitor Service
-cmd ["/usr/bin/monitor-service.sh", "myjenkins"]
+#
+# http://stackoverflow.com/questions/21553353/what-is-the-difference-between-cmd-and-entrypoint-in-a-dockerfile
+#
 
+#
+# ENTRYPOINT mode
+#
+add ./run.sh /usr/bin/run.sh
+RUN chmod 755 /usr/bin/run.sh
+ENTRYPOINT ["/usr/bin/run.sh"]
+
+#
+# CMD mode
+#
+
+#cmd ["/usr/bin/monitor-service.sh", "myjenkins"]
