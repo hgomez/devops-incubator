@@ -1,6 +1,6 @@
 # di-centos6-myjenkins-lts
 #
-# Devops Incubator image based on CentOS 6
+# Devops Incubator Jenkins LTS image based on CentOS 6
 #
 # VERSION               0.0.1
 
