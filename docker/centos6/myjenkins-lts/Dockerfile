@@ -20,6 +20,8 @@ EXPOSE 12355
 #
 # ENTRYPOINT mode
 #
+# docker run -i -t -p 12355:12355 hgomez/di-centos6-myjenkins-lts
+#
 add ./run.sh /usr/bin/run.sh
 RUN chmod 755 /usr/bin/run.sh
 ENTRYPOINT ["/usr/bin/run.sh"]
@@ -27,5 +29,6 @@ ENTRYPOINT ["/usr/bin/run.sh"]
 #
 # CMD mode
 #
-
+# docker run -p 12355:12355 hgomez/di-centos6-myjenkins-lts
+#
 #cmd ["/usr/bin/monitor-service.sh", "myjenkins"]
