@@ -9,9 +9,8 @@ readonly PROGNAME=$(basename $0)
 readonly PROGDIR=$(readlink -m $(dirname $0))
 readonly ARGS="$@"
 
-# Trap SIGTERM / SIGINT
-trap catchsignal INT
-trap catchsignal TERM
+# Trap Signals
+trap catchsignal HUP INT QUIT KILL TERM
 
 waitprocess() {
 
@@ -47,9 +46,6 @@ main() {
     SERVICE_NAME=$1
 
     /etc/init.d/$SERVICE_NAME start
-    sleep 1
-
-    local SERVICE_PID=/var/run/$SERVICE_NAME.pid
     waitprocess
 }
 
