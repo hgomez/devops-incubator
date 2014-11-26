@@ -12,13 +12,13 @@ This image contains Jenkins LTS running on CentOS 6 base image
 ## Start Container 
 
 ### Attached to console (but no tty so cannot be stopped by Control-C)
-    docker run  -p 12355:12355 hgomez/di-centos6-myjenkins-lts
+    docker run -p 12355:12355 hgomez/di-centos6-myjenkins-lts
 
 ### Detached
     docker run -d -p 12355:12355 hgomez/di-centos6-myjenkins-lts
 
 ### Interactive mode
-    docker run -t -i -v -p 12355:12355 hgomez/di-centos6-myjenkins-lts
+    docker run -t -i -p 12355:12355 hgomez/di-centos6-myjenkins-lts
 
 ## Externalize Jenkins Home
 

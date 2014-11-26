@@ -12,13 +12,13 @@ This image contains Nexus running on CentOS 6 base image
 ## Start Container 
 
 ### Attached to console (but no tty so cannot be stopped by Control-C)
-    docker run  -p 12365:12365 hgomez/di-centos6-mynexus
+    docker run -p 12365:12365 hgomez/di-centos6-mynexus
 
 ### Detached
     docker run -d -p 12365:12365 hgomez/di-centos6-mynexus
 
 ### Interactive mode
-    docker run -t -i -v -p 12365:12365 hgomez/di-centos6-mynexus
+    docker run -t -i -p 12365:12365 hgomez/di-centos6-mynexus
 
 ## Externalize Artifactory Home
 
