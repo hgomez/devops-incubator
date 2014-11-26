@@ -5,9 +5,9 @@
 Native Packaging sample for DevOps easy operations.
 These packages will bring you a ready to use Software, QA and Ops Factories.
 
-# Archiva on CentOS 6
+# Artifactory on CentOS 6
 
-This image contains Archiva running on CentOS 6 base image 
+This image contains Artifactory running on CentOS 6 base image 
 
 ## Start Container 
 
