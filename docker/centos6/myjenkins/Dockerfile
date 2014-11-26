@@ -1,4 +1,4 @@
-# di-centos6-myjenkins-lts
+# di-centos6-myjenkins
 #
 # Devops Incubator Jenkins image based on CentOS 6
 #
