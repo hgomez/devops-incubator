@@ -20,7 +20,7 @@ This image contains Archiva running on CentOS 6 base image
 ### Interactive mode
     docker run -t -i -v -p 12365:12365 hgomez/di-centos6-myarchiva
 
-## Externalize Jenkins Home
+## Externalize Archiva Home
 
 Create local directory and ensure it's available to all
 myarchiva will use user myarchiva (uid 1250) and need access to this repo
