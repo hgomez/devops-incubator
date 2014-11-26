@@ -13,6 +13,9 @@ RUN yum install myjenkins-lts -y
 # Jenkins HTTP port is 12355
 EXPOSE 12355
 
+add ./run.sh /usr/bin/run.sh
+RUN chmod 755 /usr/bin/run.sh
+
 #
 # http://stackoverflow.com/questions/21553353/what-is-the-difference-between-cmd-and-entrypoint-in-a-dockerfile
 #
@@ -22,8 +25,6 @@ EXPOSE 12355
 #
 # docker run -i -t -p 12355:12355 hgomez/di-centos6-myjenkins-lts
 #
-add ./run.sh /usr/bin/run.sh
-RUN chmod 755 /usr/bin/run.sh
 #ENTRYPOINT ["/usr/bin/run.sh"]
 
 #
