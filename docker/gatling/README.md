@@ -9,12 +9,9 @@ Default Java is Java 8
 
 ## Start Container 
 
-### Interactive mode
-    docker run -t -i hgomez/gatling
+### Direct interactive mode
+    docker run -i -t hgomez/gatling -h
 
-Then you could use Gatling 
-
-    [root@5992fdbc4461 /]# gatling.sh --help
     GATLING_HOME is set to /opt/gatling
 
     Usage: gatling [options] 
@@ -42,9 +39,16 @@ Then you could use Gatling
       -sd <description> | --simulation-description <description>
 	    A short <description> of the run to include in the report
 
-    [root@5992fdbc4461 /]# java -version
-    java version "1.8.0_25"
-    Java(TM) SE Runtime Environment (build 1.8.0_25-b17)
-    Java HotSpot(TM) 64-Bit Server VM (build 25.25-b02, mixed mode)
-    [root@5992fdbc4461 /]# 
+### Use Volumes
+
+You could overrides default directories to use dirs in host filesystem :
+
+    mkdir -p /home/henri/gatling/conf
+    mkdir -p /home/henri/gatling/results
+    mkdir -p /home/henri/gatling/user-files
+
+    docker run -i -t -v /home/henri/gatling/conf:/opt/gatling/conf \
+                     -v /home/henri/gatling/results:/opt/gatling/results \
+                     -v /home/henri/gatling/user-files:/opt/gatling/user-files hgomez/gatling
+
 

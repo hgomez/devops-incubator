@@ -36,5 +36,7 @@ RUN mv gatling-bundle-2.0.0-M3a /opt/gatling
 
 ENV PATH $PATH:/opt/gatling/bin
 ENV JAVA_HOME /usr/java/default
+ENV GATLING_HOME /opt/gatling
 
-CMD ["/bin/bash"]
+ENTRYPOINT ["gatling.sh"]
+
