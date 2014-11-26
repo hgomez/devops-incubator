@@ -36,7 +36,7 @@ License: Apache-2.0
 BuildArch:  noarch
 
 %define appname         mygitbucket
-%define appusername     mygitbucket
+%define appusername     mygitbuc
 %define appuserid       1246
 %define appgroupid      1246
 
