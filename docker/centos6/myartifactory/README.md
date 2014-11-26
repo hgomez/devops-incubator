@@ -23,7 +23,7 @@ This image contains Artifactory running on CentOS 6 base image
 ## Externalize Artifactory Home
 
 Create local directory and ensure it's available to all
-myartifactory will use user myartifactory (uid 1250) and need access to this repo
+myartifactory will use user myarti (uid 1239) and need access to this repo
 
     mkdir -p /home/henri/artifactory-data
     chmod 777 /home/henri/artifactory-data
