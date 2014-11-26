@@ -23,7 +23,7 @@ This image contains Archiva running on CentOS 6 base image
 ## Externalize Archiva Home
 
 Create local directory and ensure it's available to all
-myarchiva will use user myarchiva (uid 1250) and need access to this repo
+myarchiva will use user myarchiv (uid 1250) and need access to this repo
 
     mkdir -p /home/henri/archiva-data
     chmod 777 /home/henri/archiva-data
