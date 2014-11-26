@@ -1,21 +1,20 @@
-#!/bin/sh
+#!/bin/bash
 #
 
 trap trapper HUP INT QUIT KILL TERM
 
 trapper() {
   echo "signal catched"
-  /etc/init.d/myjenkins stop
+  /etc/init.d/myjenkins stop >>/dev/null 2>&1
 }
 
+echo "Starting Jenkins"
 # start service in background here
-/etc/init.d/myjenkins start
+/etc/init.d/myjenkins start stop >>/dev/null 2>&1
 
-echo "[hit enter key to exit] or run 'docker stop <container>'"
-read
+# ouput Tomcat logs
+tail -f /var/log/myjenkins/catalina.out
 
-# stop service and clean up here
-echo "stopping service"
-/etc/init.d/myjenkins stop
-
-echo "exited $0"
+echo "Stopping Jenkins"
+/etc/init.d/myjenkins stop stop >>/dev/null 2>&1
+echo "Jenkins stopped"
