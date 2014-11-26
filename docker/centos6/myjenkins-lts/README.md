@@ -11,7 +11,7 @@ This image contains Jenkins LTS running on CentOS 6 base image
 
 ## Start Container 
 
-### Attached to console (but no tty so cannot be stopped by Control-C
+### Attached to console (but no tty so cannot be stopped by Control-C)
     docker run  -p 12355:12355 hgomez/di-centos6-myjenkins-lts
 
 ### Detached
@@ -22,11 +22,13 @@ This image contains Jenkins LTS running on CentOS 6 base image
 
 ## Externalize Jenkins Home
 
-Mount the local directory, /home/henri/jenkins-data, into the container as the /var/lib/myjenkins directory
+Create local directory and ensure it's available to all
+myjenkins will use user myjenkins (uid 1235) and need access to this repo
 
-### Create local directory and ensure it's available to all
-### myjenkins will use user myjenkins (uid 1235) and need access to this repo
     mkdir -p /home/henri/jenkins-data
     chmod 777 /home/henri/jenkins-data
+
+Mount the local directory, /home/henri/jenkins-data, into the container as the /var/lib/myjenkins directory
+
     docker run -v /home/henri/jenkins-data:/var/lib/myjenkins -p 12355:12355 hgomez/di-centos6-myjenkins-lts
  
