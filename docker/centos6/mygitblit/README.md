@@ -23,7 +23,7 @@ This image contains Gitblit running on CentOS 6 base image
 ## Externalize Gitblit Home
 
 Create local directory and ensure it's available to all
-mygitblit will use user myarchiv (uid 1238) and need access to this repo
+mygitblit will use user mygitblt (uid 1238) and need access to this repo
 
     mkdir -p /home/henri/gitblit-data
     chmod 777 /home/henri/gitblit-data
