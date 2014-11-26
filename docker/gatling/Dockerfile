@@ -10,12 +10,12 @@ FROM     centos:centos6
 MAINTAINER Henri Gomez "henri.gomez@gmail.com"
 
 # Gatling 2.0.3
-ENV GATLING_VERSION=2.0.3
+ENV GATLING_VERSION 2.0.3
 
 # Java 7 - 7u71 / 7u71-b14 
 # Java 8 - 8u25 / 8u25-b17
-ENV JAVA_VERSION=8u25
-ENV JAVA_FULLVERSION=8u25-b17
+ENV JAVA_VERSION 8u25
+ENV JAVA_FULLVERSION 8u25-b17
 
 
 # Install EPEL
