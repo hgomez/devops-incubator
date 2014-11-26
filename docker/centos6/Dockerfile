@@ -7,6 +7,11 @@
 FROM     centos:centos6
 MAINTAINER Henri Gomez "henri.gomez@gmail.com"
 
+# Java 7 - 7u71 / 7u71-b14 
+# Java 8 - 8u25 / 8u25-b17
+ENV JAVA_VERSION=7u71
+ENV JAVA_FULLVERSION=7u71-b14
+
 # Install EPEL
 RUN curl -L http://mir01.syntis.net/epel/6/x86_64/epel-release-6-8.noarch.rpm -o epel-release.noarch.rpm
 RUN rpm -Uvh epel-release.noarch.rpm
@@ -20,9 +25,9 @@ RUN yum clean all
 RUN yum update -y
 
 # Install Oracle Java 7 
-RUN curl -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.rpm -o jdk7-linux-x64.rpm
-RUN rpm -Uvh jdk7-linux-x64.rpm
-RUN rm jdk7-linux-x64.rpm
+RUN curl -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${JAVA_FULLVERSION}/jdk-${JAVA_VERSION}-linux-x64.rpm -o jdk-linux-x64.rpm
+RUN rpm -Uvh jdk-linux-x64.rpm
+RUN rm jdk-linux-x64.rpm
 ENV JAVA_HOME /usr/java/default
 
 # Install basic monitor script
