@@ -24,7 +24,7 @@ RUN curl -L http://download.opensuse.org/repositories/home:/henri_gomez:/devops-
 RUN yum clean all
 RUN yum update -y
 
-# Install Oracle Java 7 
+# Install Oracle Java
 RUN curl -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${JAVA_FULLVERSION}/jdk-${JAVA_VERSION}-linux-x64.rpm -o jdk-linux-x64.rpm
 RUN rpm -Uvh jdk-linux-x64.rpm
 RUN rm jdk-linux-x64.rpm
