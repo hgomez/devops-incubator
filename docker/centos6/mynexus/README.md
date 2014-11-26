@@ -20,7 +20,7 @@ This image contains Nexus running on CentOS 6 base image
 ### Interactive mode
     docker run -t -i -p 12365:12365 hgomez/di-centos6-mynexus
 
-## Externalize Artifactory Home
+## Externalize Nexus Home
 
 Create local directory and ensure it's available to all
 mynexus will use user mynexus (uid 1236) and need access to this repo
