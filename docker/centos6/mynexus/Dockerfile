@@ -13,7 +13,7 @@ RUN yum install mynexus -y
 # Nexus HTTP port is 12365
 EXPOSE 12365
 
-add ./run.sh /usr/bin/run.sh
+ADD ./run.sh /usr/bin/run.sh
 RUN chmod 755 /usr/bin/run.sh
 
 #
@@ -32,5 +32,5 @@ RUN chmod 755 /usr/bin/run.sh
 #
 # docker run -p 12365:12365 hgomez/di-centos6-mynexus
 #
-#cmd ["/usr/bin/monitor-service.sh", "mynexus"]
-cmd ["/usr/bin/run.sh"]
+#CMD ["/usr/bin/monitor-service.sh", "mynexus"]
+CMD ["/usr/bin/run.sh"]

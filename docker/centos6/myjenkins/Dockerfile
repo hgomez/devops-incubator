@@ -13,7 +13,7 @@ RUN yum install myjenkins -y
 # Jenkins HTTP port is 12355
 EXPOSE 12355
 
-add ./run.sh /usr/bin/run.sh
+ADD ./run.sh /usr/bin/run.sh
 RUN chmod 755 /usr/bin/run.sh
 
 #
@@ -32,5 +32,5 @@ RUN chmod 755 /usr/bin/run.sh
 #
 # docker run -p 12355:12355 hgomez/di-centos6-myjenkins
 #
-#cmd ["/usr/bin/monitor-service.sh", "myjenkins"]
-cmd ["/usr/bin/run.sh"]
+#CMD ["/usr/bin/monitor-service.sh", "myjenkins"]
+CMD ["/usr/bin/run.sh"]
