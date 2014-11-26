@@ -10,11 +10,11 @@ trapper() {
 
 echo "Starting Jenkins"
 # start service in background here
-/etc/init.d/myjenkins start stop >>/dev/null 2>&1
+/etc/init.d/myjenkins start >>/dev/null 2>&1
 
 # ouput Tomcat logs
 tail -f /var/log/myjenkins/catalina.out
 
 echo "Stopping Jenkins"
-/etc/init.d/myjenkins stop stop >>/dev/null 2>&1
+/etc/init.d/myjenkins stop >>/dev/null 2>&1
 echo "Jenkins stopped"

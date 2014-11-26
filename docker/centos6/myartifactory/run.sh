@@ -10,11 +10,11 @@ trapper() {
 
 echo "Starting Artifactory"
 # start service in background here
-/etc/init.d/myartifactory start stop >>/dev/null 2>&1
+/etc/init.d/myartifactory start >>/dev/null 2>&1
 
 # ouput Tomcat logs
 tail -f /var/log/myartifactory/catalina.out
 
 echo "Stopping Artifactory"
-/etc/init.d/myartifactory stop stop >>/dev/null 2>&1
+/etc/init.d/myartifactory stop >>/dev/null 2>&1
 echo "Artifactory stopped"
