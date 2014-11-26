@@ -4,8 +4,7 @@
 
 # Gatling on CentOS 6
 
-This image contains Gatling 2.0.0M3 running on CentOS 6 base image 
-Default Java is Java 8
+This image contains Gatling 2.0.3 running on CentOS 6 base image and using Java 8u25
 
 ## Start Container 
 

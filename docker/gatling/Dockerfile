@@ -1,8 +1,10 @@
 # hgomez/gatling
 #
 # Gatling based on CentOS 6
+# Bundle Gatling 2.0.3 with Java 8u25 
 #
 # VERSION               0.0.1
+# 
 
 FROM     centos:centos6
 MAINTAINER Henri Gomez "henri.gomez@gmail.com"
@@ -16,8 +18,8 @@ RUN rm -f epel-release.noarch.rpm
 RUN yum clean all
 RUN yum update -y
 
-# Install tar
-RUN yum install tar -y
+# Install unzip
+RUN yum install unzip -y
 
 # Install Oracle Java 8 
 RUN curl -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u25-b17/jdk-8u25-linux-x64.rpm -o jdk8-linux-x64.rpm
@@ -30,9 +32,10 @@ RUN rm jdk8-linux-x64.rpm
 #RUN rm jdk7-linux-x64.rpm
 
 # Install Gatling
-RUN curl -L -v http://repository.excilys.com/content/repositories/releases/io/gatling/gatling-bundle/2.0.0-M3a/gatling-bundle-2.0.0-M3a-bundle.tar.gz -o gatling-bundle-2.0.0-M3a-bundle.tar.gz
-RUN tar xvzf gatling-bundle-2.0.0-M3a-bundle.tar.gz
-RUN mv gatling-bundle-2.0.0-M3a /opt/gatling
+RUN curl -L -v http://repo1.maven.org/maven2/io/gatling/highcharts/gatling-charts-highcharts/2.0.3/gatling-charts-highcharts-2.0.3-bundle.zip -o gatling-charts-highcharts-2.0.3-bundle.zip
+RUN unzip gatling-charts-highcharts-2.0.3-bundle.zip
+RUN rm -f gatling-charts-highcharts-2.0.3-bundle.zip
+RUN mv gatling-charts-highcharts-2.0.3 /opt/gatling
 
 ENV PATH $PATH:/opt/gatling/bin
 ENV JAVA_HOME /usr/java/default
