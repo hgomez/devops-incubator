@@ -9,8 +9,8 @@ MAINTAINER Henri Gomez "henri.gomez@gmail.com"
 
 # Java 7 - 7u71 / 7u71-b14 
 # Java 8 - 8u25 / 8u25-b17
-ENV JAVA_VERSION=7u71
-ENV JAVA_FULLVERSION=7u71-b14
+ENV JAVA_VERSION 7u71
+ENV JAVA_FULLVERSION 7u71-b14
 
 # Install EPEL
 RUN curl -L http://mir01.syntis.net/epel/6/x86_64/epel-release-6-8.noarch.rpm -o epel-release.noarch.rpm
