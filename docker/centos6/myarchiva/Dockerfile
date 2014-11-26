@@ -1,0 +1,36 @@
+# di-centos6-myarchiva
+#
+# Devops Incubator Archiva image based on CentOS 6
+#
+# VERSION               0.0.1
+
+FROM     hgomez/di-centos6-base
+MAINTAINER Henri Gomez "henri.gomez@gmail.com"
+
+# Install Archiva
+RUN yum install myarchiva -y
+
+# Jenkins HTTP port is 12355
+EXPOSE 12355
+
+add ./run.sh /usr/bin/run.sh
+RUN chmod 755 /usr/bin/run.sh
+
+#
+# http://stackoverflow.com/questions/21553353/what-is-the-difference-between-cmd-and-entrypoint-in-a-dockerfile
+#
+
+#
+# ENTRYPOINT mode
+#
+# docker run -i -t -p 12355:12355 hgomez/di-centos6-myarchiva
+#
+#ENTRYPOINT ["/usr/bin/run.sh"]
+
+#
+# CMD mode
+#
+# docker run -p 12355:12355 hgomez/di-centos6-myarchiva
+#
+#cmd ["/usr/bin/monitor-service.sh", "myarchiva"]
+cmd ["/usr/bin/run.sh"]
