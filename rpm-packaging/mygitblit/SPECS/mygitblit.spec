@@ -36,7 +36,7 @@ License: Apache-2.0
 BuildArch:  noarch
 
 %define appname         mygitblit
-%define appusername     mygitblit
+%define appusername     mygitblt
 %define appuserid       1238
 %define appgroupid      1238
 
