@@ -22,12 +22,12 @@
 %if 0%{?ARTIFACTORY_REL:1}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    3.4.1
+%define artifactory_rel    3.4.2
 %endif
 
 Name: myartifactory
 Version: %{artifactory_rel}
-Release: 2
+Release: 1
 Summary: JFrog Artifactory %{artifactory_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://www.jfrog.com/
@@ -394,6 +394,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Dec 9 2014 henri.gomez@gmail.com 3.4.2-1
+- Artifactory 3.4.2 released
+
 * Sun Nov 23 2014 henri.gomez@gmail.com 3.4.1-2
 - Update Tomcat to 7.0.57
 
