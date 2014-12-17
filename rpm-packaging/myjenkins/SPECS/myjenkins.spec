@@ -22,12 +22,12 @@
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.588
+%define jenkins_rel    1.594
 %endif
 
 Name: myjenkins
 Version: %{jenkins_rel}
-Release: 2
+Release: 1
 Summary: Jenkins %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://jenkins-ci.org/
@@ -372,6 +372,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Dec 17 2014 hgomez@gmail.com 1.594-1
+- Jenkins 1.594
+
 * Sun Nov 23 2014 hgomez@gmail.com 1.588-2
 - Use Tomcat 7.0.57
 
