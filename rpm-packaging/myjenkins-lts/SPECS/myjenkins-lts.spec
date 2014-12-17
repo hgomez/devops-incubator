@@ -22,7 +22,7 @@
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.580.1
+%define jenkins_rel    1.580.2
 %endif
 
 Name: myjenkins-lts
@@ -372,35 +372,38 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Sun Nov 23 2014 hgomez@gmail.com 1.580.1-2
+* Wed Dec 17 2014 henri.gomez@gmail.com 1.580.2-1
+- Jenkins LTS 1.580.2
+
+* Sun Nov 23 2014 henri.gomez@gmail.com 1.580.1-2
 - Use Tomcat 7.0.57
 
-* Mon Nov 3 2014 hgomez@gmail.com 1.580.1-1
+* Mon Nov 3 2014 henri.gomez@gmail.com 1.580.1-1
 - Jenkins LTS 1.580.1
 
-* Thu Oct 2 2014 hgomez@gmail.com 1.565.3-1
+* Thu Oct 2 2014 henri.gomez@gmail.com 1.565.3-1
 - Jenkins LTS 1.565.3
 
-* Mon Sep 8 2014 hgomez@gmail.com 1.565.2-1
+* Mon Sep 8 2014 henri.gomez@gmail.com 1.565.2-1
 - Jenkins LTS 1.565.2
 - Use Apache Tomcat 7.0.55
 
-* Fri Aug 1 2014 hgomez@gmail.com 1.565.1-1
+* Fri Aug 1 2014 henri.gomez@gmail.com 1.565.1-1
 - Jenkins LTS 1.565.1
 
-* Tue Jul 1 2014 hgomez@gmail.com 1.544.3-1
+* Tue Jul 1 2014 henri.gomez@gmail.com 1.544.3-1
 - Jenkins LTS 1.544.3
 
-* Tue Jun 3 2014 hgomez@gmail.com 1.544.2-2
+* Tue Jun 3 2014 henri.gomez@gmail.com 1.544.2-2
 - Use Apache Tomcat 7.0.54
 
 * Mon Jun 2 2014 drautureau@gmail.com 1.544.2
 - Update to Jenkins LTS 1.544.2
 
-* Tue May 6 2014 hgomez@gmail.com 1.544.1
+* Tue May 6 2014 henri.gomez@gmail.com 1.544.1
 - Update to Jenkins LTS 1.544.1
 
-* Mon Apr 15 2014 hgomez@gmail.com 1.532.3-2
+* Mon Apr 15 2014 henri.gomez@gmail.com 1.532.3-2
 - Use Apache Tomcat 7.0.53
 
 * Mon Apr 15 2014 drautureau@gmail.com 1.532.3-1
