@@ -372,32 +372,32 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Wed Dec 17 2014 hgomez@gmail.com 1.594-1
+* Wed Dec 17 2014 henri.gomez@gmail.com 1.594-1
 - Jenkins 1.594
 
-* Sun Nov 23 2014 hgomez@gmail.com 1.588-2
+* Sun Nov 23 2014 henri.gomez@gmail.com 1.588-2
 - Use Tomcat 7.0.57
 
-* Mon Nov 3 2014 hgomez@gmail.com 1.588-1
+* Mon Nov 3 2014 henri.gomez@gmail.com 1.588-1
 - Jenkins 1.588
 
-* Thu Oct 2 2014 hgomez@gmail.com 1.583-1
+* Thu Oct 2 2014 henri.gomez@gmail.com 1.583-1
 - Jenkins 1.583
 
-* Mon Sep 22 2014 hgomez@gmail.com 1.581-1
+* Mon Sep 22 2014 henri.gomez@gmail.com 1.581-1
 - Jenkins 1.581
 
-* Mon Sep 15 2014 hgomez@gmail.com 1.580-1
+* Mon Sep 15 2014 henri.gomez@gmail.com 1.580-1
 - Jenkins 1.580
 
-* Mon Sep 8 2014 hgomez@gmail.com 1.579-1
+* Mon Sep 8 2014 henri.gomez@gmail.com 1.579-1
 - Jenkins 1.579
 - Use Apache Tomcat 7.0.55
 
-* Fri Aug 1 2014 hgomez@gmail.com 1.574-1
+* Fri Aug 1 2014 henri.gomez@gmail.com 1.574-1
 - Jenkins 1.574
 
-* Tue Jul 1 2014 hgomez@gmail.com 1.570-1
+* Tue Jul 1 2014 henri.gomez@gmail.com 1.570-1
 - Jenkins 1.570
 
 * Tue Jun 17 2014 henri.gomez@gmail.com 1.568-1
