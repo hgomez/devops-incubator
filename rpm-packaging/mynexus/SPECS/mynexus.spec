@@ -28,7 +28,7 @@
 %if 0%{?NEXUS_FULL_REL:1}
 %define nexus_full_rel    %{NEXUS_FULL_REL}
 %else
-%define nexus_full_rel    2.11.1-01
+%define nexus_full_rel    2.11.0-02
 %endif
 
 Name: mynexus
