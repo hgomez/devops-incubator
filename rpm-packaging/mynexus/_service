@@ -19,20 +19,20 @@
   <service name="download_url">
    <param name="host">download.sonatype.com</param>
    <param name="protocol">http</param>
-   <param name="path">/nexus/oss/nexus-2.11.0-02.war</param>
-   <param name="filename">nexus-2.11.0.war</param>
+   <param name="path">/nexus/oss/nexus-2.11.1-01.war</param>
+   <param name="filename">nexus-2.11.1.war</param>
   </service>
 
   <service name="download_url">
    <param name="host">repo1.maven.org</param>
    <param name="protocol">http</param>
-   <param name="path">/maven2/org/sonatype/nexus/plugins/nexus-p2-bridge-plugin/2.11.0-02/nexus-p2-bridge-plugin-2.11.0-02-bundle.zip</param>
+   <param name="path">/maven2/org/sonatype/nexus/plugins/nexus-p2-bridge-plugin/2.11.1-01/nexus-p2-bridge-plugin-2.11.1-01-bundle.zip</param>
   </service>
 
   <service name="download_url">
    <param name="host">repo1.maven.org</param>
    <param name="protocol">http</param>
-   <param name="path">/maven2/org/sonatype/nexus/plugins/nexus-p2-repository-plugin/2.11.0-02/nexus-p2-repository-plugin-2.11.0-02-bundle.zip</param>
+   <param name="path">/maven2/org/sonatype/nexus/plugins/nexus-p2-repository-plugin/2.11.1-01/nexus-p2-repository-plugin-2.11.1-01-bundle.zip</param>
   </service>
 
   <service name="download_url">
