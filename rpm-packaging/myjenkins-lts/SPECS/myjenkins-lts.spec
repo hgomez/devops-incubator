@@ -22,7 +22,7 @@
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.580.2
+%define jenkins_rel    1.580.3
 %endif
 
 Name: myjenkins-lts
@@ -372,6 +372,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Jan 28 2015 drautureau@gmail.com 1.580.3-1
+- Jenkins LTS 1.580.3
+
 * Wed Dec 17 2014 henri.gomez@gmail.com 1.580.2-1
 - Jenkins LTS 1.580.2
 
