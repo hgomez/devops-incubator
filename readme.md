@@ -1,5 +1,7 @@
 #devops-incubator - Native Packaging
 
+[![Join the chat at https://gitter.im/hgomez/devops-incubator](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hgomez/devops-incubator?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![devops-incubator Logo](https://raw.github.com/hgomez/devops-incubator/master/images/devops-incubator-33pct.png)
 
 Native Packaging sample for DevOps easy operations.
