@@ -19,20 +19,20 @@
   <service name="download_url">
    <param name="host">dl.bintray.com</param>
    <param name="protocol">http</param>
-   <param name="path">/jfrog/artifactory/artifactory-3.5.0.zip</param>
+   <param name="path">/jfrog/artifactory/artifactory-3.5.1.zip</param>
   </service>
 
   <service name="download_url">
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
-   <param name="path">/dist/tomcat/tomcat-7/v7.0.57/bin/extras/catalina-jmx-remote.jar</param>
-   <param name="filename">catalina-jmx-remote-7.0.57.jar</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.59/bin/extras/catalina-jmx-remote.jar</param>
+   <param name="filename">catalina-jmx-remote-7.0.59.jar</param>
    </service>
 
   <service name="download_url">
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
-   <param name="path">/dist/tomcat/tomcat-7/v7.0.57/bin/apache-tomcat-7.0.57.tar.gz</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.59/bin/apache-tomcat-7.0.59.tar.gz</param>
    </service>
 
 </services>
