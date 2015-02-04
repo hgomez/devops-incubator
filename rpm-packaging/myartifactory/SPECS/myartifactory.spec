@@ -22,7 +22,7 @@
 %if 0%{?ARTIFACTORY_REL:1}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    3.4.2
+%define artifactory_rel    3.5.0
 %endif
 
 Name: myartifactory
@@ -394,6 +394,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Feb 4 2015 henri.gomez@gmail.com 3.5.0-1
+- Artifactory 3.5.0 released
+
 * Tue Dec 9 2014 henri.gomez@gmail.com 3.4.2-1
 - Artifactory 3.4.2 released
 
