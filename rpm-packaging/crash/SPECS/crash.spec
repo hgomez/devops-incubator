@@ -1,5 +1,5 @@
 %if ! 0%{?VERSION:1}
-%define VERSION        1.3.0
+%define VERSION        1.3.1
 %endif
 
 # Avoid unnecessary debug-information (native code)
@@ -84,6 +84,9 @@ rm -rf %{buildroot}
 %{_bindir}/crash.sh
 
 %changelog
+* Wed Feb 11 2015 henri.gomez@gmail.com 1.3.1-1
+- crsh 1.3.1 released
+
 * Fri Jun 27 2014 henri.gomez@gmail.com 1.3.0-1
 - crsh 1.3.0 released
 
