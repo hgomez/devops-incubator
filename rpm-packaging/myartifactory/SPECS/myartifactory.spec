@@ -22,7 +22,7 @@
 %if 0%{?ARTIFACTORY_REL:1}
 %define artifactory_rel    %{ARTIFACTORY_REL}
 %else
-%define artifactory_rel    3.5.1
+%define artifactory_rel    3.5.2
 %endif
 
 Name: myartifactory
@@ -394,6 +394,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Feb 24 2015 henri.gomez@gmail.com 3.5.2-1
+- Artifactory 3.5.2 released
+
 * Wed Feb 4 2015 henri.gomez@gmail.com 3.5.1-1
 - Artifactory 3.5.1 released
 - Update Tomcat to 7.0.59
