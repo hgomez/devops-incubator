@@ -19,7 +19,7 @@
   <service name="download_url">
    <param name="host">dl.bintray.com</param>
    <param name="protocol">http</param>
-   <param name="path">/jfrog/artifactory/artifactory-3.5.2.zip</param>
+   <param name="path">/jfrog/artifactory/artifactory-3.5.2.1.zip</param>
   </service>
 
   <service name="download_url">
