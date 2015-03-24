@@ -372,6 +372,9 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Mar 28 2015 drautureau@gmail.com 1.596.2-1
+- Jenkins LTS 1.596.2
+
 * Wed Jan 28 2015 drautureau@gmail.com 1.580.3-1
 - Jenkins LTS 1.580.3
 
