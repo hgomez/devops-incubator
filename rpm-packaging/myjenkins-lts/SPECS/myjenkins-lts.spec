@@ -372,7 +372,7 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Tue Mar 28 2015 drautureau@gmail.com 1.596.2-1
+* Wed Mar 25 2015 drautureau@gmail.com 1.596.2-1
 - Jenkins LTS 1.596.2
 
 * Wed Jan 28 2015 drautureau@gmail.com 1.580.3-1
@@ -409,10 +409,10 @@ fi
 * Tue May 6 2014 henri.gomez@gmail.com 1.544.1
 - Update to Jenkins LTS 1.544.1
 
-* Mon Apr 15 2014 henri.gomez@gmail.com 1.532.3-2
+* Mon Apr 14 2014 henri.gomez@gmail.com 1.532.3-2
 - Use Apache Tomcat 7.0.53
 
-* Mon Apr 15 2014 drautureau@gmail.com 1.532.3-1
+* Mon Apr 14 2014 drautureau@gmail.com 1.532.3-1
 - Update to Jenkins LTS 1.532.3
 
 * Thu Feb 27 2014 henri.gomez@gmail.com 1.532.2-1
