@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.57
+%define tomcat_rel        7.0.59
 %endif
 
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.580.3
+%define jenkins_rel    1.596.2
 %endif
 
 Name: myjenkins-lts
@@ -374,6 +374,7 @@ fi
 %changelog
 * Wed Mar 25 2015 drautureau@gmail.com 1.596.2-1
 - Jenkins LTS 1.596.2
+- Tomcat 7.0.59
 
 * Wed Jan 28 2015 drautureau@gmail.com 1.580.3-1
 - Jenkins LTS 1.580.3
