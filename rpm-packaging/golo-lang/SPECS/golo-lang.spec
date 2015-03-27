@@ -1,5 +1,5 @@
 %if ! 0%{?VERSION:1}
-%define VERSION        2.0.0
+%define VERSION        2.1.0
 %endif
 
 # Avoid unnecessary debug-information (native code)
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %{golodir}/samples
 
 %changelog
+* Fri Mar 27 2015 romain.lespinasse@gmail.com 2.1.0-1
+- golo 2.1.0 released
+
 * Wed Jan 21 2015 henri.gomez@gmail.com 2.0.0-1
 - golo 2.0.0 released
 
