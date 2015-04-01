@@ -33,7 +33,7 @@ RUN apt-get update \
 # easy_install way
 RUN easy_install docker-registry==0.9.1
 
-COPY ../config_sample.yml /
+COPY ./config_sample.yml /
 
 ENV DOCKER_REGISTRY_CONFIG /config_sample.yml
 ENV SETTINGS_FLAVOR dev
