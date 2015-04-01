@@ -23,8 +23,9 @@ When using docker-registry on openSUSE 13.2, rebuilt using easy_install --user, 
 
 * https://github.com/docker/docker-registry/issues/541
 
-If docker-registry runs over HTTPS, docker just sends Basic Authorization headers with every request.
-If docker-registry run over HTTP, docker sends Basic Authorization headers with the first request and after that switches to Token Authorization. It is questionable, whethe that makes sense. If docker sends basic authentication data in plain text over HTTP once, it may as well continue doing so (it is insecure anyways). That way, one would at least have consistent behavior.
+> If docker-registry runs over HTTPS, docker just sends Basic Authorization headers with every request.
+> If docker-registry run over HTTP, docker sends Basic Authorization headers with the first request and after that switches to Token Authorization. It is questionable, whethe that makes sense. 
+> If docker sends basic authentication data in plain text over HTTP once, it may as well continue doing so (it is insecure anyways). That way, one would at least have consistent behavior.
 
 No such behaviour when using docker-registry image
 
