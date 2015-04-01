@@ -4,6 +4,7 @@
 # DESCRIPTION:    Image with docker-registry-easyinstall project and dependencies
 # TO_BUILD:       docker build --no-cache --rm -t registry-easyinstall  .
 # TO_RUN:         docker run -p 5000:5000 registry-easyinstall
+#
 
 # Latest Ubuntu LTS
 #
