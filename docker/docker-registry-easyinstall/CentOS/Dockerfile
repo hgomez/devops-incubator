@@ -21,11 +21,13 @@ RUN yum clean all \
         python-setuptools \
         python-devel \
         openssl-devel \
+        xz-devel \
         wget \
         tar
 
 # easy_install way
 #RUN easy_install M2crypto==0.22.3
+# I love this way to compile M2Crypto
 RUN wget https://pypi.python.org/packages/source/M/M2Crypto/M2Crypto-0.22.3.tar.gz \
    && tar xvzf M2Crypto-0.22.3.tar.gz \
     && cd M2Crypto-0.22.3 \
@@ -33,7 +35,7 @@ RUN wget https://pypi.python.org/packages/source/M/M2Crypto/M2Crypto-0.22.3.tar.
        && python setup.py install
 RUN easy_install docker-registry==0.9.1
 
-COPY ../config_sample.yml /
+COPY ./config_sample.yml /
 
 ENV DOCKER_REGISTRY_CONFIG /config_sample.yml
 ENV SETTINGS_FLAVOR dev
