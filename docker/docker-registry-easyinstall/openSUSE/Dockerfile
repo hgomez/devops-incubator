@@ -22,7 +22,6 @@ RUN zypper clean \
         python-setuptools \
         python-devel \
         libopenssl-devel \
-        libyaml-devel \
         xz-devel \
         wget \
         tar
