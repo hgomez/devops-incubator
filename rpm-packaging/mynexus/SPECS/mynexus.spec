@@ -16,19 +16,19 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.57
+%define tomcat_rel        7.0.61
 %endif
 
 %if 0%{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.11.1
+%define nexus_rel    2.11.2
 %endif
 
 %if 0%{?NEXUS_FULL_REL:1}
 %define nexus_full_rel    %{NEXUS_FULL_REL}
 %else
-%define nexus_full_rel    2.11.1-01
+%define nexus_full_rel    2.11.2-06
 %endif
 
 Name: mynexus
@@ -409,6 +409,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Thu Apr 16 2015 henri.gomez@gmail.com 2.11.2-1
+- Nexus 2.11.2-06 released
+- Use Apache Tomcay 7.0.61
+
 * Mon Dec 29 2014 henri.gomez@gmail.com 2.11.1-1
 - Nexus 2.11.1-01 released
 
