@@ -220,7 +220,7 @@ cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 %if 0%{?suse_version} > 1140 || 0%{?rhel} >= 7 || 0%{?centos} >= 7
 # Setup Systemd
 mkdir -p %{buildroot}%{_unitdir}
-cp %{SOURCE10} %{buildroot}%{__unitdir}/%{appname}.service
+cp %{SOURCE10} %{buildroot}%{_unitdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_APP@@|%{appname}|g' %{buildroot}%{_unitdir}/%{appname}.service
 %{__portsed} 's|@@MYAPP_EXEC@@|%{appexec}|g' %{buildroot}%{_unitdir}/%{appname}.service
 %endif
