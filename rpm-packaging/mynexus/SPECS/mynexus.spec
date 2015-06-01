@@ -22,18 +22,18 @@
 %if 0%{?NEXUS_REL:1}
 %define nexus_rel    %{NEXUS_REL}
 %else
-%define nexus_rel    2.11.2
+%define nexus_rel    2.11.3
 %endif
 
 %if 0%{?NEXUS_FULL_REL:1}
 %define nexus_full_rel    %{NEXUS_FULL_REL}
 %else
-%define nexus_full_rel    2.11.2-06
+%define nexus_full_rel    2.11.3-01
 %endif
 
 Name: mynexus
 Version: %{nexus_rel}
-Release: 2
+Release: 1
 Summary: Sonatype Nexus OSS %{nexus_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://www.sonatype.org/nexus/
@@ -409,7 +409,8 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
-* Mon Jun 1 2015 henri.gomez@gmail.com 2.11.2-2
+* Mon Jun 1 2015 henri.gomez@gmail.com 2.11.3-1
+- Nexus 2.11.3-01 released
 - Use Apache Tomcay 7.0.62
 
 * Thu Apr 16 2015 henri.gomez@gmail.com 2.11.2-1
