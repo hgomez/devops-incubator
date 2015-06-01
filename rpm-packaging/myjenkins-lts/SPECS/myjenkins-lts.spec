@@ -16,18 +16,18 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.61
+%define tomcat_rel        7.0.62
 %endif
 
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.596.2
+%define jenkins_rel    1.596.3
 %endif
 
 Name: myjenkins-lts
 Version: %{jenkins_rel}
-Release: 2
+Release: 1
 Summary: Jenkins LTS %{jenkins_rel} powered by Apache Tomcat %{tomcat_rel}
 Group: Development/Tools/Building
 URL: http://jenkins-ci.org/
@@ -372,6 +372,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Mon Jun 1 2015 henri.gomez@gmail.com 1.596.3-1
+- Jenkins LTS 1.596.3
+- Tomcat 7.0.62
+
 * Thu Apr 16 2015 henri.gomez@gmail.com 1.596.2-2
 - Update Tomcat to 7.0.61
 
