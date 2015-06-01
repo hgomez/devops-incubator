@@ -498,7 +498,7 @@ fi
 * Thu Jan 3 2013 henri.gomez@gmail.com 2.6.6-1
 - Artifactory 2.6.6 released
 
-* Tue Dec 19 2012 henri.gomez@gmail.com 2.6.5-1
+* Wed Dec 19 2012 henri.gomez@gmail.com 2.6.5-1
 - Artifactory 2.6.5 released
 - Use Apache Tomcat 7.0.34
 
