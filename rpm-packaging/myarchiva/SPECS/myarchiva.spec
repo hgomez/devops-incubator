@@ -84,16 +84,16 @@ BuildArch:  noarch
 %define _cronddir         %{_sysconfdir}/cron.d
 %define _initrddir        %{_sysconfdir}/init.d
 
-%if 0%{?fedora} < 18 || 0%{?rhel} < 7 || 0%{?centos} < 7 || 0%{?suse_version} < 1200
-%define servicestart %{_initrddir}/%{appname} start
-%define servicestop  %{_initrddir}/%{appname} stop
-%define serviceon    chkconfig %{appname} on
-%define serviceoff   chkconfig %{appname} off
-%else
+%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7 || 0%{?centos} >= 7 || 0%{?suse_version} >= 1200
 %define servicestart service %{appname} start
 %define servicestop  service %{appname} stop
 %define serviceon    systemctl enable %{appname}
 %define serviceoff   systemctl disable %{appname} 
+%else
+%define servicestart %{_initrddir}/%{appname} start
+%define servicestop  %{_initrddir}/%{appname} stop
+%define serviceon    chkconfig %{appname} on
+%define serviceoff   chkconfig %{appname} off
 %endif
 
 
@@ -243,7 +243,7 @@ cp %{SOURCE8} %{buildroot}%{appconfdir}/server.xml.skel
 cp %{SOURCE9} %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 %{__portsed} 's|@@MYAPP_USER@@|%{appusername}|g' %{buildroot}%{_sysconfdir}/security/limits.d/%{appname}.conf
 
-%if 0%{?suse_version} > 1140 || 0%{?rhel} >= 7 || 0%{?centos} >= 7
+%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7 || 0%{?centos} >= 7 || 0%{?suse_version} >= 1200
 # Setup Systemd
 mkdir -p %{buildroot}%{_unitdir}
 cp %{SOURCE10} %{buildroot}%{_unitdir}/%{appname}.service
@@ -374,7 +374,7 @@ fi
 %attr(0755,%{appusername},%{appusername}) %dir %{applogdir}
 %attr(0755, root,root) %{_initrddir}/%{appname}
 
-%if 0%{?suse_version} > 1140 || 0%{?rhel} >= 7 || 0%{?centos} >= 7
+%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7 || 0%{?centos} >= 7 || 0%{?suse_version} >= 1200
 %attr(0644,root,root) %{_unitdir}/%{appname}.service
 %endif
 

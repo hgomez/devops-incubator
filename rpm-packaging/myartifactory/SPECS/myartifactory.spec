@@ -60,16 +60,16 @@ BuildArch:  noarch
 %define _cronddir       %{_sysconfdir}/cron.d
 %define _initrddir      %{_sysconfdir}/init.d
 
-%if 0%{?fedora} < 18 || 0%{?rhel} < 7 || 0%{?centos} < 7 || 0%{?suse_version} < 1200
-%define servicestart %{_initrddir}/%{appname} start
-%define servicestop  %{_initrddir}/%{appname} stop
-%define serviceon    chkconfig %{appname} on
-%define serviceoff   chkconfig %{appname} off
-%else
+%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7 || 0%{?centos} >= 7 || 0%{?suse_version} >= 1200
 %define servicestart service %{appname} start
 %define servicestop  service %{appname} stop
 %define serviceon    systemctl enable %{appname}
 %define serviceoff   systemctl disable %{appname} 
+%else
+%define servicestart %{_initrddir}/%{appname} start
+%define servicestop  %{_initrddir}/%{appname} stop
+%define serviceon    chkconfig %{appname} on
+%define serviceoff   chkconfig %{appname} off
 %endif
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
