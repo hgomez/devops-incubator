@@ -218,15 +218,15 @@ mv nexus-p2-repository-plugin-* %{buildroot}%{appdatadir}/plugin-repository
 
 # Copy NPM Repo Plugin
 unzip %{SOURCE17}
-mv nexus-npm-repository-plugin-* %{buildroot}%{ssappdatadir}/plugin-repository
+mv nexus-npm-repository-plugin-* %{buildroot}%{appdatadir}/plugin-repository
 
 # Copy Ruby Plugin
 unzip %{SOURCE18}
-mv nexus-ruby-plugin-* %{buildroot}%{ssappdatadir}/plugin-repository
+mv nexus-ruby-plugin-* %{buildroot}%{appdatadir}/plugin-repository
 
 # Copy Rut Auth Plugin
 unzip %{SOURCE19}
-mv nexus-rutauth-plugin-* %{buildroot}%{ssappdatadir}/plugin-repository
+mv nexus-rutauth-plugin-* %{buildroot}%{appdatadir}/plugin-repository
 
 # fix mad rights (rpmlint)
 find %{buildroot}%{appdatadir}/plugin-repository -type f -exec chmod 644 \{\} \;
