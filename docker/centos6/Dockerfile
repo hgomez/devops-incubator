@@ -9,6 +9,8 @@ MAINTAINER Henri Gomez "henri.gomez@gmail.com"
 
 # Java 7 - 7u79 / 7u79-b15
 # Java 8 - 8u25 / 8u25-b17
+
+# Default to Java 7
 ENV JAVA_VERSION 7u79
 ENV JAVA_FULLVERSION 7u79-b15
 
