@@ -31,6 +31,31 @@
 %define nexus_full_rel    2.11.3-01
 %endif
 
+%if 0%{?NEXUS_P2_REL:1}
+%define nexus_p2_rel    %{NEXUS_P2_REL}
+%else
+%define nexus_p2_rel    %{nexus_full_rel}
+%endif
+
+%if 0%{?NEXUS_NPM_REL:1}
+%define nexus_npm_rel    %{NEXUS_NPM_REL}
+%else
+%define nexus_npm_rel    %{nexus_full_rel}
+%endif
+
+%if 0%{?NEXUS_RUTAUTH_REL:1}
+%define nexus_rutauth_rel    %{NEXUS_RUTAUTH_REL}
+%else
+%define nexus_rutauth_rel    %{nexus_full_rel}
+%endif
+
+%if 0%{?NEXUS_RUBY_REL:1}
+%define nexus_ruby_rel    %{NEXUS_RUBY_REL}
+%else
+%define nexus_ruby_rel    %{nexus_full_rel}
+%endif
+
+
 Name: mynexus
 Version: %{nexus_rel}
 Release: 1
@@ -125,8 +150,11 @@ Source11: catalina-jmx-remote-%{tomcat_rel}.jar
 Source12: logging.properties.skel
 Source13: crond.skel
 Source14: cron.sh.skel
-Source15: http://repo1.maven.org/maven2/org/sonatype/nexus/plugins/nexus-p2-bridge-plugin/%{nexus_full_rel}/nexus-p2-bridge-plugin-%{nexus_full_rel}-bundle.zip
-Source16: http://repo1.maven.org/maven2/org/sonatype/nexus/plugins/nexus-p2-repository-plugin/%{nexus_full_rel}/nexus-p2-repository-plugin-%{nexus_full_rel}-bundle.zip
+Source15: http://repo1.maven.org/maven2/org/sonatype/nexus/plugins/nexus-p2-bridge-plugin/%{nexus_p2_rel}/nexus-p2-bridge-plugin-%{nexus_p2_rel}-bundle.zip
+Source16: http://repo1.maven.org/maven2/org/sonatype/nexus/plugins/nexus-p2-repository-plugin/%{nexus_p2_rel}/nexus-p2-repository-plugin-%{nexus_p2_rel}-bundle.zip
+Source17: http://repo1.maven.org/maven2/org/sonatype/nexus/plugins/nexus-npm-repository-plugin/%{nexus_npm_rel}/nexus-npm-repository-plugin-%{nexus_npm_rel}-bundle.zip
+Source18: http://repo1.maven.org/maven2/org/sonatype/nexus/plugins/nexus-ruby-plugin/%{nexus_ruby_rel}/nexus-ruby-plugin-%{nexus_ruby_rel}-bundle.zip
+Source19: http://repo1.maven.org/maven2/org/sonatype/nexus/plugins/nexus-rutauth-plugin/%{nexus_rutauth_rel}/nexus-rutauth-plugin-%{nexus_rutauth_rel}-bundle.zip
 
 %description
 Nexus manages software artifacts required for development. If you develop software, your builds can download dependencies from Nexus and can publish artifacts to Nexus creating a new way to share artifacts within an organization.
@@ -187,6 +215,19 @@ unzip %{SOURCE15}
 mv nexus-p2-bridge-plugin-* %{buildroot}%{appdatadir}/plugin-repository
 unzip %{SOURCE16}
 mv nexus-p2-repository-plugin-* %{buildroot}%{appdatadir}/plugin-repository
+
+# Copy NPM Repo Plugin
+unzip %{SOURCE17}
+mv nexus-npm-repository-plugin-* %{buildroot}%{ssappdatadir}/plugin-repository
+
+# Copy Ruby Plugin
+unzip %{SOURCE18}
+mv nexus-ruby-plugin-* %{buildroot}%{ssappdatadir}/plugin-repository
+
+# Copy Rut Auth Plugin
+unzip %{SOURCE19}
+mv nexus-rutauth-plugin-* %{buildroot}%{ssappdatadir}/plugin-repository
+
 # fix mad rights (rpmlint)
 find %{buildroot}%{appdatadir}/plugin-repository -type f -exec chmod 644 \{\} \;
 find %{buildroot}%{appdatadir}/plugin-repository -type d -exec chmod 755 \{\} \;

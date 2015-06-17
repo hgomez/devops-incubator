@@ -36,6 +36,24 @@
   </service>
 
   <service name="download_url">
+   <param name="host">repo1.maven.org</param>
+   <param name="protocol">http</param>
+   <param name="path">/maven2/org/sonatype/nexus/plugins/nexus-npm-repository-plugin/2.11.3-01/nexus-npm-repository-plugin-2.11.3-01-bundle.zip</param>
+  </service>
+
+  <service name="download_url">
+   <param name="host">repo1.maven.org</param>
+   <param name="protocol">http</param>
+   <param name="path">/maven2/org/sonatype/nexus/plugins/nexus-ruby-plugin/2.11.3-01/nexus-ruby-plugin-2.11.3-01-bundle.zip</param>
+  </service>
+
+  <service name="download_url">
+   <param name="host">repo1.maven.org</param>
+   <param name="protocol">http</param>
+   <param name="path">/maven2/org/sonatype/nexus/plugins/nexus-rutauth-plugin/2.11.3-01/nexus-rutauth-plugin-2.11.3-01-bundle.zip</param>
+  </service>
+
+  <service name="download_url">
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
    <param name="path">/dist/tomcat/tomcat-7/v7.0.62/bin/extras/catalina-jmx-remote.jar</param>
