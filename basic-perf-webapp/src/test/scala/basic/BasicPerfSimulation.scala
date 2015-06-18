@@ -1,20 +1,17 @@
 package basic
 
-import com.excilys.ebi.gatling.core.Predef._
-import com.excilys.ebi.gatling.http.Predef._
-import com.excilys.ebi.gatling.jdbc.Predef._
-import com.excilys.ebi.gatling.http.Headers.Names._
-import akka.util.duration._
-import bootstrap._
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import scala.concurrent.duration._
 
 class BasicPerfSimulation extends Simulation {
 
 	val extHost = Option(System.getProperty("extHost")).getOrElse("localhost")
 	val extPort = Integer.getInteger("extPort", 8081)
-	val extUsers = Integer.getInteger("extUsers", 1)
-	val extRampup = Integer.getInteger("extRampup", 0).toLong
+	val extUsers = Integer.getInteger("extUsers", 1).toInt
+	val extRampup = Integer.getInteger("extRampup", 0).toInt
 	val extPause = Integer.getInteger("extPause", 1).toLong
-	val extLoop = Integer.getInteger("extLoop", 100)
+ 	val extLoop = Integer.getInteger("extLoop", 100).toInt
 
 	val extBaseUrl = if (extPort == 443)
 		"https://" + extHost
@@ -25,7 +22,7 @@ class BasicPerfSimulation extends Simulation {
 
 	val extWebapp = Option(System.getProperty("extWebapp")).getOrElse("/basic-perf/")
 
-	val httpConf = httpConfig
+	val httpConf = http
 		.baseURL(extBaseUrl)
 		.acceptCharsetHeader("ISO-8859-1,utf-8;q=0.7,*;q=0.7")
 		.acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
@@ -70,5 +67,10 @@ class BasicPerfSimulation extends Simulation {
 		.pause(extPause milliseconds)
 		}
 		
-	setUp(scn.users(extUsers).ramp(extRampup).protocolConfig(httpConf))
+  setUp(
+    scn.inject(
+      atOnceUsers(extUsers), 
+     rampUsers(extRampup) over(1 seconds)
+    ).protocols(httpConf)
+  )
 }
