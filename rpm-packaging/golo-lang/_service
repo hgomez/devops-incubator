@@ -16,9 +16,10 @@
   </service>
 
   <service name="download_url">
-    <param name="host">www.eclipse.org</param>
-    <param name="protocol">https</param>
-    <param name="path">/downloads/download.php?file=/golo/golo-3.0.0-incubation-M1-distribution.zip&r=1</param>
+    <param name="host">ftp-stud.fht-esslingen.de</param>
+    <param name="protocol">http</param>
+    <param name="path">/pub/Mirrors/eclipse/golo/golo-3.0.0-incubation-M1-distribution.zip</param>
   </service>
 
 </services>
+
