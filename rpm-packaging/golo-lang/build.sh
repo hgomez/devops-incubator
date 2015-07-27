@@ -8,9 +8,9 @@ mkdir -p BUILD RPMS SRPMS SOURCES TEMP
 
 GOLO_URL=https://www.eclipse.org/downloads/download.php?file=/golo/golo-${VERSION}-distribution.zip&r=1
 
-if [ ! -f SOURCES/golo-${VERSION}.tar.gz ]; then
-  echo "downloading golo-${VERSION}.tar.gz from $GOLO_URL"
-  curl -s -L $GOLO_URL -o SOURCES/golo-${VERSION}-distribution.tar.gz
+if [ ! -f SOURCES/golo-${VERSION}-distribution.zip ]; then
+  echo "downloading golo-${VERSION}-distribution.zip from $GOLO_URL"
+  curl -s -L $GOLO_URL -o SOURCES/golo-${VERSION}-distribution.zip
 fi
 
 # Build using rpmbuild (use double-quote for define to have shell resolv vars !)

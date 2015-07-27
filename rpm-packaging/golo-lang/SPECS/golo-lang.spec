@@ -42,7 +42,7 @@ Requires:           java >= 1.8.0
 Requires:           java >= 1:1.8.0
 %endif
 
-Source0: golo-%{VERSION}-distribution.tar.gz
+Source0: golo-%{VERSION}-distribution.zip
 
 %description
 Golo, a lightweight dynamic language for the JVM.
