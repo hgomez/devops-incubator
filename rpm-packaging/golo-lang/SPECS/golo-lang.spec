@@ -86,7 +86,6 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc %{golodir}/CONTRIB*
 %doc %{golodir}/LICENSE*
-%doc %{golodir}/NOTICE*
 %doc %{golodir}/README*
 %doc %{golodir}/doc
 %exclude %{golodir}/CONTRIB*
