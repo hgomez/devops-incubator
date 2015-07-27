@@ -1,5 +1,5 @@
 %if ! 0%{?VERSION:1}
-%define VERSION        2.1.0
+%define VERSION        3.0.0-incubation-M1
 %endif
 
 # Avoid unnecessary debug-information (native code)
@@ -35,11 +35,11 @@ BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 %define golodir          /opt/golo-lang
 
 %if 0%{?suse_version}
-Requires:           java >= 1.7.0
+Requires:           java >= 1.8.0
 %endif
 
 %if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
-Requires:           java >= 1:1.7.0
+Requires:           java >= 1:1.8.0
 %endif
 
 Source0: golo-%{VERSION}-distribution.tar.gz
@@ -51,7 +51,7 @@ Golo is a simple dynamic, weakly-typed language that favours explicit over impli
 %package samples
 Summary:        Golo Samples
 Group:          Development/Languages
-Requires:       %{name} 
+Requires:       %{name}
 
 %description samples
 Samples for golo-lang
@@ -71,7 +71,7 @@ mkdir -p %{buildroot}%{_bindir}
 rm -f bin/*.bat
 cp -rf * %{buildroot}%{golodir}
 pushd %{buildroot}%{_bindir}
-ln -s ../..%{golodir}/bin/golo . 
+ln -s ../..%{golodir}/bin/golo .
 popd
 
 # Set GOLO REPO location
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %{golodir}/samples
 
 %changelog
+* Mon Jul 27 2015 romain.lespinasse@gmail.com 3.0.0-incubation-M1-1
+- golo 3.0.0-incubation-M1 released
+
 * Fri Mar 27 2015 romain.lespinasse@gmail.com 2.1.0-1
 - golo 2.1.0 released
 
