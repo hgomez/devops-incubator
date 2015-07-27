@@ -30,6 +30,8 @@ Packager:  Henri Gomez <henri.gomez@gmail.com>
 License:   Apache-2.0
 BuildArch: noarch
 
+BuildRequires: unzip
+
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
 %define golodir          /opt/golo-lang
