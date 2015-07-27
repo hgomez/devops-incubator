@@ -90,7 +90,6 @@ rm -rf %{buildroot}
 %doc %{golodir}/doc
 %exclude %{golodir}/CONTRIB*
 %exclude %{golodir}/LICENSE*
-%exclude %{golodir}/NOTICE*
 %exclude %{golodir}/README*
 %exclude %{golodir}/doc
 %exclude %{golodir}/samples
