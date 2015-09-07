@@ -85,12 +85,16 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %doc %{golodir}/CONTRIB*
-%doc %{golodir}/LICENSE*
 %doc %{golodir}/README*
 %doc %{golodir}/doc
+%doc %{golodir}/epl-v10.html
+%doc %{golodir}/notice.html
+%doc %{golodir}/THIRD-PARTY
 %exclude %{golodir}/CONTRIB*
-%exclude %{golodir}/LICENSE*
 %exclude %{golodir}/README*
+%exclude %{golodir}/epl-v10.html
+%exclude %{golodir}/notice.html
+%exclude %{golodir}/THIRD-PARTY
 %exclude %{golodir}/doc
 %exclude %{golodir}/samples
 %{golodir}
@@ -101,6 +105,10 @@ rm -rf %{buildroot}
 %{golodir}/samples
 
 %changelog
+* Mon Sep 07 2015 henri.gomez@gmail.com 3.0.0-incubation-M2-1
+- Fix download in source0
+- Update doc contents
+
 * Mon Sep 07 2015 romain.lespinasse@gmail.com 3.0.0-incubation-M2-1
 - golo 3.0.0-incubation-M2 released
 
