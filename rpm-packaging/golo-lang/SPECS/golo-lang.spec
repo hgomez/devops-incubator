@@ -86,7 +86,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc %{golodir}/CONTRIB*
 %doc %{golodir}/README*
-%doc %{golodir}/doc
+%doc %{golodir}/docs
 %doc %{golodir}/epl-v10.html
 %doc %{golodir}/notice.html
 %doc %{golodir}/THIRD-PARTY
@@ -95,7 +95,7 @@ rm -rf %{buildroot}
 %exclude %{golodir}/epl-v10.html
 %exclude %{golodir}/notice.html
 %exclude %{golodir}/THIRD-PARTY
-%exclude %{golodir}/doc
+%exclude %{golodir}/docs
 %exclude %{golodir}/samples
 %{golodir}
 %{_bindir}/golo
