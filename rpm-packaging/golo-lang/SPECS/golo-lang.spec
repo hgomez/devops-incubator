@@ -1,5 +1,5 @@
 %if ! 0%{?VERSION:1}
-%define VERSION        3.0.0-incubation-M1
+%define VERSION        3.0.0-incubation-M2
 %endif
 
 # Avoid unnecessary debug-information (native code)
@@ -101,6 +101,9 @@ rm -rf %{buildroot}
 %{golodir}/samples
 
 %changelog
+* Mon Sep 07 2015 romain.lespinasse@gmail.com 3.0.0-incubation-M2-1
+- golo 3.0.0-incubation-M2 released
+
 * Mon Jul 27 2015 romain.lespinasse@gmail.com 3.0.0-incubation-M1-1
 - golo 3.0.0-incubation-M1 released
 
