@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=3.0.0-incubation-M2
+VERSION=3.0.0-incubation
 
 # prepare fresh directories
 rm -rf BUILD RPMS SRPMS TEMP
