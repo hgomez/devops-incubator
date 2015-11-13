@@ -74,6 +74,10 @@ BuildArch:  noarch
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
+BuildRequires: systemd-units
+%endif
+
 %if 0%{?suse_version} > 1140
 BuildRequires: systemd
 %{?systemd_requires}
