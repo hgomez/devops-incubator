@@ -26,7 +26,7 @@
 		<simulation.loops>100</simulation.loops>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<gatling.version>2.1.6</gatling.version>
-    <tomcat7.version>7.0.62</tomcat7.version>
+    <tomcat7.version>7.0.65</tomcat7.version>
     <tomcat.maven.version>2.2</tomcat.maven.version>
 
 	</properties>
