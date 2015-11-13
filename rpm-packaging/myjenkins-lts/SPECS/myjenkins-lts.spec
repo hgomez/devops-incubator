@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.62
+%define tomcat_rel        7.0.65
 %endif
 
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.609.1
+%define jenkins_rel    1.625.2
 %endif
 
 Name: myjenkins-lts
@@ -368,6 +368,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Nov 13 2015 henri.gomez@gmail.com 1.625.2-1
+- Jenkins LTS 1.652.2
+- Tomcat 7.0.65
+
 * Mon Jun 1 2015 henri.gomez@gmail.com 1.596.3-1
 - Jenkins LTS 1.596.3
 - Tomcat 7.0.62
