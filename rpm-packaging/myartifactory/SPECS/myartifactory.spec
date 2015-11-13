@@ -396,7 +396,7 @@ fi
 
 * Mon Jun 1 2015 henri.gomez@gmail.com 3.8.0-1
 - Artifactory 3.8.0 released
-- Update Tomcat to 7.0.62
+- Update Tomcat to 7.0.65
 
 * Thu Apr 16 2015 henri.gomez@gmail.com 3.6.0-1
 - Artifactory 3.6.0 released

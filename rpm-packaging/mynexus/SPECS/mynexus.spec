@@ -16,7 +16,7 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.62
+%define tomcat_rel        7.0.65
 %endif
 
 %if 0%{?NEXUS_REL:1}
@@ -449,7 +449,7 @@ fi
 %changelog
 * Mon Jun 1 2015 henri.gomez@gmail.com 2.11.3-1
 - Nexus 2.11.3-01 released
-- Use Apache Tomcay 7.0.62
+- Use Apache Tomcay 7.0.65
 
 * Thu Apr 16 2015 henri.gomez@gmail.com 2.11.2-1
 - Nexus 2.11.2-06 released

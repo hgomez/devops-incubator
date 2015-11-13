@@ -378,7 +378,7 @@ fi
 
 * Mon Jun 1 2015 henri.gomez@gmail.com 1.596.3-1
 - Jenkins LTS 1.596.3
-- Tomcat 7.0.62
+- Tomcat 7.0.65
 
 * Thu Apr 16 2015 henri.gomez@gmail.com 1.596.2-2
 - Update Tomcat to 7.0.61
