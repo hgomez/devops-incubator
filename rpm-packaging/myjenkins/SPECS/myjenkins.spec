@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.62
+%define tomcat_rel        7.0.65
 %endif
 
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.617
+%define jenkins_rel    1.638
 %endif
 
 Name: myjenkins
@@ -73,6 +73,10 @@ BuildArch:  noarch
 %endif
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
+
+%if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
+BuildRequires: systemd-units
+%endif
 
 %if 0%{?suse_version} > 1140
 BuildRequires: systemd
@@ -368,6 +372,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Fri Nov 13 2015 henri.gomez@gmail.com 1.638-1
+- Jenkins 1.638
+- Tomcat 7.0.65
+
 * Mon Jun 1 2015 henri.gomez@gmail.com 1.614-1
 - Jenkins 1.616
 - Tomcat 7.0.62
