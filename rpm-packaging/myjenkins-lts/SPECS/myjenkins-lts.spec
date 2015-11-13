@@ -74,7 +74,7 @@ BuildArch:  noarch
 
 BuildRoot: %{_tmppath}/build-%{name}-%{version}-%{release}
 
-%if 0%{?fedora} || 0%{?rhel} || 0%{?centos}
+%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7 || 0%{?centos} >= 7
 BuildRequires: systemd-units
 %endif
 
