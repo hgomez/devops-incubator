@@ -78,10 +78,29 @@
 
 	<build>
 
-		<finalName>${webapp.name}</finalName>
+   	<finalName>${webapp.name}-${project.version}-${git.revision}</finalName>
+
+<!--   	
+       	<finalName>${webapp.name}-${git.buildnumber}</finalName>
+	<finalName>${webapp.name}</finalName> 
+-->
 
 		<plugins>
 
+    <plugin>
+      <groupId>ru.concerteza.buildnumber</groupId>
+      <artifactId>maven-jgit-buildnumber-plugin</artifactId>
+      <version>1.2.9</version>
+      <executions>
+        <execution>
+          <id>git-buildnumber</id>
+          <goals>
+            <goal>extract-buildnumber</goal>
+          </goals>
+          <phase>prepare-package</phase>
+        </execution>
+      </executions>
+    </plugin>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
