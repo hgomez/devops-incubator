@@ -78,9 +78,10 @@
 
 	<build>
 
-   	<finalName>${webapp.name}-${project.version}-${git.revision}</finalName>
+   	<finalName>${webapp.name}</finalName>
 
 <!--   	
+   	<finalName>${webapp.name}-${project.version}-${git.revision}</finalName>
        	<finalName>${webapp.name}-${git.buildnumber}</finalName>
 	<finalName>${webapp.name}</finalName> 
 -->
