@@ -22,7 +22,7 @@
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.609.1
+%define jenkins_rel    1.625.3
 %endif
 
 Name: myjenkins-lts
