@@ -8,7 +8,7 @@ pushd `dirname $0` >> /dev/null
 source ../commons-script/functions.sh
 
 APP_VERSION=1.502
-JENKINS_LTS_VERSION=1.480.2
+JENKINS_LTS_VERSION=1.625.3
 TOMCAT_VERSION=7.0.37
 USE_LTS=false
 
