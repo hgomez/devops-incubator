@@ -19,21 +19,21 @@
   <service name="download_url">
    <param name="host">mirrors.jenkins-ci.org</param>
    <param name="protocol">http</param>
-   <param name="path">/war-stable/1.625.2/jenkins.war</param>
-   <param name="filename">jenkins-1.625.2.war</param>
+   <param name="path">/war-stable/1.625.3/jenkins.war</param>
+   <param name="filename">jenkins-1.625.3.war</param>
   </service>
 
   <service name="download_url">
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
-   <param name="path">/dist/tomcat/tomcat-7/v7.0.65/bin/extras/catalina-jmx-remote.jar</param>
-   <param name="filename">catalina-jmx-remote-7.0.65.jar</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.67/bin/extras/catalina-jmx-remote.jar</param>
+   <param name="filename">catalina-jmx-remote-7.0.67.jar</param>
    </service>
 
   <service name="download_url">
    <param name="host">archive.apache.org</param>
    <param name="protocol">http</param>
-   <param name="path">/dist/tomcat/tomcat-7/v7.0.65/bin/apache-tomcat-7.0.65.tar.gz</param>
+   <param name="path">/dist/tomcat/tomcat-7/v7.0.67/bin/apache-tomcat-7.0.67.tar.gz</param>
    </service>
 
 </services>
