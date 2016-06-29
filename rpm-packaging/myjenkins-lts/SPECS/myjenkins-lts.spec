@@ -376,7 +376,7 @@ fi
 - Jenkins LTS 1.651.3
 - Tomcat 7.0.70
 
-* Sun Feb 21 2015 henri.gomez@gmail.com 1.642.1-1
+* Sun Feb 21 2016 henri.gomez@gmail.com 1.642.1-1
 - Jenkins LTS 1.642.1
 - Tomcat 7.0.68
 
