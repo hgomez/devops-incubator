@@ -105,7 +105,6 @@ rm -f %{_bindir}/vanilla-golo
 %exclude %{golodir}/docs
 %exclude %{golodir}/samples
 %{golodir}
-%{_bindir}/golo
 
 %files samples
 %defattr(-,root,root)
