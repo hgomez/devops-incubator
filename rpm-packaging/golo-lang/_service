@@ -18,7 +18,7 @@
   <service name="download_url">
     <param name="host">ftp-stud.fht-esslingen.de</param>
     <param name="protocol">http</param>
-    <param name="path">/pub/Mirrors/eclipse/golo/golo-3.0.0-incubation.zip</param>
+    <param name="path">/pub/Mirrors/eclipse/golo/golo-3.2.0-M4.zip</param>
   </service>
 
 </services>
