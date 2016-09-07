@@ -73,9 +73,6 @@ mkdir -p %{buildroot}%{_bindir}
 rm -f bin/*.bat
 cp -rf * %{buildroot}%{golodir}
 
-# Set GOLO REPO location
-%{__portsed} 's|# resolve links|REPO=%{golodir}/lib\n# resolve links]|g' %{buildroot}%{_bindir}/golo
-
 %clean
 rm -rf %{buildroot}
 
