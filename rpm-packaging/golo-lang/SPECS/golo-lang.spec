@@ -72,15 +72,25 @@ mkdir -p %{buildroot}%{_bindir}
 # no need for bat
 rm -f bin/*.bat
 cp -rf * %{buildroot}%{golodir}
-pushd %{buildroot}%{_bindir}
-ln -s ../..%{golodir}/bin/golo .
-popd
 
 # Set GOLO REPO location
 %{__portsed} 's|# resolve links|REPO=%{golodir}/lib\n# resolve links]|g' %{buildroot}%{_bindir}/golo
 
 %clean
 rm -rf %{buildroot}
+
+%post
+rm -f %{_bindir}/golo
+rm -f %{_bindir}/golosh
+rm -f %{_bindir}/vanilla-golo
+ln -s %{golodir}/bin/golo %{_bindir}/golo
+ln -s %{golodir}/bin/golosh %{_bindir}/golosh
+ln -s %{golodir}/bin/vanilla-golo %{_bindir}/vanilla-golo
+
+%postun
+rm -f %{_bindir}/golo
+rm -f %{_bindir}/golosh
+rm -f %{_bindir}/vanilla-golo
 
 %files
 %defattr(-,root,root)
@@ -107,6 +117,7 @@ rm -rf %{buildroot}
 %changelog
 * Wed Sep 7 2016 henri.gomez@gmail.com 3.2.0-M4-1
 - 3.2.0-M4 released
+- Symlink at install time, removed at uninstall time
 
 * Tue Nov 10 2015 henri.gomez@gmail.com 3.0.0-incubation-1
 - Yoohoo, 3.0.0 released, congrats !
