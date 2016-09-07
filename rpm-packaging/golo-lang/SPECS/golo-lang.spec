@@ -1,5 +1,5 @@
 %if ! 0%{?VERSION:1}
-%define VERSION        3.0.0-incubation
+%define VERSION        3.2.0-M4
 %endif
 
 # Avoid unnecessary debug-information (native code)
@@ -105,6 +105,9 @@ rm -rf %{buildroot}
 %{golodir}/samples
 
 %changelog
+* Wed Sep 7 2016 henri.gomez@gmail.com 3.2.0-M4-1
+- 3.2.0-M4 released
+
 * Tue Nov 10 2015 henri.gomez@gmail.com 3.0.0-incubation-1
 - Yoohoo, 3.0.0 released, congrats !
 
