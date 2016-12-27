@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.70
+%define tomcat_rel        8.0.39
 %endif
 
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.651.3
+%define jenkins_rel    2.32.1
 %endif
 
 Name: myjenkins-lts
@@ -105,7 +105,7 @@ Requires:           java >= 1:1.7.0
 Requires(pre):      %{_sbindir}/groupadd
 Requires(pre):      %{_sbindir}/useradd
 
-Source0: http://www.eu.apache.org/dist/tomcat/tomcat-7/v%{tomcat_rel}/bin/apache-tomcat-%{tomcat_rel}.tar.gz
+Source0: http://www.eu.apache.org/dist/tomcat/tomcat-8/v%{tomcat_rel}/bin/apache-tomcat-%{tomcat_rel}.tar.gz
 Source1: jenkins-%{jenkins_rel}.war
 Source2: initd.skel
 Source3: sysconfig.skel
