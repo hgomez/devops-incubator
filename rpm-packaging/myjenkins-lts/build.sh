@@ -1,7 +1,7 @@
 #!/bin/sh
 
-JENKINS_LTS_VERSION=1.651.3
-TOMCAT_VERSION=7.0.70
+JENKINS_LTS_VERSION=2.32.1
+TOMCAT_VERSION=8.0.39
 
 if [ $# -gt 1 ]; then
   JENKINS_VERSION=$1
@@ -18,7 +18,7 @@ JENKINS_LTS_URL=http://mirrors.jenkins-ci.org/war-stable/${JENKINS_LTS_VERSION}/
 JENKINS_URL=$JENKINS_LTS_URL
 JENKINS_VERSION=$JENKINS_LTS_VERSION
 
-TOMCAT_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
+TOMCAT_URL=http://archive.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 CATALINA_JMX_REMOTE_URL=http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/extras/catalina-jmx-remote.jar
 
 fetch_remote_file()
