@@ -20,7 +20,7 @@ RUN curl -L http://mir01.syntis.net/epel/7/x86_64/e/epel-release-7-8.noarch.rpm 
     rm -f epel-release.noarch.rpm
 
 # Install Devops Incubator
-RUN curl -L http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS-7/home:henri_gomez:devops-incubator.repo -o /etc/yum.repos.d/devops-incubator.repo
+RUN curl -L http://download.opensuse.org/repositories/home:/henri_gomez:/devops-incubator/CentOS_7/home:henri_gomez:devops-incubator.repo -o /etc/yum.repos.d/devops-incubator.repo
 
 # Update distribution
 RUN yum clean all && \
