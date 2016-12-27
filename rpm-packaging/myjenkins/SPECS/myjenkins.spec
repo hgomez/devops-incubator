@@ -16,13 +16,13 @@
 %if 0%{?TOMCAT_REL:1}
 %define tomcat_rel        %{TOMCAT_REL}
 %else
-%define tomcat_rel        7.0.67
+%define tomcat_rel        8.0.36
 %endif
 
 %if 0%{?JENKINS_REL:1}
 %define jenkins_rel    %{JENKINS_REL}
 %else
-%define jenkins_rel    1.643
+%define jenkins_rel    2.11
 %endif
 
 Name: myjenkins
@@ -372,6 +372,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Wed Jun 29 2016 henri.gomez@gmail.com 2.11-1
+- Jenkins 2.x, 2.11
+- Jenkins 2.x requires Tomcat 8, 8.0.36
+
 * Mon Dec 21 2015 henri.gomez@gmail.com 1.643-1
 - Jenkins 1.643
 - Tomcat 7.0.67
