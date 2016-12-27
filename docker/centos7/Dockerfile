@@ -4,7 +4,7 @@
 #
 # VERSION               0.0.1
 
-FROM     centos:centos6
+FROM     centos:centos7
 MAINTAINER Henri Gomez "henri.gomez@gmail.com"
 
 # Java 7 - 7u79 / 7u79-b15
