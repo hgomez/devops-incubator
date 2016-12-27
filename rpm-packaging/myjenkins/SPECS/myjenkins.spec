@@ -372,6 +372,10 @@ fi
 %doc %{appdir}/RELEASE-NOTES
 
 %changelog
+* Tue Dec 27 2016 henri.gomez@gmail.com 2.38-1
+- Jenkins 2.38
+- Tomcat 8.0.39
+
 * Wed Jun 29 2016 henri.gomez@gmail.com 2.11-1
 - Jenkins 2.x, 2.11
 - Jenkins 2.x requires Tomcat 8, 8.0.36
