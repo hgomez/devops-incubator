@@ -76,8 +76,8 @@ fetch_plugin()
     OPTIONALP=`cat $PLUGIN_TEMPDIR/update-center.json | python -c "import sys, json; print json.load(sys.stdin)[\"plugins\"][\"$FPLUGIN\"][\"dependencies\"][$DEP_LOOP][\"optional\"]" 2>/dev/null|| true`
   
     # Don't fetch optional dependencies
-    if [ "$OPTIONALP" = "True" ]; then
-    echo "$DEPENDENCY plugin is optional, it won't be included"
+    if [ "$OPTIONALP" = "True" ] && [ "$WITH_OPTIONALS" != true ]; then
+    echo "$DEPENDENCY plugin is optional, it won't be included, to include optional use -o/--with-optional"
     continue;
     fi
   
@@ -93,9 +93,10 @@ usage() {
   Install or update Jenkins Plugins.
 
   OPTIONS:
-     -p --plugins  file containing plugins list
-     -x --xplugins   file containing excluded plugins list
-     -d --plugindir  directory where to deploy plugins (.jpi)
+     -p --plugins        file containing plugins list
+     -x --xplugins       file containing excluded plugins list
+     -d --plugindir      directory where to deploy plugins (.jpi)
+     -o --with-optional  install optional dependencies
  
   Examples:
 
@@ -118,12 +119,13 @@ cmdline() {
     local delim=""
     case "$arg" in
       #translate --gnu-long-options to -g (short options)
-      --plugins)     args="${args}-p ";;
-      --xplugins)    args="${args}-e ";;
-      --plugindir)     args="${args}-d ";;
-      --help)      args="${args}-h ";;
-      --verbose)     args="${args}-v ";;
-      --debug)       args="${args}-x ";;
+      --plugins)        args="${args}-p ";;
+      --xplugins)       args="${args}-e ";;
+      --plugindir)      args="${args}-d ";;
+      --with-optional)  args="${args}-o ";;
+      --help)           args="${args}-h ";;
+      --verbose)        args="${args}-v ";;
+      --debug)          args="${args}-x ";;
       #pass through anything else
       *) [[ "${arg:0:1}" == "-" ]] || delim="\""
         args="${args}${delim}${arg}${delim} ";;
@@ -133,7 +135,7 @@ cmdline() {
   #Reset the positional parameters to the short options
   eval set -- $args
 
-  while getopts "hvxp:e:d:" OPTION
+  while getopts "hvxp:e:d:o" OPTION
   do
      case $OPTION in
      v)
@@ -155,6 +157,9 @@ cmdline() {
        ;;
      d)
        readonly PLUGINS_DIR=$OPTARG
+       ;;
+     o)
+       readonly WITH_OPTIONAL=true
        ;;
     esac
   done
