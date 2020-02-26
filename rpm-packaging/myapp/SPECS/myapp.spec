@@ -311,11 +311,11 @@ fi
 %endif
 
 # Specific actions in relations with others packages
-#%triggerin -- otherapp
-# Do something if otherapp is installed
+%triggerin -- mysqld
+# Do something if mysqld is installed
 
-#%triggerun -- otherapp
-# Do something if otherapp is uninstalled
+%triggerun -- postgresql
+# Do something if postgresql is uninstalled
 
 
 %files
