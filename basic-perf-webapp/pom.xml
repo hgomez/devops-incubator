@@ -10,9 +10,9 @@
         <description>A very basic performance webapp</description>
 
 	<properties>
-		<!-- Java 5 -->
-		<maven.compiler.source>5</maven.compiler.source>
-		<maven.compiler.target>5</maven.compiler.target>
+		<!-- Java 8 -->
+		<maven.compiler.source>8</maven.compiler.source>
+		<maven.compiler.target>8</maven.compiler.target>
 		<webapp.name>basic-perf</webapp.name>
 		<http.host>localhost</http.host>
 		<http.port>8081</http.port>
@@ -26,7 +26,7 @@
 		<simulation.loops>100</simulation.loops>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<gatling.version>2.1.6</gatling.version>
-    <tomcat7.version>7.0.65</tomcat7.version>
+    <tomcat7.version>7.0.109</tomcat7.version>
     <tomcat.maven.version>2.2</tomcat.maven.version>
 
 	</properties>
